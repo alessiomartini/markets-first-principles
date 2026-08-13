@@ -2,7 +2,7 @@
 title: "Who is on the other side"
 track: 0
 order: 6
-status: stub
+status: written
 summary: "The taxonomy of participants, what each is optimising, and which of them is obliged to trade with you."
 terms:
   - "broker"
@@ -20,35 +20,111 @@ figure:
   series: "reported holdings by filer, aggregated"
   period: "latest four quarters"
   script: "pipeline/fetch_ownership.py"
+  notice: "A small number of filers account for a large share of reported institutional holdings, and the largest are index managers rather than stock pickers — so the biggest owners are the ones with the least discretion over what they own."
+  falsifiedBy: "The reading fails if the concentration is an artefact of the 13F threshold, which exempts small filers; the test is whether the same shape appears in total-market ownership data that includes them."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Every trade has someone on the other side, and knowing what that someone is optimising tells you more about the
+price than any amount of analysis of the asset.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+The question "who is on the other side?" is the first thing a professional asks about a trade that looks too good.
+If a price is attractive, somebody is choosing to sell at it, and either they know something or they are indifferent
+for a structural reason. The two cases have opposite implications.
+
+Structural indifference is common and is where most reliable profits come from: a **pension fund** buying long
+bonds because its liabilities demand it, an index tracker selling a name because it left the index, a bank hedging
+because capital rules require it. None of these participants believes the price is fair. They are solving a
+different problem, and someone willing to take the other side is providing a service they are happy to pay for.
+
+The taxonomy below is worth learning for exactly this reason. It is not trivia — it is the list of possible answers
+to the only question that matters when a trade looks free.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+A **broker** executes as your agent for a commission and does not take the position. A **dealer** becomes your
+**counterparty** and warehouses it. A **market maker** is a dealer who quotes continuously on both sides, earning
+the **bid-ask spread** and aiming to end flat; its enemy is adverse selection, since whoever is most eager to hit
+its quote is disproportionately informed.
+
+A **prop firm** trades its own capital with no clients. Modern electronic prop firms are the dominant market makers
+in listed markets: small headcount, extreme investment in latency, no redemption risk. A **hedge fund** pools
+outside money under few constraints — it may short, lever and concentrate — and is typically the marginal buyer of
+risk, which also makes it a forced seller when leverage is withdrawn.
+
+An **asset manager** invests against a mandate, usually measured against a benchmark. That structure matters more
+than any view it holds: deviating from the benchmark is what carries career risk, which is why enormous sums track
+indices mechanically. A **pension fund** is distinguished by having liabilities of known shape decades out, so its
+risk is the gap between assets and promises, not the volatility of assets alone.
+
+**Retail flow** is orders from individuals. It is prized because it is on average uninformed and therefore
+profitable to quote against — the entire economic basis of payment for order flow. Finally, the **CCP** is the
+participant you never see: it novates itself between the two sides after matching, so you face it rather than your
+actual counterparty.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+The market maker's problem states the whole ecosystem in one line. Suppose a fraction $\pi$ of incoming orders come
+from informed traders who know the true value will move by $\pm\delta$, and $1-\pi$ from uninformed flow. Quoting a
+half-spread $s$, expected profit per trade is
+
+$$
+\mathbb{E}[\text{profit}] = (1-\pi)\, s \;-\; \pi\,(\delta - s)
+$$
+
+Setting this to zero gives the breakeven spread,
+
+$$
+s^\* = \pi \delta
+$$
+
+The spread is not a fee; it is the price of adverse selection, paid by uninformed traders to compensate the maker
+for losses to informed ones. Three consequences follow immediately, and all three are observed. The spread widens
+when informed trading is more likely, which is why it blows out around announcements. Segmenting **retail flow**
+away from the exchange raises $\pi$ on what remains, so public spreads widen — the systemic objection to
+**internalisation** stated as arithmetic. And a market with no uninformed participants at all cannot be made at any
+spread, which is why some markets simply stop.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Not a gas of identical particles">
+The instinct a physicist brings is to model participants as a homogeneous population and let a mean field emerge.
+For most of Track 3 this works well — the stylised facts of prices are robust to who exactly is trading. Here it
+fails, and it is worth knowing where the boundary is.
+
+The reason is that the population is *structurally* heterogeneous rather than statistically so. Participants differ
+not by a parameter drawn from a distribution but by their objective function: one is maximising growth, another is
+matching a benchmark, another is meeting a liability, another is satisfying a capital rule. Averaging over them
+does not produce a representative agent, because the constraints do not average — and the trades that look free are
+precisely the ones generated by a constraint rather than by a belief. The agent-based models at the end of
+Track 5 exist because of this: heterogeneity of objectives is the ingredient that a mean-field treatment cannot
+recover.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **"Institutions" is not one group.** A pension fund and a high-frequency prop firm are both institutional and
+  have nothing in common in horizon, objective or constraint.
+- **A market maker is not obliged to trade with you.** Formal obligations exist on some venues and are weak; in
+  stress, quotes widen or disappear, which is exactly when the obligation would matter.
+- **Retail is not the dumb money in the way the phrase implies.** "Uninformed" is a technical term meaning the flow
+  does not predict the next move. It is a statement about information, not about intelligence.
+- **You almost never face your actual counterparty.** The **CCP** novates itself in between, which is why you can
+  trade anonymously and why counterparty risk in listed markets is concentrated rather than distributed.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Harris, *Trading and Exchanges*, chapters 7–13. A chapter per participant type; the single best source for this
+  page's vocabulary.
+- O'Hara, *Market Microstructure Theory*, chapter 3, for Glosten–Milgrom, of which the formal section above is the
+  simplest possible statement.
+- Ilmanen, *Expected Returns*, chapter 28, on structural participants and where their constraints leave money.
+- Paper: Glosten & Milgrom, *Bid, Ask and Transaction Prices in a Specialist Market* (JFE, 1985) — the origin of
+  the adverse-selection spread.

@@ -2,7 +2,7 @@
 title: "Asset classes"
 track: 0
 order: 3
-status: stub
+status: written
 summary: "The conventional partition of tradable things, and why the boundaries sit where they do."
 terms:
   - "equity"
@@ -18,35 +18,109 @@ figure:
   series: "one representative index per class"
   period: "2010-present, daily"
   script: "pipeline/fetch_asset_classes.py"
+  notice: "The classes separate along the volatility axis far more cleanly than along the return axis, and the ordering is roughly the ordering of seniority in the capital structure."
+  falsifiedBy: "The reading fails if the ranking reshuffles when the sample is moved by a few years — which for the return axis it very likely does, and that instability is itself the point."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Asset classes are a working taxonomy of tradable things, grouped by the kind of claim they represent rather than by
+who issued them.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Nobody designed this partition; it accumulated. It survives because it tracks something real: assets within a class
+tend to respond to the same shocks, so the classification is a crude first model of correlation. That is also its
+main use — an investor deciding how to spread risk needs categories that fail at different times, and asset classes
+are the first approximation to that.
+
+It is worth being clear that the boundaries are conventions, not natural kinds. A convertible bond is debt that
+turns into equity; a commodity-linked note is a bond whose payment depends on copper; a REIT is a share whose
+underlying is property. Each sits awkwardly across a line. The taxonomy earns its keep anyway, because institutions
+are organised around it — desks, mandates, indices, regulation and career paths all follow these lines, so the
+categories shape behaviour even where they do not carve nature at the joints.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+**Equity** is a residual claim on a company: last in the queue, unlimited upside, and worth zero before the company
+itself is worthless. **Fixed income** is a claim to a contractually defined schedule of payments, which makes its
+two questions sharp — what discount rate applies, and will the payments arrive.
+
+**FX** is the exchange of one currency for another. It is the odd one out, because a quote is always a rate between
+an ordered pair, so every price is simultaneously the inverse price of something else and there is no meaningful
+notion of the asset "going up" on its own.
+
+**Commodities** are physical raw materials traded in **standardisation** contracts. Their forward curves encode
+**storage**, transport and seasonality rather than pure discounting, which makes them behave unlike anything
+financial. **Real assets** — property, infrastructure, farmland — are the illiquid, appraisal-valued end of the same
+physical idea.
+
+**Crypto** is the newest entry and the one whose classification is most contested. As a financial object a token is
+a claim with no cash flows, priced on what someone else will pay; what genuinely distinguishes it is the plumbing,
+which is why it earns institutional attention out of proportion to its size.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Two numbers summarise a class over a sample: the annualised mean log return and the annualised volatility,
+
+$$
+\mu_{\text{ann}} = \frac{252}{N} \sum_{t=1}^{N} r_t, \qquad
+\sigma_{\text{ann}} = \sqrt{252} \cdot \operatorname{sd}(r_t)
+$$
+
+and their ratio is the Sharpe ratio, the currency in which allocations are argued about.
+
+The asymmetry between these two estimates is the thing to internalise, and it is a pure statistics result rather
+than a fact about finance. The standard error of the volatility estimate falls with the number of observations,
+so a year of daily data pins it down usefully. The standard error of the mean does not improve with sampling
+frequency at all — it depends only on the *span* of the sample:
+
+$$
+\operatorname{se}(\mu_{\text{ann}}) = \frac{\sigma_{\text{ann}}}{\sqrt{T_{\text{years}}}}
+$$
+
+With $\sigma_{\text{ann}} \approx 20\%$, distinguishing a 6% expected return from a 3% one at any reasonable
+confidence needs decades of data. This is why the figure below separates the classes vertically and not
+horizontally, and why almost every confident statement about which asset class "returns more" is weaker than it
+sounds.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Measuring a drift against a diffusion">
+This is the estimation problem of a Brownian particle with drift, and it has a well-known answer. The displacement
+after time $T$ is $\mu T$ plus noise of size $\sigma\sqrt{T}$, so the signal-to-noise ratio grows only as
+$\sqrt{T}$ — and crucially, sampling the path more finely does not help, because the noise you resolve grows just
+as fast as the extra information.
+
+Volatility is the opposite case: it is a property of the quadratic variation, which *is* recoverable from fine
+sampling, and in the continuous limit is measurable exactly over an arbitrarily short window. A physicist meeting
+finance for the first time should take this asymmetry as the governing constraint of the whole field. Risk is
+measurable; expected return is barely estimable at all, and the entire apparatus of portfolio construction in
+Track 4 is built around that imbalance.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **The classes are not equally sized.** Fixed income dwarfs equity by amount outstanding, and FX dwarfs both by
+  turnover. Attention in the press runs almost exactly the other way round.
+- **Diversification is a claim about correlation, not about counting.** Holding six asset classes that all fall
+  together in a crisis is one position wearing six labels, and correlations rise precisely when you need them not
+  to.
+- **"Alternative" is a fee category, not an asset class.** It groups things by illiquidity and fee structure rather
+  than by the kind of claim, which is why it can contain both farmland and a quant fund.
+- **Low reported volatility can be an artefact of infrequent valuation.** **Real assets** are appraised quarterly;
+  a price that is rarely observed cannot jump, and that smoothness is a property of the measurement rather than of
+  the risk.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Ilmanen, *Expected Returns*, chapters 1–3. The best single survey of what each class has actually paid and why,
+  and honest about the estimation problem above.
+- Hull, *Options, Futures, and Other Derivatives*, chapter 1, for the standard institutional partition.
+- Mishkin, *The Economics of Money, Banking and Financial Markets*, chapter 2, on why these markets exist at all.
+- Paper: Dimson, Marsh & Staunton, *Triumph of the Optimists* — a century of returns across countries, and the
+  clearest demonstration that the equity premium is a statement with very wide error bars.

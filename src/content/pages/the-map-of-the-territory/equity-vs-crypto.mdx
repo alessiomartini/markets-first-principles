@@ -2,7 +2,7 @@
 title: "Equity market vs crypto market"
 track: 0
 order: 4
-status: stub
+status: written
 summary: "Two markets in the same instrument type, built on opposite institutional assumptions."
 terms:
   - "listing"
@@ -20,35 +20,107 @@ figure:
   series: "BTCUSDT 1h klines; one NYSE-listed name"
   period: "trailing 180 days"
   script: "pipeline/fetch_volume_by_hour.py"
+  notice: "The equity's volume is a U inside a six-and-a-half hour window and exactly zero outside it, while crypto trades continuously but still shows the same working-hours hump — the clock binds even where the exchange does not."
+  falsifiedBy: "The reading fails if crypto volume is flat across the day once weekends are excluded, which would mean the pattern comes from the venue rather than from where the traders live."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+The same instrument type — a transferable claim traded on a screen — behaves differently depending on whether an
+institution stands behind the record of who owns it.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Equity market structure is an accumulation of responses to failures. Disclosure rules exist because people sold
+shares in companies that did not exist; custody and settlement rules exist because certificates were lost and
+stolen; **CCP** clearing exists because counterparties defaulted. Every piece of apparatus that makes public equity
+markets look slow and bureaucratic is scar tissue over a specific historical wound.
+
+Crypto rebuilt the same functions — matching, clearing, custody, settlement — from scratch, with different trust
+assumptions and without the scar tissue. That makes the comparison unusually instructive rather than merely
+partisan: it is close to a controlled experiment in what each institution was actually for. The answer, so far, has
+mostly been that the wounds recur.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+A **listing** is admission of a security to trading on an **exchange**, bundled with continuing obligations:
+audited accounts, disclosure of material information, governance and float standards. The obligations are the
+product. They generate the information that everyone else's analysis consumes, and nothing equivalent gates a
+token's appearance on a crypto venue.
+
+**Free float** is the fraction of shares actually available to trade, excluding strategic holders who never sell.
+It determines how much can be bought without moving the price, and it is the weighting used by most indices. A
+**corporate action** — dividend, split, buyback, merger — is the issuer changing the terms of its own securities,
+and it is why raw price series must be adjusted before any analysis is done on them.
+
+**Custody** is the business of holding the asset and keeping the record of ownership. This is the sharpest fork. In
+equities a custodian bank holds the position and its records are the legal proof. In crypto the function is either
+a private key you hold yourself, with no counterparty and no recourse, or a **CEX** holding it for you — a single
+company acting as exchange, broker, clearer and custodian at once, which securities regulation forbids precisely
+because each role checks the others. A **DEX** avoids custody entirely by executing on-chain, usually against an
+automated market maker rather than an **order book**.
+
+**24/7 trading** is the last structural difference: crypto never closes, so it has no closing auction to produce an
+official price and no overnight gap to concentrate the reaction to news.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Both markets produce a price series, but only one produces a canonical daily number. An equity's official close
+comes from a call auction that maximises executed volume at a single price $p^\*$:
+
+$$
+p^\* = \arg\max_p \ \min\left(D(p),\, S(p)\right)
+$$
+
+This single print is what index funds rebalance against, what derivatives settle on, and what performance is
+measured with. A continuous market has no such moment, so "the daily close" in crypto is an arbitrary timestamp,
+and different venues disagree about it.
+
+The consequence shows up in the returns themselves. Write the daily return of a market that closes as the sum of
+an overnight and an intraday piece,
+
+$$
+r_{\text{daily}} = \underbrace{\ln \frac{O_t}{C_{t-1}}}_{\text{overnight gap}} + \underbrace{\ln \frac{C_t}{O_t}}_{\text{intraday}}
+$$
+
+For equities a substantial share of total variance sits in the first term — a jump across a period in which no
+trading was possible. In crypto that term is identically zero by construction, and the same information arrives as
+a continuous move instead.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Boundary conditions, not different physics">
+It is tempting to treat these as two different systems. They are better understood as the same dynamics under
+different boundary conditions. An exchange that closes imposes a periodic boundary in time: information accumulates
+while the system cannot relax, and releases discontinuously at the open. A market that never closes has no such
+boundary, so the same information is dissipated continuously.
+
+This predicts what the figure below shows, and the prediction is a real one because it could have failed. Removing
+the boundary does not remove the daily cycle — the participants still sleep, so activity still tracks the working
+hours of the major financial centres. What changes is the *form* of the response, from a discontinuous jump to a
+continuous relaxation, not the underlying periodicity. The clock is in the traders, not in the venue.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **"Decentralised" usually is not.** Most crypto volume trades on a handful of centralised venues. The
+  architecture of the settlement layer says little about the concentration of the trading layer.
+- **Market capitalisation is not money invested.** Multiplying the last price by total supply assumes every unit
+  could be sold at that price, which is false in both markets and wildly so where **free float** is small.
+- **Self-custody removes a counterparty, not a risk.** It replaces the custodian's failure mode with your own, and
+  key loss is irreversible in a way that a custodian's error is not.
+- **A 24-hour market is not a uniformly liquid one.** Depth still collapses when the major centres are asleep, and
+  the largest crypto dislocations have consistently happened in those hours.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Harris, *Trading and Exchanges*, chapters 3–4, on what a listing obliges and what an exchange actually provides.
+- Mishkin, *The Economics of Money, Banking and Financial Markets*, chapters 8 and 12, on why disclosure and
+  intermediation rules exist at all.
+- Track 6's crypto plumbing page, for AMM pricing, perpetual funding and the mechanics referenced here.
+- Paper: Makarov & Schoar, *Trading and Arbitrage in Cryptocurrency Markets* (JFE, 2020) — measures how far the law
+  of one price fails across crypto venues, and why the frictions are institutional rather than technical.

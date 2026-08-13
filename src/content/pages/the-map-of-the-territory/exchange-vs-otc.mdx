@@ -2,7 +2,7 @@
 title: "Exchange vs OTC"
 track: 0
 order: 5
-status: stub
+status: written
 summary: "Whether you trade against a book or against a dealer changes the price you get and who knows about it."
 terms:
   - "order-driven market"
@@ -18,35 +18,99 @@ figure:
   series: "weekly ATS and OTC volume vs consolidated volume"
   period: "2014-present, weekly"
   script: "pipeline/fetch_off_exchange.py"
+  notice: "Roughly half of US equity volume does not touch a public exchange, and the share has trended up rather than reverting — the drift is the story, not the level."
+  falsifiedBy: "The reading fails if the rise tracks a change in how FINRA classifies venues rather than a change in where trading happens; the test is whether the series is continuous across reporting-rule changes."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+An exchange publishes a book that anyone can trade against; over-the-counter, you ask a dealer for a price and only
+you find out what it was.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Public and bilateral trading solve opposite problems, which is why both survive.
+
+A central book is the best available machine for discovering a price in a **standardisation** instrument with many
+interested participants. It concentrates interest, publishes the result, and lets the crowd compete to supply
+liquidity. But it has two failures. It cannot handle instruments that are not standard — no book can exist in a
+swap tailored to one pension fund's liabilities. And it punishes size: displaying a large order in public tells
+everyone what you intend to do, and they will price accordingly before you finish.
+
+Bilateral dealing answers both. A **dealer** will quote a customised instrument, and will show a price in size
+because only the two of you know about it. The price of that discretion is that you cannot see the market — you see
+the quotes you were shown, and cannot tell whether they were good.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+An **order-driven market** produces prices from participants' own orders meeting in a central **order book**. No one
+is obliged to quote; the best price is whatever the crowd has posted. This is how listed equities and futures trade.
+
+A **quote-driven market** produces prices from **dealer**s standing ready to buy and sell on their own account.
+Customers trade against the dealer's book rather than against each other. Bonds, swaps and most **FX** work this
+way, and the discovery mechanism is **RFQ** — asking several dealers for a price on a stated size and trading with
+the best. RFQ contains its own tension: asking more dealers samples more prices and reveals your intention to more
+people who could trade ahead of you.
+
+Between the two extremes sit venues that are neither. A **dark pool** matches orders without displaying them first,
+publishing only after the fact, which protects a large order from the impact that displaying it would cause.
+**Internalisation** is a broker matching customer orders against its own inventory instead of routing them out —
+how most US retail equity orders are executed, and the reason **retail flow** never reaches an exchange.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+The distinction is about who bears **market impact** and who observes it. In a lit book, an order of size $Q$ walks
+the resting depth and pays an average price worse than the touch by an amount set by the shape of the book, and
+every other participant sees it happen. Empirically that cost grows as roughly the square root of size,
+
+$$
+\mathcal{I}(Q) \;\approx\; Y \sigma \sqrt{\frac{Q}{V}}
+$$
+
+with $V$ the daily volume, $\sigma$ the daily volatility, and $Y$ a constant of order one. The square root is the
+important part: impact is concave, so large orders are penalised less than proportionally, but the penalty is
+unavoidable and public.
+
+In an RFQ the cost is instead the dealer's spread plus whatever the dealer charges for the risk of warehousing $Q$
+until it can be unwound. The customer pays a negotiated price rather than a mechanical one, and the information
+leaks to $n$ dealers rather than to the whole market. Choosing between the two is a genuine optimisation, not a
+matter of taste — and it is why the same institution routes small orders to an exchange and large ones to a phone.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Observability, and the cost of measurement">
+The interesting variable here is not price but information. A lit book is a fully observable system: the state is
+published, and every interaction with it perturbs the state in a way everyone can see. Trading is therefore a
+measurement that disturbs what it measures, and the disturbance is the cost.
+
+Over-the-counter trading is the partially observable version. Your interaction perturbs the system too, but the
+perturbation is visible only to the counterparties you chose to reveal it to, and in exchange you lose access to the
+state. The design question — how many dealers to ask — is precisely a trade-off between how much of the state you
+sample and how much you disturb by sampling it. It is worth resisting the temptation to push the quantum analogy
+further than that; the mechanism is ordinary information leakage, and it needs no stranger physics than that.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **"Off-exchange" is not a synonym for dark.** Most off-exchange equity volume is **internalisation** at or inside
+  the public quote, not anonymous block trading in a pool.
+- **OTC is not smaller than exchange trading.** By notional it is much larger. Bonds, swaps and FX — the biggest
+  markets there are — are predominantly bilateral.
+- **A dealer quoting you a price is not your agent.** The dealer is your **counterparty** and profits from the other
+  side of your trade. A **broker** is the agent. The same firm often does both, on different desks.
+- **Dark pools are not unregulated.** In the US they are registered alternative trading systems that report volume
+  to FINRA — which is why the figure above can exist at all.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Harris, *Trading and Exchanges*, chapters 4–6. The definitive practitioner account of venue types and what each
+  is for.
+- O'Hara, *Market Microstructure Theory*, chapters 3–4, for the adverse-selection theory that explains why dealers
+  quote the spreads they do.
+- Hull, *Options, Futures, and Other Derivatives*, chapter 1, for the standard exchange/OTC framing.
+- Paper: Duffie, Gârleanu & Pedersen, *Over-the-Counter Markets* (Econometrica, 2005) — what prices look like when
+  search rather than agreement is the binding constraint.

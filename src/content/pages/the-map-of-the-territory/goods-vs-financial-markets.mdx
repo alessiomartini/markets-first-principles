@@ -2,7 +2,7 @@
 title: "Goods markets vs financial markets"
 track: 0
 order: 2
-status: stub
+status: written
 summary: "What changes when the thing being traded can be stored, split, and swapped for an identical copy of itself."
 terms:
   - "spot"
@@ -18,35 +18,107 @@ figure:
   series: "wheat, electricity, copper spot vs AAPL"
   period: "2010-present, daily"
   script: "pipeline/fetch_storability.py"
+  notice: "Electricity spikes and reverts within hours while the storable series drift, because a price that cannot be arbitraged across time has no memory to carry."
+  falsifiedBy: "The reading fails if the storable commodities show the same spike-and-revert signature as electricity once measured at the same frequency — which would mean the difference is one of sampling rather than of storage."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+A financial asset is a promise you can hold indefinitely at almost no cost, and that single property changes
+everything about how its price behaves.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Markets for physical goods came first, and finance inherited their vocabulary while quietly dropping their
+constraints. A wheat merchant has to worry about where the grain sits, whether it spoils, what it costs to move,
+and whether the sack he is offered is the same grade as the sack he was promised. None of these apply to a share:
+it occupies no space, does not rot, moves by book entry, and is indistinguishable from every other share of its
+class.
+
+The distinction matters because those physical constraints are exactly what let — or prevent — arbitrage from
+linking prices across time and place. Where an asset can be bought now and held, today's price and the expected
+future price are tied together by a chain anyone can execute. Where it cannot, the chain is cut, and each moment
+becomes its own market. Almost every strange-looking price in commodities is that cut chain showing itself.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+A market trades **spot** when the exchange happens now, at today's price, as opposed to a contract fixing today the
+terms of an exchange later. "Now" is a convention: spot equities settle a day or two later, spot FX in two business
+days, spot crude on a schedule measured in weeks.
+
+Whether that trade ends in **delivery** — the actual handover of the asset — or in a cash payment is the first fork
+in the road. Physical delivery brings with it every question a financial contract avoids: where, in what grade, and
+at whose cost.
+
+Three properties of the underlying then determine how the price behaves. **Storage** is whether the asset can be
+carried from one period into the next and at what cost; it is what allows a trader to buy now, hold, and sell
+forward, tying the two prices together. **Perishability** is the limiting case where that is impossible.
+**Fungibility** is whether any unit substitutes for any other, which is what allows a buyer to be matched with any
+seller rather than with one particular counterparty.
+
+**Standardisation** is the deliberate manufacture of fungibility: an exchange defines grade, quantity, location and
+month so precisely that the contracts become interchangeable and can be traded in a single book. The cost of that
+convenience is **basis risk** — a standard contract rarely matches anyone's exact exposure.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+For a storable asset with no yield, holding it from now to $T$ costs interest plus storage, so a trader who buys
+spot at $S_t$, stores, and sells forward locks in a riskless profit unless
+
+$$
+F(t,T) = S_t \, e^{(r + u)(T - t)}
+$$
+
+where $r$ is the financing rate and $u$ the storage cost per unit time. This is not a model of anyone's beliefs
+about the future; it is an arbitrage identity, enforced by anyone with a warehouse.
+
+The identity holds only in one direction when the asset cannot be borrowed or sold short, and it fails entirely when
+storage is impossible. Setting $u \to \infty$ gives the perishable case:
+
+$$
+u \to \infty \;\Longrightarrow\; F(t,T) \ \text{unconstrained by} \ S_t
+$$
+
+For electricity, delivery in one hour and delivery in the next are effectively separate assets. Their prices need
+not be related at all, and empirically they are not — which is why an electricity price can rise a hundredfold for
+an hour and leave tomorrow untouched.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A conserved quantity, and what happens when conservation fails">
+Storability makes inventory a conserved quantity with a leak. Buy a barrel today and it is still there tomorrow,
+minus a storage cost — so inventory couples adjacent time periods the way a capacitor couples charge to voltage, and
+the price series inherits a memory it would not otherwise have. Shocks get smoothed across periods because inventory
+absorbs them.
+
+Remove storage and the coupling vanishes. Each delivery period becomes an independent system that must clear supply
+against demand on its own, with no buffer, and the price is free to take whatever value clears it — including values
+that are absurd by any other standard, because there is no arbitrage to discipline them. This is the cleanest
+example in finance of a qualitative change in behaviour produced by a single term in the constraint rather than by
+anything about the participants.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Spot does not mean instant.** Every spot market has a settlement convention measured in days, and the gap
+  between trade and settlement is where a surprising amount of Track 6 lives.
+- **A futures price is not a forecast.** For a storable asset it is the spot price plus carry, an arbitrage
+  relation. Reading contango as "the market expects higher prices" is the single most common commodity error.
+- **Fungibility is a matter of degree.** Brent and WTI are both "oil" and are not the same asset; nor is grain in
+  Chicago the same asset as identical grain in Rotterdam. The difference is transport, and it has a price.
+- **Negative prices are not a glitch.** In April 2020 crude traded below zero because holders of expiring contracts
+  faced **delivery** with nowhere to store the barrels. Storage capacity is finite, and when it binds, the cost of
+  taking delivery exceeds the value of the oil.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Hull, *Options, Futures, and Other Derivatives*, chapter 5, for cost-of-carry stated cleanly and its
+  commodity-specific failures.
+- Harris, *Trading and Exchanges*, chapter 2, on what standardisation buys an exchange and why.
+- Geman, *Commodities and Commodity Derivatives*, for storage, convenience yield and seasonality in depth.
+- Paper: Kaldor, *Speculation and Economic Stability* (1939) — the origin of convenience yield, and still the
+  clearest statement of why inventory holders accept a negative carry.

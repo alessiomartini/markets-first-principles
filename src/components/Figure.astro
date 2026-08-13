@@ -107,7 +107,13 @@ const legend = (data?.series ?? []).map((s: any, i: number) => ({
       )
     }
 
-    {(figure.notice || figure.falsifiedBy) && (
+    {/*
+      The reading is a description of a chart, so it is withheld until there is
+      a chart to describe. Printing "notice what happens at four sigma" above an
+      empty box is the same failure as a caption that no longer matches its
+      data — it asserts something the reader cannot check.
+    */}
+    {svg && (figure.notice || figure.falsifiedBy) && (
       <p class="figure__reading">
         {figure.notice}
         {figure.notice && figure.falsifiedBy && ' '}
