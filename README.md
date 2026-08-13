@@ -14,6 +14,13 @@ npm run build
 npm run audit:content   # what is written, what is missing
 ```
 
+## Deploying
+
+One manual step, once: **Settings → Pages → Source: GitHub Actions**. Until that is done the
+deploy workflow fails on `configure-pages` with *Get Pages site failed* — creating the Pages
+site is not something the workflow's own `GITHUB_TOKEN` is permitted to do, so `enablement: true`
+does not rescue it either. Afterwards every push to `main` builds and publishes itself.
+
 ## The editorial contract, enforced by the build
 
 The site's value is that it defines the words. Four rules from the spec are mechanised rather

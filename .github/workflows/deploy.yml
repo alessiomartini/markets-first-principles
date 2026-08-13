@@ -34,14 +34,17 @@ jobs:
       - name: Check content map
         run: npm run scaffold -- --check
 
-      # enablement turns Pages on for the repository the first time this runs,
-      # so a fresh clone of this project deploys without anyone visiting the
-      # settings page. Without it the action fails with "Get Pages site failed".
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
+      # Build before touching Pages, so a deployment-side misconfiguration
+      # cannot mask a genuine build failure. Nothing in the build depends on
+      # configure-pages: the base path is set in astro.config.mjs.
       - run: npm run build
+
+      # Requires Pages to be switched on once, by hand, at
+      # Settings → Pages → Source: GitHub Actions. `enablement: true` looks
+      # like it would automate that away, but creating a Pages site is not
+      # something the workflow's GITHUB_TOKEN is allowed to do — it fails with
+      # "Resource not accessible by integration".
+      - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
         with:
