@@ -4,6 +4,13 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # A push made by a workflow using GITHUB_TOKEN does not trigger other
+  # workflows — GitHub's loop protection. Without this, the nightly data
+  # refresh would commit new figures and never publish them. Chaining off the
+  # refresh workflow's completion is the supported way round it.
+  workflow_run:
+    workflows: ['Refresh figure data']
+    types: [completed]
 
 permissions:
   contents: read
@@ -18,8 +25,16 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # When chained off the refresh workflow, only publish if that run actually
+    # succeeded — a failed fetch should leave the live site on its last good
+    # data rather than redeploying on the back of an error.
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     steps:
       - uses: actions/checkout@v4
+        with:
+          # workflow_run events check out the commit that triggered the *parent*
+          # workflow, which predates the data commit the refresh just pushed.
+          ref: main
 
       - uses: actions/setup-node@v4
         with:
