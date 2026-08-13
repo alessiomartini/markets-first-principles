@@ -34,7 +34,12 @@ jobs:
       - name: Check content map
         run: npm run scaffold -- --check
 
+      # enablement turns Pages on for the repository the first time this runs,
+      # so a fresh clone of this project deploys without anyone visiting the
+      # settings page. Without it the action fails with "Get Pages site failed".
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - run: npm run build
 
