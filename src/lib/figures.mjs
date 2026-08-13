@@ -226,7 +226,8 @@ const RENDERERS = {
       baseOptions(figure, {
         document,
         marginRight: 40,
-        x: { label: figure.x?.label ?? null, type: 'log', grid: true },
+        // Same SI-prefix trap as the bar chart: 0.5 renders as "500m".
+        x: { label: figure.x?.label ?? null, type: 'log', grid: true, tickFormat: plainNumber },
         y: {
           label: figure.y?.label ?? null,
           type: 'log',

@@ -18,8 +18,8 @@ figure:
   series: "S&P 500 (^SPX), EUR/USD, BTCUSDT — daily log returns, normalised by sample volatility"
   period: "longest available common history"
   script: "pipeline/fetch_tails.py"
-  notice: "Each series is close to a straight line over two decades on log–log axes, with slope near −3, while the Gaussian reference falls off a cliff — at four standard deviations the empirical curves sit orders of magnitude above it."
-  falsifiedBy: "The reading fails if the apparent straight line is an artefact of normalising by a single sample volatility; the test is that the fitted exponent should be stable when the sample is split into subperiods with separate normalisation."
+  notice: "The two empirical curves track each other closely and separate from the Gaussian reference at about two standard deviations, after which the reference falls off a cliff: by four sigma it has effectively ended while both curves are still running, roughly two orders of magnitude above it. The crypto curve is visibly stepped in its tail because 720 observations cannot resolve a probability below about one in 720 — that is a sample-size limit, not a feature of the distribution."
+  falsifiedBy: "The reading fails if the separation is an artefact of normalising each series by a single whole-sample volatility, which would manufacture fat tails out of nothing more than volatility drifting over time; the test is that the fitted exponent stays put when the sample is split into subperiods normalised separately. Note also that the range plotted here spans about one decade in x, which is too short to read a slope off by eye — the inverse cubic law is a claim these axes are consistent with, not one they demonstrate."
 ---
 
 ## IN ONE SENTENCE
