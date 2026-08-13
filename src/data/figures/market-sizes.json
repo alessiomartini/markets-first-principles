@@ -1,7 +1,7 @@
 {
  "id": "market-sizes",
- "generatedAt": "2026-08-13T11:50:15+00:00",
- "synthetic": false,
+ "generatedAt": "2026-08-13T15:32:16+00:00",
+ "synthetic": true,
  "chart": "bar",
  "x": {
   "label": "USD trillions (log scale) — note the mix of stocks and flows",
@@ -9,12 +9,28 @@
  },
  "data": [
   {
-   "label": "Crypto (market cap)",
-   "value": 2.26231,
+   "label": "Bonds (outstanding)",
+   "value": 140.0,
    "unit": "stock",
-   "asOf": "live",
-   "source": "https://www.coingecko.com/",
-   "display": "$2.3tn"
+   "display": "~$140tn (synthetic)"
+  },
+  {
+   "label": "Equities (market cap)",
+   "value": 110.0,
+   "unit": "stock",
+   "display": "~$110tn (synthetic)"
+  },
+  {
+   "label": "FX (turnover)",
+   "value": 7.5,
+   "unit": "flow",
+   "display": "~$8tn/day (synthetic)"
+  },
+  {
+   "label": "Crypto (market cap)",
+   "value": 3.0,
+   "unit": "stock",
+   "display": "~$3tn (synthetic)"
   }
  ]
 }

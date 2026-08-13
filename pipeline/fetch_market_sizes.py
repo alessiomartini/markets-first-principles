@@ -71,14 +71,22 @@ def fetch_crypto() -> dict | None:
 
 def main() -> int:
     rows = read_manual()
+    manual_count = len(rows)
 
     crypto = fetch_crypto()
     if crypto:
         rows.append(crypto)
 
-    if not rows:
+    # The crypto row alone is fetchable without any human transcription, and on
+    # its own it would produce a one-bar chart stamped as real data — a chart
+    # that cannot make the figure's point (the spread across three orders of
+    # magnitude) while claiming the authority of a measurement. Refusing to
+    # write is the correct outcome: the page keeps its SCHEMATIC placeholder
+    # and the run reports why.
+    if manual_count == 0 or len(rows) < 2:
         print(
-            "no usable rows — fill in pipeline/manual/market_sizes.csv.\n"
+            f"only {len(rows)} row(s), {manual_count} of them transcribed — not enough for this figure.\n"
+            "Fill in pipeline/manual/market_sizes.csv (label,value_usd_trillions,unit,as_of,source_url).\n"
             "Leaving the existing figure untouched."
         )
         return 1

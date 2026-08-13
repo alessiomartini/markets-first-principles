@@ -5,75 +5,68 @@ Three assets on one pair of log–log axes, each normalised by its own sample
 volatility so the shapes are comparable, plus a Gaussian reference so the
 comparison has a null hypothesis.
 
-Sources are chosen for being free and key-free: Stooq for the equity index and
-the FX pair, Binance for crypto.
+A series that cannot be fetched from any of its sources is dropped rather than
+failing the whole figure: two real curves beat three synthetic ones. What was
+actually fetched — which venue, how many observations — is recorded in the
+payload and printed in the caption.
 """
 
 from __future__ import annotations
 
-import csv
-import io
 import sys
 
-from common import fetch, fetch_json, gaussian_reference, log_returns, survival_curve, write_figure
-
-STOOQ = "https://stooq.com/q/d/l/?s={symbol}&i=d"
-
-
-def stooq_closes(symbol: str) -> list[float]:
-    text = fetch(STOOQ.format(symbol=symbol)).decode("utf8")
-    reader = csv.DictReader(io.StringIO(text))
-    closes = []
-    for row in reader:
-        try:
-            closes.append(float(row["Close"]))
-        except (KeyError, TypeError, ValueError):
-            continue
-    if len(closes) < 500:
-        raise RuntimeError(f"stooq returned only {len(closes)} rows for {symbol}")
-    return closes
-
-
-def binance_closes(symbol: str, limit: int = 1000) -> list[float]:
-    """Daily closes. Binance caps a single call at 1000 klines."""
-    url = f"https://api.binance.com/api/v3/klines?symbol={symbol}&interval=1d&limit={limit}"
-    return [float(candle[4]) for candle in fetch_json(url)]
-
+from common import first_working, gaussian_reference, log_returns, run, survival_curve, write_figure
+from sources import CRYPTO_CLOSES, EQUITY_CLOSES, FX_CLOSES
 
 ASSETS = [
-    ("spx", "S&P 500", lambda: stooq_closes("%5Espx")),
-    ("eurusd", "EUR/USD", lambda: stooq_closes("eurusd")),
-    ("btc", "BTC/USDT", lambda: binance_closes("BTCUSDT")),
+    ("spx", "S&P 500", EQUITY_CLOSES),
+    ("eurusd", "EUR/USD", FX_CLOSES),
+    ("btc", "BTC/USD", CRYPTO_CLOSES),
 ]
 
 
 def main() -> int:
     rows = []
     series = []
-    notes = {}
+    meta = {}
+    venues = []
 
-    for key, label, loader in ASSETS:
-        closes = loader()
+    for key, label, providers in ASSETS:
+        print(f"{label}:")
+        try:
+            venue, closes = first_working(providers, label)
+        except RuntimeError as error:
+            print(f"  dropping {label} — {error}")
+            continue
+
         returns = log_returns(closes)
         curve, sigma, count = survival_curve(returns)
 
         rows.extend({"series": key, "x": point["x"], "y": point["y"]} for point in curve)
         series.append({"key": key, "label": label})
-        notes[key] = {"observations": count, "dailySigma": sigma}
+        meta[key] = {"venue": venue, "observations": count, "dailySigma": sigma}
+        venues.append(venue)
+        print(f"  {count} observations via {venue}")
 
-    if not rows:
-        raise RuntimeError("no series fetched")
+    if len(series) < 2:
+        # One lone curve cannot show that the shape is common across asset
+        # classes, which is the entire claim of the page.
+        raise RuntimeError(f"only {len(series)} series available; leaving the figure untouched")
 
     write_figure(
         "return-ccdf",
         {
             "chart": "loglog",
+            "source": ", ".join(dict.fromkeys(venues)),
+            "series_note": " · ".join(
+                f"{item['label']} ({meta[item['key']]['observations']} obs)" for item in series
+            ),
             "x": {"label": "|r| / σ  (standard deviations)"},
             "y": {"label": "P(|r|/σ > x)"},
             "series": series,
             "reference": gaussian_reference(),
             "referenceLabel": "Gaussian",
-            "meta": notes,
+            "meta": meta,
             "data": rows,
         },
     )
@@ -81,4 +74,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(run(main))

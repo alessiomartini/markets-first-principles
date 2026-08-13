@@ -56,6 +56,44 @@ def fetch_json(url: str, **kwargs: Any) -> Any:
     return json.loads(fetch(url, **kwargs))
 
 
+def run(main) -> int:
+    """Entry point wrapper: report a failed fetch as a message, not a traceback.
+
+    Every source being unreachable is an expected outcome for this pipeline,
+    not a bug in it, and a stack trace in the CI log buries the one line that
+    says which endpoints refused.
+    """
+    try:
+        return main()
+    except RuntimeError as error:
+        print(f"\n{error}")
+        return 1
+
+
+def first_working(providers: list[tuple[str, Any]], what: str):
+    """Try each provider in turn; return (name, result) from the first that works.
+
+    Free market-data endpoints are unreliable in a specific way: they work from
+    a laptop and refuse a datacenter IP. Binance answers a browser in Italy and
+    rejects a GitHub runner; Stooq serves a CSV interactively and an empty body
+    to automation. A single hard-coded source therefore means a figure that is
+    permanently stale on CI and looks fine locally.
+
+    Whichever provider answers is recorded in the payload, so the caption on the
+    page names the source the numbers actually came from rather than the one
+    that was planned.
+    """
+    problems = []
+    for name, load in providers:
+        try:
+            return name, load()
+        except Exception as error:  # noqa: BLE001 - any failure means "try the next one"
+            problems.append(f"{name}: {error}")
+            print(f"  {what} via {name} failed — {error}")
+
+    raise RuntimeError(f"every source for {what} failed:\n    " + "\n    ".join(problems))
+
+
 def write_figure(figure_id: str, payload: dict[str, Any], *, synthetic: bool = False) -> pathlib.Path:
     """Write one figure payload, rounding floats so diffs stay readable."""
     FIGURES.mkdir(parents=True, exist_ok=True)

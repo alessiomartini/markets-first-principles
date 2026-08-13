@@ -87,7 +87,13 @@ const legend = (data?.series ?? []).map((s: any, i: number) => ({
       )
     }
     <span class="figure__provenance">
-      {figure.source} · {figure.series} · {figure.period} ·{' '}
+      {/*
+        The frontmatter names the intended source; the payload names the one
+        that actually answered. When a pipeline fell back to a different venue,
+        the caption has to say so — otherwise the provenance line is a plan
+        rather than a record.
+      */}
+      {data?.source ?? figure.source} · {data?.series_note ?? figure.series} · {figure.period} ·{' '}
       <a href={`${repo}${figure.script}`}>{figure.script}</a>
       {data?.generatedAt && <> · generated {String(data.generatedAt).slice(0, 10)}</>}
     </span>
