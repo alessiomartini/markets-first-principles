@@ -16,10 +16,16 @@ npm run audit:content   # what is written, what is missing
 
 ## Deploying
 
-One manual step, once: **Settings → Pages → Source: GitHub Actions**. Until that is done the
-deploy workflow fails on `configure-pages` with *Get Pages site failed* — creating the Pages
-site is not something the workflow's own `GITHUB_TOKEN` is permitted to do, so `enablement: true`
-does not rescue it either. Afterwards every push to `main` builds and publishes itself.
+One manual step, once: **Settings → Pages → Source: GitHub Actions**. Creating or reconfiguring
+the Pages site is not something the workflow's own `GITHUB_TOKEN` is permitted to do, so
+`enablement: true` on `configure-pages` does not rescue it — it fails with *Resource not
+accessible by integration*. Afterwards every push to `main` builds and publishes itself.
+
+**Symptom that the source is still set to "Deploy from a branch":** a second workflow named
+*pages build and deployment* appears on every push and fails, with a log mentioning
+`jekyll-theme-primer`. That is GitHub's legacy Jekyll builder trying to render an Astro project.
+It is harmless to the Actions deploy but leaves a permanently red run on every commit, and it
+disappears once the source is switched to GitHub Actions.
 
 ## The editorial contract, enforced by the build
 
