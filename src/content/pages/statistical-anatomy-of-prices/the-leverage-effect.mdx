@@ -2,7 +2,7 @@
 title: "The leverage effect"
 track: 3
 order: 5
-status: stub
+status: written
 summary: "Prices fall and volatility rises; prices rise and volatility drifts down. The asymmetry is real, and it is not symmetric across asset classes."
 terms:
   - "skewness"
@@ -15,35 +15,97 @@ figure:
   series: "equity index, FX pair, BTCUSDT"
   period: "longest available common history"
   script: "pipeline/fetch_leverage_effect.py"
+  notice: "The correlation is clearly negative for the equity index and decays over weeks, while the FX pair sits close to zero at every lag — the effect is a property of particular markets, not of prices in general."
+  falsifiedBy: "The reading fails if the equity correlation is symmetric in lag, appearing as strongly before the return as after it, which would indicate a common driver rather than a directional response."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Bad news moves prices and raises volatility; good news of the same size moves prices and does not.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+The name is a fossil. The original explanation was mechanical: when a firm's equity value falls, its debt-to-equity
+ratio rises, the equity becomes a more leveraged claim on the same assets, and its volatility should therefore
+increase. The story is coherent and almost certainly not the main cause — the effect is far larger and far faster
+than balance-sheet leverage can explain, and it appears in indices, commodities and assets with no leverage
+whatsoever.
+
+The better account is behavioural and mechanical in a different sense. Falling prices trigger risk limits, margin
+calls and stop losses, all of which force selling, which moves prices further and raises measured volatility. Rising
+prices trigger no equivalent forced buying. The asymmetry is built into the institutional plumbing of leverage
+rather than into the accounting identity that gave the effect its name — which is why **panic asymmetry** is the
+more honest label.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+**Panic asymmetry** is the empirical fact that volatility responds more to falls than to equivalent rises. It is
+measured as a negative correlation between today's return and future **realised volatility**, decaying over days to
+weeks.
+
+**Skewness** is the related property of the return distribution itself: equity index returns are negatively skewed,
+with large falls larger and more frequent than large rises. It is not universal — individual stocks are often
+positively skewed and FX pairs are close to symmetric — which is exactly why this page is about specific markets
+rather than about prices in general.
+
+**Volatility of volatility** is the variability of volatility itself. It matters here because the leverage effect
+is a statement about the *joint* dynamics of price and variance, and any model reproducing it needs variance to be
+a stochastic process with its own risk, not a parameter.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+The effect is measured by a lagged cross-correlation between returns and future squared returns,
+
+$$
+\mathcal{L}(\tau) \;=\; \frac{\left\langle r_t \, \left|r_{t+\tau}\right|^2 \right\rangle - \left\langle r_t \right\rangle \left\langle \left|r_{t+\tau}\right|^2 \right\rangle}{\left\langle \left|r_t\right|^2 \right\rangle^2}
+$$
+
+For equity indices $\mathcal{L}(\tau)$ is negative for $\tau > 0$ and decays roughly exponentially over one to two
+weeks, while being close to zero for $\tau < 0$. That asymmetry in the *sign of the lag* is the crucial test: a
+common driver moving both quantities at once would produce a symmetric function, whereas a causal response produces
+one that is negative only in the forward direction.
+
+The magnitude also separates markets sharply. Equity indices show a strong effect, individual stocks a weaker one,
+and FX close to none — which makes sense on the plumbing account, since there is no direction in a currency pair
+that constitutes "down" for everyone. A fall in EUR/USD is a rise in USD/EUR, and the two cannot both trigger the
+same forced selling.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A broken symmetry, and how to test for causation">
+The clean statement is that the joint dynamics of price and volatility break the symmetry $r \to -r$. The
+magnitude process alone respects it, since $|r|$ is even; the coupling between level and variance does not. Asking
+which symmetries a model must break is a more productive framing than asking which correlations it must fit,
+because it tells you immediately that any model where volatility is driven by $|r|$ alone — including standard
+**GARCH** — is structurally incapable of producing this effect and needs an asymmetric term added by hand.
+
+The second transferable idea is the lag test. Comparing $\mathcal{L}(\tau)$ for $\tau > 0$ against $\tau < 0$ is a
+test of causal ordering: a shared external driver appears symmetrically in lag, while a genuine response appears
+only forward in time. This is the same reasoning as using time-asymmetry of a response function to distinguish
+driving from correlation, and it is the strongest evidence available that this is a response rather than a common
+cause.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **The name is wrong.** Balance-sheet leverage cannot account for the speed or size of the effect, and the effect
+  appears where there is no leverage at all.
+- **It is not universal across asset classes.** FX shows almost none, for a structural reason: there is no
+  direction that counts as "down" for both sides of a pair.
+- **Negative skewness and the leverage effect are different statements.** One is about the distribution at a single
+  horizon, the other about the joint dynamics of two quantities over time. A process can have either without the
+  other.
+- **Standard GARCH cannot produce it.** Because variance responds to $r^2$, the sign is discarded. Reproducing this
+  requires an explicitly asymmetric model.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Bouchaud & Potters, *Theory of Financial Risk and Derivative Pricing*, chapter 8.
+- Benzaquen, *Modelling Financial Markets*, §2 and §5, for the stylised fact and the models that address it.
+- Gatheral, *The Volatility Surface*, chapter 3 — where this effect becomes the skew of the option surface.
+- Paper: Bouchaud, Matacz & Potters, *The leverage effect in financial markets: retarded volatility and market
+  panic* (PRL, 2001) — the measurement above, and the case for panic over leverage.

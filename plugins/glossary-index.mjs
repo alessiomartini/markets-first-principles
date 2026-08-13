@@ -27,16 +27,43 @@ function readFrontmatter(source) {
     if (raw === '') continue;
 
     if (raw.startsWith('[') && raw.endsWith(']')) {
-      data[key] = raw
-        .slice(1, -1)
-        .split(',')
-        .map((item) => unquote(item.trim()))
-        .filter(Boolean);
+      data[key] = splitFlowSequence(raw.slice(1, -1));
     } else {
       data[key] = unquote(raw);
     }
   }
   return data;
+}
+
+/**
+ * Split a YAML flow sequence on commas that are not inside quotes.
+ *
+ * A naive split on "," silently mangles any alias containing one — "GARCH(1,1)"
+ * became two useless keys, so the term looked unregistered and every use of it
+ * was reported as missing. Quoted commas are legal and do occur.
+ */
+function splitFlowSequence(body) {
+  const items = [];
+  let current = '';
+  let quote = null;
+
+  for (const char of body) {
+    if (quote) {
+      if (char === quote) quote = null;
+      current += char;
+    } else if (char === '"' || char === "'") {
+      quote = char;
+      current += char;
+    } else if (char === ',') {
+      items.push(current);
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+  items.push(current);
+
+  return items.map((item) => unquote(item.trim())).filter(Boolean);
 }
 
 function unquote(value) {

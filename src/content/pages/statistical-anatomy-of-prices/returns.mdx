@@ -2,7 +2,7 @@
 title: "Returns"
 track: 3
 order: 1
-status: stub
+status: written
 summary: "Prices are not the observable; changes in log price are. Getting this right fixes half the confusions downstream."
 terms:
   - "simple return"
@@ -17,35 +17,111 @@ figure:
   series: "one equity index, daily close"
   period: "1990-present"
   script: "pipeline/fetch_returns.py"
+  notice: "The price panel is dominated by the most recent decade because a fixed vertical distance means a different proportional move at each level, while the log panel gives every era equal weight and the return panel shows a series with no trend and violently varying amplitude."
+  falsifiedBy: "The reading fails if the return panel shows visible trend or drift at this scale, which would mean the mean is large enough to see against the noise — it is not, and that is the point."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+The quantity that behaves well statistically is not the price but the change in its logarithm, and almost every
+tool in this track assumes you have already made that substitution.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+A price series is a terrible object to do statistics on. It is non-stationary — its mean and variance depend on
+when you look — and its scale is arbitrary, so a one-pound move means something different for a five-pound stock
+than for a five-hundred-pound one. Comparing two assets, or one asset across decades, requires normalising away
+both problems.
+
+Proportional changes fix the scale problem. Taking logarithms fixes the second, subtler one: it makes changes
+*additive*, so that a sequence of moves is a sum rather than a product. That single property is what makes the
+entire apparatus of sums of random variables — central limit theorems, cumulants, scaling arguments, the whole of
+Track 3 — applicable at all.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+The **simple return** is the proportional change, $R_t = S_t/S_{t-1} - 1$. It is what happened to your money, and
+it is the right quantity for reporting performance.
+
+The **log return** is $r_t = \ln S_t - \ln S_{t-1}$. It is the right quantity for statistics, because it has
+**additivity**: the return over $n$ periods is the sum of the $n$ one-period returns, whereas simple returns
+compound. Every model in this track is written in log returns, and this site writes $r_t$ for log and $R_t$ for
+simple whenever both appear.
+
+**Drift** is the deterministic part of the motion — the $\mu$ that survives averaging. It is the quantity everyone
+wants and almost nobody can measure.
+
+**Annualisation** rescales a figure to a yearly basis: returns multiply by the number of periods, volatilities by
+the square root of it. The square root is not a convention but a consequence of additivity plus independence, which
+means it is slightly wrong in practice, since returns are neither perfectly independent nor homoskedastic.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+The two definitions are related exactly by
+
+$$
+r_t = \ln\left(1 + R_t\right)
+$$
+
+so they agree to first order for small moves and diverge for large ones — always in the same direction, since
+$\ln(1+x) < x$. A $-50\%$ simple return is a log return of $-0.69$; a $+100\%$ simple return is $+0.69$. The
+asymmetry of simple returns, where losses and gains of the same magnitude are not symmetric, disappears in logs.
+
+Additivity is the property that matters:
+
+$$
+r_{t \to t+n} = \sum_{k=1}^{n} r_{t+k}, \qquad
+R_{t \to t+n} = \prod_{k=1}^{n} \left(1 + R_{t+k}\right) - 1
+$$
+
+If the $r_t$ were independent with variance $\sigma^2$, the variance of the sum would be $n\sigma^2$, giving the
+square-root scaling behind **annualisation**:
+
+$$
+\sigma_{\text{ann}} = \sigma_{\text{daily}} \sqrt{252}
+$$
+
+This is exact under independence and approximately right in practice, and the ways it fails are the subject of the
+next four pages. There is one genuine trap: because $\mathbb{E}[r] = \mathbb{E}[\ln(1+R)] < \ln(1 + \mathbb{E}[R])$
+by Jensen's inequality, the average log return is systematically below the log of the average simple return. The
+gap is $\sigma^2/2$, and it is not an artefact — it is the difference between the typical outcome and the mean
+outcome of a multiplicative process, which is exactly what the Kelly criterion in Track 4 is about.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Choosing the variable in which the dynamics are simple">
+This is a change of variables chosen so that the equation of motion becomes additive, and it is the same move as
+working with the logarithm of a multiplicative process anywhere in physics. A price is generated multiplicatively —
+each period scales the previous level — so the natural coordinate is $\ln S$, in which the process becomes a sum of
+increments and therefore a candidate for every limit theorem there is.
+
+The Jensen gap above is worth dwelling on, because it is the same distinction as between the typical and the mean
+value of a random multiplicative variable. For a log-normal quantity the mean is dominated by rare large
+realisations and is not where the distribution lives; the median tracks $\exp$ of the mean log instead. In finance
+this is the difference between the growth rate you will actually experience and the expected value of your wealth —
+two numbers that diverge by $\sigma^2/2$ per period, and confusing them is how leveraged strategies get sold.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Log returns do not average like simple returns.** A portfolio's return is a weighted average of its holdings'
+  *simple* returns, not of their log returns. Use logs for time series, simple for cross-sections.
+- **Annualising by $\sqrt{252}$ assumes independence.** Since volatility clusters and returns mean-revert slightly,
+  annualised volatility is systematically off, and the error is not always in the same direction.
+- **A price chart on a linear axis is misleading by construction.** Equal vertical distances are unequal
+  proportional moves, so the recent past always looks more dramatic. Log axes are the default for a reason.
+- **The mean return is not the growth rate.** They differ by $\sigma^2/2$, and the difference grows with
+  volatility. This is why a strategy can have positive expected return and still take you to zero.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Bouchaud & Potters, *Theory of Financial Risk and Derivative Pricing*, chapter 1.
+- Benzaquen, *Modelling Financial Markets*, §2, for the conventions this site follows.
+- Campbell, Lo & MacKinlay, *The Econometrics of Financial Markets*, chapter 1 — careful on exactly the
+  definitional traps above.
+- Paper: Fama, *The Behavior of Stock-Market Prices* (1965) — where the empirical case for working in logs was
+  first laid out at length.

@@ -2,7 +2,7 @@
 title: "Is the market efficient?"
 track: 3
 order: 7
-status: stub
+status: written
 summary: "Efficiency is not a yes-or-no property. The useful version is: which currents are exploitable after costs, and at what horizon."
 terms:
   - "efficient market hypothesis"
@@ -17,35 +17,107 @@ figure:
   series: "BTCUSDT and one equity index"
   period: "trailing 2 years"
   script: "pipeline/fetch_signature_plot.py"
+  notice: "The ratio sits near one across most lags, confirming near-martingale behaviour, but bends sharply at the shortest lags where the bid-ask spread bouncing inflates measured variance."
+  falsifiedBy: "The reading fails if the short-lag bend survives when the series is built from mid prices rather than trade prices, which would mean it reflects genuine mean reversion rather than the spread."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Prices are unpredictable enough that almost nothing beats costs, and structured enough that the unpredictability
+itself demands explanation.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+The efficient market hypothesis is usually presented as a claim to be believed or rejected, which is the least
+useful way to hold it. As stated it cannot be tested at all: any test of "prices reflect information" requires a
+model of what returns *should* be, so a rejection can always be blamed on the model rather than on efficiency. This
+is Fama's own joint-hypothesis problem, and it is fatal to the question in its grand form.
+
+The question becomes productive when narrowed to something operational. Not "are markets efficient" but: how large
+is the predictable component, at what horizon does it live, how much capital can exploit it before **market
+impact** eats the edge, and does it survive costs? These have answers, they are measurable, and the answers are
+mostly "small, short, little, and barely" — which is a far more informative statement than either slogan.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+The **efficient market hypothesis** comes in three strengths: weak (past prices are already reflected), semi-strong
+(all public information), strong (private information too). The practitioner's version replaces all three with a
+question about net-of-cost exploitability.
+
+**No-arbitrage** is the much weaker and much more useful condition that no portfolio can cost nothing, never lose,
+and sometimes gain. It requires nobody to be rational or informed, only that free money is taken quickly — which is
+why almost all of derivative pricing rests on it and is correspondingly robust.
+
+The **variance ratio** compares variance measured over long horizons with variance over short ones, scaled so a
+random walk gives one. Plotted against lag it is the *signature plot*, and its shape diagnoses trending or
+mean-reversion.
+
+Two findings sit awkwardly against efficiency. **Excess volatility** is Shiller's observation that prices move far
+more than any plausible fundamental. The **diffusivity puzzle** is Track 2's version: **order flow** is strongly
+autocorrelated while prices are nearly a martingale, which should be impossible.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+The martingale statement is the testable core:
+
+$$
+\mathbb{E}\left[S_{t+1} \mid \mathcal{F}_t\right] = S_t
+$$
+
+and it implies that variance grows linearly in time, so the variance ratio
+
+$$
+\text{VR}(\tau) = \frac{\operatorname{Var}\left(r_{t \to t+\tau}\right)}{\tau \operatorname{Var}\left(r_{t \to t+1}\right)}
+$$
+
+equals one at every lag. Empirically it is close to one over most horizons — the strongest evidence for efficiency
+there is — and departs at both ends: below one at the shortest lags, largely because trade prices bounce between
+**bid** and **ask** rather than because of any economic mechanism, and mildly below one over multi-year horizons,
+consistent with slow mean reversion.
+
+The **diffusivity puzzle** sharpens the tension. Order flow has autocorrelation $C_\varepsilon(\tau) \sim
+\tau^{-\gamma}$ with $\gamma$ small, so flow is highly predictable. If each trade moved the price by a fixed amount,
+prices would inherit that predictability and $\text{VR}$ would exceed one substantially. It does not, because
+impact decays through the **propagator** with exponent $\beta \approx (1-\gamma)/2$, and that exponent is exactly
+what makes the predictable component cancel. Efficiency here is not an assumption but an *outcome*, enforced
+dynamically by liquidity providers who would otherwise be picked off.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Detailed balance, and efficiency as a dynamical outcome">
+The closest analogue is detailed balance: the assertion is not that nothing happens, but that no exploitable
+*current* flows. A market can be full of structure — clustered volatility, persistent order flow, sector
+correlations — while offering no net direction anyone can extract, exactly as a system in equilibrium is full of
+microscopic motion with no macroscopic flux.
+
+What makes the financial version more interesting than the physical one is that the balance is actively maintained
+rather than given. There is no conservation law forcing $\text{VR} = 1$; it holds because participants remove
+deviations, and the propagator exponent relation is the quantitative trace of that removal. Efficiency is therefore
+a fixed point of a dynamical system with competing agents, which predicts something a static assumption does not:
+the balance should fail transiently when the mechanism that maintains it is impaired. That is precisely what is
+observed in crises, when liquidity providers withdraw and prices become both more volatile and more predictable at
+once.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Efficient does not mean correct.** Prices can be unpredictable and still far from any sensible fundamental
+  value — **excess volatility** is exactly that combination.
+- **A predictable pattern is not an opportunity.** Costs, impact and capacity stand between a statistical finding
+  and a profit, and they eliminate most findings.
+- **Rejecting EMH requires a model of expected returns.** Without one, any anomaly can be relabelled a risk premium.
+  This is why the debate is unresolvable in its grand form.
+- **Efficiency is not a property markets have.** It is a state they are pushed toward by participants, and it fails
+  exactly when those participants stop pushing.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Bouchaud & Potters, *Theory of Financial Risk and Derivative Pricing*, chapters 4 and 20.
+- Bouchaud, Bonart, Donier & Gould, *Trades, Quotes and Prices*, chapter 13, for the diffusivity puzzle in full.
+- Ilmanen, *Expected Returns*, chapter 2, on what has actually been predictable and by how much.
+- Paper: Shiller, *Do Stock Prices Move Too Much to be Justified by Subsequent Changes in Dividends?* (AER, 1981) —
+  the excess volatility result, still the sharpest empirical challenge to a purely informational account.

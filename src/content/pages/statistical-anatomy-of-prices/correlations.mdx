@@ -2,7 +2,7 @@
 title: "Correlations"
 track: 3
 order: 6
-status: stub
+status: written
 summary: "A correlation matrix estimated from a few hundred observations of a few hundred assets is mostly noise, and random matrix theory tells you exactly how much."
 terms:
   - "correlation matrix"
@@ -16,35 +16,103 @@ figure:
   series: "S&P constituent daily returns"
   period: "trailing 5 years"
   script: "pipeline/fetch_correlations.py"
+  notice: "The bulk of the empirical spectrum sits almost exactly on the Marchenko-Pastur prediction for pure noise, with one enormous eigenvalue far outside the plot and a handful of smaller ones just above the upper edge."
+  falsifiedBy: "The reading fails if the bulk departs systematically from the noise prediction, which would mean genuine structure is spread across many modes rather than concentrated in a few."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Almost everything in an estimated correlation matrix is measurement noise, and random matrix theory says precisely
+which part is not.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Every portfolio calculation needs a **correlation matrix**, and the matrix must be estimated. The estimation problem
+is brutal in a way that is easy to miss: with $N$ assets there are $N(N-1)/2$ parameters, and with $T$ observations
+per asset there are $NT$ numbers to estimate them from. For a few hundred stocks and a few years of daily data,
+these are comparable, so each parameter is determined by only a handful of effective observations.
+
+What makes this dangerous rather than merely imprecise is that the resulting matrix looks perfectly well-behaved.
+It is symmetric, positive semi-definite, full of plausible numbers. Nothing about it announces that most of its
+structure is an artefact — and the calculations it feeds, which invert it, amplify exactly the parts that are
+noise.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+The **correlation matrix** holds pairwise correlations between assets. The **eigenvalue spectrum** is its set of
+eigenvalues, and it is the diagnostic that separates signal from noise, because pure noise has a known spectral
+shape while genuine structure does not.
+
+Empirically the spectrum has three parts. One very large eigenvalue corresponds to the *market mode* — the fact
+that everything moves together — and typically accounts for a large share of total variance. A handful of moderate
+eigenvalues just above the noise edge correspond to **sector structure**, the block structure from firms sharing
+industry exposures. Everything else forms a bulk that is statistically indistinguishable from random.
+
+**Covariance cleaning** is the act of replacing the raw matrix with one whose noisy modes have been suppressed
+before any calculation inverts it. It is not optional tidying: inversion weights modes by the reciprocal of their
+eigenvalue, so the smallest and noisiest eigenvalues dominate the result.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Take $N$ assets and $T$ observations, with $q = N/T$ held fixed as both grow. If the true correlation matrix is the
+identity — assets genuinely independent — the eigenvalues of the *estimated* matrix do not collapse to one. They
+spread into the Marchenko–Pastur distribution,
+
+$$
+\rho(\lambda) = \frac{1}{2\pi q \lambda} \sqrt{\left(\lambda_+ - \lambda\right)\left(\lambda - \lambda_-\right)},
+\qquad \lambda_\pm = \left(1 \pm \sqrt{q}\right)^2
+$$
+
+supported between $\lambda_-$ and $\lambda_+$. This is the null hypothesis with no free parameters beyond $q$, and
+it is what the figure compares against.
+
+The consequence for portfolio construction is direct. Markowitz weights require $\Sigma^{-1}$, and
+
+$$
+\Sigma^{-1} = \sum_i \frac{1}{\lambda_i} \, v_i v_i^\top
+$$
+
+so modes with the smallest eigenvalues receive the largest weight. Those are precisely the modes at the bottom edge
+of the noise bulk — pure estimation error. The optimiser, asked to find low-variance combinations, dutifully
+identifies the directions that *appeared* low-variance by accident, and loads them maximally. This is why
+unconstrained mean-variance portfolios fail out of sample so reliably, and it is a statement about linear algebra
+rather than about markets.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Random matrix theory, used as a null model">
+This is random matrix theory in its original role: not as a model of the system, but as a null model for what
+"no structure" looks like when you have finite data. Wigner introduced it because nuclear spectra were too complex
+to compute and needed a baseline of pure randomness to be compared against; the use here is identical in spirit,
+with Marchenko–Pastur as the correlation-matrix analogue of the semicircle law.
+
+The framing pays twice. First, it converts a vague worry — "some of this is noise" — into a quantitative statement
+with a sharp edge at $\lambda_+ = (1+\sqrt{q})^2$, so eigenvalues can be classified rather than guessed at. Second,
+it reframes cleaning as regularisation of an ill-conditioned inverse problem, which is a problem type with a mature
+toolkit: shrinkage, spectral truncation, and optimal nonlinear shrinkage all have direct analogues in inverse
+problems elsewhere. The eigenvalues that escape the bulk are the physics; the bulk is the noise floor of the
+instrument.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **A positive-definite matrix is not a reliable one.** Well-formed and well-estimated are different properties,
+  and nothing about the matrix's appearance reveals which it is.
+- **Correlation is not a factor.** A large eigenvalue identifies a direction of common movement; naming it and
+  claiming it will persist are further steps requiring separate evidence.
+- **Correlations are not stable.** They rise sharply in crises, so a diversification benefit measured in calm
+  periods evaporates exactly when it is needed. This is a property of the data, not of the estimator.
+- **More data is not always available.** Extending $T$ to reduce $q$ means reaching into a period when the
+  underlying relationships were different, which trades estimation noise for specification error.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Bouchaud & Potters, *Theory of Financial Risk and Derivative Pricing*, chapter 9. The canonical treatment.
+- Bouchaud & Potters, *A First Course in Random Matrix Theory* — the full machinery for a reader who wants it.
+- Benzaquen, *Modelling Financial Markets*, §6, for the cleaning results in this site's notation.
+- Paper: Laloux, Cizeau, Bouchaud & Potters, *Noise dressing of financial correlation matrices* (PRL, 1999) — the
+  paper that brought Marchenko–Pastur to finance and made the noise quantitative.

@@ -2,7 +2,7 @@
 title: "Scale invariance"
 track: 3
 order: 4
-status: stub
+status: written
 summary: "Aggregate returns over longer windows and the distribution slowly becomes Gaussian — but far more slowly than independence would predict."
 terms:
   - "multifractality"
@@ -15,35 +15,111 @@ figure:
   series: "returns aggregated from 1 minute to 1 month"
   period: "longest available history"
   script: "pipeline/fetch_scaling.py"
+  notice: "Kurtosis falls as the aggregation window grows, but visibly more slowly than the 1/n an independent process would give, and the gap between the two widens with scale."
+  falsifiedBy: "The reading fails if the measured decay matches 1/n, which would mean returns are independent and the slow convergence reported here is an artefact of estimating a fourth moment on a short sample."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+The shape of the return distribution depends on the horizon you measure it over, and how it changes with horizon
+tells you more than the shape at any one horizon does.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+The previous two pages each described a distribution at a fixed scale: fat tails in daily returns, clustered
+volatility in daily magnitudes. Neither says what happens if you change the scale, and that turns out to be the
+more informative question.
+
+The reason is that a central limit theorem gives a hard prediction. If returns were independent, summing $n$ of
+them would push the distribution toward a Gaussian at a known rate — excess kurtosis falling exactly as $1/n$.
+Measuring the actual rate is therefore a test with a sharp null hypothesis, and the test fails. Convergence happens,
+but far too slowly, and the shortfall is a direct measurement of dependence that no single-scale statistic can
+provide.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+**Aggregational Gaussianity** is the observation that longer-horizon returns look more normal: daily returns are
+strongly **fat tails**, monthly less so, annual nearly Gaussian. Its presence is unremarkable; its *rate* is the
+finding.
+
+The **Hurst exponent** $H$ describes how the typical size of a move grows with the horizon, $\mathbb{E}|r_\tau| \sim
+\tau^H$. A memoryless random walk gives $H = 1/2$, trending gives more, mean-reversion less. Measured values for
+prices sit very close to $1/2$ — with the honest caveat that $H$ estimators are badly biased in short samples, so
+small departures deserve suspicion rather than excitement.
+
+**Multifractality** is the finding that a single exponent does not suffice. Different moments scale with different
+exponents, so the scaling function $\zeta(q)$ is a curve rather than the straight line a simple self-affine process
+would give. That curvature is the sharpest quantitative signature linking financial series to turbulent cascades.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Define the scaling of the $q$-th absolute moment across horizons:
+
+$$
+\mathbb{E}\left|r_\tau\right|^q \;\sim\; \tau^{\zeta(q)}
+$$
+
+For a random walk with finite variance, $\zeta(q) = q/2$ — a straight line through the origin with slope $H = 1/2$.
+This is the null hypothesis, and departures from it are what "multifractal" names.
+
+Empirically $\zeta$ is concave, well fitted by
+
+$$
+\zeta(q) = \frac{q}{2} - \frac{\lambda^2}{2}\, q\left(q - 2\right)
+$$
+
+with the *intermittency coefficient* $\lambda^2$ measured at around $0.02$ to $0.05$ for equity indices. Setting
+$\lambda^2 = 0$ recovers the monofractal walk, so a single small number measures the whole departure from
+independence.
+
+The same parameter controls the convergence rate the figure measures. Under independence, excess kurtosis of
+$n$-aggregated returns falls as
+
+$$
+\kappa_n = \frac{\kappa_1}{n}
+$$
+
+whereas a multifractal process gives a decay slower than $1/n$, approaching Gaussian only logarithmically slowly.
+The gap between the measured curve and $1/n$ is thus a direct, model-light measurement of dependence — and it is the
+same dependence that appears as **long memory** in the previous page, seen from a different direction.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A renormalisation-group flow that has not converged">
+Aggregating returns is a coarse-graining operation, and asking what the distribution flows to is a
+renormalisation-group question. For independent increments with finite variance the flow reaches the Gaussian fixed
+point quickly. For independent increments with infinite variance it reaches a Lévy stable fixed point. Real returns
+do neither: they crawl toward the Gaussian at a rate that no fixed point with independent increments predicts,
+because the increments are not independent and the dependence itself is scale-free.
+
+This is why $\zeta(q)$ is the right object to measure rather than the distribution at any one scale. A whole
+function of exponents, rather than a single one, is precisely the signature of a system with no characteristic
+scale and a continuum of local scaling behaviours — the same diagnostic used for multifractal measures in
+turbulence, where $\lambda^2$ plays the role of the intermittency parameter. The multifractal random walk model
+imports that construction wholesale and reproduces both this page's curvature and the previous page's power-law
+memory from one mechanism.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Aggregational Gaussianity does not rescue the Gaussian.** Convergence is far too slow to justify normality at
+  the horizons risk is actually measured over.
+- **$H \ne 1/2$ is usually an estimation artefact.** Hurst estimators are biased in short samples and sensitive to
+  trends; most published claims of long-range dependence in *returns* do not survive careful testing. In absolute
+  returns, the dependence is real.
+- **Multifractality is not the same as fat tails.** Tails describe one scale; multifractality describes how the
+  description changes across scales. A process can have fat tails and be perfectly monofractal.
+- **Scaling laws are not universal constants.** The intermittency coefficient varies by asset and by era, and
+  reading it as a fundamental number of markets is overreach.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Bouchaud & Potters, *Theory of Financial Risk and Derivative Pricing*, chapters 2 and 8.
+- Mantegna & Stanley, *An Introduction to Econophysics*, chapters 5–7 — the scaling analysis that founded the field.
+- Benzaquen, *Modelling Financial Markets*, §2, for the aggregation results in this site's notation.
+- Paper: Bacry, Delour & Muzy, *Multifractal random walk* (Phys. Rev. E, 2001) — the cascade construction that
+  generates both the memory and the multiscaling from one parameter.
