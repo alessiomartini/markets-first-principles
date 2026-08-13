@@ -1,0 +1,141 @@
+---
+import { renderFigure, figureTable } from '../lib/figures.mjs';
+
+/**
+ * The "IN THE DATA" figure.
+ *
+ * Everything the caption needs is required by the content schema, so a chart
+ * physically cannot be published without naming its source, series, sample
+ * period and the script that produced it (editorial principle #3).
+ *
+ * Three states are possible:
+ *  - no JSON committed yet  → an explicit placeholder naming the script to run
+ *  - JSON present, synthetic → drawn, but stamped SCHEMATIC
+ *  - JSON present, real      → drawn clean
+ */
+interface FigureMeta {
+  id: string;
+  title: string;
+  source: string;
+  series: string;
+  period: string;
+  script: string;
+  schematic?: boolean;
+  notice?: string;
+  falsifiedBy?: string;
+}
+
+interface Props {
+  figure: FigureMeta;
+}
+
+const { figure } = Astro.props;
+
+const payloads = import.meta.glob<{ default: any }>('../data/figures/*.json', { eager: true });
+const entry = payloads[`../data/figures/${figure.id}.json`];
+const data = entry?.default ?? null;
+
+const svg = data ? renderFigure(data) : null;
+const table = data ? figureTable(data) : { columns: [], rows: [] };
+
+// A deliberate diagram and a not-yet-fetched dataset are different things, and
+// the badge says which.
+const synthetic = Boolean(data?.synthetic);
+const schematic = Boolean(figure.schematic);
+
+const repo = 'https://github.com/alessiomartini/markets-first-principles/blob/main/';
+
+const legend = (data?.series ?? []).map((s: any, i: number) => ({
+  label: s.label ?? s.key,
+  token: `--series-${(i % 3) + 1}`,
+}));
+---
+
+<figure class="figure">
+  <figcaption class="figure__title">{figure.title}</figcaption>
+
+  {
+    svg ? (
+      <>
+        <div class="figure__plot" set:html={svg} />
+        {legend.length > 1 && (
+          <div class="figure__legend">
+            {legend.map((item) => (
+              <span>
+                <i class="figure__swatch" style={`background: var(${item.token})`} aria-hidden="true" />
+                {item.label}
+              </span>
+            ))}
+          </div>
+        )}
+      </>
+    ) : (
+      <p class="figure__missing">
+        No data committed for <code>{figure.id}</code> yet. Run <code>{figure.script}</code> — or wait for the
+        scheduled refresh — to populate <code>src/data/figures/{figure.id}.json</code>.
+      </p>
+    )
+  }
+
+  <div class="figure__caption">
+    {schematic && <span class="badge badge--schematic">SCHEMATIC</span>}
+    {
+      synthetic && !schematic && (
+        <span class="badge badge--schematic" title="Synthetic placeholder data, awaiting the first pipeline run">
+          SCHEMATIC
+        </span>
+      )
+    }
+    <span class="figure__provenance">
+      {figure.source} · {figure.series} · {figure.period} ·{' '}
+      <a href={`${repo}${figure.script}`}>{figure.script}</a>
+      {data?.generatedAt && <> · generated {String(data.generatedAt).slice(0, 10)}</>}
+    </span>
+
+    {
+      synthetic && !schematic && (
+        <p class="figure__reading">
+          <strong>This chart is drawn from synthetic placeholder data.</strong> The shape is illustrative only; the
+          numbers are not real until the pipeline has run against the source above.
+        </p>
+      )
+    }
+
+    {(figure.notice || figure.falsifiedBy) && (
+      <p class="figure__reading">
+        {figure.notice}
+        {figure.notice && figure.falsifiedBy && ' '}
+        {figure.falsifiedBy && <em>{figure.falsifiedBy}</em>}
+      </p>
+    )}
+  </div>
+
+  {
+    table.rows.length > 0 && (
+      <details class="figure__table">
+        <summary>Data table ({table.rows.length} rows)</summary>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                {table.columns.map((column: string) => (
+                  <th scope="col">{column}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {table.rows.slice(0, 250).map((row: any[]) => (
+                <tr>
+                  {row.map((cell) => (
+                    <td>{typeof cell === 'number' ? Number(cell.toPrecision(6)) : String(cell)}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {table.rows.length > 250 && <p>Showing the first 250 of {table.rows.length} rows.</p>}
+      </details>
+    )
+  }
+</figure>

@@ -1,0 +1,219 @@
+---
+import Base from '../layouts/Base.astro';
+import { tracks } from '../lib/site.mjs';
+
+/**
+ * What the site pulls, from where, and how often. Status as of the build spec
+ * (August 2026) — free tiers move, so the "verified" column is the one to
+ * distrust first when a pipeline job starts failing.
+ */
+const backbone = [
+  {
+    name: 'FRED (St. Louis Fed)',
+    what: 'Macro, rates, spreads, recession dates. ~800k series.',
+    access: 'Free API key',
+    cadence: 'Daily job',
+    used: 'The entire Economics track runs on this.',
+  },
+  {
+    name: 'US Treasury',
+    what: 'Daily par yield curve.',
+    access: 'Free CSV/XML, no key',
+    cadence: 'Daily job',
+    used: 'Discounting, bonds, the yield curve.',
+  },
+  {
+    name: 'ECB Data Portal / Eurostat',
+    what: 'Euro-area equivalents of the FRED series.',
+    access: 'Free, no key',
+    cadence: 'Weekly job',
+    used: 'At least one non-US panel per macro page.',
+  },
+  {
+    name: 'SEC EDGAR',
+    what: 'Filings and fundamentals via the XBRL frames API.',
+    access: 'Free, no key, requires a User-Agent header',
+    cadence: 'Weekly job',
+    used: 'Ownership concentration, 13F aggregates.',
+  },
+  {
+    name: 'BIS / IMF / World Bank',
+    what: 'Derivatives notionals, FX turnover, cross-country aggregates.',
+    access: 'Free bulk downloads',
+    cadence: 'On release',
+    used: 'The derivatives page, the market-size comparison.',
+  },
+  {
+    name: 'Binance public REST + WebSocket',
+    what: 'L2 order book, trades, klines, funding rate, open interest.',
+    access: 'Free, no key',
+    cadence: 'Live (WebSocket) and nightly (REST)',
+    used: 'The only live API the browser is allowed to talk to. Microstructure and crypto plumbing.',
+  },
+  {
+    name: 'LOBSTER sample data',
+    what: 'NASDAQ limit order book reconstructed from ITCH, message by message.',
+    access: 'Free samples',
+    cadence: 'Static, committed once',
+    used: 'The reference dataset for the order book pages: a real equity book.',
+  },
+  {
+    name: 'CBOE',
+    what: 'VIX history and some delayed option data.',
+    access: 'Free downloads',
+    cadence: 'Daily job',
+    used: 'The volatility surface, put–call parity, delta-hedging.',
+  },
+  {
+    name: 'CoinGecko (demo tier), DeFiLlama',
+    what: 'Crypto market caps and TVL.',
+    access: 'Free with attribution',
+    cadence: 'Daily job',
+    used: 'Market-size comparison, crypto plumbing.',
+  },
+];
+
+const constrained = [
+  { name: 'Alpha Vantage', note: 'Free tier is roughly 25 requests/day. One-off pulls only.' },
+  { name: 'Finnhub (~60 req/min), Twelve Data (~800 req/day)', note: 'Delayed but generous.' },
+  {
+    name: 'Massive (formerly Polygon.io, rebranded Oct 2025)',
+    note: '$0 Basic plan: end-of-day, ~5 req/min, 2 years of history. Enough for daily-bar pages.',
+  },
+  {
+    name: 'yfinance',
+    note: 'Unofficial and scraping-based. Fine for a nightly cached pipeline; never a live browser dependency.',
+  },
+  { name: 'Dukascopy', note: 'Free historical FX tick data. Used for the fat-tails and scaling pages.' },
+  {
+    name: 'Databento',
+    note: 'Paid, but the cleanest tick/MBO data if one flagship page ever wants real US equity message data beyond the LOBSTER samples.',
+  },
+];
+
+const figures = tracks.flatMap((track) =>
+  track.pages
+    .filter((page) => page.figure)
+    .map((page) => ({
+      track: track.number,
+      page: page.title,
+      id: `${track.slug}/${page.slug}`,
+      figure: page.figure,
+    }))
+);
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Base title="Data sources" description="What the site pulls, from where, at what frequency.">
+  <div class="page-head">
+    <p class="eyebrow">Persistent surface</p>
+    <h1>Data sources</h1>
+    <p class="page-head__summary">
+      Every figure on this site names its source in its caption. This page is the other direction: the full list
+      of what gets pulled, and the rule that keeps a dead API from breaking a published page.
+    </p>
+  </div>
+
+  <div class="prose">
+    <h3>The architecture rule</h3>
+    <p>
+      The browser talks to <strong>at most one</strong> live API — the Binance WebSocket, on the order book page.
+      Everything else is pulled by a scheduled Python job, reduced to small JSON, and committed to the repository.
+      The site is therefore fast, key-free, and reproducible; and a dead API breaks a future update, never a page
+      that is already published.
+    </p>
+    <p>
+      Free tiers move. Everything below was true when the site was specified (August 2026) and is re-verified
+      whenever a pipeline job starts failing — which is the honest early-warning system.
+    </p>
+  </div>
+
+  <h2 style="font-family: var(--font-ui); font-size: 1.05rem; margin-top: 3rem">Backbone</h2>
+  <div class="table-scroll">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col">Source</th>
+          <th scope="col">What</th>
+          <th scope="col">Access</th>
+          <th scope="col">Refresh</th>
+          <th scope="col">Used for</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          backbone.map((row) => (
+            <tr>
+              <td><strong>{row.name}</strong></td>
+              <td>{row.what}</td>
+              <td>{row.access}</td>
+              <td>{row.cadence}</td>
+              <td>{row.used}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <h2 style="font-family: var(--font-ui); font-size: 1.05rem; margin-top: 3rem">Useful but constrained</h2>
+  <div class="table-scroll">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col">Source</th>
+          <th scope="col">Constraint</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          constrained.map((row) => (
+            <tr>
+              <td><strong>{row.name}</strong></td>
+              <td>{row.note}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <h2 style="font-family: var(--font-ui); font-size: 1.05rem; margin-top: 3rem">
+    Every figure and the script behind it
+  </h2>
+  <p class="prose" style="color: var(--text-secondary)">
+    {figures.length} figures are specified across the site. Each row is the contract a chart must satisfy before
+    it can be published.
+  </p>
+  <div class="table-scroll">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col">Page</th>
+          <th scope="col">Figure</th>
+          <th scope="col">Source</th>
+          <th scope="col">Sample</th>
+          <th scope="col">Script</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          figures.map((row) => (
+            <tr>
+              <td>
+                <a href={`${base}/tracks/${row.id}/`}>{row.page}</a>
+                <br />
+                <span style="color: var(--text-muted)">Track {row.track}</span>
+              </td>
+              <td>{row.figure.title}</td>
+              <td>{row.figure.source}</td>
+              <td>{row.figure.period}</td>
+              <td><code>{row.figure.script}</code></td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</Base>

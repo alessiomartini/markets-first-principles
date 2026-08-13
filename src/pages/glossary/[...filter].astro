@@ -1,0 +1,94 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { tracks, getTrack } from '../../lib/site.mjs';
+import { slugifyTerm } from '../../../plugins/glossary-index.mjs';
+
+/**
+ * The filter is expressed as separate static pages rather than client-side
+ * JavaScript, so it works with the site's no-JS budget and every filtered view
+ * is linkable.
+ */
+export async function getStaticPaths() {
+  const entries = await getCollection('glossary');
+  const used = new Set(entries.map((entry) => entry.data.track));
+
+  return [
+    { params: { filter: undefined }, props: { track: null } },
+    ...tracks
+      .filter((track) => used.has(track.number))
+      .map((track) => ({ params: { filter: `track-${track.number}` }, props: { track } })),
+  ];
+}
+
+const { track } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const all = await getCollection('glossary');
+const entries = (track ? all.filter((entry) => entry.data.track === track.number) : all).sort((a, b) =>
+  a.data.term.localeCompare(b.data.term, 'en')
+);
+
+const rendered = await Promise.all(
+  entries.map(async (entry) => ({ entry, Content: (await render(entry)).Content }))
+);
+
+const written = all.filter((entry) => entry.data.status !== 'stub').length;
+---
+
+<Base
+  title={track ? `Glossary · Track ${track.number}` : 'Glossary'}
+  description="Every term the site defines, in one paragraph each, with the physics analogue where an honest one exists."
+>
+  <div class="page-head">
+    <p class="eyebrow">Persistent surface</p>
+    <h1>Glossary</h1>
+    <p class="page-head__summary">
+      The site's most reusable artefact. Every bolded term on every page links here. {written} of {all.length}{' '}
+      entries are written.
+    </p>
+
+    <nav class="filter-bar">
+      <a href={`${base}/glossary/`} aria-current={track ? undefined : 'true'}>All</a>
+      {
+        tracks.map((entry) => {
+          const has = all.some((item) => item.data.track === entry.number);
+          return has ? (
+            <a
+              href={`${base}/glossary/track-${entry.number}/`}
+              aria-current={track?.number === entry.number ? 'true' : undefined}
+            >
+              {entry.number} · {entry.title}
+            </a>
+          ) : null;
+        })
+      }
+    </nav>
+  </div>
+
+  {entries.length === 0 && <p>No entries for this track yet.</p>}
+
+  {
+    rendered.map(({ entry, Content }) => {
+      const owner = getTrack(entry.data.track);
+      return (
+        <section class="glossary-entry" id={slugifyTerm(entry.data.term)}>
+          <h2>{entry.data.term}</h2>
+          <p class="glossary-entry__meta">
+            Track {entry.data.track} · {owner?.title}
+            {entry.data.aliases.length > 0 && <> · also: {entry.data.aliases.join(', ')}</>}
+            {entry.data.status === 'stub' && <> · not written yet</>}
+          </p>
+          <div class="glossary-entry__body">
+            <Content />
+          </div>
+          {entry.data.physics && (
+            <p class="glossary-entry__physics">
+              <strong>Physics:</strong> {entry.data.physics}
+            </p>
+          )}
+        </section>
+      );
+    })
+  }
+</Base>

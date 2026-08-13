@@ -1,0 +1,783 @@
+{
+  "_comment": "The site map from the build spec, §2, in machine-readable form. `npm run scaffold` turns this into stub pages under src/content/pages/ without ever overwriting a page that already exists. Edit a page's prose in its markdown file; edit its identity (title, track, terms, figure) here and re-run scaffold to check nothing has drifted.",
+  "tracks": [
+    {
+      "number": 0,
+      "slug": "the-map-of-the-territory",
+      "title": "The map of the territory",
+      "purpose": "Answer \"what markets exist, and why does each one exist at all\".",
+      "pages": [
+        {
+          "slug": "what-a-market-is",
+          "title": "What a market is",
+          "summary": "A market is a mechanism for finding the price at which two people will swap. Everything else is detail about who, where and when.",
+          "terms": ["market", "counterparty", "price", "quantity", "liquidity", "primary market", "secondary market"],
+          "figure": {
+            "id": "market-sizes",
+            "title": "How big is each market, really",
+            "source": "WFE, BIS Triennial Survey, SIFMA, CoinGecko",
+            "series": "equity market cap; bond outstandings; FX daily turnover; crypto market cap",
+            "period": "latest available annual/triennial snapshot",
+            "script": "pipeline/fetch_market_sizes.py"
+          }
+        },
+        {
+          "slug": "goods-vs-financial-markets",
+          "title": "Goods markets vs financial markets",
+          "summary": "What changes when the thing being traded can be stored, split, and swapped for an identical copy of itself.",
+          "terms": ["spot", "delivery", "storage", "perishability", "fungibility", "standardisation"],
+          "figure": {
+            "id": "storability",
+            "title": "Storability and the shape of a price series",
+            "source": "FRED, Stooq",
+            "series": "wheat, electricity, copper spot vs AAPL",
+            "period": "2010-present, daily",
+            "script": "pipeline/fetch_storability.py"
+          }
+        },
+        {
+          "slug": "asset-classes",
+          "title": "Asset classes",
+          "summary": "The conventional partition of tradable things, and why the boundaries sit where they do.",
+          "terms": ["equity", "fixed income", "FX", "commodities", "crypto", "real assets"],
+          "figure": {
+            "id": "asset-class-scatter",
+            "title": "Return and volatility by asset class, same axes",
+            "source": "Stooq, FRED",
+            "series": "one representative index per class",
+            "period": "2010-present, daily",
+            "script": "pipeline/fetch_asset_classes.py"
+          }
+        },
+        {
+          "slug": "equity-vs-crypto",
+          "title": "Equity market vs crypto market",
+          "summary": "Two markets in the same instrument type, built on opposite institutional assumptions.",
+          "terms": ["listing", "free float", "corporate action", "custody", "exchange", "CEX", "DEX", "24/7 trading"],
+          "figure": {
+            "id": "volume-by-hour",
+            "title": "Volume by hour of day: a listed equity vs BTC",
+            "source": "Binance public REST, Stooq",
+            "series": "BTCUSDT 1h klines; one NYSE-listed name",
+            "period": "trailing 180 days",
+            "script": "pipeline/fetch_volume_by_hour.py"
+          }
+        },
+        {
+          "slug": "exchange-vs-otc",
+          "title": "Exchange vs OTC",
+          "summary": "Whether you trade against a book or against a dealer changes the price you get and who knows about it.",
+          "terms": ["order-driven market", "quote-driven market", "RFQ", "dealer", "dark pool", "internalisation"],
+          "figure": {
+            "id": "off-exchange-share",
+            "title": "Share of US equity volume executed off-exchange",
+            "source": "FINRA ATS transparency data",
+            "series": "weekly ATS and OTC volume vs consolidated volume",
+            "period": "2014-present, weekly",
+            "script": "pipeline/fetch_off_exchange.py"
+          }
+        },
+        {
+          "slug": "who-is-on-the-other-side",
+          "title": "Who is on the other side",
+          "summary": "The taxonomy of participants, what each is optimising, and which of them is obliged to trade with you.",
+          "terms": ["broker", "market maker", "prop firm", "hedge fund", "asset manager", "pension fund", "retail flow", "CCP"],
+          "figure": {
+            "id": "ownership-concentration",
+            "title": "Concentration of US equity ownership",
+            "source": "SEC EDGAR 13F filings",
+            "series": "reported holdings by filer, aggregated",
+            "period": "latest four quarters",
+            "script": "pipeline/fetch_ownership.py"
+          }
+        }
+      ]
+    },
+    {
+      "number": 1,
+      "slug": "contracts-and-instruments",
+      "title": "Contracts and instruments",
+      "purpose": "The nouns. What an instrument is: a set of state-contingent cash flows.",
+      "pages": [
+        {
+          "slug": "cash-flows-and-discounting",
+          "title": "Cash flows and discounting",
+          "summary": "Every instrument is a promise of money at future dates. Pricing starts by asking what a future pound is worth now.",
+          "terms": ["present value", "discount factor", "zero-coupon curve", "accrual", "day count convention"],
+          "figure": {
+            "id": "discount-curve",
+            "title": "Today's discount curve, built from Treasury par yields",
+            "source": "US Treasury daily par yield curve",
+            "series": "daily_treasury_yield_curve",
+            "period": "latest observation, plus 10y of history",
+            "script": "pipeline/fetch_treasury_curve.py"
+          }
+        },
+        {
+          "slug": "equity",
+          "title": "Equity",
+          "summary": "A residual claim on a company: last in line, unlimited upside, and the reason the word \"risk\" got its modern meaning.",
+          "terms": ["share", "dividend", "buyback", "market capitalisation", "enterprise value", "free float", "ADR"],
+          "figure": {
+            "id": "total-vs-price-return",
+            "title": "Total return vs price return over 30 years",
+            "source": "Stooq, FRED",
+            "series": "index price return vs total return",
+            "period": "1995-present, monthly",
+            "script": "pipeline/fetch_total_return.py"
+          }
+        },
+        {
+          "slug": "bonds",
+          "title": "Bonds",
+          "summary": "A fixed schedule of payments, so that the only interesting questions are the discount rate and whether you get paid at all.",
+          "terms": ["coupon", "yield to maturity", "duration", "convexity", "credit spread", "default"],
+          "figure": {
+            "id": "price-yield-curve",
+            "title": "Price against yield for a real bond",
+            "source": "US Treasury",
+            "series": "on-the-run 10y note",
+            "period": "latest observation",
+            "script": "pipeline/fetch_bond_price_yield.py"
+          }
+        },
+        {
+          "slug": "forwards-and-futures",
+          "title": "Forwards and futures",
+          "summary": "Agreeing today on the price of a trade that happens later, and the machinery that makes that promise safe.",
+          "terms": ["forward price", "cost of carry", "margin", "mark-to-market", "roll", "contango", "backwardation"],
+          "figure": {
+            "id": "term-structure",
+            "title": "Futures term structure, and how it moves",
+            "source": "CBOE, Binance public REST",
+            "series": "VIX futures curve; BTC perpetual and quarterly basis",
+            "period": "trailing 3 years",
+            "script": "pipeline/fetch_term_structure.py"
+          }
+        },
+        {
+          "slug": "options",
+          "title": "Options",
+          "summary": "The right without the obligation, which is what makes the payoff non-linear and the pricing interesting.",
+          "terms": ["call option", "put option", "strike", "expiry", "moneyness", "payoff", "premium", "intrinsic value", "time value", "exercise style"],
+          "figure": {
+            "id": "option-chain",
+            "title": "A real option chain: payoff at expiry vs price today",
+            "source": "CBOE delayed option data",
+            "series": "one index option chain, all strikes at one expiry",
+            "period": "latest available snapshot",
+            "script": "pipeline/fetch_option_chain.py"
+          }
+        },
+        {
+          "slug": "swaps-and-the-rest",
+          "title": "Swaps and the rest",
+          "summary": "Exchanging one stream of payments for another — the largest market in the world by notional, and the least visible.",
+          "terms": ["interest rate swap", "notional", "fixed leg", "floating leg", "basis", "CDS", "total return swap"],
+          "figure": {
+            "id": "swap-spread",
+            "title": "Swap rate against government yield: the swap spread",
+            "source": "FRED",
+            "series": "swap rates vs Treasury constant maturity",
+            "period": "2000-present, daily",
+            "script": "pipeline/fetch_swap_spread.py"
+          }
+        },
+        {
+          "slug": "derivatives",
+          "title": "Derivatives: what the word actually means",
+          "summary": "A contract whose value is a function of something else's price. That is the whole definition, and it is why the scary headline numbers are misread.",
+          "terms": ["underlying", "linear payoff", "non-linear payoff", "leverage", "exposure"],
+          "figure": {
+            "id": "notional-vs-gross-market-value",
+            "title": "Notional outstanding vs gross market value of OTC derivatives",
+            "source": "BIS OTC derivatives statistics",
+            "series": "notional amounts outstanding; gross market values",
+            "period": "1998-present, semi-annual",
+            "script": "pipeline/fetch_bis_derivatives.py"
+          }
+        },
+        {
+          "slug": "hedging-speculation-arbitrage",
+          "title": "Hedging vs speculation vs arbitrage",
+          "summary": "Three reasons to put on the same trade, distinguished entirely by what you already own.",
+          "terms": ["hedge", "hedge ratio", "basis risk", "natural exposure", "carry cost", "arbitrage", "arbitrage bound"],
+          "figure": {
+            "id": "airline-hedge",
+            "title": "Hedged vs unhedged fuel cost for an airline",
+            "source": "FRED, CME settlement data",
+            "series": "jet fuel spot; heating oil / crude futures",
+            "period": "2005-present, monthly",
+            "script": "pipeline/fetch_fuel_hedge.py"
+          }
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "slug": "market-microstructure",
+      "title": "Market microstructure",
+      "purpose": "The verbs. How a price is actually produced, tick by tick.",
+      "pages": [
+        {
+          "slug": "the-order-book",
+          "title": "The order book",
+          "summary": "The list of everything anyone is currently willing to trade, and the rules for matching it. This is where price comes from.",
+          "terms": ["limit order", "market order", "bid", "ask", "bid-ask spread", "depth", "queue priority", "price-time priority", "matching engine"],
+          "figure": {
+            "id": "order-book-depth",
+            "title": "Order book depth, live and replayed",
+            "source": "Binance WebSocket (live); LOBSTER NASDAQ sample",
+            "series": "BTCUSDT L2 book; one NASDAQ name, message-by-message",
+            "period": "live, plus one full sample session",
+            "script": "pipeline/fetch_order_book.py"
+          }
+        },
+        {
+          "slug": "order-types-and-execution",
+          "title": "Order types and execution",
+          "summary": "The instructions you can attach to an order, and what each one costs you.",
+          "terms": ["IOC", "FOK", "iceberg order", "TWAP", "VWAP", "slippage", "fill", "partial fill"],
+          "figure": {
+            "id": "walking-the-book",
+            "title": "Cost of a market order as a function of its size",
+            "source": "Binance public REST",
+            "series": "BTCUSDT L2 book snapshot",
+            "period": "latest snapshot",
+            "script": "pipeline/fetch_book_walk.py"
+          }
+        },
+        {
+          "slug": "liquidity",
+          "title": "Liquidity",
+          "summary": "How much you can trade, how fast, and how far you move the price doing it. Three different questions with one name.",
+          "terms": ["spread", "depth", "resilience", "turnover", "average daily volume", "latent liquidity"],
+          "figure": {
+            "id": "intraday-liquidity",
+            "title": "Spread and top-of-book depth by time of day",
+            "source": "Binance public REST",
+            "series": "BTCUSDT 1m klines and book snapshots",
+            "period": "trailing 60 days",
+            "script": "pipeline/fetch_intraday_liquidity.py"
+          }
+        },
+        {
+          "slug": "price-formation-and-impact",
+          "title": "Price formation and impact",
+          "summary": "Trading moves the price against you. The shape of that relationship is one of the most robust empirical laws in finance.",
+          "terms": ["order flow", "order-flow imbalance", "market impact", "permanent impact", "transient impact", "propagator"],
+          "figure": {
+            "id": "impact-curve",
+            "title": "Price response to signed volume",
+            "source": "Binance public REST",
+            "series": "BTCUSDT aggregated trades, signed by taker side",
+            "period": "trailing 30 days",
+            "script": "pipeline/fetch_impact.py"
+          }
+        },
+        {
+          "slug": "market-makers-and-adverse-selection",
+          "title": "Market makers and adverse selection",
+          "summary": "Quoting both sides is profitable until the person hitting your quote knows something you don't.",
+          "terms": ["quoting", "inventory risk", "adverse selection", "toxic flow", "payment for order flow", "tick size"],
+          "figure": {
+            "id": "spread-decomposition",
+            "title": "Effective spread against realised spread",
+            "source": "Binance public REST",
+            "series": "BTCUSDT trades and quotes",
+            "period": "trailing 30 days",
+            "script": "pipeline/fetch_spread_decomposition.py"
+          }
+        },
+        {
+          "slug": "latency-and-the-arms-race",
+          "title": "Latency and the arms race",
+          "summary": "When the queue is priced in microseconds, speed becomes a capital expenditure.",
+          "terms": ["colocation", "matching latency", "race condition", "high-frequency trading", "maker-taker pricing"],
+          "figure": {
+            "id": "update-intervals",
+            "title": "Time between consecutive book updates",
+            "source": "Binance WebSocket capture",
+            "series": "BTCUSDT depth stream inter-arrival times",
+            "period": "one capture session",
+            "script": "pipeline/fetch_update_intervals.py"
+          }
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "slug": "statistical-anatomy-of-prices",
+      "title": "The statistical anatomy of prices",
+      "purpose": "The econophysics core. This is where the physics background pays immediately.",
+      "pages": [
+        {
+          "slug": "returns",
+          "title": "Returns",
+          "summary": "Prices are not the observable; changes in log price are. Getting this right fixes half the confusions downstream.",
+          "terms": ["simple return", "log return", "additivity", "drift", "annualisation"],
+          "figure": {
+            "id": "price-logprice-returns",
+            "title": "The same series as price, log price, and returns",
+            "source": "Stooq",
+            "series": "one equity index, daily close",
+            "period": "1990-present",
+            "script": "pipeline/fetch_returns.py"
+          }
+        },
+        {
+          "slug": "fat-tails",
+          "title": "Fat tails",
+          "summary": "Large moves are not rare accidents at the edge of a bell curve. They are a power law, and they dominate everything you care about.",
+          "terms": ["kurtosis", "tail exponent", "Lévy distribution", "drawdown", "value at risk", "VaR breach"],
+          "figure": {
+            "id": "return-ccdf",
+            "title": "Survival function of normalised returns, log–log axes",
+            "source": "Stooq, Binance public REST",
+            "series": "S&P 500 (^SPX), EUR/USD, BTCUSDT — daily log returns, normalised by sample volatility",
+            "period": "longest available common history",
+            "script": "pipeline/fetch_tails.py"
+          }
+        },
+        {
+          "slug": "volatility-clustering",
+          "title": "Volatility clustering",
+          "summary": "Returns are almost unpredictable; their magnitudes are extremely predictable. That asymmetry is the central empirical fact about prices.",
+          "terms": ["heteroskedasticity", "realised volatility", "GARCH", "intermittency", "long memory"],
+          "figure": {
+            "id": "acf-returns-vs-absreturns",
+            "title": "Autocorrelation of returns against autocorrelation of absolute returns",
+            "source": "Stooq, Binance public REST",
+            "series": "one equity index, BTCUSDT",
+            "period": "longest available history, daily",
+            "script": "pipeline/fetch_acf.py"
+          }
+        },
+        {
+          "slug": "scale-invariance",
+          "title": "Scale invariance",
+          "summary": "Aggregate returns over longer windows and the distribution slowly becomes Gaussian — but far more slowly than independence would predict.",
+          "terms": ["multifractality", "aggregational Gaussianity", "Hurst exponent"],
+          "figure": {
+            "id": "kurtosis-vs-scale",
+            "title": "Kurtosis as a function of aggregation scale",
+            "source": "Stooq, Binance public REST",
+            "series": "returns aggregated from 1 minute to 1 month",
+            "period": "longest available history",
+            "script": "pipeline/fetch_scaling.py"
+          }
+        },
+        {
+          "slug": "the-leverage-effect",
+          "title": "The leverage effect",
+          "summary": "Prices fall and volatility rises; prices rise and volatility drifts down. The asymmetry is real, and it is not symmetric across asset classes.",
+          "terms": ["skewness", "volatility of volatility", "panic asymmetry"],
+          "figure": {
+            "id": "leverage-correlation",
+            "title": "Correlation between returns and future volatility",
+            "source": "Stooq, Binance public REST",
+            "series": "equity index, FX pair, BTCUSDT",
+            "period": "longest available common history",
+            "script": "pipeline/fetch_leverage_effect.py"
+          }
+        },
+        {
+          "slug": "correlations",
+          "title": "Correlations",
+          "summary": "A correlation matrix estimated from a few hundred observations of a few hundred assets is mostly noise, and random matrix theory tells you exactly how much.",
+          "terms": ["correlation matrix", "eigenvalue spectrum", "covariance cleaning", "sector structure"],
+          "figure": {
+            "id": "eigenvalue-spectrum",
+            "title": "Empirical eigenvalue spectrum against Marchenko-Pastur",
+            "source": "Stooq",
+            "series": "S&P constituent daily returns",
+            "period": "trailing 5 years",
+            "script": "pipeline/fetch_correlations.py"
+          }
+        },
+        {
+          "slug": "is-the-market-efficient",
+          "title": "Is the market efficient?",
+          "summary": "Efficiency is not a yes-or-no property. The useful version is: which currents are exploitable after costs, and at what horizon.",
+          "terms": ["efficient market hypothesis", "no-arbitrage", "excess volatility", "variance ratio", "diffusivity puzzle"],
+          "figure": {
+            "id": "signature-plot",
+            "title": "Variance ratio against lag: the signature plot",
+            "source": "Binance public REST, Stooq",
+            "series": "BTCUSDT and one equity index",
+            "period": "trailing 2 years",
+            "script": "pipeline/fetch_signature_plot.py"
+          }
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "slug": "pricing-and-risk",
+      "title": "Pricing and risk",
+      "purpose": "The standard machinery, taught the way a physicist should meet it.",
+      "pages": [
+        {
+          "slug": "no-arbitrage-and-replication",
+          "title": "No-arbitrage and replication",
+          "summary": "If two portfolios pay the same in every state of the world, they cost the same today. Almost all of pricing is that sentence applied carefully.",
+          "terms": ["law of one price", "static replication", "dynamic replication", "risk-neutral measure", "numéraire", "put-call parity"],
+          "figure": {
+            "id": "put-call-parity",
+            "title": "How tightly does put-call parity actually hold",
+            "source": "CBOE delayed option data",
+            "series": "one index option chain, matched call and put strikes",
+            "period": "latest available snapshot",
+            "script": "pipeline/fetch_parity.py"
+          }
+        },
+        {
+          "slug": "bachelier-and-black-scholes",
+          "title": "Bachelier and Black-Scholes",
+          "summary": "A hedging argument, not a forecast: if you can trade continuously, the option's risk cancels and only volatility survives.",
+          "terms": ["Black-Scholes formula", "delta", "gamma", "vega", "theta", "delta hedging", "implied volatility"],
+          "figure": {
+            "id": "delta-hedge-pnl",
+            "title": "Residual P&L of a delta-hedged option",
+            "source": "CBOE, Stooq",
+            "series": "one index option, hedged daily to expiry",
+            "period": "rolling, trailing 5 years",
+            "script": "pipeline/fetch_delta_hedge.py"
+          }
+        },
+        {
+          "slug": "the-volatility-surface",
+          "title": "The volatility surface",
+          "summary": "One number per option, plotted against strike and maturity, and it is emphatically not flat. That shape is the market's correction to the model.",
+          "terms": ["volatility smile", "volatility skew", "term structure of volatility", "local volatility", "stochastic volatility", "VIX"],
+          "figure": {
+            "id": "vol-surface",
+            "title": "Implied volatility surface, and VIX against realised",
+            "source": "CBOE",
+            "series": "index option implied vols; VIX history",
+            "period": "latest snapshot; VIX 2004-present",
+            "script": "pipeline/fetch_vol_surface.py"
+          }
+        },
+        {
+          "slug": "portfolio-construction",
+          "title": "Portfolio construction",
+          "summary": "Mean-variance optimisation is an inverse problem with a badly conditioned operator, and it fails in exactly the way that predicts.",
+          "terms": ["Markowitz optimisation", "efficient frontier", "Sharpe ratio", "beta", "factor", "alpha"],
+          "figure": {
+            "id": "frontier-out-of-sample",
+            "title": "The efficient frontier, in sample and out",
+            "source": "Stooq",
+            "series": "S&P constituent returns, split sample",
+            "period": "2005-present, daily",
+            "script": "pipeline/fetch_frontier.py"
+          }
+        },
+        {
+          "slug": "risk-measures",
+          "title": "Risk measures",
+          "summary": "Summarising a distribution by one number, and the specific ways each summary lies to you.",
+          "terms": ["value at risk", "expected shortfall", "stress test", "tail correlation", "leverage", "margin call"],
+          "figure": {
+            "id": "var-exceedances",
+            "title": "VaR exceedances through 2008 and March 2020",
+            "source": "Stooq",
+            "series": "one equity index, daily returns",
+            "period": "2000-present",
+            "script": "pipeline/fetch_var.py"
+          }
+        },
+        {
+          "slug": "position-sizing",
+          "title": "Position sizing",
+          "summary": "Given an edge, how much to bet is a separate and harder question than whether you have one.",
+          "terms": ["Kelly criterion", "growth rate", "drawdown", "risk of ruin"],
+          "figure": {
+            "id": "kelly-curve",
+            "title": "Growth rate against betting fraction on a real series",
+            "source": "Stooq",
+            "series": "one equity index, daily returns",
+            "period": "1990-present",
+            "script": "pipeline/fetch_kelly.py"
+          }
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "slug": "economics",
+      "title": "Economics",
+      "purpose": "The macro layer, with the same discipline. Backbone data source: FRED.",
+      "pages": [
+        {
+          "slug": "what-gdp-measures",
+          "title": "What GDP actually measures",
+          "summary": "An accounting identity for produced output over a period, not a measure of wealth, welfare, or anything anyone directly observes.",
+          "terms": ["nominal GDP", "real GDP", "GDP deflator", "expenditure identity", "flow", "stock"],
+          "figure": {
+            "id": "gdp-decomposition",
+            "title": "Contributions to GDP growth: C, I, G, NX",
+            "source": "FRED, Eurostat",
+            "series": "GDPC1 and expenditure components",
+            "period": "1960-present, quarterly",
+            "script": "pipeline/fetch_gdp.py"
+          }
+        },
+        {
+          "slug": "money-and-inflation",
+          "title": "Money and inflation",
+          "summary": "The quantity theory is an identity plus two heroic assumptions, and 2021 was the cleanest test of it in forty years.",
+          "terms": ["monetary base", "M2", "velocity of money", "CPI", "PCE deflator", "HICP", "inflation expectations"],
+          "figure": {
+            "id": "m2-vs-cpi",
+            "title": "M2 growth against CPI inflation, with 2021-23 marked",
+            "source": "FRED",
+            "series": "M2SL, CPIAUCSL",
+            "period": "1960-present, monthly",
+            "script": "pipeline/fetch_money.py"
+          }
+        },
+        {
+          "slug": "interest-rates-and-central-banks",
+          "title": "Interest rates and central banks",
+          "summary": "A central bank sets one overnight rate. Everything that matters happens in how the rest of the curve responds.",
+          "terms": ["policy rate", "real interest rate", "term premium", "quantitative easing", "monetary transmission"],
+          "figure": {
+            "id": "policy-vs-curve",
+            "title": "Policy rate against 2-year and 10-year yields",
+            "source": "FRED",
+            "series": "DFF, DGS2, DGS10",
+            "period": "1990-present, daily",
+            "script": "pipeline/fetch_policy_rates.py"
+          }
+        },
+        {
+          "slug": "the-yield-curve",
+          "title": "The yield curve",
+          "summary": "The term structure of interest rates, and the most-watched recession indicator that nobody can fully explain.",
+          "terms": ["steepening", "flattening", "curve inversion", "forward rate"],
+          "figure": {
+            "id": "curve-inversions",
+            "title": "Curve inversions against NBER recessions",
+            "source": "FRED",
+            "series": "T10Y2Y, USREC",
+            "period": "1976-present, daily",
+            "script": "pipeline/fetch_yield_curve.py"
+          }
+        },
+        {
+          "slug": "labour-output-prices",
+          "title": "Labour, output, prices",
+          "summary": "The supposed trade-off between unemployment and inflation, and what its instability tells you about macro modelling.",
+          "terms": ["unemployment rate", "output gap", "Phillips curve", "NAIRU"],
+          "figure": {
+            "id": "phillips-by-decade",
+            "title": "The Phillips curve, coloured by decade",
+            "source": "FRED",
+            "series": "UNRATE, CPIAUCSL",
+            "period": "1960-present, quarterly",
+            "script": "pipeline/fetch_phillips.py"
+          }
+        },
+        {
+          "slug": "exchange-rates",
+          "title": "Exchange rates",
+          "summary": "The one price where two countries' entire monetary conditions meet, and where the textbook parities fail most visibly.",
+          "terms": ["spot FX", "forward FX", "purchasing power parity", "uncovered interest parity", "covered interest parity", "carry trade"],
+          "figure": {
+            "id": "carry-and-cip",
+            "title": "Carry trade P&L and the CIP basis after 2008",
+            "source": "FRED, BIS",
+            "series": "FX spot and forward points, policy rate differentials",
+            "period": "1999-present, monthly",
+            "script": "pipeline/fetch_fx.py"
+          }
+        },
+        {
+          "slug": "credit-and-the-cycle",
+          "title": "Credit and the cycle",
+          "summary": "Recessions are usually credit events. The spread is a price, a forecast, and a feedback loop at the same time.",
+          "terms": ["leverage", "credit spread", "deleveraging", "financial accelerator", "systemic risk"],
+          "figure": {
+            "id": "hy-spread-vs-recessions",
+            "title": "High-yield spread against recessions",
+            "source": "FRED",
+            "series": "BAMLH0A0HYM2, USREC",
+            "period": "1997-present, daily",
+            "script": "pipeline/fetch_credit.py"
+          }
+        },
+        {
+          "slug": "economics-as-a-complex-system",
+          "title": "Economics as a complex system",
+          "summary": "Agents that copy each other produce the stylised facts of real markets without any of the equilibrium apparatus.",
+          "terms": ["equilibrium", "agent-based model", "reflexivity", "herding"],
+          "figure": {
+            "id": "agent-based-vs-real",
+            "title": "A herding model against a real return series",
+            "source": "Simulation; Stooq",
+            "series": "Kirman ant model output vs equity index returns",
+            "period": "matched sample lengths",
+            "script": "pipeline/simulate_herding.py"
+          }
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "slug": "plumbing-and-institutions",
+      "title": "Plumbing and institutions",
+      "purpose": "What actually happens after \"trade done\". Almost never taught, always assumed.",
+      "pages": [
+        {
+          "slug": "clearing-and-settlement",
+          "title": "Clearing and settlement",
+          "summary": "The days between agreeing a trade and owning the asset, and the institution that stands in the middle so you never learn your counterparty's name.",
+          "terms": ["CCP", "novation", "netting", "T+1", "delivery versus payment", "custody", "settlement fail"],
+          "figure": {
+            "id": "settlement-fails",
+            "title": "Settlement fails in US Treasuries",
+            "source": "FRED, DTCC",
+            "series": "primary dealer fails to deliver and receive",
+            "period": "1990-present, weekly",
+            "script": "pipeline/fetch_fails.py"
+          }
+        },
+        {
+          "slug": "margin-and-leverage",
+          "title": "Margin and leverage",
+          "summary": "How much capital you must post to hold a position, and why that number is the real constraint on every leveraged strategy.",
+          "terms": ["initial margin", "variation margin", "haircut", "rehypothecation", "margin call"],
+          "figure": {
+            "id": "margin-debt",
+            "title": "Margin debt against the market it finances",
+            "source": "FINRA, FRED",
+            "series": "margin debt outstanding vs index level",
+            "period": "1997-present, monthly",
+            "script": "pipeline/fetch_margin_debt.py"
+          }
+        },
+        {
+          "slug": "funding",
+          "title": "Funding",
+          "summary": "Where the cash actually comes from overnight, and what happens on the days it doesn't.",
+          "terms": ["repo", "secured funding", "unsecured funding", "collateral", "money market fund", "SOFR", "€STR"],
+          "figure": {
+            "id": "repo-rates",
+            "title": "SOFR against the policy rate, with the spikes",
+            "source": "FRED",
+            "series": "SOFR, IORB, EFFR",
+            "period": "2018-present, daily",
+            "script": "pipeline/fetch_funding.py"
+          }
+        },
+        {
+          "slug": "wrappers",
+          "title": "Wrappers",
+          "summary": "Funds, ETFs and notes are containers, not assets. What matters is the mechanism that keeps the container's price near its contents.",
+          "terms": ["ETF", "creation and redemption", "net asset value", "premium", "discount", "mutual fund", "index"],
+          "figure": {
+            "id": "etf-premium-discount",
+            "title": "ETF premium and discount to NAV through stress",
+            "source": "Issuer daily NAV files",
+            "series": "one bond ETF, price vs NAV",
+            "period": "2015-present, daily",
+            "script": "pipeline/fetch_etf_nav.py"
+          }
+        },
+        {
+          "slug": "regulation",
+          "title": "Regulation",
+          "summary": "The rules that decide where you may trade, what you must tell people, and which clever idea is a felony.",
+          "terms": ["MiFID II", "Reg NMS", "best execution", "market abuse", "position limit"],
+          "figure": {
+            "id": "regulation-timeline",
+            "title": "Regulatory regime changes against market structure",
+            "source": "FINRA, SEC; regime dates hand-compiled",
+            "series": "off-exchange share with regime boundaries marked",
+            "period": "2005-present",
+            "script": "pipeline/fetch_off_exchange.py"
+          }
+        },
+        {
+          "slug": "crypto-plumbing",
+          "title": "Crypto plumbing",
+          "summary": "The same functions — matching, clearing, custody, funding — rebuilt from scratch with different trust assumptions and mostly worse guarantees.",
+          "terms": ["on-chain settlement", "automated market maker", "constant product formula", "impermanent loss", "perpetual future", "funding rate", "stablecoin"],
+          "figure": {
+            "id": "perp-funding",
+            "title": "Perpetual funding rate against the spot-futures basis",
+            "source": "Binance public REST",
+            "series": "BTCUSDT funding rate, mark and index price",
+            "period": "trailing 2 years, 8-hourly",
+            "script": "pipeline/fetch_perp_funding.py"
+          }
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "slug": "how-quant-research-is-done",
+      "title": "How quant research is actually done",
+      "purpose": "The applied layer, kept last and kept small so the site stays general.",
+      "pages": [
+        {
+          "slug": "signals-and-alpha",
+          "title": "Signals and alpha",
+          "summary": "A signal is a forecast with a horizon. Everything about its value follows from how fast it decays and how much it can absorb.",
+          "terms": ["feature", "signal", "forecast horizon", "information coefficient", "alpha decay", "capacity"],
+          "figure": {
+            "id": "ic-decay",
+            "title": "Information coefficient decay for short-term reversal",
+            "source": "Stooq",
+            "series": "cross-sectional returns of index constituents",
+            "period": "2010-present, daily",
+            "script": "pipeline/fetch_ic_decay.py"
+          }
+        },
+        {
+          "slug": "backtesting-and-its-pathologies",
+          "title": "Backtesting and its pathologies",
+          "summary": "A backtest is a measurement performed on data you have already looked at, which is a category of experiment physics has strong opinions about.",
+          "terms": ["look-ahead bias", "survivorship bias", "multiple testing", "deflated Sharpe ratio", "overfitting"],
+          "figure": {
+            "id": "in-vs-out-of-sample",
+            "title": "The same strategy in sample and out of sample",
+            "source": "Stooq",
+            "series": "one signal, split sample",
+            "period": "2005-present, daily",
+            "script": "pipeline/fetch_backtest.py"
+          }
+        },
+        {
+          "slug": "costs",
+          "title": "Costs",
+          "summary": "Gross Sharpe is a physics problem. Net Sharpe is an engineering problem, and it is the only one that pays.",
+          "terms": ["spread cost", "impact cost", "borrow cost", "turnover", "net Sharpe ratio"],
+          "figure": {
+            "id": "gross-vs-net",
+            "title": "Equity curve as turnover rises",
+            "source": "Stooq; impact model calibrated in Track 2",
+            "series": "one signal at several holding periods",
+            "period": "2010-present, daily",
+            "script": "pipeline/fetch_costs.py"
+          }
+        },
+        {
+          "slug": "from-research-to-pnl",
+          "title": "From research to P&L",
+          "summary": "The distance between a signal that predicts and a book that makes money, measured in risk model and neutralisation.",
+          "terms": ["P&L attribution", "risk model", "neutralisation", "drawdown control"],
+          "figure": {
+            "id": "neutralised-vs-raw",
+            "title": "Factor-neutral against raw returns of one signal",
+            "source": "Stooq",
+            "series": "one signal, before and after neutralisation",
+            "period": "2010-present, daily",
+            "script": "pipeline/fetch_neutralisation.py"
+          }
+        }
+      ]
+    }
+  ]
+}

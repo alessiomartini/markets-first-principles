@@ -1,0 +1,122 @@
+---
+title: "What a market is"
+track: 0
+order: 1
+status: written
+summary: "A market is a mechanism for finding the price at which two people will swap. Everything else is detail about who, where and when."
+terms:
+  - "market"
+  - "counterparty"
+  - "price"
+  - "quantity"
+  - "liquidity"
+  - "primary market"
+  - "secondary market"
+figure:
+  id: "market-sizes"
+  title: "How big is each market, really"
+  source: "WFE, BIS Triennial Survey, SIFMA, CoinGecko"
+  series: "equity market cap; bond outstandings; FX daily turnover; crypto market cap"
+  period: "latest available annual/triennial snapshot"
+  script: "pipeline/fetch_market_sizes.py"
+  notice: "The bars span roughly three orders of magnitude, and the largest is not the one that dominates the news; note also that two of these are stocks and two are flows, which is why the axis is logarithmic and the unit is printed on every bar."
+  falsifiedBy: "The reading fails if a market's rank changes under a defensible alternative definition — measuring equities by annual turnover rather than capitalisation, for instance, moves them relative to bonds."
+---
+
+## IN ONE SENTENCE
+
+A market is any arrangement that lets people who want to trade find out what they will have to pay.
+
+## WHY IT EXISTS
+
+Two people who would both gain from a swap have three problems to solve before it can happen: they have to find each
+other, they have to agree on terms, and each has to believe the other will actually deliver. Solve any of them badly
+and the trade fails even though both parties wanted it — the characteristic failure being a seller who cannot trade
+at *any* price, not because the asset is worthless but because searching is too expensive.
+
+Every market institution is an answer to one of those three problems. Exchanges and brokers attack search by
+concentrating interest in one place. Auctions, quotes and order books attack agreement by fixing a rule that turns
+stated interest into a transaction. Clearing houses, margin and settlement attack trust by making delivery someone's
+enforceable obligation. When a market behaves strangely, one of the three is usually under stress, and the first
+useful question is which.
+
+## DEFINITION
+
+A **market** is a mechanism for matching prospective buyers and sellers and determining the terms of their trade. It
+requires no physical venue and no continuous operation: a weekly livestock auction, a bilateral phone call between
+two bank desks, and a matching engine handling a million messages a second are all markets, differing in their
+*mechanism* rather than in their nature.
+
+The mechanism specifies who may participate, how they express interest, how a match is made, and what is published
+afterwards. Everything observable follows from it. The **price** is the rate at which a swap happened — and since at
+any instant there are several candidates for "the price", the useful habit is to ask which one is meant. The
+**quantity** is how much traded; it is not an innocent second coordinate, because the price available to you is a
+function of how much you want. Your **counterparty** is whoever is obliged to deliver, and on an exchange you will
+generally never learn their name, because a clearing house interposes itself the moment the trade is matched.
+**Liquidity** is how easily a position can be turned into cash without moving the price against you.
+
+Finally, every market is either a **primary market** — where the issuer sells the security for the first time and
+receives the proceeds — or a **secondary market**, where it changes hands between investors and the issuer receives
+nothing. Essentially all observable trading is secondary. The two are linked, because a security that resells easily
+is worth more when first issued, and that link is the standard reason to care about market quality at all.
+
+## FORMALLY
+
+A mechanism takes the messages participants send and returns who trades with whom, and at what price. Let buyers
+submit a willingness to pay $b_i$ for quantity $q_i$, and sellers an acceptable price $a_j$ for quantity $v_j$.
+Aggregate demand and supply at a candidate price $p$ are the quantities whose limit price is at least as favourable
+as $p$:
+
+$$
+D(p) = \sum_i q_i \, \mathbb{1}\left[b_i \ge p\right], \qquad
+S(p) = \sum_j v_j \, \mathbb{1}\left[a_j \le p\right]
+$$
+
+A uniform-price *call auction* clears at the price where these cross and trades the smaller of the two quantities
+there. This is the mechanism used at the open and close of most equity exchanges, and it is the cleanest definition
+of a market-clearing price that exists.
+
+A continuous market computes the same thing incrementally and forever: orders arrive one at a time and each is
+matched against the standing interest on the other side immediately, or else joins it. The two mechanisms are asked
+the same question and return different answers, because the continuous one is path-dependent. The *sequence* of
+arrivals matters, not just the set — which is the entire subject of Track&nbsp;2.
+
+## PHYSICS BRIDGE
+
+<PhysicsBridge idea="The mechanism is the interaction term">
+The recurring beginner's error is to treat price as a property of the asset, perturbed by noise. It is not. A price
+is the output of an interaction rule applied to a population of participants: change the rule and the same people
+trading the same asset produce different prices, different volatility, and different tails.
+
+The analogy that pays is with lattice models. The asset supplies the degrees of freedom, the participants are the
+ensemble, and the mechanism is the coupling. Asking for the fair price of an asset without specifying the mechanism
+is like asking for the magnetisation without specifying the interaction. This is why Track&nbsp;2 spends six pages
+on the order book instead of treating it as plumbing — the book *is* the interaction term, and most of the
+interesting empirical regularities in Track&nbsp;3 are properties of it rather than of the assets.
+</PhysicsBridge>
+
+## IN THE DATA
+
+<Figure figure={frontmatter.figure} />
+
+## COMMON CONFUSIONS
+
+- **A market is not a place.** Most have no venue at all. The FX market, the largest in the world by turnover, is a
+  network of bilateral relationships with no central exchange and no closing bell.
+- **"The price" is at least four different numbers** — best bid, best ask, last traded, official close — and they
+  routinely disagree. Any claim about "the price" that does not survive substituting each of them is a claim about
+  something else.
+- **Stocks and flows are not comparable.** Equity market capitalisation is a stock; FX turnover is a flow per day.
+  Headlines that rank them against each other are comparing a reservoir with a river.
+- **More trading is not more liquidity.** Volume can rise while depth collapses, and in a crisis it reliably does.
+  They are different measurements of different things, and the crisis is exactly when the difference matters.
+
+## GO DEEPER
+
+- Harris, *Trading and Exchanges*, chapters 1–3. The best available account of what markets are for and who is in
+  them, with almost no mathematics.
+- Benzaquen, *Modelling Financial Markets*, §1 — the same territory in the notation this site keeps.
+- Hull, *Options, Futures, and Other Derivatives*, chapter 1, for the standard exchange-versus-OTC framing that the
+  rest of Track&nbsp;1 assumes.
+- Paper: Duffie, Gârleanu & Pedersen, *Over-the-Counter Markets* (Econometrica, 2005) — what prices look like when
+  search, rather than agreement, is the binding constraint.

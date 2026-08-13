@@ -1,0 +1,132 @@
+---
+title: "The order book"
+track: 2
+order: 1
+status: written
+summary: "The list of everything anyone is currently willing to trade, and the rules for matching it. This is where price comes from."
+terms:
+  - "limit order"
+  - "market order"
+  - "bid"
+  - "ask"
+  - "bid-ask spread"
+  - "depth"
+  - "queue priority"
+  - "price-time priority"
+  - "matching engine"
+figure:
+  id: "order-book-depth"
+  title: "Cumulative depth on both sides of the book"
+  source: "Binance public REST"
+  series: "BTCUSDT L2 book snapshot"
+  period: "single instant"
+  script: "pipeline/fetch_order_book.py"
+  notice: "Depth grows steeply away from the touch, so the quantity available within a tick or two of the mid is a small fraction of what the book appears to hold; the two sides are also rarely symmetric at any given instant."
+  falsifiedBy: "The reading fails if the imbalance visible here predicts the next price move no better than a coin flip — it should, weakly, and that is measured on the price formation page."
+---
+
+import OrderBookLive from '../../../components/OrderBookLive.astro';
+
+## IN ONE SENTENCE
+
+The order book is the standing list of every price at which someone has publicly committed to trade, and the price
+you see quoted is just its top edge.
+
+## WHY IT EXISTS
+
+Buyers and sellers do not arrive at the same time. Someone who wants to buy at two in the afternoon needs a seller
+who happens to want to sell at two in the afternoon, and in a market of any size that coincidence is rare enough
+that waiting for it would be intolerable.
+
+The order book solves this by letting participants leave their intentions behind. A trader who is willing to sell at
+a price but is in no hurry writes the offer down and goes away; a trader who arrives later and *is* in a hurry
+executes against it immediately. The book converts a matching problem across time into a matching problem at a
+point in time, and the price of that convenience — paid by the impatient side to the patient side — is the spread.
+Everything else in Track&nbsp;2 is a consequence of this trade between patience and immediacy.
+
+## DEFINITION
+
+The **order book** is the complete set of **limit order**s currently resting at a venue, organised by price and,
+within each price, by time of arrival. A limit order states a price and a quantity and waits; it supplies liquidity.
+A **market order** states only a quantity and executes immediately against whatever is resting; it removes
+liquidity.
+
+The highest resting buy price is the **bid**, the lowest resting sell price is the **ask**, and the gap between them
+is the **bid-ask spread**. Together they are *the touch*. The quantity resting at each level is the **depth**, and
+cumulative depth is what determines the price a large order will actually achieve — which is why the spread alone
+tells you almost nothing about the cost of a serious trade.
+
+Matching is performed by the **matching engine**, a deliberately serial machine that processes incoming messages one
+at a time in the order it receives them. Nearly all equity venues match on **price-time priority**: best price
+first, and among equal prices, earliest arrival first. Your **queue priority** — your place in that line — therefore
+determines not only whether you trade but *when*, and orders at the back of a queue tend to fill precisely when the
+level is about to be exhausted and the price is about to move through them.
+
+## FORMALLY
+
+Write the book as a signed density of resting volume over price. At time $t$, let $\rho_b(p, t)$ be the volume
+resting on the bid side at price $p$, and $\rho_a(p, t)$ the volume on the ask side. The best quotes are the
+supports' edges:
+
+$$
+b_t = \max \left\lbrace p : \rho_b(p,t) > 0 \right\rbrace, \qquad
+a_t = \min \left\lbrace p : \rho_a(p,t) > 0 \right\rbrace
+$$
+
+with mid price $m_t = (a_t + b_t)/2$ and spread $s_t = a_t - b_t$. Cumulative depth out to a distance $\delta$ from
+the mid is the integral of the density,
+
+$$
+Q_b(\delta, t) = \int_{m_t - \delta}^{m_t} \rho_b(p, t)\, dp
+$$
+
+and it is $Q_b$, not $s_t$, that sets the cost of a large trade. A **market order** of size $Q$ walks the book until
+the cumulative depth it has consumed equals $Q$, so its average execution price is worse than $a_t$ by an amount
+determined entirely by the shape of $\rho_a$ near the touch.
+
+## PHYSICS BRIDGE
+
+<PhysicsBridge idea="Reaction–diffusion with annihilation at an interface">
+The book is two populations of particles — resting buy volume and resting sell volume — occupying opposite sides of
+a moving boundary. Orders are deposited at a rate that depends on distance from the mid, they are removed by
+cancellation at some rate, and they annihilate pairwise on contact when an incoming market order crosses the spread.
+That is a reaction–diffusion system, $A + B \to \emptyset$, with the mid price as the interface between the two
+phases.
+
+The framing is not decorative. It predicts the shape of the average book: because annihilation is fastest where the
+two populations meet, density is suppressed near the interface and grows away from it, which is exactly the
+V-shaped profile seen in the figure below. It also predicts that the price moves diffusively even when order flow is
+strongly correlated, because the boundary's motion is governed by the *local* imbalance rather than the total. The
+latent order book models of Track&nbsp;2's later pages take this literally and get the square-root impact law out of
+it.
+</PhysicsBridge>
+
+## IN THE DATA
+
+The book below is live, streaming from Binance's public depth feed at ten updates a second. Watch the queue at the
+touch rather than the price: most of what changes is orders arriving and cancelling, not trades.
+
+<OrderBookLive symbol="btcusdt" />
+
+<Figure figure={frontmatter.figure} />
+
+## COMMON CONFUSIONS
+
+- **The spread is not the cost of trading.** It is the cost of trading *the first share*. For any size worth caring
+  about, the cost is set by cumulative depth, and depth is far more variable than spread.
+- **Most orders never trade.** Cancellation rates above 95% are normal and are not evidence of manipulation; a
+  resting order is an option the market maker is constantly repricing.
+- **The book is not demand.** It shows the interest people are willing to *display*. Large participants
+  systematically hide theirs, which is why the visible book is a poor estimate of what would actually trade — the
+  latent book is much larger and much less impressed by your order.
+- **A deep book is not a stable one.** Depth is quoted, not committed: it can be cancelled in microseconds and
+  disappears fastest exactly when it is most wanted.
+
+## GO DEEPER
+
+- Bouchaud, Bonart, Donier & Gould, *Trades, Quotes and Prices*, chapters 3–5. The definitive treatment of book
+  dynamics; chapter 4 is the reaction–diffusion picture in full.
+- Harris, *Trading and Exchanges*, chapters 4–6, for the institutional vocabulary of order types and priority rules.
+- Benzaquen, *Modelling Financial Markets*, §3 — the continuous double auction in this site's notation.
+- Paper: Bouchaud, Mézard & Potters, *Statistical properties of stock order books* (2002) — the paper that
+  established the shape of the average book, and still the cleanest statement of the result.

@@ -1,0 +1,18 @@
+---
+/**
+ * The bridge is a callout, never the spine (editorial principle #4). The
+ * heading names the physics idea so a reader skimming for it can find it, but
+ * it always sits *after* the practitioner's definition on the page.
+ */
+interface Props {
+  /** The physics idea, e.g. "Linear response and the propagator". */
+  idea: string;
+}
+
+const { idea } = Astro.props;
+---
+
+<aside class="bridge">
+  <p class="bridge__head">{idea}</p>
+  <div class="bridge__body"><slot /></div>
+</aside>

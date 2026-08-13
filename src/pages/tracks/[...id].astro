@@ -1,0 +1,62 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Figure from '../../components/Figure.astro';
+import PhysicsBridge from '../../components/PhysicsBridge.astro';
+import { getTrack, splitId, neighbours } from '../../lib/site.mjs';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const { track: trackSlug } = splitId(entry.id);
+const track = getTrack(trackSlug);
+const { previous, next } = neighbours(entry.id);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// MDX resolves these by name, so a page body writes <Figure figure={frontmatter.figure} />
+// and <PhysicsBridge idea="..."> without an import line of its own.
+const components = { Figure, PhysicsBridge };
+---
+
+<Base title={entry.data.title} description={entry.data.summary}>
+  <article>
+    <header class="page-head">
+      <p class="eyebrow">
+        Track {track?.number} · <a href={`${base}/#track-${track?.number}`}>{track?.title}</a>
+      </p>
+      <h1>
+        {entry.data.title}
+        {entry.data.status === 'stub' && <span class="status-flag">stub</span>}
+      </h1>
+      <p class="page-head__summary">{entry.data.summary}</p>
+    </header>
+
+    <Content components={components} />
+  </article>
+
+  <nav class="page-nav">
+    {
+      previous ? (
+        <a href={`${base}/tracks/${previous.id}/`}>
+          <span class="page-nav__dir">Previous</span>
+          {previous.title}
+        </a>
+      ) : (
+        <span />
+      )
+    }
+    {
+      next && (
+        <a href={`${base}/tracks/${next.id}/`} style="text-align: right">
+          <span class="page-nav__dir">Next</span>
+          {next.title}
+        </a>
+      )
+    }
+  </nav>
+</Base>

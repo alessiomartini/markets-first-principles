@@ -1,0 +1,81 @@
+---
+import 'katex/dist/katex.min.css';
+import '../styles/global.css';
+import { SITE_TITLE, tracks } from '../lib/site.mjs';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Wide pages (glossary, reference shelf) skip the prose measure. */
+  wide?: boolean;
+}
+
+const { title, description } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const fullTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
+    <script is:inline>
+      // Set before first paint so a dark-mode reader never sees a white flash.
+      try {
+        const stored = localStorage.getItem('theme');
+        if (stored === 'dark' || stored === 'light') {
+          document.documentElement.dataset.theme = stored;
+        }
+      } catch {}
+    </script>
+  </head>
+
+  <body>
+    <header class="masthead">
+      <div class="masthead__inner">
+        <a class="masthead__title" href={`${base}/`}>{SITE_TITLE}</a>
+        <nav class="masthead__nav">
+          <a href={`${base}/glossary/`}>Glossary</a>
+          <a href={`${base}/notation/`}>Notation</a>
+          <a href={`${base}/references/`}>References</a>
+          <a href={`${base}/data-sources/`}>Data</a>
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch between light and dark">
+            theme
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="shell" style="padding: 0">
+        <p>
+          {tracks.length} tracks · single author · every figure names its source. Corrections and disagreements are
+          welcome — this site is written to be falsifiable.
+        </p>
+      </div>
+    </footer>
+
+    <script is:inline>
+      document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => {
+        const root = document.documentElement;
+        const current =
+          root.dataset.theme ??
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const next = current === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = next;
+        try {
+          localStorage.setItem('theme', next);
+        } catch {}
+      });
+    </script>
+  </body>
+</html>

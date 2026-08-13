@@ -1,0 +1,27 @@
+{
+  "name": "markets-first-principles",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Finance and economics from first principles, for readers who already think like physicists.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "scaffold": "node scripts/scaffold-content.mjs",
+    "audit:content": "node scripts/audit-content.mjs",
+    "data:fallback": "python3 pipeline/synthesize_fallback.py",
+    "data:refresh": "python3 pipeline/run_all.py"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.14",
+    "@observablehq/plot": "^0.6.17",
+    "astro": "^5.6.1",
+    "hast-util-to-string": "^3.0.1",
+    "katex": "^0.16.22",
+    "linkedom": "^0.18.9",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
+    "unist-util-visit": "^5.0.0"
+  }
+}

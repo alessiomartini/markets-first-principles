@@ -1,0 +1,252 @@
+---
+/**
+ * The one live thing on the site.
+ *
+ * The architecture rule allows the browser to talk to exactly one API, and this
+ * is it: Binance's public depth stream, which needs no key and no server of
+ * ours. Everything else on every page is static JSON committed to the repo.
+ *
+ * Deliberately written in plain DOM rather than a framework — a book ladder is
+ * a list of rows, and importing a renderer to draw one would cost every reader
+ * more than the feature is worth.
+ */
+interface Props {
+  symbol?: string;
+  levels?: number;
+}
+
+const { symbol = 'btcusdt', levels = 12 } = Astro.props;
+---
+
+<div class="book" data-symbol={symbol} data-levels={levels}>
+  <div class="book__head">
+    <span class="book__pair">{symbol.toUpperCase()}</span>
+    <span class="book__status" data-status>connecting…</span>
+  </div>
+
+  <div class="book__grid">
+    <div class="book__col">
+      <div class="book__colhead">
+        <span>bid size</span><span>bid</span>
+      </div>
+      <ol class="book__side book__side--bid" data-bids></ol>
+    </div>
+    <div class="book__col">
+      <div class="book__colhead">
+        <span>ask</span><span>ask size</span>
+      </div>
+      <ol class="book__side book__side--ask" data-asks></ol>
+    </div>
+  </div>
+
+  <p class="book__spread" data-spread></p>
+  <noscript>
+    <p class="book__fallback">
+      The live book needs JavaScript. The static depth chart below shows the same object at one instant.
+    </p>
+  </noscript>
+</div>
+
+<style>
+  .book {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .book__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .book__pair {
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .book__status {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+  }
+
+  .book__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+  }
+
+  .book__colhead {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem 0.3rem;
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .book__side {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0.6rem;
+  }
+
+  .book__side li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.12rem 1rem;
+    font-variant-numeric: tabular-nums;
+    position: relative;
+  }
+
+  /* The depth bar is a background layer so the numbers stay full-contrast ink. */
+  .book__side li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: var(--fill, 0%);
+    opacity: 0.16;
+    z-index: 0;
+  }
+
+  .book__side--bid li::before {
+    right: 0;
+    background: var(--series-1);
+  }
+
+  .book__side--ask li::before {
+    left: 0;
+    background: var(--series-ask);
+  }
+
+  .book__side li span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .book__side--bid .book__price {
+    color: var(--series-1);
+    font-weight: 600;
+  }
+
+  .book__side--ask .book__price {
+    color: var(--series-ask);
+    font-weight: 600;
+  }
+
+  .book__spread,
+  .book__fallback {
+    margin: 0;
+    padding: 0.6rem 1rem;
+    border-top: 1px solid var(--rule);
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 34rem) {
+    .book__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('.book');
+
+  if (root) {
+    const symbol = root.dataset.symbol ?? 'btcusdt';
+    const levels = Number(root.dataset.levels ?? 12);
+    const bidsEl = root.querySelector<HTMLElement>('[data-bids]')!;
+    const asksEl = root.querySelector<HTMLElement>('[data-asks]')!;
+    const statusEl = root.querySelector<HTMLElement>('[data-status]')!;
+    const spreadEl = root.querySelector<HTMLElement>('[data-spread]')!;
+
+    const number = (value: number, digits: number) =>
+      value.toLocaleString('en-GB', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+
+    /** Rows are drawn with cumulative size, which is what "depth" means. */
+    function draw(target: HTMLElement, levelData: [string, string][], side: 'bid' | 'ask', total: number) {
+      let cumulative = 0;
+      target.replaceChildren(
+        ...levelData.map(([price, size]) => {
+          cumulative += Number(size);
+          const li = document.createElement('li');
+          li.style.setProperty('--fill', `${Math.min(100, (cumulative / total) * 100)}%`);
+
+          const priceEl = document.createElement('span');
+          priceEl.className = 'book__price';
+          priceEl.textContent = number(Number(price), 2);
+
+          const sizeEl = document.createElement('span');
+          sizeEl.textContent = number(Number(size), 4);
+
+          li.append(...(side === 'bid' ? [sizeEl, priceEl] : [priceEl, sizeEl]));
+          return li;
+        })
+      );
+    }
+
+    let socket: WebSocket | null = null;
+
+    function connect() {
+      socket = new WebSocket(`wss://stream.binance.com:9443/ws/${symbol}@depth20@100ms`);
+
+      socket.addEventListener('open', () => {
+        statusEl.textContent = 'live · 100ms';
+      });
+
+      socket.addEventListener('message', (event) => {
+        const payload = JSON.parse(event.data);
+        const bids: [string, string][] = (payload.bids ?? []).slice(0, levels);
+        const asks: [string, string][] = (payload.asks ?? []).slice(0, levels);
+        if (!bids.length || !asks.length) return;
+
+        const total = Math.max(
+          bids.reduce((sum, [, size]) => sum + Number(size), 0),
+          asks.reduce((sum, [, size]) => sum + Number(size), 0)
+        );
+
+        draw(bidsEl, bids, 'bid', total);
+        draw(asksEl, asks, 'ask', total);
+
+        const bestBid = Number(bids[0][0]);
+        const bestAsk = Number(asks[0][0]);
+        const mid = (bestBid + bestAsk) / 2;
+        spreadEl.textContent =
+          `spread ${number(bestAsk - bestBid, 2)} · ${number(((bestAsk - bestBid) / mid) * 10000, 2)} bp · ` +
+          `mid ${number(mid, 2)}`;
+      });
+
+      socket.addEventListener('error', () => {
+        statusEl.textContent = 'stream unavailable';
+      });
+
+      socket.addEventListener('close', () => {
+        if (statusEl.textContent === 'live · 100ms') statusEl.textContent = 'disconnected';
+      });
+    }
+
+    // Only stream while the book is actually on screen; a reader who has
+    // scrolled past should not be holding a socket open.
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting && !socket) connect();
+        else if (!entry.isIntersecting && socket) {
+          socket.close();
+          socket = null;
+          statusEl.textContent = 'paused';
+        }
+      }
+    });
+
+    observer.observe(root);
+  }
+</script>

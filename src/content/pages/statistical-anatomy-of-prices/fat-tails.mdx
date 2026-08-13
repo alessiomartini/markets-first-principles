@@ -1,0 +1,127 @@
+---
+title: "Fat tails"
+track: 3
+order: 2
+status: written
+summary: "Large moves are not rare accidents at the edge of a bell curve. They are a power law, and they dominate everything you care about."
+terms:
+  - "kurtosis"
+  - "tail exponent"
+  - "Lévy distribution"
+  - "drawdown"
+  - "value at risk"
+  - "VaR breach"
+figure:
+  id: "return-ccdf"
+  title: "Survival function of normalised returns, log–log axes"
+  source: "Stooq, Binance public REST"
+  series: "S&P 500 (^SPX), EUR/USD, BTCUSDT — daily log returns, normalised by sample volatility"
+  period: "longest available common history"
+  script: "pipeline/fetch_tails.py"
+  notice: "Each series is close to a straight line over two decades on log–log axes, with slope near −3, while the Gaussian reference falls off a cliff — at four standard deviations the empirical curves sit orders of magnitude above it."
+  falsifiedBy: "The reading fails if the apparent straight line is an artefact of normalising by a single sample volatility; the test is that the fitted exponent should be stable when the sample is split into subperiods with separate normalisation."
+---
+
+## IN ONE SENTENCE
+
+The probability of a large price move decays as a power of its size, not exponentially, so moves that a Gaussian
+would call impossible happen several times a decade.
+
+## WHY IT EXISTS
+
+The Gaussian is not an arbitrary default. If returns over a day were the sum of many small independent shocks, the
+central limit theorem would deliver a Gaussian, and this page would not exist. So the observed fat tails are direct
+evidence that at least one of those assumptions fails.
+
+Both do. Shocks are not independent — volatility clusters, so large moves arrive in bursts rather than in isolation.
+And they are not identically distributed with finite scale — the amount of information and forced liquidation
+arriving at the market is itself wildly variable. What survives is a distribution whose body looks unremarkable and
+whose tail is heavy enough to dominate every quantity that matters: the average loss on your worst days, the size of
+the **drawdown** you must survive, the capital a regulator makes you hold.
+
+## DEFINITION
+
+A distribution has **fat tails** when the probability of large outcomes decays as a power law rather than
+exponentially. The sharpest summary is the **tail exponent** $\alpha$, defined by how the survival function behaves
+far from the centre: it fixes which moments exist, since moments of order $\alpha$ and above are infinite.
+
+The cruder summary is **kurtosis**, the normalised fourth moment, with the Gaussian value subtracted so that zero
+means "as fat as a Gaussian". Daily equity returns routinely show excess kurtosis of 10 or more. Its weakness is
+that it is one number driven by a handful of observations, and if $\alpha \le 4$ it does not exist at all — which is
+uncomfortably close to what is measured.
+
+The first serious proposal for the tails, Mandelbrot's in the 1960s, was the **Lévy distribution**: the family
+stable under addition, of which the Gaussian is the finite-variance special case. The modern verdict is that this
+was the right idea and the wrong fit. Measured exponents cluster near 3, outside the stable range $\alpha < 2$, so
+returns are fat-tailed but do have finite variance.
+
+Two risk measures make the consequences concrete. **Value at risk** is a quantile of the loss distribution — the
+loss not exceeded with probability $p$ over a stated horizon. A **VaR breach** is a day on which the realised loss
+exceeded it. Fat tails do not merely make breaches more common; they make them *clustered* and *deep*, and VaR by
+construction says nothing about depth.
+
+## FORMALLY
+
+The tail is a power law if the survival function is asymptotically scale-free:
+
+$$
+P\left(|r| > x\right) \;\underset{x \to \infty}{\sim}\; C x^{-\alpha}
+$$
+
+Taking logarithms, $\ln P(|r| > x) = \ln C - \alpha \ln x$, so a power-law tail is a straight line on log–log axes
+with slope $-\alpha$. This is the whole reason the figure below uses those axes: the diagnostic is linearity, and
+the estimate is a slope.
+
+The empirical finding, robust across markets, decades and asset classes, is the *inverse cubic law*:
+
+$$
+\alpha \approx 3
+$$
+
+This value sits at an awkward place. Since $\alpha > 2$, the variance exists and **volatility** is a meaningful
+quantity. Since $\alpha \approx 3 < 4$, the fourth moment does not converge, so measured **kurtosis** grows with
+sample size instead of settling — which is exactly what is observed, and why kurtosis is a bad statistic to argue
+with.
+
+## PHYSICS BRIDGE
+
+<PhysicsBridge idea="Critical exponents, and which fixed point you flow to">
+A power-law tail with no characteristic scale is the same object as a critical correlation function, and it should
+be estimated with the same discipline: fit the tail, never the body, state the fit range, and check the estimate is
+stable as the range moves. Hill estimators are the standard tool and are as sensitive to threshold choice as any
+critical exponent fit.
+
+The deeper connection is to the classification of limit laws. Summing many independent random variables is a
+renormalisation-group flow with two fixed points: the Gaussian when the variance is finite, and the Lévy stable laws
+when it is not. Mandelbrot's proposal was that returns flow to the second. The data say something more interesting —
+returns are *not* independent, so neither fixed point governs them cleanly, and the aggregation towards Gaussianity
+happens far more slowly than independence would predict. That anomalously slow convergence is the subject of the
+scale invariance page, and it is a stronger signal than the tail exponent itself.
+</PhysicsBridge>
+
+## IN THE DATA
+
+<Figure figure={frontmatter.figure} />
+
+## COMMON CONFUSIONS
+
+- **Fat tails are not "more volatility".** Volatility is a scale parameter; tails are a shape. A series can have
+  identical volatility and a completely different probability of ruin.
+- **"Six-sigma event" is a statement about a model, not about the world.** Under a power law with $\alpha \approx 3$
+  a six-sigma daily move is a roughly once-a-decade occurrence, not a once-in-the-age-of-the-universe one. Reaching
+  for the phrase is usually an admission that the Gaussian was assumed.
+- **A fat tail is not a fat body.** The distribution near the centre is unremarkable and often looks Gaussian, which
+  is why in-sample fit statistics dominated by the body will happily accept the wrong model.
+- **Kurtosis is not the tail exponent.** They point the same way but kurtosis may not exist, and it is dominated by
+  a few points. If a claim about tails rests on a kurtosis number, it rests on about five observations.
+
+## GO DEEPER
+
+- Bouchaud & Potters, *Theory of Financial Risk and Derivative Pricing*, chapters 1–2. The definitive treatment of
+  return distributions and why the Gaussian fails, written for exactly this reader.
+- Benzaquen, *Modelling Financial Markets*, §2 — the stylised facts, including the inverse cubic law, in this
+  site's notation.
+- Mantegna & Stanley, *An Introduction to Econophysics*, chapters 3–5, for the Lévy story told by the people who
+  tested it.
+- Paper: Gopikrishnan, Plerou, Amaral, Meyer & Stanley, *Scaling of the distribution of fluctuations of financial
+  market indices* (Phys. Rev. E, 1999) — the paper that pinned $\alpha \approx 3$ across scales and markets.

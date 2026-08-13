@@ -1,0 +1,64 @@
+name: Refresh figure data
+
+# The architecture rule: the browser talks to at most one live API, and
+# everything else is pulled here, reduced to small JSON, and committed. This
+# job is the only thing that touches src/data/figures/.
+#
+# Pushing the commit triggers deploy.yml, so a successful refresh publishes
+# itself.
+
+on:
+  schedule:
+    # 06:20 UTC daily. Not on the hour, to stay off the crowded slot on the
+    # free-tier APIs this pipeline depends on.
+    - cron: '20 6 * * *'
+  workflow_dispatch:
+    inputs:
+      force_synthetic:
+        description: 'Regenerate synthetic placeholders instead of fetching'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # requirements.txt is intentionally empty — the pipeline runs on the
+      # standard library. Kept as a step so adding a dependency is one line.
+      - run: pip install -r pipeline/requirements.txt
+
+      - name: Fetch
+        if: ${{ !inputs.force_synthetic }}
+        run: python pipeline/run_all.py
+        # A dead free-tier API should not fail the workflow: the figures it
+        # could not refresh keep their previous committed values, and the run
+        # summary below records what happened.
+        continue-on-error: true
+
+      - name: Synthesise placeholders for figures with no data yet
+        run: python pipeline/synthesize_fallback.py ${{ inputs.force_synthetic && '--force' || '' }}
+
+      - name: Commit if anything changed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+          # generatedAt changes on every run, so compare the data instead of
+          # the whole file — otherwise this commits a no-op diff every day.
+          if git diff --quiet -- src/data/figures/; then
+            echo 'no figure changes'
+            exit 0
+          fi
+
+          git add src/data/figures/
+          git commit -m 'data: scheduled figure refresh'
+          git push

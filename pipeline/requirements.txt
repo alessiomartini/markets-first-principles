@@ -1,0 +1,6 @@
+# The pipeline deliberately runs on the standard library alone.
+#
+# Every fetch script uses urllib, csv, json and math. That keeps the scheduled
+# job fast, keeps the lockfile-free CI honest, and means a dependency cannot
+# break a data refresh. Add a line here only when a figure genuinely needs it
+# (a covariance-cleaning figure in Track 3 will want numpy), and pin it.

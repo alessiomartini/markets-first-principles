@@ -1,0 +1,15 @@
+# Aggregate market sizes for Track 0, "What a market is".
+#
+# These four numbers are published as PDF and spreadsheet reports rather than
+# through an API, so they are transcribed by hand — once a year — and every row
+# must carry the exact document it came from. Rows without a source_url are
+# ignored by the pipeline, which is what keeps an unverified number off the site.
+#
+# Crypto is NOT listed here: pipeline/fetch_market_sizes.py pulls it live from
+# CoinGecko and appends it.
+#
+# unit: "stock" for an amount outstanding, "flow" for a per-day turnover. The
+# chart prints the unit on each bar because comparing the two is the single most
+# common error this figure exists to prevent.
+#
+# label,value_usd_trillions,unit,as_of,source_url

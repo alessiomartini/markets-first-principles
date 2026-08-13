@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { tracks, SITE_TAGLINE } from '../lib/site.mjs';
+
+const pages = await getCollection('pages');
+const written = new Set(pages.filter((page) => page.data.status === 'written').map((page) => page.id));
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const total = pages.length;
+---
+
+<Base description={SITE_TAGLINE}>
+  <div class="page-head">
+    <p class="eyebrow">Markets from first principles</p>
+    <h1>Finance, for people who already know how to think</h1>
+    <p class="page-head__summary">{SITE_TAGLINE}</p>
+  </div>
+
+  <div class="prose">
+    <p>
+      A physicist can derive Black–Scholes from the heat equation in an afternoon and still have no idea what
+      <em>the book</em>, <em>carry</em>, <em>basis</em>, or <em>flow</em> mean in a trading room. That gap is
+      vocabulary and institutions, not mathematics — so this site leads with the words, states them formally only
+      once they mean something, and ends every page with real data rather than an exercise.
+    </p>
+    <p>
+      Each page follows the same eight slots: what it is in one sentence, why it exists, the practitioner's
+      definition, the formal statement, the physics bridge, the data, the confusions, and where to read more.
+      Where finance genuinely does not know the answer — permanent impact, the equity premium, whether factors
+      survive out of sample — the page says so.
+    </p>
+    <p>
+      <strong>{written.size} of {total}</strong> pages are written; the rest are stubs with their vocabulary and
+      figure already specified.
+    </p>
+  </div>
+
+  <div class="track-grid">
+    {
+      tracks.map((track) => (
+        <section class="track-card" id={`track-${track.number}`}>
+          <p class="eyebrow">Track {track.number}</p>
+          <h2>{track.title}</h2>
+          <p>{track.purpose}</p>
+          <ol>
+            {track.pages.map((page) => {
+              const id = `${track.slug}/${page.slug}`;
+              return (
+                <li>
+                  <a href={`${base}/tracks/${id}/`}>{page.title}</a>
+                  {written.has(id) && <span class="written-dot" title="written"> ●</span>}
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+      ))
+    }
+  </div>
+</Base>

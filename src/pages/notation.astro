@@ -1,0 +1,167 @@
+---
+import katex from 'katex';
+import Base from '../layouts/Base.astro';
+
+/**
+ * One consistent set of symbols across the whole site, stated once. Where the
+ * conventions of different literatures collide, this page picks one and the
+ * rest of the site follows it — the collisions are called out explicitly so a
+ * reader coming from a textbook knows what changed.
+ */
+const tex = (source: string) => katex.renderToString(source, { throwOnError: false, output: 'html' });
+
+const groups = [
+  {
+    title: 'Prices and returns',
+    rows: [
+      ['S_t', 'Price of the underlying at time $t$. Always a price, never a log price.'],
+      ['x_t = \\ln S_t', 'Log price. The additive variable; almost all statistics are done here.'],
+      ['r_t = x_t - x_{t-1}', 'Log return over one period. Simple returns are written $R_t$ when needed.'],
+      ['\\mu', 'Drift, per unit time.'],
+      ['\\sigma', 'Volatility, per unit time, as a standard deviation of log returns.'],
+      ['\\sigma_{\\text{ann}}', 'Annualised volatility. The site never annualises without saying so.'],
+      ['\\Delta t', 'Sampling interval. Stated on every figure, because the stylised facts depend on it.'],
+    ],
+  },
+  {
+    title: 'Distributions and dependence',
+    rows: [
+      ['\\kappa', 'Excess kurtosis. Zero for a Gaussian.'],
+      ['\\alpha', 'Tail exponent of the return distribution: $P(|r| > x) \\sim x^{-\\alpha}$.'],
+      ['H', 'Hurst exponent.'],
+      ['C(\\tau)', 'Autocorrelation function at lag $\\tau$.'],
+      ['\\rho_{ij}', 'Correlation between assets $i$ and $j$.'],
+      ['N,\\; T', 'Number of assets and number of observations.'],
+      ['q = N/T', 'Marchenko–Pastur aspect ratio. Not a quantity of anything — see the collision note below.'],
+      ['\\lambda', 'Eigenvalue of a correlation matrix.'],
+    ],
+  },
+  {
+    title: 'Microstructure',
+    rows: [
+      ['b_t,\\; a_t', 'Best bid and best ask.'],
+      ['m_t = (a_t + b_t)/2', 'Mid price.'],
+      ['s_t = a_t - b_t', 'Quoted spread.'],
+      ['\\varepsilon_t \\in \\{-1, +1\\}', 'Trade sign: $+1$ if the trade was buyer-initiated.'],
+      ['v_t', 'Volume of the trade at time $t$.'],
+      ['Q', 'Total size of a metaorder — the thing whose impact is measured.'],
+      ['\\mathcal{I}(Q)', 'Market impact of a metaorder of size $Q$.'],
+      ['G(\\tau)', 'Propagator: the residual price response $\\tau$ events after a unit trade.'],
+    ],
+  },
+  {
+    title: 'Rates and pricing',
+    rows: [
+      ['D(t,T)', 'Discount factor from $T$ back to $t$.'],
+      ['y(t,T)', 'Yield to maturity.'],
+      ['f(t,T_1,T_2)', 'Forward rate between $T_1$ and $T_2$ seen from $t$.'],
+      ['K', 'Strike.'],
+      ['\\tau = T - t', 'Time to expiry.'],
+      ['C,\\; P', 'Call and put prices.'],
+      ['\\Delta,\\; \\Gamma,\\; \\mathcal{V},\\; \\Theta', 'Delta, gamma, vega, theta. Vega is written $\\mathcal{V}$ because it is not a Greek letter.'],
+      ['\\sigma_{\\text{imp}}(K,T)', 'Implied volatility. The surface, not a constant.'],
+      ['\\mathbb{P},\\; \\mathbb{Q}', 'Physical and risk-neutral measures.'],
+      ['W_t', 'Standard Wiener process.'],
+    ],
+  },
+  {
+    title: 'Portfolio and risk',
+    rows: [
+      ['w_i', 'Portfolio weight in asset $i$.'],
+      ['\\Sigma', 'Covariance matrix.'],
+      ['\\text{SR}', 'Sharpe ratio, always net of costs unless the page says gross.'],
+      ['\\beta', 'Sensitivity to a factor; the factor is always named.'],
+      ['\\text{VaR}_p', 'Value at risk at confidence $p$, stated with its horizon.'],
+      ['\\text{ES}_p', 'Expected shortfall at confidence $p$.'],
+      ['f^*', 'Kelly-optimal betting fraction.'],
+    ],
+  },
+];
+
+const collisions = [
+  [
+    '$q$',
+    'Microstructure uses $q$ for order size; random matrix theory uses $q = N/T$. This site reserves $q$ for the aspect ratio and writes metaorder size as $Q$, trade volume as $v$.',
+  ],
+  [
+    '$\\sigma$',
+    'Options literature says "vol" meaning implied volatility; the statistics literature means realised standard deviation. Bare $\\sigma$ here is always realised; implied is always $\\sigma_{\\text{imp}}$.',
+  ],
+  [
+    '$\\alpha$',
+    'The tail exponent in Track 3 and the excess return in Track 7 are both conventionally $\\alpha$. Track 7 writes excess return as $\\alpha_{\\text{ex}}$ wherever both could appear.',
+  ],
+  [
+    '$\\Delta$',
+    'Option delta and a first difference. Differences are written $\\Delta t$, $\\Delta p$ with an explicit argument; bare $\\Delta$ is the greek.',
+  ],
+];
+
+/** Inline $…$ inside the prose column, rendered at build time. */
+function inlineMath(text: string) {
+  return text.replace(/\$([^$]+)\$/g, (_, expression) => tex(expression));
+}
+---
+
+<Base title="Notation" description="One consistent set of symbols across the whole site, stated once.">
+  <div class="page-head">
+    <p class="eyebrow">Persistent surface</p>
+    <h1>Notation</h1>
+    <p class="page-head__summary">
+      Finance inherits its symbols from several literatures that disagree with each other. This page picks one
+      convention per symbol and the rest of the site obeys it.
+    </p>
+  </div>
+
+  {
+    groups.map((group) => (
+      <section>
+        <h2 style="font-family: var(--font-ui); font-size: 1.05rem; margin-top: 2.5rem">{group.title}</h2>
+        <div class="table-scroll">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th scope="col" style="width: 12rem">Symbol</th>
+                <th scope="col">Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              {group.rows.map(([symbol, meaning]) => (
+                <tr>
+                  <td><Fragment set:html={tex(symbol)} /></td>
+                  <td><Fragment set:html={inlineMath(meaning)} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    ))
+  }
+
+  <section>
+    <h2 style="font-family: var(--font-ui); font-size: 1.05rem; margin-top: 3rem">Deliberate collisions</h2>
+    <p class="prose">
+      These are the symbols where two literatures genuinely clash. Each row says which convention this site
+      follows, so a reader arriving from a textbook knows exactly what has been changed.
+    </p>
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 12rem">Symbol</th>
+            <th scope="col">Ruling</th>
+          </tr>
+        </thead>
+        <tbody>
+          {collisions.map(([symbol, ruling]) => (
+            <tr>
+              <td><Fragment set:html={inlineMath(symbol)} /></td>
+              <td><Fragment set:html={inlineMath(ruling)} /></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Base>

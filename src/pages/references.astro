@@ -1,0 +1,170 @@
+---
+import Base from '../layouts/Base.astro';
+
+/**
+ * The reference shelf. Annotated, not a bibliography: each entry says what the
+ * book is *for* on this site, because the useful question is never "is this a
+ * good book" but "which of my problems does it solve".
+ */
+const shelves = [
+  {
+    title: 'The skeleton',
+    blurb:
+      'The single best-matched source for a reader coming from theoretical physics, and the source whose notation the site keeps.',
+    items: [
+      {
+        cite: 'Benzaquen, Modelling Financial Markets: an Introduction to Econophysics (ECO 586/PHY 560C, École Polytechnique, 2023)',
+        note: '116 pages covering stylised facts, the continuous double auction, propagator and GARCH models, agent-based models, dimensional analysis, the square-root impact law, latent order book models and financial engineering. Used as the skeleton for Track 3 and much of Track 2.',
+      },
+    ],
+  },
+  {
+    title: 'The vocabulary problem — read these for the words',
+    blurb:
+      'The site exists because the words are the hard part. These are the books whose definitions it follows, so its language matches everyone else’s.',
+    items: [
+      {
+        cite: 'Hull, Options, Futures, and Other Derivatives',
+        note: 'The standard. Tracks 1 and 4 follow its definitions deliberately, so that a reader can move between this site and any trading desk without retranslating.',
+      },
+      {
+        cite: 'Harris, Trading and Exchanges: Market Microstructure for Practitioners',
+        note: 'The best book in existence for the institutional vocabulary of Tracks 0 and 2. Almost no maths, which is exactly why it works.',
+      },
+      {
+        cite: 'Mishkin, The Economics of Money, Banking and Financial Markets',
+        note: 'The reference for Tracks 5 and 6 — particularly for the plumbing that other macro texts assume.',
+      },
+      {
+        cite: 'CORE Econ, The Economy 2.0 (free, open access)',
+        note: 'The economics spine. Empirically motivated rather than axiom-first, which suits a reader who expects a model to be confronted with data.',
+      },
+    ],
+  },
+  {
+    title: 'Physicist bridges',
+    blurb: 'Where the analogy is load-bearing rather than decorative.',
+    items: [
+      {
+        cite: 'Bouchaud & Potters, Theory of Financial Risk and Derivative Pricing',
+        note: 'The canonical transition book: statistical-physics framing of risk, tails, correlations, and option pricing beyond Black–Scholes.',
+      },
+      {
+        cite: 'Bouchaud, Bonart, Donier & Gould, Trades, Quotes and Prices',
+        note: 'Definitive on order books, impact and price formation. The backbone of Track 2.',
+      },
+      {
+        cite: 'Mantegna & Stanley, An Introduction to Econophysics',
+        note: 'Scaling and stylised facts, from the group that established most of them.',
+      },
+      {
+        cite: 'Sornette, Why Stock Markets Crash',
+        note: 'Critical phenomena, log-periodicity and bubbles. Read for the framing; treat the predictions as contested.',
+      },
+      {
+        cite: 'Schmidt, Quantitative Finance for Physicists',
+        note: 'Short, and written explicitly for this transition.',
+      },
+      {
+        cite: 'Derman, My Life as a Quant and Models.Behaving.Badly',
+        note: 'The epistemics of financial modelling from a physicist who lived it. Paired with the Financial Modelers’ Manifesto as the site’s closing page.',
+      },
+    ],
+  },
+  {
+    title: 'Mathematics and pricing',
+    blurb: 'Reach for these when the formal statement stops being obvious.',
+    items: [
+      {
+        cite: 'Shreve, Stochastic Calculus for Finance I & II',
+        note: 'Volume II is the reference for measure-theoretic pricing. Skim it; do not grind through it.',
+      },
+      {
+        cite: 'Gatheral, The Volatility Surface; Bergomi, Stochastic Volatility Modeling',
+        note: 'The two books for the smile page. Gatheral first, Bergomi when Gatheral stops being enough.',
+      },
+      {
+        cite: 'Wilmott, Paul Wilmott on Quantitative Finance',
+        note: 'PDE-first, which is the comfortable door for a physicist.',
+      },
+    ],
+  },
+  {
+    title: 'Microstructure and execution',
+    blurb: null,
+    items: [
+      { cite: 'Cartea, Jaimungal & Penalva, Algorithmic and High-Frequency Trading', note: null },
+      { cite: 'Almgren & Chriss, Optimal Execution of Portfolio Transactions (paper)', note: null },
+      {
+        cite: 'O’Hara, Market Microstructure Theory',
+        note: 'Adverse selection, Glosten–Milgrom, Kyle — the theory the empirical pages keep bumping into.',
+      },
+    ],
+  },
+  {
+    title: 'Portfolio, risk, and the empirical record',
+    blurb: null,
+    items: [
+      { cite: 'Grinold & Kahn, Active Portfolio Management', note: null },
+      {
+        cite: 'Ilmanen, Expected Returns',
+        note: 'The best single survey of what has actually paid, and why.',
+      },
+      {
+        cite: 'Bouchaud, Potters et al. on random matrix theory for covariance cleaning (papers)',
+        note: 'The source for the correlations page and for why naive Markowitz fails.',
+      },
+      {
+        cite: 'López de Prado, Advances in Financial Machine Learning',
+        note: 'For Track 7’s pathologies chapter specifically.',
+      },
+      {
+        cite: 'Kelly & Xiu, Financial Machine Learning (survey, freely available)',
+        note: 'Current state of the art, and free.',
+      },
+    ],
+  },
+  {
+    title: 'Complexity and heterodox economics',
+    blurb: null,
+    items: [
+      { cite: 'Farmer, Making Sense of Chaos', note: null },
+      { cite: 'Kirman, on herding and the ant model', note: 'The source for the agent-based figure in Track 5.' },
+      { cite: 'The Santa Fe artificial stock market', note: null },
+    ],
+  },
+];
+---
+
+<Base title="References" description="The reference shelf, annotated: what each book is for on this site.">
+  <div class="page-head">
+    <p class="eyebrow">Persistent surface</p>
+    <h1>Reference shelf</h1>
+    <p class="page-head__summary">
+      Annotated rather than exhaustive. Each entry says which of this site's problems the book solves, because
+      that is the only question worth answering about a reading list.
+    </p>
+  </div>
+
+  {
+    shelves.map((shelf) => (
+      <section style="margin-top: 3rem">
+        <h2 style="font-family: var(--font-ui); font-size: 1.05rem; margin-bottom: 0.4rem">{shelf.title}</h2>
+        {shelf.blurb && <p class="prose" style="color: var(--text-secondary)">{shelf.blurb}</p>}
+        <div class="prose" style="max-width: 42rem">
+          {shelf.items.map((item) => (
+            <p style="margin-bottom: 1.2rem">
+              <strong style="font-weight: 600">{item.cite}</strong>
+              {item.note && (
+                <>
+                  <br />
+                  <span style="color: var(--text-secondary); font-size: 0.95rem">{item.note}</span>
+                </>
+              )}
+            </p>
+          ))}
+        </div>
+      </section>
+    ))
+  }
+</Base>

@@ -1,0 +1,36 @@
+{
+ "id": "market-sizes",
+ "generatedAt": "2026-08-13T10:53:52+00:00",
+ "synthetic": true,
+ "chart": "bar",
+ "x": {
+  "label": "USD trillions (log scale) — note the mix of stocks and flows",
+  "type": "log"
+ },
+ "data": [
+  {
+   "label": "Bonds (outstanding)",
+   "value": 140.0,
+   "unit": "stock",
+   "display": "~$140tn (synthetic)"
+  },
+  {
+   "label": "Equities (market cap)",
+   "value": 110.0,
+   "unit": "stock",
+   "display": "~$110tn (synthetic)"
+  },
+  {
+   "label": "FX (turnover)",
+   "value": 7.5,
+   "unit": "flow",
+   "display": "~$8tn/day (synthetic)"
+  },
+  {
+   "label": "Crypto (market cap)",
+   "value": 3.0,
+   "unit": "stock",
+   "display": "~$3tn (synthetic)"
+  }
+ ]
+}

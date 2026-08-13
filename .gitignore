@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+
+# Raw payloads from the data pipeline. Only the reduced JSON in
+# src/data/figures/ is committed — see README, "Data architecture".
+pipeline/.cache/
