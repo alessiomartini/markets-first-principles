@@ -2,7 +2,7 @@
 title: "Liquidity"
 track: 2
 order: 3
-status: stub
+status: written
 summary: "How much you can trade, how fast, and how far you move the price doing it. Three different questions with one name."
 terms:
   - "spread"
@@ -18,35 +18,107 @@ figure:
   series: "BTCUSDT 1m klines and book snapshots"
   period: "trailing 60 days"
   script: "pipeline/fetch_intraday_liquidity.py"
+  notice: "Spread and depth move in opposition through the day and both are worst in the same hours, so the two measures agree about when trading is expensive even though they measure different things."
+  falsifiedBy: "The reading fails if spread and depth are uncorrelated across the day, which would mean the U-shape is a property of one measure rather than of liquidity itself."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Liquidity is how cheaply you can change your mind, and it is three separate quantities that people insist on calling
+by one name.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Liquidity is not a property of an asset but a service, supplied by participants who are willing to take the other
+side of your trade before they have found someone to pass it on to. Somebody has to warehouse the position in
+between, and warehousing costs money and carries risk.
+
+This is why liquidity is never free and never guaranteed. It is priced, it is supplied by firms making a commercial
+decision, and it is withdrawn exactly when warehousing is most dangerous — which is to say, in a crisis. Anyone who
+models liquidity as a fixed transaction cost has assumed away the thing that makes it interesting: it is a
+behaviour, not a constant, and it disappears in a way that is correlated across every asset at once.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+Three distinct measurements share the name, and they routinely disagree.
+
+The **spread** — the gap between best **bid** and best **ask** — is the round-trip cost of trading a small
+quantity immediately. It is the most quoted measure and the least relevant to anyone trading size.
+
+**Depth** is the quantity resting at each price level, or cumulatively out to some distance from the mid. It
+determines what a large order actually pays, and a tight spread with no depth behind it is a market that looks
+cheap and is not.
+
+**Resilience** is how quickly the **order book** refills after being consumed. It decides whether an order can be
+worked patiently over time or must pay its impact at once, and it is the least measured of the three.
+
+Two volume-based measures complete the picture. **Average daily volume** is the unit in which order size is
+universally discussed, because a trade's cost depends on its ratio to ADV rather than on its absolute size.
+**Turnover** normalises volume by the amount outstanding, which is how activity is compared across assets of very
+different sizes.
+
+Behind all of them sits **latent liquidity**: the interest that exists but is not displayed. The visible book is a
+small fraction of true supply and demand, which is why it predicts poorly what would trade at a given price.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+The three measurements can be read off one object, the response of execution cost to size. For small $Q$ the cost
+per unit is set by the spread alone,
+
+$$
+C(Q) \approx \frac{s_t}{2}, \qquad Q \to 0
+$$
+
+For larger $Q$ it is set by the shape of the book, and empirically by the square-root law once the book's reaction
+is included,
+
+$$
+C(Q) \approx Y \sigma \sqrt{\frac{Q}{V}}, \qquad Q \gtrsim \text{top-of-book depth}
+$$
+
+with $V$ the **average daily volume** and $Y$ a constant of order one. Resilience does not appear in either
+expression, because it is not a property of a single trade — it governs how $C$ behaves when the same quantity is
+split across time, and therefore whether the second expression can be beaten by patience.
+
+The practical consequence is that no single number summarises liquidity. A market is characterised by a *curve*,
+and quoting the spread is reporting one point on it — the point corresponding to a trade size nobody with a real
+position cares about.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A transport coefficient, not a state variable">
+Liquidity behaves like a transport coefficient: it is defined only relative to a perturbation of a given size and
+frequency, and quoting it without those is meaningless in the same way as quoting a conductivity without saying at
+what field strength.
+
+The analogy earns its place by predicting the failure mode. Transport coefficients are properties of a system near
+equilibrium, and they stop describing anything when the system is driven hard. That is precisely what happens in a
+crisis: the linear-response picture in which trading costs a predictable spread breaks down, liquidity providers
+withdraw, and the market moves into a regime where the coefficient is not merely different but undefined. Risk
+models that treat liquidity as a fixed haircut are extrapolating a near-equilibrium quantity into exactly the
+regime where it does not exist.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Volume is not liquidity.** They diverge most in a crisis, when volume explodes and depth collapses. High
+  **turnover** with no depth is churn.
+- **The spread is one point on a curve.** For any institutional size it is close to irrelevant, and improvements in
+  quoted spreads over the last two decades have not been matched by improvements in depth.
+- **Liquidity is not a property of the asset.** It is a property of the market for the asset at a moment, supplied
+  by firms who can stop supplying it.
+- **The visible book is not the supply curve.** Most interest is latent, which cuts both ways: there is more real
+  liquidity than the book shows, and less of it is committed.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Harris, *Trading and Exchanges*, chapter 19. The clearest practitioner decomposition of what the word means.
+- Bouchaud, Bonart, Donier & Gould, *Trades, Quotes and Prices*, chapters 4 and 11, on latent liquidity and the
+  shape of the book.
+- Benzaquen, *Modelling Financial Markets*, §3, for the latent order book in this site's notation.
+- Paper: Amihud, *Illiquidity and Stock Returns* (2002) — the standard illiquidity measure and evidence that it is
+  priced.

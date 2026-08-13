@@ -2,7 +2,7 @@
 title: "Latency and the arms race"
 track: 2
 order: 6
-status: stub
+status: written
 summary: "When the queue is priced in microseconds, speed becomes a capital expenditure."
 terms:
   - "colocation"
@@ -17,35 +17,110 @@ figure:
   series: "BTCUSDT depth stream inter-arrival times"
   period: "one capture session"
   script: "pipeline/fetch_update_intervals.py"
+  notice: "The distribution of gaps spans several orders of magnitude with no characteristic scale, so there is no natural time step at which to sample this market."
+  falsifiedBy: "The reading fails if the distribution is exponential, which would mean updates arrive as a Poisson process and a well-defined mean rate exists."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Because a **matching engine** processes messages one at a time in the order they arrive, being first is worth money,
+and firms will spend up to that amount to be first.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Nobody designed markets to reward speed. It falls out of two design decisions that each look reasonable alone.
+
+The first is serial matching: the engine processes messages sequentially, so there is always a first message and a
+last one. The second is **price-time priority**, which resolves ties by arrival order. Together they make the
+sequence of arrivals the market's ground truth, and turn every stale quote into a prize awarded to whoever reaches
+it first.
+
+Once that is true, speed is not a strategy but an input, like electricity. Firms invest in it until the marginal
+cost of another microsecond equals the marginal revenue from winning slightly more races — which is why the arms
+race has a natural equilibrium in spending, and why that equilibrium can consume a large fraction of the profits
+the market was supposed to distribute.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+**Colocation** is renting rack space in the exchange's own building so the cable to the **matching engine** is
+metres rather than kilometres. Exchanges sell it openly and equalise cable lengths inside the facility, which makes
+it an expensive tier rather than a hidden advantage.
+
+**Matching latency** is the time between an order arriving and the response leaving. What matters competitively is
+the tail rather than the mean: a system that is fast on average and occasionally slow loses exactly the races worth
+winning, because those are the moments when everyone is trying at once.
+
+A **race condition** is the situation these produce. A price becomes stale, several participants simultaneously try
+to act — some to take the quote, the maker to cancel it — and only one message can arrive first. **High-frequency
+trading** is the set of strategies whose edge depends on winning them. It is at least two businesses with opposite
+social valences: electronic **market maker**s narrowing spreads, and latency arbitrageurs picking off stale quotes.
+
+**Maker-taker pricing** shapes the incentives, paying a rebate to resting orders and charging takers. It also
+distorts what the displayed price means, since the effective price differs from the quoted one by the fee.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+The value of speed is the value of winning races, and it can be written down. If a stale quote is worth $\delta$
+when it can be picked off, and $n$ firms compete to reach it with latencies $\ell_i$, the prize goes to
+$\arg\min_i \ell_i$ and the expected revenue to firm $i$ is
+
+$$
+R_i = \delta \cdot \lambda \cdot \Pr\left[\ell_i < \min_{j \ne i} \ell_j\right]
+$$
+
+with $\lambda$ the rate at which such opportunities appear. Firms invest in latency until marginal cost equals
+marginal revenue, and in the symmetric equilibrium the total spend approaches $\delta \lambda$ — the entire value of
+the mispricings. The prize is competed away into infrastructure rather than into narrower spreads, which is the
+formal statement of the objection to the arms race and the argument for batch auctions that replace the continuous
+race with a discrete one.
+
+The empirical counterpart is the distribution of inter-arrival times. If updates were independent events at a
+constant rate, gaps would be exponential with a well-defined mean. They are not: the distribution is heavy-tailed
+and spans many orders of magnitude, because activity clusters. Trades trigger quote updates which trigger further
+trades.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="No characteristic time scale, and self-excitation">
+The absence of an exponential inter-arrival distribution is the important observation, because it means market time
+has no natural unit. There is no correct sampling frequency: choose milliseconds and most bins are empty, choose
+minutes and you average over bursts that contain everything interesting. This is why microstructure works in *event
+time* — indexing by trade or update number rather than by the clock — which is a change of variable that restores
+approximate stationarity.
+
+The clustering itself is well described by a self-exciting point process, where each event temporarily raises the
+intensity of further events:
+
+$$
+\lambda(t) = \lambda_0 + \sum_{t_i < t} \phi(t - t_i)
+$$
+
+This is the Hawkes process, and it is the same mathematics as earthquake aftershock sequences, with $\phi$ playing
+the role of the Omori kernel. The branching ratio — the expected number of events directly triggered by one event —
+is measured in real markets at values uncomfortably close to one, meaning markets sit near the critical point where
+activity becomes self-sustaining. That proximity to criticality is one candidate explanation for flash crashes, and
+it connects this page directly to the volatility clustering of Track 3.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **HFT is not one thing.** Market making and latency arbitrage have opposite effects on the cost of trading, and
+  most public argument conflates them.
+- **Speed is not an edge, it is a cost of entry.** Everyone competitive is fast. What differs is who is fastest at
+  the moments that matter, which is a tail property.
+- **Colocation is not privileged access.** It is sold to anyone and cable lengths are equalised. The advantage it
+  confers is real and is priced accordingly.
+- **Faster is not automatically worse for investors.** Spreads narrowed substantially as speed increased. The
+  honest objection is about resources burned in races, not about spreads.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Cartea, Jaimungal & Penalva, *Algorithmic and High-Frequency Trading*, chapters 2 and 10.
+- Bouchaud, Bonart, Donier & Gould, *Trades, Quotes and Prices*, chapter 5, on event time and clustering.
+- Harris, *Trading and Exchanges*, chapter 12, for the institutional mechanics of priority.
+- Paper: Budish, Cramton & Shim, *The High-Frequency Trading Arms Race* (QJE, 2015) — the race model above, with
+  measurements, and the case for frequent batch auctions.

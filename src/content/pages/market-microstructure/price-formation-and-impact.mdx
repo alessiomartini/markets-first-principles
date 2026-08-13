@@ -2,7 +2,7 @@
 title: "Price formation and impact"
 track: 2
 order: 4
-status: stub
+status: written
 summary: "Trading moves the price against you. The shape of that relationship is one of the most robust empirical laws in finance."
 terms:
   - "order flow"
@@ -18,35 +18,120 @@ figure:
   series: "BTCUSDT aggregated trades, signed by taker side"
   period: "trailing 30 days"
   script: "pipeline/fetch_impact.py"
+  notice: "The response is visibly concave rather than linear, so the marginal cost of size falls even as the total cost rises — the signature of the square-root law."
+  falsifiedBy: "The reading fails if the concavity disappears when trades are aggregated over longer windows, which would suggest it is an artefact of the binning rather than a property of impact."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Prices move because orders arrive, not because value changed, and the amount they move grows as the square root of
+how much you trade.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+The textbook account has prices moving when news changes an asset's fundamental value. Look at the tape and that
+account collapses immediately: the overwhelming majority of price changes happen with no identifiable news, and the
+timing of moves matches the arrival of orders far better than the arrival of information.
+
+The mechanical account is better. A price changes when someone consumes the resting liquidity at the touch, and
+that happens when an order arrives. Information matters, but it matters *through* order flow — a trader who knows
+something must trade to express it, and it is the trade, not the knowledge, that moves the price.
+
+This reframing is what makes impact the central quantity of Track 2. It is simultaneously the largest cost any
+strategy at size pays, the mechanism by which information enters prices, and the constraint that caps how much
+capital any strategy can absorb.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+**Order flow** is the stream of arriving buy and sell orders, signed by which side initiated. Its most important
+empirical property is that it is strongly *autocorrelated* — persisting for hours or days — because large orders are
+split into many small ones by exactly the execution algorithms of the previous page.
+
+**Order-flow imbalance** is net buyer-initiated minus seller-initiated volume over an interval. Over short horizons
+it explains most of the variance in returns, which is less useful than it sounds: you would have to know it before
+it happened.
+
+**Market impact** is the extent to which your own trading moves the price against you. It splits into two pieces
+whose separation is genuinely contested. **Permanent impact** is the part that does not decay — conventionally read
+as the information the market inferred from your trade. **Transient impact** is the part that relaxes as the book
+refills, and it is what makes patient execution worthwhile.
+
+The **propagator** $G(\tau)$ is the function describing how much of a single trade's effect survives $\tau$ events
+later. It is the object that reconciles the two facts that otherwise cannot both be true.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+The empirical law is remarkably robust across markets, decades and asset classes. A metaorder of total size $Q$
+executed over a day moves the price by
+
+$$
+\mathcal{I}(Q) \;=\; Y \, \sigma \sqrt{\frac{Q}{V}}
+$$
+
+with $\sigma$ the daily volatility, $V$ the daily volume, and $Y$ a dimensionless constant close to one. Note what
+this expression does *not* contain: any parameter describing the asset, the venue or the era. It is close to a
+dimensional-analysis result, and its exponent of one half is measured, not assumed.
+
+The propagator resolves the puzzle. Write the price as past **order flow** convolved with a memory kernel,
+
+$$
+p_t \;=\; \sum_{t' < t} G(t - t') \, \varepsilon_{t'} \sqrt{v_{t'}} \;+\; \text{noise}
+$$
+
+where $\varepsilon$ is the trade sign. Order flow is persistent, with autocorrelation decaying as $\tau^{-\gamma}$
+for small $\gamma$. If $G$ were constant, that persistence would make prices trivially predictable and the market
+trivially arbitrageable. It is not, because $G$ decays as
+
+$$
+G(\tau) \sim \tau^{-\beta}, \qquad \beta \approx \frac{1 - \gamma}{2}
+$$
+
+and that relation between the two exponents is not a coincidence. It is the condition that makes the predictable
+part of the price cancel exactly — a no-arbitrage constraint expressed as a relation between two independently
+measurable exponents.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Linear response with a memory kernel">
+The propagator equation is a linear response function in the strict sense: the observable (price) is the
+convolution of the perturbation (order flow) with a kernel encoding the system's memory. Everything a physicist
+knows about response functions transfers directly — causality constrains $G$ to vanish for negative argument, the
+kernel's decay sets the relaxation spectrum, and the response to correlated forcing is not the response to white
+noise.
+
+The genuinely striking result is the exponent relation $\beta \approx (1-\gamma)/2$. Two quantities measured by
+completely different means — the persistence of order flow, and the decay of price response — are locked together
+by the requirement that the market not be trivially predictable. This is a fluctuation-dissipation relation in all
+but name: a constraint tying the system's response to the statistics of its own fluctuations, enforced here by
+arbitrage rather than by thermodynamics.
+
+The square-root law is the same physics integrated up. Its concavity is not a fitted curvature but what you get
+when a persistent flow is convolved with a decaying kernel, and the fact that $Y$ carries no asset-specific
+parameters is the strongest hint available that the mechanism is structural rather than behavioural.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Impact is not the spread.** The spread is what you pay to cross once; impact is what your own trading does to
+  the price, and at size it is much larger.
+- **Concave does not mean cheap.** Cost per unit falls with size, but total cost still rises. Doubling size costs
+  about 1.4 times as much, not half as much.
+- **Correlation between flow and returns is not a strategy.** Imbalance explains returns contemporaneously; to
+  profit you would need to forecast the imbalance, which is a different and much harder problem.
+- **"Permanent" is a modelling choice, not an observation.** With any finite sample, permanent impact is
+  indistinguishable from a slowly decaying transient one. This is one of the places where the field genuinely does
+  not know the answer.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Bouchaud, Bonart, Donier & Gould, *Trades, Quotes and Prices*, chapters 10–13. The definitive treatment of impact
+  and the propagator.
+- Benzaquen, *Modelling Financial Markets*, §4, for the square-root law derived from the latent order book in this
+  site's notation.
+- Bouchaud & Potters, *Theory of Financial Risk and Derivative Pricing*, chapter 20.
+- Paper: Bouchaud, Gefen, Potters & Wyart, *Fluctuations and response in financial markets* (2004) — the paper that
+  established the propagator framework and the exponent relation above.

@@ -2,7 +2,7 @@
 title: "Market makers and adverse selection"
 track: 2
 order: 5
-status: stub
+status: written
 summary: "Quoting both sides is profitable until the person hitting your quote knows something you don't."
 terms:
   - "quoting"
@@ -18,35 +18,108 @@ figure:
   series: "BTCUSDT trades and quotes"
   period: "trailing 30 days"
   script: "pipeline/fetch_spread_decomposition.py"
+  notice: "The realised spread is consistently smaller than the effective spread, and the gap is what liquidity providers hand back to informed traders after the fact."
+  falsifiedBy: "The reading fails if the two coincide, which would mean prices do not drift in the direction of the trade afterwards and adverse selection is absent."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+A market maker sells immediacy at a price, and that price is set almost entirely by how often the buyer of
+immediacy turns out to know more than the seller.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Someone has to be willing to trade when you want to, rather than when a natural counterparty happens to appear.
+That service — immediacy — is what a **market maker** sells, and the **bid-ask spread** is its price.
+
+If all incoming orders were uninformed, the business would be close to free money: quote both sides, capture the
+spread thousands of times a day, end flat. It is not, because some traders hit your quote precisely because they
+expect the price to move. You buy from them just before the price falls. That asymmetry, not operating cost, is what
+sets the spread, and understanding it explains nearly every feature of modern electronic markets — the microsecond
+quote lifetimes, the cancellation rates above 95%, and the entire economics of retail order routing.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+**Quoting** is continuously posting a **bid** and an **ask** at which you will trade. It is the act that supplies
+**liquidity**.
+
+**Inventory risk** is the exposure a maker accumulates from doing so. Buy from three sellers in a row and you are
+long whether you wanted to be or not, so quotes are skewed rather than symmetric around fair value — leaning in
+whichever direction unloads the position.
+
+**Adverse selection** is the deeper problem: the counterparties most eager to trade against your quote are
+disproportionately the ones who know something. **Toxic flow** is the name for order flow that systematically
+predicts the next move. The term is descriptive rather than moral — a fund executing well-researched positions
+produces toxic flow simply by being right.
+
+Two market-structure features follow directly. **Payment for order flow** is a wholesaler paying a retail broker to
+route uninformed **retail flow** for **internalisation**, which is profitable precisely because that flow is not
+toxic. **Tick size** sets a floor on the spread, and where the floor binds, competition shifts from price to
+**queue priority** — makers can no longer undercut, so they race to be earlier in the line instead.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Three spreads must be distinguished, and their differences are the whole story. For a trade at price $p_t$ with
+sign $\varepsilon_t$ and mid $m_t$, the *effective* half-spread is what the taker actually paid,
+
+$$
+s^{\text{eff}}_t = \varepsilon_t \left( p_t - m_t \right)
+$$
+
+and the *realised* half-spread is what the maker kept, measured after the price has had time to move,
+
+$$
+s^{\text{real}}_t = \varepsilon_t \left( p_t - m_{t + \Delta} \right)
+$$
+
+Their difference is the adverse-selection component, also called price impact of the trade:
+
+$$
+s^{\text{eff}}_t - s^{\text{real}}_t = \varepsilon_t \left( m_{t+\Delta} - m_t \right)
+$$
+
+The interpretation is exact and worth pausing on. The taker pays the effective spread. The maker keeps only the
+realised spread. The difference is handed back to the market through the price drifting in the direction of the
+trade — which is to say, the maker's gross margin is reduced by exactly the information content of the flow it
+absorbed. Where the flow is uninformed the two spreads coincide; where it is toxic the realised spread can be
+negative, and the maker loses money on every trade at a spread that looked profitable when quoted.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A measurement that is not independent of what it measures">
+The maker's difficulty is not noise but correlation between the noise and the state. If orders arrived
+independently of future price moves, quoting would be a simple inventory-control problem: a random walk with a
+restoring force, solvable and profitable. The distribution of arrivals is instead conditioned on the very quantity
+the maker is trying to estimate.
+
+The closest honest analogy is a detector whose trigger rate depends on the signal it is trying to measure — every
+event you record is preferentially one that will make you wrong, and averaging over your own sample does not
+converge to the truth. The maker's defences are the ones a physicist would reach for: shorten the integration time
+so stale quotes cannot be picked off, and classify events by source so that the biased population can be priced
+separately. That second defence is exactly what **payment for order flow** industrialises, which is why the
+argument about it is an argument about who gets to trade against the unbiased sample.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Market makers are not obliged to quote.** Formal obligations exist on some venues and are weak. Quotes widen
+  or vanish under stress, which is when the obligation would have mattered.
+- **The spread is not a fee.** It is compensation for adverse selection, which is why it widens around
+  announcements and in illiquid names rather than tracking operating cost.
+- **High cancellation rates are not manipulation.** A resting quote is an option the maker has written and is
+  constantly repricing. Above 95% cancellation is normal and mechanical.
+- **Toxic flow is not bad behaviour.** It is informed trading, which is the mechanism by which prices become
+  correct. A market with no toxic flow would have no price discovery.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- O'Hara, *Market Microstructure Theory*, chapters 3–4. Glosten–Milgrom and Kyle, which are the theory behind every
+  equation on this page.
+- Harris, *Trading and Exchanges*, chapters 13–15, for the practitioner view of the same economics.
+- Cartea, Jaimungal & Penalva, *Algorithmic and High-Frequency Trading*, chapter 10, on inventory control.
+- Paper: Kyle, *Continuous Auctions and Insider Trading* (Econometrica, 1985) — where market depth is derived as
+  the price of information rather than assumed.

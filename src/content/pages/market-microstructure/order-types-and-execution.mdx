@@ -2,7 +2,7 @@
 title: "Order types and execution"
 track: 2
 order: 2
-status: stub
+status: written
 summary: "The instructions you can attach to an order, and what each one costs you."
 terms:
   - "IOC"
@@ -20,35 +20,103 @@ figure:
   series: "BTCUSDT L2 book snapshot"
   period: "latest snapshot"
   script: "pipeline/fetch_book_walk.py"
+  notice: "The cost per unit rises steeply for the first few levels and then flattens, so the marginal price of size is worst exactly where most orders live."
+  falsifiedBy: "The reading fails if the curve is linear in size, which would mean depth is uniform across price levels and the book has no shape worth modelling."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+An order is not just a price and a quantity; it is a set of instructions about what to do when the market does not
+cooperate, and those instructions are where the cost lives.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+A **market order** and a **limit order** are the two pure strategies, and both are unusable at size. A market order
+for a large quantity walks the book and pays a terrible average price. A limit order for the same quantity sits
+visible in the book, announcing your intention to everyone, and gets filled only when someone is willing to take the
+other side — which is disproportionately when they know something.
+
+Every order type in this page exists to occupy the space between those two failures. They are, without exception,
+mechanisms for controlling *how much you reveal* and *how long you wait*, because those are the only two dials
+available. Execution is the engineering discipline of turning a decision to trade into a position without giving
+away what you are doing.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+Two instructions govern what happens to the unexecuted remainder. **IOC** — immediate-or-cancel — executes whatever
+can be filled right now and cancels the rest, leaving no standing order for anyone to observe. **FOK** —
+fill-or-kill — demands the whole quantity at once or nothing, which is the right choice only when a **partial fill**
+is worse than no trade at all, such as one leg of a two-leg arbitrage.
+
+A **fill** is an executed trade against your order; a large order typically generates many fills at successive
+prices, and their average is your cost. An **iceberg order** displays only a slice of its true size and replenishes
+it, buying concealment at the price of **queue priority**, since the hidden remainder usually loses its place in
+line each time the slice refreshes.
+
+Above these sit scheduling algorithms, which slice a parent order over time. **TWAP** spreads it evenly across the
+period. **VWAP** spreads it in proportion to expected volume, which is the natural improvement, and is also the
+benchmark most institutional execution is measured against.
+
+**Slippage** is the difference between the price you expected when you decided and the price you achieved. It
+bundles the **bid-ask spread**, your own **market impact**, and the market's drift while you worked the order —
+and separating those three is the entire discipline of execution analysis.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Walking the book is a deterministic calculation once the book is known. With ask levels at prices $a_1 < a_2 <
+\dots$ holding quantities $q_1, q_2, \dots$, a **market order** of size $Q$ consumes levels until they are
+exhausted, so the average execution price is
+
+$$
+\bar{p}(Q) = \frac{1}{Q} \sum_{i=1}^{k} a_i \, q_i, \qquad
+k = \min \left\lbrace n : \sum_{i=1}^{n} q_i \ge Q \right\rbrace
+$$
+
+and the cost relative to the mid is $\bar{p}(Q) - m_t$. This is the *mechanical* cost, computable exactly from a
+snapshot, and it is what the figure below plots.
+
+It is also an underestimate of the true cost, and understanding why is the point of the page. The calculation
+assumes the book stands still while you consume it. In reality, taking liquidity causes the remaining quotes to be
+pulled and repriced, so a real order of size $Q$ costs more than walking a static book predicts. The gap between the
+two is **market impact**, and it is why the empirical cost grows as $\sqrt{Q}$ rather than following the snapshot
+curve.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Adiabatic versus sudden">
+The distinction between the two costs above is exactly the distinction between a sudden and an adiabatic
+perturbation. Dump the whole order at once and the system has no time to respond: you sample the instantaneous
+configuration of the book and pay the mechanical cost, plus whatever the survivors charge on the way out.
+
+Work the order slowly and the system relaxes between slices — cancelled quotes are replaced, the **latent
+liquidity** behind the visible book has time to surface, and the price partially reverts because most impact is
+**transient impact**. Trading slowly is therefore an adiabatic process and costs less per unit, with the usual
+catch: the slower you go, the longer you are exposed to the market moving for reasons unrelated to you. That
+trade-off between impact and timing risk is the whole content of optimal execution, and Almgren–Chriss is its
+harmonic-oscillator-level solution.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **A limit order is not a safer market order.** It removes price risk and adds execution risk, and the two are
+  correlated in the worst way: the times it fills are the times you would rather it had not.
+- **VWAP is a benchmark, not a goal.** A broker measured against VWAP tracks the market by construction, and will
+  buy into a rising price because the benchmark rises with it. Implementation shortfall is the honest measure.
+- **Icebergs are not free concealment.** The hidden portion generally forfeits queue position on each refresh, so
+  it trades meaningfully less often than displayed size.
+- **Slippage is not one number.** Spread, impact and drift have different causes and different remedies, and a
+  report that does not separate them cannot be acted on.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Cartea, Jaimungal & Penalva, *Algorithmic and High-Frequency Trading*, chapters 6–8, for the execution problem
+  posed and solved properly.
+- Harris, *Trading and Exchanges*, chapters 4 and 14, for the institutional catalogue of order types.
+- Bouchaud, Bonart, Donier & Gould, *Trades, Quotes and Prices*, chapter 6, on why the static book underestimates
+  cost.
+- Paper: Almgren & Chriss, *Optimal Execution of Portfolio Transactions* (2000) — the impact-versus-timing-risk
+  trade-off in closed form.
