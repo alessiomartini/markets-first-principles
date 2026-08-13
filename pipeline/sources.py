@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import csv
 import io
+import os
 
 from common import fetch, fetch_json
 
@@ -61,6 +62,57 @@ def stooq_closes(symbol: str) -> list[float]:
     return closes
 
 
+def ecb_closes(series_key: str = "D.USD.EUR.SP00.A") -> list[float]:
+    """ECB daily reference rates — official, key-free, and it answers a runner.
+
+    USD per EUR since 1999. The ECB publishes this as an open data API with no
+    registration, which makes it the one FX source in this list that does not
+    depend on tolerating scraped or rate-limited endpoints.
+    """
+    url = f"https://data-api.ecb.europa.eu/service/data/EXR/{series_key}?format=csvdata"
+    text = fetch(url, headers={"Accept": "text/csv"}).decode("utf8", "replace")
+
+    closes = []
+    for row in csv.DictReader(io.StringIO(text)):
+        try:
+            closes.append(float(row["OBS_VALUE"]))
+        except (KeyError, TypeError, ValueError):
+            continue  # holidays are published as blanks
+
+    if len(closes) < 500:
+        raise RuntimeError(f"only {len(closes)} observations")
+    return closes
+
+
+def fred_closes(series_id: str = "SP500") -> list[float]:
+    """FRED — needs a free API key in FRED_API_KEY.
+
+    Optional on purpose: without the key this raises and the caller falls
+    through to the next source. The Economics track needs the same key, so
+    setting it once unlocks both.
+    """
+    key = os.environ.get("FRED_API_KEY", "").strip()
+    if not key:
+        raise RuntimeError("FRED_API_KEY not set")
+
+    url = (
+        "https://api.stlouisfed.org/fred/series/observations"
+        f"?series_id={series_id}&api_key={key}&file_type=json"
+    )
+    payload = fetch_json(url)
+
+    closes = []
+    for observation in payload.get("observations", []):
+        try:
+            closes.append(float(observation["value"]))
+        except (KeyError, TypeError, ValueError):
+            continue  # FRED writes "." for missing days
+
+    if len(closes) < 500:
+        raise RuntimeError(f"only {len(closes)} observations")
+    return closes
+
+
 def binance_closes(symbol: str = "BTCUSDT", limit: int = 1000) -> list[float]:
     url = f"https://api.binance.com/api/v3/klines?symbol={symbol}&interval=1d&limit={limit}"
     return [float(candle[4]) for candle in fetch_json(url)]
@@ -88,12 +140,17 @@ CRYPTO_CLOSES = [
     ("Coinbase", coinbase_closes),
 ]
 
+# Order matters, and it is set by what survives a datacenter IP rather than by
+# preference. Measured on GitHub runners: Binance answers 451, Yahoo answers 429,
+# Stooq returns an empty body. ECB, FRED and Kraken all answer normally.
 EQUITY_CLOSES = [
+    ("FRED", lambda: fred_closes("SP500")),
     ("Yahoo Finance", lambda: yahoo_closes("%5EGSPC")),
     ("Stooq", lambda: stooq_closes("%5Espx")),
 ]
 
 FX_CLOSES = [
+    ("ECB", ecb_closes),
     ("Yahoo Finance", lambda: yahoo_closes("EURUSD=X")),
     ("Stooq", lambda: stooq_closes("eurusd")),
 ]

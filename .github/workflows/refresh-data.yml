@@ -39,6 +39,10 @@ jobs:
       - name: Fetch
         if: ${{ !inputs.force_synthetic }}
         run: python pipeline/run_all.py
+        env:
+          # Optional. Without it the equity series falls through to its other
+          # sources, which are the ones that rate-limit CI. See README.
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         # A dead free-tier API should not fail the workflow: the figures it
         # could not refresh keep their previous committed values, and the run
         # summary below records what happened.

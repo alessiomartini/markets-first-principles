@@ -87,6 +87,30 @@ by hand into `pipeline/manual/market_sizes.csv` with a source URL on every row. 
 source URL are dropped, which is what keeps an unverified number off the site. Until the CSV is
 filled in, that figure stays synthetic and stamped `SCHEMATIC`.
 
+### Which sources survive CI
+
+Free market-data endpoints have a specific failure mode: they work from a laptop and refuse a
+datacenter IP. Measured on GitHub runners:
+
+| Source | From a runner |
+|---|---|
+| Kraken, Coinbase, ECB, CoinGecko | fine |
+| Binance | `HTTP 451` — refuses the runner outright |
+| Yahoo Finance | `HTTP 429` — the shared runner IPs are rate-limited |
+| Stooq | returns an empty body, not an error |
+
+So every series is fetched through a list of sources tried in turn, and the payload records which
+one answered — the figure caption prints that rather than the source named in the frontmatter, so
+provenance is a record of what happened rather than a statement of intent. Binance stays first in
+the crypto list because it is the venue the live order book streams from, and it works fine from a
+reader's browser; on CI it simply falls through to Kraken.
+
+**Optional: `FRED_API_KEY`.** Set it as a repository secret to give the equity series a source that
+CI can actually reach — without it, `fetch_tails.py` falls through to Yahoo and Stooq, which
+currently means the S&P curve is dropped and the figure ships with the FX and crypto curves only.
+The Economics track needs the same key, so setting it once unlocks both. Get one free at
+<https://fredaccount.stlouisfed.org/apikeys>.
+
 ### Working offline
 
 `python3 pipeline/synthesize_fallback.py` writes synthetic stand-ins for figures that have no
