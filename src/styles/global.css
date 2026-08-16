@@ -663,3 +663,143 @@ hr {
   overflow-y: hidden;
   padding-block: 0.3rem;
 }
+
+/* ---------- notes widget ---------- */
+
+/*
+ * The "+ Note" box. Styled here rather than in its own file so it inherits the
+ * theme tokens above and swaps with the rest of the site in dark mode.
+ */
+
+.notes-widget {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  font-family: var(--font-ui);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.notes-widget__toggle {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.85rem;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.notes-widget__toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/*
+ * `display: flex` below would otherwise beat the UA stylesheet's rule for the
+ * `hidden` attribute, so the panel would never actually close — the JS sets
+ * `hidden` correctly and nothing happens. This has to come after, and be more
+ * specific than, the display rule.
+ */
+.notes-widget__panel[hidden] {
+  display: none;
+}
+
+.notes-widget__panel {
+  width: min(23rem, calc(100vw - 2rem));
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.9rem;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.16);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.notes-widget__label {
+  font-size: 0.7rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.notes-widget__text {
+  width: 100%;
+  resize: vertical;
+  font: inherit;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--page);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+.notes-widget__text:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Honeypot: present in the DOM, unreachable for anyone reading the page. */
+.notes-widget__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.notes-widget__row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notes-widget__save,
+.notes-widget__cancel {
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--page);
+  color: var(--text-secondary);
+}
+
+.notes-widget__save {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.notes-widget__save:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.notes-widget__status {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.notes-widget__status[data-kind='ok'] {
+  color: var(--series-3);
+}
+
+.notes-widget__status[data-kind='error'] {
+  color: var(--series-ask);
+}
+
+@media print {
+  .notes-widget {
+    display: none;
+  }
+}

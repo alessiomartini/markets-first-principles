@@ -64,6 +64,13 @@ const fullTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
       </div>
     </footer>
 
+    {/*
+      The "+ Note" box, injected entirely from its own file so no page template
+      carries markup for it. Included here once rather than per page, which is
+      this project's equivalent of a script tag before </body> on every page.
+    */}
+    <script is:inline src={`${base}/js/notes-widget.js`} defer></script>
+
     <script is:inline>
       document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => {
         const root = document.documentElement;
