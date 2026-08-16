@@ -74,10 +74,16 @@ pipeline/                    Python data fetchers. Standard library only.
 
 ## Data architecture
 
-**The browser talks to at most one live API** — the Binance WebSocket on the order book page.
-Everything else is pulled by a scheduled job, reduced to small JSON, and committed. The site is
-therefore fast, key-free, GitHub-Pages-compatible and reproducible, and a dead API breaks a
-future update rather than a published page.
+**The browser talks to live services in exactly two places**, and nowhere else. The first is the
+Binance WebSocket on the order book page, which is the point of that page. The second is the
+notes widget (see below), which only ever writes. Everything else is pulled by a scheduled job,
+reduced to small JSON, and committed. The site is therefore fast, key-free,
+GitHub-Pages-compatible and reproducible, and a dead API breaks a future update rather than a
+published page.
+
+The original rule was "at most one live API". The notes widget is a deliberate, narrow exception
+rather than a loosening: it sends data out, never reads any in, so no page's content can depend
+on it and no reader is affected if it is down.
 
 `.github/workflows/refresh-data.yml` runs `pipeline/run_all.py` daily, commits any changed
 figure JSON, and that push triggers a deploy. Individual fetch failures are tolerated: the
@@ -116,6 +122,21 @@ CI can actually reach — without it, `fetch_tails.py` falls through to Yahoo an
 currently means the S&P curve is dropped and the figure ships with the FX and crypto curves only.
 The Economics track needs the same key, so setting it once unlocks both. Get one free at
 <https://fredaccount.stlouisfed.org/apikeys>.
+
+### The notes widget
+
+A floating **+ Note** button on every page opens a box for leaving myself notes while reading —
+"this caption is wrong", "this page needs a figure". Notes POST to a Cloudflare Worker
+(`worker/`) which appends them to a D1 database, and are read later straight from D1 rather than
+copied out of a browser.
+
+There is no read endpoint on the Worker, deliberately: anything that can serve the notes over
+HTTP can leak them. Writes are guarded by a CORS allowlist, a length cap, and a hidden honeypot
+field that silently discards bot submissions.
+
+Deploy it with the manual **Deploy notes worker** workflow, which needs a `CLOUDFLARE_API_TOKEN`
+repository secret. See `worker/README.md` for the whole path, including reading and deleting
+notes.
 
 ### Working offline
 
