@@ -11,9 +11,9 @@
 (function () {
   'use strict';
 
-  // Set by the deploy workflow's follow-up commit. Until it points at a real
-  // Worker, saving fails loudly rather than pretending to work.
-  var WORKER_URL = 'https://markets-first-principles-notes.alessiomartini.workers.dev/notes';
+  // Taken from the output of `wrangler deploy`, not guessed: the workers.dev
+  // subdomain is per-account and is not the GitHub username.
+  var WORKER_URL = 'https://markets-first-principles-notes.alemarti-2001.workers.dev/notes';
 
   var MAX_TEXT = 2000;
 
