@@ -66,7 +66,9 @@ const flashcardSource = z.object({
 });
 
 const flashcards = defineCollection({
-  loader: glob({ pattern: '**/*.json', base: './src/content/flashcards' }),
+  // tombstones.json lives alongside the decks but is a retirement ledger, not
+  // a deck, and has a different shape.
+  loader: glob({ pattern: ['**/*.json', '!tombstones.json'], base: './src/content/flashcards' }),
   schema: z.object({
     deck: z.string(),
     /** Matches an OpenQuant top-level section. */
