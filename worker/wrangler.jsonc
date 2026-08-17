@@ -5,9 +5,10 @@
   // There is deliberately no read endpoint: notes are read straight out of D1
   // (MCP connector, dashboard, or `wrangler d1 execute`), never over HTTP.
   //
-  // database_id is filled in at deploy time by
-  // .github/workflows/deploy-notes-worker.yml, which looks the database up by
-  // name and creates it on first run.
+  // The database already exists and its id is committed below, so a local
+  // `wrangler deploy` works with no extra steps. The deploy workflow still
+  // looks the name up and substitutes the id it finds, which is what makes the
+  // whole thing reproducible in a fresh Cloudflare account.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "markets-first-principles-notes",
   "main": "src/index.js",
@@ -19,7 +20,7 @@
     {
       "binding": "DB",
       "database_name": "markets-first-principles-notes",
-      "database_id": "REPLACE_WITH_DATABASE_ID"
+      "database_id": "baf64edb-7ba8-49a3-9141-5fc0d8017727"
     }
   ]
 }

@@ -18,6 +18,19 @@ It needs one repository secret, `CLOUDFLARE_API_TOKEN`, with **Account → Worke
 Scripts → Edit** and **Account → D1 → Edit** (the "Edit Cloudflare Workers"
 template covers both).
 
+A token missing the D1 permission fails with `Authentication error [code: 10000]`
+against `/d1/database` — which reads like a bad token rather than a token with
+the wrong scopes. If the deploy fails that way, check the permissions before
+regenerating anything.
+
+The database itself already exists:
+
+| | |
+|---|---|
+| name | `markets-first-principles-notes` |
+| id | `baf64edb-7ba8-49a3-9141-5fc0d8017727` |
+| region | WEUR |
+
 ## Fallback: deploy from a laptop
 
 ```bash
