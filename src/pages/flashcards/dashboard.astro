@@ -1,0 +1,176 @@
+---
+import { getCollection } from 'astro:content';
+
+import Base from '../../layouts/Base.astro';
+
+/**
+ * Diagnostics, not a report card.
+ *
+ * Every panel is here because it answers a question that changes what you do:
+ * rewrite a card, change the retention setting, or nothing. There is no total,
+ * no grade and no trend arrow — a number you want to see go up is a number you
+ * will eventually push up by rating dishonestly, and the ratings are the data.
+ */
+const decks = await getCollection('flashcards');
+const cards = decks.flatMap((deck) =>
+  deck.data.cards.map((card) => ({ ...card, topic: deck.data.topic, deck: deck.data.deck }))
+);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Base title="Diagnostics" description="What the review log says about how this material is being remembered.">
+  <article class="page">
+    <header class="page__header">
+      <p class="page__kicker">Trainer</p>
+      <h1>Diagnostics</h1>
+      <p class="page__summary">
+        What the review log says, computed in this browser from the history stored here. Nothing on
+        this page is a score. The useful readings are the ones that tell you something is wrong:
+        a deck retained far below the others, a calibration curve off the diagonal, a card that has
+        been forgotten five times.
+      </p>
+      <p><a href={`${base}/flashcards/`}>← back to the trainer</a></p>
+    </header>
+
+    <div class="dash" data-dashboard>
+      <p class="trainer__fatal" data-el="fatal" hidden></p>
+      <p class="trainer__note" data-el="note"></p>
+
+      <p class="trainer__note" data-el="empty" hidden>
+        No reviews recorded yet. Do a session and this page will have something to measure.
+      </p>
+
+      <div data-el="panels">
+        <section class="dash__panel">
+          <h2>True retention</h2>
+          <p class="dash__what">
+            Of the reviews of cards already in the Review state, the fraction recalled — anything
+            but <em>Again</em>. Learning and relearning steps are excluded: they happen minutes
+            apart and are almost always passed, and counting them is how most apps report 95%
+            regardless of what the scheduler was asked for.
+          </p>
+          <p class="dash__read">
+            Compare against the target the scheduler was configured with (0.90). Persistently below
+            it means intervals are too long; well above it means you are reviewing more than you
+            need to.
+          </p>
+          <p class="dash__big"><b data-el="retention-overall">—</b>
+            <span>over <b data-el="retention-n">0</b> mature reviews</span></p>
+
+          <table class="dash__table">
+            <thead><tr><th>deck</th><th>retention</th><th>recalled</th></tr></thead>
+            <tbody data-el="retention-table"></tbody>
+          </table>
+          <p class="trainer__note" data-el="retention-empty" hidden>
+            No mature reviews yet — every card is still in its learning steps.
+          </p>
+        </section>
+
+        <section class="dash__panel">
+          <h2>Calibration</h2>
+          <p class="dash__what">
+            Before each review the model predicted a recall probability from the card's stability
+            and the time elapsed. Each review row stores that state, so the prediction can be
+            recomputed exactly and compared with what happened. Points are grouped into deciles of
+            predicted recall; dot area is the number of reviews behind the point.
+          </p>
+          <p class="dash__read">
+            On the diagonal means the model's confidence about <em>you</em> is right. Below it means
+            overconfident — the intervals it chooses are longer than your memory supports. This is
+            the one panel that can say the scheduler is wrong rather than that you are.
+          </p>
+          <div class="dash__chart" data-el="calibration-chart"></div>
+          <p class="dash__verdict" data-el="calibration-verdict"></p>
+          <p class="dash__foot">
+            mean absolute calibration error <b data-el="calibration-error">—</b>
+            over <b data-el="calibration-n">0</b> reviews
+          </p>
+        </section>
+
+        <section class="dash__panel">
+          <h2>Where the deck is</h2>
+          <p class="dash__what">
+            Cards by FSRS state. <em>New</em> has never been seen; <em>Learning</em> is in its first
+            steps; <em>Review</em> is on a real interval; <em>Relearning</em> is a card that was
+            consolidated and then forgotten.
+          </p>
+          <p class="dash__read">
+            A large Relearning share is the signal worth acting on: it usually means the cards are
+            wrong, not that the memory is.
+          </p>
+          <div class="dash__statebar" data-el="state-bar"></div>
+          <ul class="trainer__spread" data-el="state-legend"></ul>
+        </section>
+
+        <section class="dash__panel">
+          <h2>Memory strength by deck</h2>
+          <p class="dash__what">
+            Median stability — the interval at which recall would fall to 90% — and mean recall
+            probability right now. Median rather than mean, because one card on a four-year
+            interval drags an average somewhere no card actually is.
+          </p>
+          <table class="dash__table">
+            <thead><tr><th>deck</th><th>cards</th><th>median stability</th><th>recall now</th></tr></thead>
+            <tbody data-el="strength-table"></tbody>
+          </table>
+        </section>
+
+        <section class="dash__panel">
+          <h2>Leeches</h2>
+          <p class="dash__what">
+            Cards forgotten three or more times after reaching the Review state. Forgetting during
+            learning is learning; forgetting something repeatedly after consolidating it usually
+            means the card is at fault — two facts in one, or an answer that does not follow from
+            the question.
+          </p>
+          <p class="dash__read">
+            This is a worklist. The fix is to rewrite the card in
+            <code>src/content/flashcards/</code>, keeping its <code>id</code> so the history
+            survives — not to see it more often.
+          </p>
+          <ul class="dash__leeches" data-el="leeches-list"></ul>
+          <p class="trainer__note" data-el="leeches-empty" hidden>
+            Nothing has been forgotten often enough to qualify.
+          </p>
+        </section>
+
+        <section class="dash__panel">
+          <h2>Activity</h2>
+          <p class="dash__what">
+            Reviews per day over the last 17 weeks, oldest first. Empty days are shown as empty
+            cells rather than omitted.
+          </p>
+          <p class="dash__read">
+            There is no streak here on purpose. A run of consecutive days is a fact about a
+            calendar, and protecting one is a reason to rate dishonestly at midnight.
+          </p>
+          <div class="dash__grid" data-el="activity-grid"></div>
+          <p class="dash__foot" data-el="activity-summary"></p>
+        </section>
+
+        <section class="dash__panel">
+          <h2>What is coming</h2>
+          <p class="dash__what">
+            Cards already scheduled for each of the next fourteen days, before any new ones are
+            introduced. <b data-el="forecast-overdue">0</b> are overdue right now.
+          </p>
+          <p class="dash__read">
+            The cost of a new card is not today, it is this chart a year from now.
+          </p>
+          <div class="dash__forecast" data-el="forecast-chart"></div>
+          <p class="dash__foot" data-el="forecast-scale"></p>
+        </section>
+      </div>
+    </div>
+  </article>
+
+  <script type="application/json" data-cards set:html={JSON.stringify(cards)} />
+
+  <script>
+    import { bootDashboard } from '../../lib/dashboard.mjs';
+
+    const root = document.querySelector('[data-dashboard]');
+    const cards = JSON.parse(document.querySelector('[data-cards]').textContent);
+    bootDashboard({ root, cards });
+  </script>
+</Base>

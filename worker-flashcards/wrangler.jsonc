@@ -1,0 +1,55 @@
+{
+  // Flashcards API for markets-first-principles.
+  //
+  // Unlike the notes worker, this one does have read routes — the trainer needs
+  // to pull state onto a fresh device. So *every* route is behind auth: either
+  // Cloudflare Access in front of the Worker (set ACCESS_ENABLED to "true" once
+  // the Access application exists) or a bearer token in the API_TOKEN secret.
+  // There is no unauthenticated route at all, read or write.
+  //
+  // Secrets are never in this file:
+  //   npx wrangler secret put API_TOKEN
+  //
+  // The database id is left as a placeholder until the database exists; the
+  // deploy workflow looks it up by name and substitutes it, so a fresh account
+  // needs no manual editing.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "markets-first-principles-flashcards",
+  "main": "src/index.js",
+  "compatibility_date": "2025-03-01",
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    // Browser origins allowed to call the API. The GitHub Pages site plus the
+    // two local dev servers. Anything else gets no CORS headers back, so the
+    // browser refuses to read the response.
+    "ALLOWED_ORIGINS": "https://alessiomartini.github.io,http://localhost:4321,http://127.0.0.1:4321",
+    // Flip to "true" ONLY when the Worker is actually behind an Access
+    // application. Setting it while the Worker is directly reachable turns the
+    // CF-Access-Jwt-Assertion header into a password anyone can type.
+    "ACCESS_ENABLED": "false"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "markets-first-principles-flashcards",
+      "database_id": "REPLACE_WITH_DATABASE_ID"
+    }
+  ],
+  // Weekly copy of the log to R2, Sundays at 03:00 UTC. D1 has its own
+  // point-in-time recovery, but that protects against Cloudflare losing the
+  // data — not against me dropping the table. The backup that survives a
+  // mistake is the one in a different service, in a format readable without
+  // any of this code.
+  "triggers": {
+    "crons": ["0 3 * * 0"]
+  },
+  // Commented out until R2 is enabled on the account: an unresolvable binding
+  // fails the deploy outright. The scheduled handler checks for the binding and
+  // skips cleanly while it is absent, so uncommenting this and redeploying is
+  // the only step needed.
+  // "r2_buckets": [
+  //   { "binding": "BACKUPS", "bucket_name": "markets-first-principles-backups" }
+  // ]
+}

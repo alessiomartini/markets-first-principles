@@ -11,7 +11,14 @@
     "scaffold": "node scripts/scaffold-content.mjs",
     "audit:content": "node scripts/audit-content.mjs",
     "data:fallback": "python3 pipeline/synthesize_fallback.py",
-    "data:refresh": "python3 pipeline/run_all.py"
+    "data:refresh": "python3 pipeline/run_all.py",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "validate:cards": "node scripts/validate-cards.mjs",
+    "flashcards:pull-ids": "node scripts/pull-card-ids.mjs",
+    "flashcards:rebuild-states": "node scripts/rebuild-states.mjs",
+    "check:trainer": "node scripts/check-trainer.mjs",
+    "check:dashboard": "node scripts/check-dashboard.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.14",
@@ -22,6 +29,11 @@
     "linkedom": "^0.18.9",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
+    "ts-fsrs": "^5.4.1",
     "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
+    "fake-indexeddb": "^6.2.5",
+    "vitest": "^4.1.10"
   }
 }

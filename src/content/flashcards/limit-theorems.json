@@ -1,0 +1,161 @@
+{
+  "deck": "limit-theorems",
+  "topic": "Probability & Statistics",
+  "cards": [
+    {
+      "id": "wlln-statement",
+      "type": "basic",
+      "front": "State the weak law of large numbers.",
+      "back": "For i.i.d. $X_i$ with finite mean $\\mu$, the sample mean converges to $\\mu$ *in probability*:\n\n$$\\bar X_n \\xrightarrow{\\;p\\;} \\mu, \\qquad \\text{i.e.} \\quad P\\left(|\\bar X_n - \\mu| > \\varepsilon\\right) \\to 0 \\ \\ \\forall \\varepsilon > 0$$",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Law of large numbers",
+          "url": "https://en.wikipedia.org/wiki/Law_of_large_numbers",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "lln"
+      ]
+    },
+    {
+      "id": "slln-vs-wlln",
+      "type": "why",
+      "front": "What does the strong law say that the weak law does not?",
+      "back": "The weak law says that for any fixed large $n$, the sample mean is *probably* close to $\\mu$ — but it leaves open that the sequence wanders outside the band infinitely often. The strong law rules that out: $\\bar X_n \\to \\mu$ almost surely, so with probability one the sequence eventually stays close forever.\n\nThe distinction is about the behaviour of the whole path versus the marginal at each $n$, which is the same distinction as between convergence in probability and almost-sure convergence generally.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Law of large numbers",
+          "url": "https://en.wikipedia.org/wiki/Law_of_large_numbers",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "lln",
+        "convergence"
+      ]
+    },
+    {
+      "id": "clt-statement",
+      "type": "formula",
+      "front": "State the central limit theorem.",
+      "back": "For i.i.d. $X_i$ with mean $\\mu$ and finite variance $\\sigma^2$,\n\n$$\\sqrt{n}\\,\\frac{\\bar X_n - \\mu}{\\sigma} \\xrightarrow{\\;d\\;} \\mathcal{N}(0,1)$$\n\nFinite variance is a hypothesis, not a technicality.",
+      "answer": "sqrt(n)(Xbar - mu)/sigma -> N(0,1)",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Central limit theorem",
+          "url": "https://en.wikipedia.org/wiki/Central_limit_theorem",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "clt"
+      ]
+    },
+    {
+      "id": "clt-why-sqrt-n",
+      "type": "why",
+      "front": "Where does the $\\sqrt{n}$ in the CLT come from?",
+      "back": "Variances of independent variables add, so $\\operatorname{Var}\\left(\\sum_i X_i\\right) = n\\sigma^2$ and the standard deviation of the sum grows as $\\sigma\\sqrt{n}$. The sample mean divides by $n$, giving standard deviation $\\sigma/\\sqrt{n}$, so multiplying by $\\sqrt{n}$ is exactly the rescaling that holds the spread fixed as $n$ grows.\n\nAnything slower and the rescaled variable collapses to a point; anything faster and it diverges. $\\sqrt{n}$ is the unique scaling at which a non-degenerate limit exists — and it is the same $\\sqrt{T}$ that governs why expected return is so much harder to estimate than volatility.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Central limit theorem",
+          "url": "https://en.wikipedia.org/wiki/Central_limit_theorem",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "clt",
+        "scaling",
+        "estimation"
+      ]
+    },
+    {
+      "id": "clt-fails-infinite-variance",
+      "type": "why",
+      "front": "When does the CLT fail, and what replaces the Gaussian limit?",
+      "back": "When the variance is infinite. The proof rescales by $\\sigma\\sqrt{n}$, which is meaningless if $\\sigma$ does not exist.\n\nSums of heavy-tailed variables with tail index $\\alpha < 2$ converge instead to an $\\alpha$-stable Lévy law, rescaled by $n^{1/\\alpha}$ rather than $n^{1/2}$. The Gaussian is the special case $\\alpha = 2$.\n\nThis matters for financial returns, whose measured tail index sits near 3 — variance exists, so the CLT applies, but the convergence is slow enough that Gaussian approximations remain poor at the horizons risk is actually measured over.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Stable distribution",
+          "url": "https://en.wikipedia.org/wiki/Stable_distribution",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "clt",
+        "heavy-tails",
+        "stable"
+      ]
+    },
+    {
+      "id": "clt-rate-berry-esseen",
+      "type": "why",
+      "front": "How fast does the CLT converge, and what makes it slower?",
+      "back": "The Berry–Esseen theorem bounds the largest gap between the true CDF and the normal one by $C\\rho/(\\sigma^3\\sqrt{n})$, where $\\rho = \\mathbb{E}|X - \\mu|^3$. So the error falls only as $1/\\sqrt{n}$ — and the constant is proportional to the third absolute moment, so skewed or heavy-tailed summands converge far more slowly.\n\nThe practical reading is that \"$n \\ge 30$\" is a rule of thumb for well-behaved variables and nothing more. In the tails, where the approximation matters most for risk, convergence is slowest.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Berry–Esseen theorem",
+          "url": "https://en.wikipedia.org/wiki/Berry%E2%80%93Esseen_theorem",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "clt",
+        "convergence-rate"
+      ]
+    },
+    {
+      "id": "delta-method",
+      "type": "basic",
+      "front": "Give the delta method for the asymptotic variance of $g(\\bar X_n)$.",
+      "back": "If $\\sqrt{n}(\\bar X_n - \\mu) \\xrightarrow{d} \\mathcal{N}(0, \\sigma^2)$ and $g$ is differentiable at $\\mu$ with $g'(\\mu) \\neq 0$, then\n\n$$\\sqrt{n}\\left(g(\\bar X_n) - g(\\mu)\\right) \\xrightarrow{\\;d\\;} \\mathcal{N}\\left(0,\\; \\left[g'(\\mu)\\right]^2 \\sigma^2\\right)$$\n\nIt is a first-order Taylor expansion with the remainder shown to be negligible — which is also its limitation: it fails exactly where $g'(\\mu) = 0$, and there the next order governs.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Delta method",
+          "url": "https://en.wikipedia.org/wiki/Delta_method",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "delta-method",
+        "asymptotics"
+      ]
+    }
+  ]
+}

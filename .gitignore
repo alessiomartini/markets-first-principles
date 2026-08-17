@@ -10,3 +10,16 @@ __pycache__/
 # Raw payloads from the data pipeline. Only the reduced JSON in
 # src/data/figures/ is committed — see README, "Data architecture".
 pipeline/.cache/
+
+# Flashcards: local Worker dev state and anything exported from the review log.
+.dev.vars
+.wrangler/
+worker-flashcards/.wrangler/
+exports/
+*.local.db
+*.sqlite
+# Written by `npm run flashcards:pull-ids` from the live review log, so the
+# validator can check for orphaned history. Derived data, and it names cards
+# that may since have been retired — not something to version.
+.card-ids-in-log.json
+rebuilt-states.sql
