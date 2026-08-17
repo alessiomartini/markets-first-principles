@@ -172,6 +172,11 @@ export class Sync {
     }
 
     await this.store.put(STORES.queue, record);
+    // Also into the permanent local archive. The queue drains as rows are
+    // acknowledged; the archive is what the dashboard reads, so history stays
+    // available offline and without asking the server for what this device
+    // already knows.
+    await this.store.put(STORES.reviews, wireShape(record));
     if (cardState?.card_id) await this.store.put(STORES.cards, cardState);
     await this.#announce();
     return { queued: true };
@@ -367,8 +372,38 @@ export class Sync {
       if (!local || (local.updated_at ?? 0) < (state.updated_at ?? 0)) fresh.push(state);
     }
     await this.store.putMany(STORES.cards, fresh);
+
+    const reviews = await this.#pullReviews(token);
+
     await this.#announce();
-    return { hydrated: fresh.length };
+    return { hydrated: fresh.length, reviews };
+  }
+
+  /**
+   * Fill the local archive from the server, so the dashboard on a new device
+   * shows the history made on the old one. Keyed on review_id, so re-pulling
+   * overlapping ranges is harmless.
+   */
+  async #pullReviews(token, limit = 5000) {
+    try {
+      const response = await this.fetch(`${this.endpoint}/api/reviews?limit=${limit}`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        credentials: this.accessMode ? 'include' : 'omit',
+      });
+      if (!response.ok) return 0;
+      const { reviews = [] } = await response.json();
+      await this.store.putMany(STORES.reviews, reviews.map(wireShape));
+      return reviews.length;
+    } catch {
+      // History is a convenience; failing to fetch it must not fail hydration,
+      // which the start screen depends on.
+      return 0;
+    }
+  }
+
+  /** Every review this device knows about, synced or not. */
+  async allReviews() {
+    return this.store.all(STORES.reviews);
   }
 
   async quarantined() {

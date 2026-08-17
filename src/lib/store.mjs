@@ -18,11 +18,12 @@
  */
 
 export const DB_NAME = 'mfp-flashcards';
-export const DB_VERSION = 1;
+export const DB_VERSION = 2;
 
 export const STORES = Object.freeze({
   queue: 'queue',
   quarantine: 'quarantine',
+  reviews: 'reviews',
   cards: 'cards',
   meta: 'meta',
 });
@@ -52,6 +53,15 @@ export function openDatabase(factory = globalThis.indexedDB, name = DB_NAME) {
       }
       if (!db.objectStoreNames.contains(STORES.quarantine)) {
         db.createObjectStore(STORES.quarantine, { keyPath: 'review_id' });
+      }
+      // The local archive of every review ever made on this device. The queue
+      // empties as rows are acknowledged, so without this the dashboard would
+      // have to ask the server for history it already had — and would show
+      // nothing at all offline.
+      if (!db.objectStoreNames.contains(STORES.reviews)) {
+        const reviews = db.createObjectStore(STORES.reviews, { keyPath: 'review_id' });
+        reviews.createIndex('reviewed_at', 'reviewed_at');
+        reviews.createIndex('card_id', 'card_id');
       }
       if (!db.objectStoreNames.contains(STORES.cards)) {
         db.createObjectStore(STORES.cards, { keyPath: 'card_id' });

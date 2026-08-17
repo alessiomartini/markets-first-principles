@@ -17,6 +17,7 @@ const cards = decks.flatMap((deck) =>
 );
 
 const deckNames = [...new Set(cards.map((card) => card.deck))].sort();
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Base
@@ -93,6 +94,11 @@ const deckNames = [...new Set(cards.map((card) => card.deck))].sort();
         <p class="trainer__note" data-el="empty" hidden>
           Nothing is due and there are no unseen cards in this topic. That is the system working:
           reviewing a card early tells you less and costs the same.
+        </p>
+
+        <p class="trainer__note">
+          <a href={`${base}/flashcards/dashboard/`}>Diagnostics →</a> — true retention, calibration
+          against your own log, and which cards keep being forgotten.
         </p>
 
         <p class="trainer__keys">

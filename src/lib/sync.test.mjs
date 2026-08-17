@@ -114,6 +114,47 @@ describe('flush', () => {
     expect(options.headers.Authorization).toBe(`Bearer ${TOKEN}`);
   });
 
+  it('keeps a permanent local copy after the queue drains', async () => {
+    // The queue empties as rows are acknowledged. Without a separate archive
+    // the dashboard would have nothing to show offline, and would have to ask
+    // the server for history this device generated itself.
+    const sync = makeSync(vi.fn(async () => okResponse({ accepted: ['r-1'] })));
+    await sync.enqueue(review());
+    await sync.flush();
+
+    expect(await store.count(STORES.queue)).toBe(0);
+    const archived = await sync.allReviews();
+    expect(archived).toHaveLength(1);
+    expect(Object.keys(archived[0])).toEqual([...REVIEW_FIELDS]);
+  });
+
+  it('pulls server history into the archive when hydrating', async () => {
+    const fetchImpl = vi.fn(async (url) => ({
+      ok: true,
+      status: 200,
+      json: async () =>
+        url.includes('/api/states')
+          ? { states: [] }
+          : { reviews: [review({ review_id: 'from-server' })] },
+    }));
+
+    await makeSync(fetchImpl).hydrate();
+
+    expect((await store.all(STORES.reviews)).map((r) => r.review_id)).toEqual(['from-server']);
+  });
+
+  it('still hydrates states when the history fetch fails', async () => {
+    const fetchImpl = vi.fn(async (url) => {
+      if (url.includes('/api/reviews')) throw new Error('boom');
+      return { ok: true, status: 200, json: async () => ({ states: [{ card_id: 'a', due: 1 }] }) };
+    });
+
+    const result = await makeSync(fetchImpl).hydrate();
+
+    expect(result.hydrated).toBe(1);
+    expect(result.reviews).toBe(0);
+  });
+
   it('sends the same review_id on a retry, so the server can ignore the duplicate', async () => {
     let attempt = 0;
     const fetchImpl = vi.fn(async (_url, options) => {

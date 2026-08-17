@@ -14,6 +14,7 @@
 
 import {
   createEmptyCard,
+  forgetting_curve,
   fsrs,
   FSRSVersion,
   generatorParameters,
@@ -195,6 +196,27 @@ export function deserialiseCard(record) {
     last_review: record.last_review ? new Date(record.last_review) : undefined,
     learning_steps: record.learning_steps ?? 0,
   };
+}
+
+/**
+ * The forgetting curve itself: recall probability after `elapsedDays` for a
+ * memory of the given stability.
+ *
+ *   R(t, S) = (1 + F·t/S)^(-d),  with d = w[20] and F chosen so R(S, S) = 0.9
+ *
+ * A power law, not an exponential. That is the empirical claim FSRS rests on
+ * and it is worth stating plainly, because the exponential is what everyone
+ * assumes: a power law has a much fatter tail, so a memory you would have
+ * written off after three stability-lengths is still there far more often than
+ * exponential decay predicts.
+ *
+ * Exposed separately from `retrievability` because the dashboard needs to
+ * evaluate it at the *historical* state recorded in each review row, not at the
+ * card's state now. That is what makes a calibration check possible.
+ */
+export function predictedRetrievability(elapsedDays, stability) {
+  if (!Number.isFinite(elapsedDays) || !Number.isFinite(stability) || stability <= 0) return null;
+  return forgetting_curve(parameters.w, Math.max(0, elapsedDays), stability);
 }
 
 /** Probability of recall right now, given the card's stability. */
