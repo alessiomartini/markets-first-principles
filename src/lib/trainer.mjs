@@ -356,15 +356,55 @@ function wireSettings({ root, el, sync, settings }) {
     panel.hidden = !panel.hidden;
   });
 
-  el('export-button')?.addEventListener('click', async () => {
-    const rows = await sync.store.all(STORES.queue);
-    const blob = new Blob([JSON.stringify(rows, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
+  const download = (content, filename, type) => {
+    const url = URL.createObjectURL(new Blob([content], { type }));
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'pending-reviews.json';
+    link.download = filename;
     link.click();
     URL.revokeObjectURL(url);
+  };
+
+  el('export-button')?.addEventListener('click', async () => {
+    // Everything this browser knows, whether or not it ever reached the server.
+    const [archive, pending, quarantined] = await Promise.all([
+      sync.store.all(STORES.reviews),
+      sync.store.all(STORES.queue),
+      sync.store.all(STORES.quarantine),
+    ]);
+    download(
+      JSON.stringify({ exported_at: Date.now(), archive, pending, quarantined }, null, 2),
+      `flashcards-local-${new Date().toISOString().slice(0, 10)}.json`,
+      'application/json'
+    );
+  });
+
+  el('export-server-button')?.addEventListener('click', async () => {
+    const { endpoint, token } = loadSettings();
+    const status = el('export-status');
+    if (!endpoint) {
+      status.textContent = 'No server configured.';
+      return;
+    }
+    status.textContent = 'fetching…';
+    try {
+      // The whole log, as CSV, in the column order the FSRS optimiser expects.
+      // This is the "leave whenever you like" guarantee: the data is yours in a
+      // format nothing here has to be running to read.
+      const response = await fetch(`${endpoint}/api/export?format=csv`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        credentials: sync.accessMode ? 'include' : 'omit',
+      });
+      if (!response.ok) throw new Error(`server returned ${response.status}`);
+      download(
+        await response.text(),
+        `reviews-${new Date().toISOString().slice(0, 10)}.csv`,
+        'text/csv'
+      );
+      status.textContent = 'downloaded.';
+    } catch (error) {
+      status.textContent = `Could not download: ${error.message}`;
+    }
   });
 
   if (!settings.endpoint) {

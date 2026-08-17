@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { handle, REVIEW_COLUMNS } from './api.js';
+import { backup, handle, REVIEW_COLUMNS } from './api.js';
 
 /**
  * A fake D1 that understands only the handful of statements this API issues.
@@ -223,6 +223,50 @@ describe('GET /api/export', () => {
     const text = await handle(authed('/api/export?format=csv'), env).then((r) => r.text());
 
     expect(text).toContain('"a,b"');
+  });
+});
+
+describe('backup', () => {
+  const bucket = () => {
+    const objects = new Map();
+    return { objects, async put(key, body) { objects.set(key, body); } };
+  };
+
+  it('skips cleanly when R2 is not bound yet', async () => {
+    // The account may not have R2 enabled. A weekly cron that throws because a
+    // binding is missing is noise that teaches you to ignore the logs.
+    const result = await backup({ ...env, BACKUPS: undefined });
+    expect(result.skipped).toMatch(/no R2 bucket/);
+  });
+
+  it('writes a dated key and a latest pointer', async () => {
+    await handle(post({ reviews: [review()] }), env);
+    const BACKUPS = bucket();
+
+    const result = await backup({ ...env, BACKUPS });
+
+    expect(result.reviews).toBe(1);
+    expect([...BACKUPS.objects.keys()]).toEqual([result.key, 'reviews/latest.csv']);
+    // Dated, so a corrupted run cannot destroy the previous backup.
+    expect(result.key).toMatch(/^reviews\/\d{4}-\d{2}-\d{2}\.csv$/);
+  });
+
+  it('writes CSV readable without any of this code', async () => {
+    await handle(post({ reviews: [review()] }), env);
+    const BACKUPS = bucket();
+    await backup({ ...env, BACKUPS });
+
+    const [header, row] = BACKUPS.objects.get('reviews/latest.csv').trim().split('\n');
+    expect(header).toBe(REVIEW_COLUMNS.join(','));
+    expect(row.split(',')[0]).toBe('r-1');
+  });
+
+  it('does not write an empty file over a good backup', async () => {
+    const BACKUPS = bucket();
+    const result = await backup({ ...env, BACKUPS });
+
+    expect(result.skipped).toBe('empty log');
+    expect(BACKUPS.objects.size).toBe(0);
   });
 });
 

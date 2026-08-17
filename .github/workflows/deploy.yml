@@ -49,6 +49,18 @@ jobs:
       - name: Check content map
         run: npm run scaffold -- --check
 
+      # Card ids are the join between content in git and review history in D1.
+      # Renaming one orphans everything ever recorded about that card, silently
+      # and irreversibly, so the validator gates the build. Its strongest check
+      # — comparing against the ids that actually appear in the log — needs
+      # credentials CI does not have and is skipped with a warning here; run
+      # `npm run flashcards:pull-ids` locally before renaming or deleting a card.
+      - name: Validate flashcards
+        run: npm run validate:cards
+
+      - name: Unit tests
+        run: npm test
+
       # Build before touching Pages, so a deployment-side misconfiguration
       # cannot mask a genuine build failure. Nothing in the build depends on
       # configure-pages: the base path is set in astro.config.mjs.

@@ -230,6 +230,33 @@ check('reviewed cards survived the reload',
 check('the unsynced queue survived the reload',
   /4 stored locally|4 waiting/.test(afterReload.status), afterReload.status);
 
+// --- data export ------------------------------------------------------------
+// The "your data is yours" promise has to actually produce a file.
+//
+// Toggle only if it is closed: after a reload with no server configured the
+// panel opens itself, and a blind click would shut it.
+const openSettings = async () => {
+  if ((await onScreen('[data-el="settings-panel"]')) !== true) {
+    await page.click('[data-el="settings-toggle"]');
+    await page.waitForSelector('[data-el="settings-panel"]:not([hidden])');
+  }
+};
+await openSettings();
+const downloaded = await Promise.all([
+  page.waitForEvent('download', { timeout: 5000 }),
+  page.click('[data-el="export-button"]'),
+]).then(([download]) => download.suggestedFilename()).catch(() => null);
+check('the local export downloads a dated file',
+  /^flashcards-local-\d{4}-\d{2}-\d{2}\.json$/.test(downloaded ?? ''), downloaded ?? 'no download');
+
+await page.click('[data-el="export-server-button"]');
+await page.waitForFunction(
+  () => document.querySelector('[data-el="export-status"]')?.textContent.trim().length > 0
+);
+const exportStatus = await page.textContent('[data-el="export-status"]');
+check('the server export says why it cannot run rather than failing silently',
+  /No server configured/.test(exportStatus), exportStatus.trim());
+
 // --- dark theme -------------------------------------------------------------
 await page.evaluate(() => {
   document.documentElement.dataset.theme = 'dark';

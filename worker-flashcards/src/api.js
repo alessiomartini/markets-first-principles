@@ -248,6 +248,46 @@ async function exportLog(url, env, cors) {
   });
 }
 
+/**
+ * Copy the whole log into R2 as CSV.
+ *
+ * Called from the weekly cron. CSV rather than a database dump so the backup is
+ * readable with no part of this project present — the point of a backup is that
+ * it works on the day everything else does not.
+ *
+ * Returns rather than throws when the bucket is missing, so the Worker deploys
+ * and runs before R2 is enabled on the account. A cron that crashes weekly
+ * because a binding is absent is noise that trains you to ignore the logs.
+ */
+export async function backup(env) {
+  if (!env.BACKUPS) return { skipped: 'no R2 bucket bound (BACKUPS)' };
+
+  const { results } = await env.DB.prepare(
+    `SELECT ${REVIEW_COLUMNS.join(', ')} FROM reviews ORDER BY reviewed_at ASC`
+  ).all();
+  const rows = results ?? [];
+  if (rows.length === 0) return { skipped: 'empty log' };
+
+  const lines = [REVIEW_COLUMNS.join(',')];
+  for (const row of rows) {
+    lines.push(REVIEW_COLUMNS.map((column) => csvCell(row[column])).join(','));
+  }
+  const body = lines.join('\n') + '\n';
+
+  // Dated key, never overwritten: a backup that the next run can clobber is a
+  // backup that a corrupted run destroys.
+  const key = `reviews/${new Date().toISOString().slice(0, 10)}.csv`;
+  await env.BACKUPS.put(key, body, {
+    httpMetadata: { contentType: 'text/csv; charset=utf-8' },
+  });
+  // A pointer to the newest one, so restoring does not require listing.
+  await env.BACKUPS.put('reviews/latest.csv', body, {
+    httpMetadata: { contentType: 'text/csv; charset=utf-8' },
+  });
+
+  return { key, reviews: rows.length, bytes: body.length };
+}
+
 function csvCell(value) {
   if (value === null || value === undefined) return '';
   const text = String(value);

@@ -36,5 +36,20 @@
       "database_name": "markets-first-principles-flashcards",
       "database_id": "REPLACE_WITH_DATABASE_ID"
     }
-  ]
+  ],
+  // Weekly copy of the log to R2, Sundays at 03:00 UTC. D1 has its own
+  // point-in-time recovery, but that protects against Cloudflare losing the
+  // data — not against me dropping the table. The backup that survives a
+  // mistake is the one in a different service, in a format readable without
+  // any of this code.
+  "triggers": {
+    "crons": ["0 3 * * 0"]
+  },
+  // Commented out until R2 is enabled on the account: an unresolvable binding
+  // fails the deploy outright. The scheduled handler checks for the binding and
+  // skips cleanly while it is absent, so uncommenting this and redeploying is
+  // the only step needed.
+  // "r2_buckets": [
+  //   { "binding": "BACKUPS", "bucket_name": "markets-first-principles-backups" }
+  // ]
 }

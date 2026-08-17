@@ -18,3 +18,8 @@ worker-flashcards/.wrangler/
 exports/
 *.local.db
 *.sqlite
+# Written by `npm run flashcards:pull-ids` from the live review log, so the
+# validator can check for orphaned history. Derived data, and it names cards
+# that may since have been retired — not something to version.
+.card-ids-in-log.json
+rebuilt-states.sql

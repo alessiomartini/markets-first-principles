@@ -64,9 +64,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           </label>
           <div class="trainer__settings-actions">
             <button type="submit">Save</button>
-            <button type="button" data-el="export-button">Download unsynced reviews</button>
+            <button type="button" data-el="export-button">Download this browser's data</button>
+            <button type="button" data-el="export-server-button">Download the whole log (CSV)</button>
           </div>
           <p class="trainer__saved" data-el="settings-saved" hidden>Saved.</p>
+          <p class="trainer__note" data-el="export-status"></p>
+          <p class="trainer__note">
+            The CSV carries the columns the FSRS optimiser expects, so the history can be re-fitted
+            or moved elsewhere without any of this code running. A weekly copy also goes to R2.
+          </p>
         </form>
       </section>
 

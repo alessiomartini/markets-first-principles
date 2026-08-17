@@ -14,7 +14,11 @@
     "data:refresh": "python3 pipeline/run_all.py",
     "test": "vitest run",
     "test:watch": "vitest",
-    "validate:cards": "node scripts/validate-cards.mjs"
+    "validate:cards": "node scripts/validate-cards.mjs",
+    "flashcards:pull-ids": "node scripts/pull-card-ids.mjs",
+    "flashcards:rebuild-states": "node scripts/rebuild-states.mjs",
+    "check:trainer": "node scripts/check-trainer.mjs",
+    "check:dashboard": "node scripts/check-dashboard.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.14",
