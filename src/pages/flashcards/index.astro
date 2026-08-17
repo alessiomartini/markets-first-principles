@@ -1,0 +1,190 @@
+---
+import { getCollection } from 'astro:content';
+
+import Base from '../../layouts/Base.astro';
+
+/**
+ * The trainer.
+ *
+ * Cards are baked into the page at build time — they live in git, so there is
+ * no reason to fetch them — while progress lives only in IndexedDB and D1. The
+ * page ships no card *state*, which is why it can be a static file on GitHub
+ * Pages and still be personal.
+ */
+const decks = await getCollection('flashcards');
+const cards = decks.flatMap((deck) =>
+  deck.data.cards.map((card) => ({ ...card, topic: deck.data.topic, deck: deck.data.deck }))
+);
+
+const deckNames = [...new Set(cards.map((card) => card.deck))].sort();
+---
+
+<Base
+  title="Trainer"
+  description="Spaced repetition over the material on this site, scheduled with FSRS-6."
+>
+  <article class="page">
+    <header class="page__header">
+      <p class="page__kicker">Trainer</p>
+      <h1>Spaced repetition</h1>
+      <p class="page__summary">
+        {cards.length} cards across {deckNames.length} decks, scheduled with FSRS-6. Ratings are
+        recorded locally the moment you press them and synced when a connection allows. There is no
+        score and no streak: the ratings are data about your memory, and anything that made them a
+        number worth protecting would corrupt them.
+      </p>
+    </header>
+
+    <div class="trainer" data-trainer>
+      <p class="trainer__fatal" data-el="fatal" hidden></p>
+
+      <div class="trainer__bar">
+        <span class="trainer__status" data-el="sync-status">starting…</span>
+        <span class="trainer__quarantine" data-el="quarantine" hidden>
+          <b data-el="quarantine-count">0</b> review(s) rejected — see the settings panel
+        </span>
+        <button type="button" class="trainer__link" data-el="settings-toggle">settings</button>
+      </div>
+
+      <section class="trainer__settings" data-el="settings-panel" hidden>
+        <form data-el="settings-form">
+          <p class="trainer__note">
+            The API lives on a Cloudflare Worker and refuses every unauthenticated request, so the
+            endpoint and token are needed before anything syncs. The token is kept in this
+            browser's <code>localStorage</code>; see <code>docs/sync.md</code> for what that costs.
+          </p>
+          <label>
+            Worker endpoint
+            <input type="url" data-el="endpoint-input" placeholder="https://…workers.dev" />
+          </label>
+          <label>
+            API token
+            <input type="password" data-el="token-input" autocomplete="off" />
+          </label>
+          <div class="trainer__settings-actions">
+            <button type="submit">Save</button>
+            <button type="button" data-el="export-button">Download unsynced reviews</button>
+          </div>
+          <p class="trainer__saved" data-el="settings-saved" hidden>Saved.</p>
+        </form>
+      </section>
+
+      <p class="trainer__note" data-el="sync-note"></p>
+
+      <section data-screen="start">
+        <dl class="trainer__counts">
+          <div><dt>due now</dt><dd data-el="count-due">0</dd></div>
+          <div><dt>never seen</dt><dd data-el="count-new">0</dd></div>
+          <div><dt>scheduled later</dt><dd data-el="count-later">0</dd></div>
+        </dl>
+
+        <div class="trainer__controls">
+          <label>
+            Deck
+            <select data-el="deck"><option value="">all</option></select>
+          </label>
+          <label>
+            New cards this session
+            <input type="number" data-el="new-limit" value="10" min="0" max="50" />
+          </label>
+          <button type="button" class="trainer__primary" data-el="start-button">Start</button>
+        </div>
+
+        <p class="trainer__note" data-el="empty" hidden>
+          Nothing is due and there are no unseen cards in this topic. That is the system working:
+          reviewing a card early tells you less and costs the same.
+        </p>
+
+        <p class="trainer__keys">
+          <kbd>Space</kbd> reveal · <kbd>1</kbd>–<kbd>4</kbd> rate · <kbd>H</kbd> hint ·
+          <kbd>Esc</kbd> end
+        </p>
+      </section>
+
+      <section data-screen="review" hidden>
+        <div class="trainer__meta">
+          <span data-el="card-topic"></span>
+          <span data-el="card-type"></span>
+          <span data-el="progress"></span>
+          <button type="button" class="trainer__link" data-el="end-button">end session</button>
+        </div>
+
+        <div class="card">
+          <div class="card__front" data-el="front"></div>
+
+          <form class="card__answer" data-el="answer-form" hidden>
+            <label>
+              Type the formula
+              <input type="text" data-el="answer-input" autocomplete="off" spellcheck="false"
+                placeholder="e.g. Var(X)=E[X^2]-E[X]^2" />
+            </label>
+            <button type="submit">Check</button>
+          </form>
+
+          <p class="card__verdict" data-el="verdict" hidden></p>
+
+          <button type="button" class="trainer__primary" data-el="reveal">Reveal</button>
+          <button type="button" class="trainer__link" data-el="hint" hidden>hint</button>
+          <div class="card__hint" data-el="hint-text" hidden></div>
+
+          <div class="card__back" data-el="back" hidden></div>
+          <ul class="card__sources" data-el="sources"></ul>
+        </div>
+
+        <div class="ratings" data-el="ratings" hidden>
+          <button type="button" data-el="rate-1" data-rating="1">
+            <span class="ratings__key">1</span> Again <em data-el="interval"></em>
+          </button>
+          <button type="button" data-el="rate-2" data-rating="2">
+            <span class="ratings__key">2</span> Hard <em data-el="interval"></em>
+          </button>
+          <button type="button" data-el="rate-3" data-rating="3">
+            <span class="ratings__key">3</span> Good <em data-el="interval"></em>
+          </button>
+          <button type="button" data-el="rate-4" data-rating="4">
+            <span class="ratings__key">4</span> Easy <em data-el="interval"></em>
+          </button>
+        </div>
+      </section>
+
+      <section data-screen="summary" hidden>
+        <h2>Session over</h2>
+        <dl class="trainer__counts">
+          <div><dt>reviewed</dt><dd data-el="summary-reviewed">0</dd></div>
+          <div><dt>median</dt><dd data-el="summary-time">—</dd></div>
+          <div><dt>elapsed</dt><dd data-el="summary-total">—</dd></div>
+        </dl>
+
+        <ul class="trainer__spread" data-el="summary-spread"></ul>
+
+        <div data-el="summary-again-wrap" hidden>
+          <h3>Rated Again</h3>
+          <p class="trainer__note">
+            The only actionable line here: these are the cards to go and read the page for, rather
+            than see again tomorrow and guess at.
+          </p>
+          <ul class="trainer__again" data-el="summary-again"></ul>
+        </div>
+
+        <button type="button" class="trainer__primary" data-el="again-button">Back to start</button>
+      </section>
+    </div>
+
+    <p class="trainer__footnote">
+      Scheduling is FSRS-6 through <code>ts-fsrs</code>, wrapped in
+      <code>src/lib/scheduler.mjs</code>. Every review is appended to a log that is never updated or
+      deleted, so the parameters can be re-fitted on this history later. See
+      <code>docs/scheduling.md</code>.
+    </p>
+  </article>
+
+  <script type="application/json" data-cards set:html={JSON.stringify(cards)} />
+
+  <script>
+    import { boot } from '../../lib/trainer.mjs';
+
+    const root = document.querySelector('[data-trainer]');
+    const cards = JSON.parse(document.querySelector('[data-cards]').textContent);
+    boot({ root, cards });
+  </script>
+</Base>

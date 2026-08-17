@@ -364,6 +364,29 @@ describe('status', () => {
     expect(seen.at(-1)).toMatchObject({ state: 'idle', pending: 0, lastSyncAt: clock });
   });
 
+  it('reports a queue left behind by a previous visit, instead of "synced"', async () => {
+    // The bug this pins: a freshly constructed Sync holds zeroes, so the
+    // indicator claimed everything was synced on a device that had closed the
+    // tab with reviews still waiting. An indicator that under-reports unsent
+    // data is worse than none — it is what you check before wiping a profile.
+    await makeSync(vi.fn()).enqueue(review());
+
+    const reopened = makeSync(vi.fn());
+    const seen = [];
+    reopened.subscribe((status) => seen.push({ ...status }));
+    await reopened.refresh();
+
+    expect(seen[0].pending).toBe(0); // the constructor's guess
+    expect(seen.at(-1).pending).toBe(1); // the truth, once counted
+  });
+
+  it('says so when no server is configured', async () => {
+    const sync = makeSync(vi.fn(), { getToken: () => null });
+    await sync.refresh();
+
+    expect(sync.status.state).toBe('unconfigured');
+  });
+
   it('stops notifying after unsubscribe', async () => {
     const seen = [];
     const sync = makeSync(vi.fn());

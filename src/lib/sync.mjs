@@ -120,6 +120,23 @@ export class Sync {
     return () => this.listeners.delete(listener);
   }
 
+  /**
+   * Recount from the stores and notify.
+   *
+   * A freshly constructed Sync has zeroes in `status`, which is a lie on any
+   * device that closed the tab with reviews still queued: the indicator said
+   * "synced" while four reviews sat in IndexedDB. An indicator that
+   * under-reports unsent data is worse than none, because it is exactly what
+   * you would check before wiping a browser profile.
+   */
+  async refresh() {
+    const configured = Boolean(this.endpoint) && (Boolean(this.getToken()) || this.accessMode);
+    return this.#announce({
+      state: configured ? this.status.state : 'unconfigured',
+      lastSyncAt: (await this.store.meta('last_sync_at')) ?? this.status.lastSyncAt,
+    });
+  }
+
   async #announce(patch = {}) {
     this.status = {
       ...this.status,

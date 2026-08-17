@@ -155,6 +155,48 @@ export function replay(reviews) {
   return card;
 }
 
+/**
+ * Convert an FSRS card to the flat, numeric row that IndexedDB and D1 both
+ * store, and back.
+ *
+ * ts-fsrs uses Date objects; SQLite has no date type and IndexedDB's support
+ * for them is not worth relying on across a schema change. Epoch milliseconds
+ * are unambiguous in both, and `card_states` is a cache anyway — but a cache
+ * that silently loses `last_review` produces wrong intervals rather than
+ * missing ones, which is harder to notice.
+ */
+export function serialiseCard(cardId, card, updatedAt = Date.now()) {
+  return {
+    card_id: cardId,
+    due: new Date(card.due).getTime(),
+    stability: card.stability,
+    difficulty: card.difficulty,
+    elapsed_days: card.elapsed_days,
+    scheduled_days: card.scheduled_days,
+    reps: card.reps,
+    lapses: card.lapses,
+    state: card.state,
+    last_review: card.last_review ? new Date(card.last_review).getTime() : null,
+    updated_at: updatedAt,
+  };
+}
+
+export function deserialiseCard(record) {
+  if (!record) return null;
+  return {
+    due: new Date(record.due),
+    stability: record.stability,
+    difficulty: record.difficulty,
+    elapsed_days: record.elapsed_days,
+    scheduled_days: record.scheduled_days,
+    reps: record.reps,
+    lapses: record.lapses,
+    state: record.state,
+    last_review: record.last_review ? new Date(record.last_review) : undefined,
+    learning_steps: record.learning_steps ?? 0,
+  };
+}
+
 /** Probability of recall right now, given the card's stability. */
 export function retrievability(card, now = new Date()) {
   return engine.get_retrievability(card, now, false);
