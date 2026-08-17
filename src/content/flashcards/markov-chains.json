@@ -1,0 +1,167 @@
+{
+  "deck": "markov-chains",
+  "topic": "Probability & Statistics",
+  "cards": [
+    {
+      "id": "markov-property",
+      "type": "basic",
+      "front": "State the Markov property for a discrete-time chain.",
+      "back": "$$P\\left(X_{n+1} = j \\mid X_n = i,\\, X_{n-1}, \\dots, X_0\\right) = P\\left(X_{n+1} = j \\mid X_n = i\\right)$$\n\nThe present state screens off the past: given where you are, how you got there carries no further information about where you go next.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Markov chain",
+          "url": "https://en.wikipedia.org/wiki/Markov_chain",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "markov",
+        "memorylessness"
+      ]
+    },
+    {
+      "id": "transition-matrix-row-sums",
+      "type": "why",
+      "front": "Why must each row of a transition matrix sum to one, and what would a column summing to one mean?",
+      "back": "Row $i$ holds the distribution of the next state given that you are currently in state $i$. It is a probability distribution over a complete set of possibilities, so it sums to one. Nothing constrains the columns.\n\nA matrix whose columns also sum to one is *doubly stochastic*, and it is a real special case rather than a convention: it implies the uniform distribution is stationary.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Stochastic matrix",
+          "url": "https://en.wikipedia.org/wiki/Stochastic_matrix",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "markov",
+        "transition-matrix"
+      ]
+    },
+    {
+      "id": "n-step-transition",
+      "type": "formula",
+      "front": "How do you get the $n$-step transition probabilities from the one-step matrix $P$?",
+      "back": "$$P^{(n)} = P^n$$\n\nMatrix multiplication *is* the Chapman–Kolmogorov equation: $P^{(n)}_{ij} = \\sum_k P^{(m)}_{ik} P^{(n-m)}_{kj}$ sums over every way of being at some intermediate state $k$ at time $m$.",
+      "answer": "P^n",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Chapman–Kolmogorov equation",
+          "url": "https://en.wikipedia.org/wiki/Chapman%E2%80%93Kolmogorov_equation",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "markov",
+        "chapman-kolmogorov"
+      ]
+    },
+    {
+      "id": "stationary-distribution-definition",
+      "type": "formula",
+      "front": "Define the stationary distribution of a chain with transition matrix $P$.",
+      "back": "A probability vector $\\pi$ with\n\n$$\\pi P = \\pi, \\qquad \\sum_i \\pi_i = 1, \\qquad \\pi_i \\ge 0$$\n\nIt is a left eigenvector of $P$ with eigenvalue 1, normalised to sum to one. Note the multiplication is on the left: $\\pi$ is a row vector of probabilities being pushed through the chain.",
+      "answer": "pi P = pi",
+      "hint": "A distribution the chain leaves unchanged.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Markov chain",
+          "url": "https://en.wikipedia.org/wiki/Markov_chain",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "markov",
+        "stationary"
+      ]
+    },
+    {
+      "id": "stationary-uniqueness-conditions",
+      "type": "why",
+      "front": "When is the stationary distribution unique, and when does the chain actually converge to it?",
+      "back": "Uniqueness needs **irreducibility** — every state reachable from every other — plus positive recurrence, which is automatic on a finite state space. Two disconnected components give two stationary distributions and any mixture of them.\n\nConvergence from an arbitrary start needs **aperiodicity** as well. A chain alternating deterministically between two states has a unique stationary distribution $(1/2, 1/2)$ and never converges to it: it oscillates forever. Aperiodicity is what rules that out.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Markov chain",
+          "url": "https://en.wikipedia.org/wiki/Markov_chain",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "markov",
+        "irreducible",
+        "aperiodic"
+      ]
+    },
+    {
+      "id": "first-step-analysis-hitting-time",
+      "type": "formula",
+      "front": "Write the first-step equations for the expected hitting time $h_i$ of a target set $A$.",
+      "back": "$$h_i = 0 \\ \\ \\text{for } i \\in A, \\qquad h_i = 1 + \\sum_j P_{ij}\\, h_j \\ \\ \\text{for } i \\notin A$$\n\nCondition on the first move: one step is always taken, then you face the expected time from wherever you landed. The $1$ counts that step and the sum is the law of total expectation applied to the next state.",
+      "answer": "h_i = 1 + sum_j P_ij h_j",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Hitting time",
+          "url": "https://en.wikipedia.org/wiki/Hitting_time",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "markov",
+        "first-step",
+        "hitting-time"
+      ]
+    },
+    {
+      "id": "gamblers-ruin-setup",
+      "type": "why",
+      "front": "Set up first-step analysis for gambler's ruin: fortune $i$, target $N$, win probability $p$. What is the ruin probability?",
+      "back": "Let $r_i$ be the probability of reaching $0$ before $N$. Conditioning on the first bet:\n\n$$r_i = p\\,r_{i+1} + q\\,r_{i-1}, \\qquad r_0 = 1,\\ r_N = 0$$\n\nA linear recurrence with characteristic roots $1$ and $q/p$. For $p \\neq q$ the solution is\n\n$$r_i = \\frac{(q/p)^i - (q/p)^N}{1 - (q/p)^N}$$\n\nand for the fair case $p = q = 1/2$ it degenerates to $r_i = 1 - i/N$.\n\nThe lesson that transfers: with $p < q$ the ruin probability approaches one as $N$ grows, so a negative-edge bettor playing indefinitely is ruined with certainty regardless of starting capital — which is the discrete ancestor of the risk-of-ruin arguments behind position sizing.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Gambler's ruin",
+          "url": "https://en.wikipedia.org/wiki/Gambler%27s_ruin",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "markov",
+        "first-step",
+        "ruin"
+      ]
+    }
+  ]
+}

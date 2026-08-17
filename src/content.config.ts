@@ -51,4 +51,46 @@ const glossary = defineCollection({
   }),
 });
 
-export const collections = { pages, glossary };
+/**
+ * Flashcard decks.
+ *
+ * Content is versioned in git and authored by hand; progress lives only in D1
+ * and never in this repo. The two are joined by `id`, which is permanent — the
+ * entire review history is keyed on it, so renaming a card silently orphans
+ * everything ever recorded about it. `scripts/validate-cards.mjs` enforces that.
+ */
+const flashcardSource = z.object({
+  label: z.string(),
+  url: z.string().url(),
+  kind: z.enum(['primary', 'wikipedia', 'glossary']),
+});
+
+const flashcards = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/flashcards' }),
+  schema: z.object({
+    deck: z.string(),
+    /** Matches an OpenQuant top-level section. */
+    topic: z.string(),
+    cards: z
+      .array(
+        z.object({
+          id: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'ids are lowercase kebab-case'),
+          type: z.enum(['basic', 'cloze', 'formula', 'why']),
+          front: z.string().min(1),
+          back: z.string().min(1),
+          /** Shown only on demand. Never auto-revealed. */
+          hint: z.string().optional(),
+          /**
+           * The exact string the answer must match for `formula` cards, which
+           * are typed rather than self-graded. Absent means self-graded.
+           */
+          answer: z.string().optional(),
+          sources: z.array(flashcardSource).min(1),
+          tags: z.array(z.string()).default([]),
+        })
+      )
+      .min(1),
+  }),
+});
+
+export const collections = { pages, glossary, flashcards };
