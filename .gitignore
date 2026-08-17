@@ -10,3 +10,11 @@ __pycache__/
 # Raw payloads from the data pipeline. Only the reduced JSON in
 # src/data/figures/ is committed — see README, "Data architecture".
 pipeline/.cache/
+
+# Flashcards: local Worker dev state and anything exported from the review log.
+.dev.vars
+.wrangler/
+worker-flashcards/.wrangler/
+exports/
+*.local.db
+*.sqlite
