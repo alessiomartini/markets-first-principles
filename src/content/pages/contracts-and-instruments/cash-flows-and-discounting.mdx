@@ -2,7 +2,7 @@
 title: "Cash flows and discounting"
 track: 1
 order: 1
-status: stub
+status: written
 summary: "Every instrument is a promise of money at future dates. Pricing starts by asking what a future pound is worth now."
 terms:
   - "present value"
@@ -17,35 +17,111 @@ figure:
   series: "daily_treasury_yield_curve"
   period: "latest observation, plus 10y of history"
   script: "pipeline/fetch_treasury_curve.py"
+  notice: "The discount factor falls smoothly toward zero with maturity, and the curve's shape at the short end moves far more than the long end from one year to the next."
+  falsifiedBy: "The reading fails if the bootstrapped curve is not monotonically decreasing in maturity, which would imply a negative forward rate and an arbitrage anyone could execute."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Every financial instrument is a schedule of payments at future dates, and its price is what those payments are
+worth today.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Money now and money later are different goods. A pound today can be lent, invested, or spent; a pound in a year
+cannot do any of those things in the meantime, and might not arrive. Any comparison between the two requires an
+exchange rate between dates, and that exchange rate is what an interest rate is.
+
+Once that rate exists, valuation becomes mechanical. A bond, a swap, a loan, a lease, a pension liability — all of
+them are a list of amounts and dates, and all of them are priced the same way. This is why fixed income is a
+single subject rather than a collection of unrelated products, and why the machinery here reappears in every later
+track. Track 4 prices options by the same method, having first replaced the payments with their expected values
+under a particular probability measure.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+The **present value** of a future payment is what it is worth today. It is obtained by multiplying the payment by
+a **discount factor** — the number that converts an amount at date $T$ into an amount at date $t$.
+
+The set of discount factors for every maturity is the **zero-coupon curve**. It is not directly observable,
+because real bonds pay **coupon**s along the way rather than a single amount at maturity, so the curve must be
+*bootstrapped* out of the prices of instruments that do trade. Two desks with identical market data can build
+slightly different curves, which is why curve construction is a discipline rather than a data-loading step.
+
+Two conventions intrude on the arithmetic and cause more errors than the theory does. **Accrual** is interest
+earned but not yet paid: because coupons arrive at discrete dates while interest accrues continuously, a buyer
+between coupon dates compensates the seller for the part already earned, which is why the price you pay exceeds
+the price that is quoted. The **day count convention** is the rule converting a period between two dates into a
+fraction of a year, and it differs by market and instrument with no economic content whatsoever.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+An instrument paying amounts $c_i$ at dates $T_i$ is worth
+
+$$
+V = \sum_i c_i \, D(t, T_i)
+$$
+
+and everything else in this page is a statement about $D$. Under continuous compounding with a maturity-dependent
+zero rate $y(t,T)$,
+
+$$
+D(t,T) = e^{-y(t,T)\,(T - t)}
+$$
+
+The curve is bootstrapped forward from the shortest instrument. Given discount factors out to $T_{n-1}$, a bond
+maturing at $T_n$ with price $P$ and coupons $c$ determines the next one directly:
+
+$$
+D(t,T_n) = \frac{P - \sum_{i<n} c \, D(t,T_i)}{c + 1}
+$$
+
+One consistency condition matters more than any other. **Discount factor**s must be decreasing in maturity,
+because $D(t,T_1) < D(t,T_2)$ for $T_1 < T_2$ would mean the implied **forward rate** between the two dates is
+negative in a way you could exploit: borrow long, lend short, pocket the difference with certainty. A curve that
+fails this is not an interesting economic observation but an error in the bootstrap.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A propagator between dates">
+The discount factor is a propagator. It carries a quantity from one time to another, it composes multiplicatively
+across intermediate times, and it is the object rather than the rate that has clean algebra:
+
+$$
+D(t, T_2) = D(t, T_1) \, D(T_1, T_2)
+$$
+
+That composition law is why practitioners work in discount factors and quote in rates. A rate is a logarithm of a
+propagator divided by an interval, which makes it convenient for talking and awkward for calculating — the moment
+you compound across periods you are multiplying propagators and taking logarithms back and forth for no reason.
+
+The analogy also explains why the curve is bootstrapped rather than measured. What is observable is the integrated
+response over each instrument's whole life, and recovering the local structure from a set of integrals is an
+inverse problem, with the usual consequence that different regularisation choices give different answers in the
+gaps between observed maturities.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **The quoted price is not the price you pay.** The difference is **accrual**, and it is the first thing to check
+  when a bond calculation is off by a small amount.
+- **A yield is not a discount rate you can apply to another bond.** **Yield to maturity** is a per-instrument
+  summary; the **zero-coupon curve** is what actually discounts cash flows.
+- **Day count conventions have no economic content and still change the numbers.** Two correct implementations
+  disagreeing by a few basis points are usually disagreeing about ACT/360 versus ACT/365.
+- **Negative rates are not a paradox.** A **discount factor** above one simply means paying to hold money, which
+  was ordinary in Europe for most of a decade.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Hull, *Options, Futures, and Other Derivatives*, chapter 4. The standard treatment of rates, conventions and
+  bootstrapping.
+- Tuckman & Serrat, *Fixed Income Securities*, chapters 1–3 — more careful than Hull on exactly the conventions
+  that cause errors.
+- Shreve, *Stochastic Calculus for Finance II*, chapter 5, for where discounting goes once rates are stochastic.
+- Paper: Hagan & West, *Interpolation Methods for Curve Construction* (2006) — a demonstration that the choice of
+  interpolation is not innocent, with examples of methods that produce absurd forward rates.

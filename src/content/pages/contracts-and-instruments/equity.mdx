@@ -2,7 +2,7 @@
 title: "Equity"
 track: 1
 order: 2
-status: stub
+status: written
 summary: "A residual claim on a company: last in line, unlimited upside, and the reason the word \"risk\" got its modern meaning."
 terms:
   - "share"
@@ -19,35 +19,104 @@ figure:
   series: "index price return vs total return"
   period: "1995-present, monthly"
   script: "pipeline/fetch_total_return.py"
+  notice: "The two lines separate steadily and the gap compounds, so over three decades reinvested dividends account for a substantial share of the total — invisible on any chart that plots price alone."
+  falsifiedBy: "The reading fails if the gap between the series is not roughly exponential in time, which would mean the dividend yield has not been broadly stable across the sample."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+A share is what is left over after everyone else with a claim on a company has been paid.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Someone has to absorb the uncertainty. A business's revenues are variable while its obligations — wages, supplies,
+interest, tax — are largely fixed, so the difference has to land somewhere. Equity is the instrument invented to
+put it in one place, held by people who accepted that position knowingly and can be paid for it.
+
+That arrangement is what makes the rest of the capital structure possible. Because equity absorbs the first
+losses, debt can be nearly safe, and because debt is nearly safe it is cheap. A company's financing is a stack of
+claims sorted by who takes losses first, and the interesting consequence is that the same underlying business can
+be carved into instruments of wildly different risk.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+A **share** is a unit of ownership: a residual claim on assets and earnings, usually a vote, and no promise of
+anything. Its position at the back of the queue is the entire character of the asset — it is why equity has
+unlimited upside, why it can go to zero while the company keeps trading under its creditors, and why it is more
+volatile than the business underneath it.
+
+Cash reaches shareholders two ways. A **dividend** pays it out directly. A **buyback** retires shares instead, so
+each remaining share owns a larger fraction. They are economically close and are treated differently by tax
+systems, which is most of why the mix between them has shifted over time.
+
+Three measures of size are routinely confused. **Market capitalisation** is price times shares outstanding — a
+marginal price extrapolated to every share, so not an amount anyone could realise. **Free float** is the portion
+actually available to trade, excluding strategic holders who never sell. **Enterprise value** adds net debt, which
+is the right basis for comparing firms financed differently. An **ADR** is a wrapper letting a foreign share trade
+on a US exchange, not a different asset.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+The residual claim can be written exactly. If the firm's assets are worth $A$ at some horizon and its debt
+requires repayment of $D$, then equity holders receive
+
+$$
+E = \max\left(A - D,\, 0\right)
+$$
+
+because limited liability means they cannot be pursued below zero. That expression is the **payoff** of a **call
+option** on the assets with **strike** equal to the debt — an observation due to Merton, and one of the most
+productive in finance. It explains immediately why equity value rises with the volatility of the business, why
+shareholders of a distressed firm prefer risky projects, and why deeply indebted equity trades like a lottery
+ticket rather than like a share of a business.
+
+The other formal point on this page concerns returns. Price return omits **dividend**s; total return reinvests
+them:
+
+$$
+R_{\text{total}} = \prod_{t}\left(1 + \frac{P_t - P_{t-1} + d_t}{P_{t-1}}\right) - 1
+$$
+
+The difference looks small annually and compounds relentlessly, which is what the figure shows. Any analysis
+performed on a raw price series is measuring the wrong quantity, and the error grows with the horizon.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A boundary condition that creates convexity">
+Limited liability is a boundary condition — the payoff is clipped at zero — and clipping a linear response is what
+manufactures convexity out of nothing. This is worth internalising because it recurs everywhere in the subject:
+wherever a payoff cannot go below some level, the instrument acquires option-like behaviour, and its value starts
+depending on the *variance* of the underlying quantity rather than only on its expectation.
+
+The consequence is a genuine conflict of interest with a clean formal statement. Because $E = \max(A - D, 0)$ is
+convex in $A$, Jensen's inequality gives $\mathbb{E}[E] > \max(\mathbb{E}[A] - D, 0)$: shareholders of a levered
+firm are made better off by an increase in the volatility of the assets, holding the mean fixed. Bondholders, who
+hold the complementary concave claim, are made worse off by exactly the same amount. Most of corporate governance
+and debt covenants exist to manage that asymmetry, and it is visible in the algebra before it is visible in
+anyone's behaviour.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **A dividend is not a return.** The price drops by roughly the amount paid. Only total return measures what a
+  shareholder earned.
+- **Market cap is not money invested in the company.** Except at issuance, buying shares moves money between
+  investors and none of it reaches the firm — the **primary market** versus **secondary market** distinction from
+  Track 0.
+- **Buybacks do not "return cash to shareholders" more than dividends do.** They deliver it by changing the
+  denominator instead of the numerator, which is why earnings per share can rise while earnings do not.
+- **A price chart is not a return chart.** Ignoring dividends understates long-run equity performance by a margin
+  that grows with the sample.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Hull, *Options, Futures, and Other Derivatives*, chapter 1, for the instrument; chapter 26 for the Merton view
+  used above.
+- Ilmanen, *Expected Returns*, chapters 8–9, on what equities have actually paid and how wide the error bars are.
+- Koller, Goedhart & Wessels, *Valuation*, chapters 1–3, for enterprise value done carefully.
+- Paper: Merton, *On the Pricing of Corporate Debt* (1974) — equity as a call option on the firm, and the origin
+  of structural credit models.

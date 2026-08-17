@@ -2,7 +2,7 @@
 title: "Bonds"
 track: 1
 order: 3
-status: stub
+status: written
 summary: "A fixed schedule of payments, so that the only interesting questions are the discount rate and whether you get paid at all."
 terms:
   - "coupon"
@@ -18,35 +18,111 @@ figure:
   series: "on-the-run 10y note"
   period: "latest observation"
   script: "pipeline/fetch_bond_price_yield.py"
+  notice: "The relationship is a decreasing curve rather than a line: the slope at today's yield is duration, and the fact that it bends upward away from that tangent is convexity."
+  falsifiedBy: "The reading fails if the curve is straight, which would mean duration alone prices any move and the second-order term is unnecessary — it is not, and the error grows with the size of the move."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+A bond is a loan you can sell, and its price is the present value of a schedule that was fixed the day it was
+issued.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Borrowers want money now against a promise to repay later; lenders want that promise to be transferable. A bank
+loan achieves the first and not the second — it sits on the lender's balance sheet until maturity. Standardising
+the promise into a security solves the second, and the consequence is enormous: the lender can change their mind,
+which makes them willing to lend more cheaply in the first place.
+
+Everything distinctive about bonds follows from the schedule being fixed. Because the payments do not move, the
+price moves entirely through the discount rate applied to them and the perceived chance of receiving them. That
+makes bonds the cleanest instrument in which to study interest rate risk, and it is why the machinery of Track 5's
+macro pages is built here rather than there.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+A bond promises a **coupon** — a periodic interest payment fixed at issue, quoted as a percentage of face value —
+and repayment of principal at maturity. The coupon is set once and says nothing about the return an investor will
+earn, which depends on the price paid.
+
+That return is summarised by the **yield to maturity**: the single discount rate which, applied to all remaining
+cash flows, reproduces the current price. It is a summary statistic and not a rate anyone receives, since it
+assumes every coupon is reinvested at that same rate.
+
+Two derivatives of the price-yield relationship do the practical work. **Duration** is its slope — the percentage
+price change per unit change in yield, and equivalently the weighted average time at which cash flows arrive.
+**Convexity** is its curvature, the second-order correction, and it is genuinely valuable: prices rise more when
+yields fall than they fall when yields rise.
+
+For anything other than a government, the yield contains a **credit spread** over the risk-free curve,
+compensating for the possibility of **default** and for being harder to sell. Default is not the same as total
+loss — what matters is the recovery rate, the fraction eventually repaid.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Price is present value, with a single rate standing in for the whole **zero-coupon curve**:
+
+$$
+P(y) = \sum_{i=1}^{n} \frac{c}{\left(1 + y\right)^{i}} + \frac{F}{\left(1 + y\right)^{n}}
+$$
+
+Everything else is a Taylor expansion of this in $y$. Modified duration and convexity are the first two
+coefficients,
+
+$$
+D_{\text{mod}} = -\frac{1}{P}\frac{\partial P}{\partial y}, \qquad
+C = \frac{1}{P}\frac{\partial^2 P}{\partial y^2}
+$$
+
+so that a yield move $\Delta y$ produces
+
+$$
+\frac{\Delta P}{P} \approx -D_{\text{mod}}\,\Delta y + \tfrac{1}{2}\,C\,\left(\Delta y\right)^2
+$$
+
+Two things are worth reading off this. First, $C > 0$ always for an ordinary bond, so the quadratic term helps in
+both directions — a symmetric yield move produces an asymmetric price move in the holder's favour, which is why
+convexity is priced. Second, duration alone is a linear approximation whose error grows quadratically, so a
+duration hedge that is exact for a basis point leaks money in a hundred, and must be rebalanced. That is the same
+structure as delta hedging in Track 4, and for the same reason.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A Taylor expansion, and knowing when to stop">
+Duration and convexity are simply the first and second derivatives of price with respect to yield, given trading
+names. Recognising that immediately answers questions that look like separate facts: why hedges need rebalancing
+(the first derivative is not constant), why convexity is always beneficial for a plain bond (the second derivative
+is positive), and why long-dated bonds are more sensitive to everything (both derivatives grow with maturity).
+
+The instructive part is where the expansion stops being adequate. It is an expansion in a *single* variable, so it
+assumes the entire **zero-coupon curve** shifts in parallel — which is not how curves move. Real curve changes
+have at least three modes, conventionally level, slope and curvature, and a portfolio immunised against a parallel
+shift can still lose substantially in a steepening. This is a familiar situation: a one-parameter perturbation
+theory that works until the perturbation has structure the parameter cannot represent, at which point the fix is
+to expand in the right basis rather than to add more terms in the wrong one.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Coupon is not yield.** The coupon is fixed at issue; the yield moves with the price and is what an investor
+  actually earns if they hold to maturity and reinvest at that rate.
+- **Yield to maturity is not a forecast.** It embeds a reinvestment assumption that will not hold.
+- **Duration is measured in years and is not a horizon.** It is a sensitivity that happens to have units of time,
+  which is a coincidence of the algebra rather than a statement about when you get your money.
+- **Default is not total loss.** Recovery rates for senior secured debt are often substantial; pricing credit means
+  estimating both the probability and what remains.
+- **A "risk-free" bond is not free of risk.** It is free of *credit* risk. Its price still moves with rates, and a
+  thirty-year government bond is a volatile instrument.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Tuckman & Serrat, *Fixed Income Securities*, chapters 4–6. The best treatment of duration, convexity and their
+  limits.
+- Hull, *Options, Futures, and Other Derivatives*, chapter 4.
+- Ilmanen, *Expected Returns*, chapters 5–7, on the term premium and what bonds have actually paid.
+- Paper: Litterman & Scheinkman, *Common Factors Affecting Bond Returns* (1991) — the level, slope and curvature
+  decomposition, and the reason single-factor duration hedging is incomplete.

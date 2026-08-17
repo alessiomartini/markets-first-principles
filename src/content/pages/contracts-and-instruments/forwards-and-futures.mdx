@@ -2,7 +2,7 @@
 title: "Forwards and futures"
 track: 1
 order: 4
-status: stub
+status: written
 summary: "Agreeing today on the price of a trade that happens later, and the machinery that makes that promise safe."
 terms:
   - "forward price"
@@ -19,35 +19,105 @@ figure:
   series: "VIX futures curve; BTC perpetual and quarterly basis"
   period: "trailing 3 years"
   script: "pipeline/fetch_term_structure.py"
+  notice: "The curve is upward sloping most of the time and inverts abruptly during stress, and the inversions are short relative to the periods of contango between them."
+  falsifiedBy: "The reading fails if the curve slopes upward during stress episodes too, which would sever the link between backwardation and immediate scarcity."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+A forward fixes today the price of a transaction that happens later; a future is the same promise, standardised
+and settled daily so that nobody has to trust anybody.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+A farmer with a crop six months from harvest and a mill that will need flour then have exactly opposite worries
+about the price. Both would rather know now. The contract that lets them agree is the oldest derivative there is,
+and it exists to transfer **natural exposure** from people who have it involuntarily to people willing to hold it.
+
+The problem with a bilateral promise is that six months is a long time to trust a stranger. If prices move a long
+way, the losing side has a large incentive to walk away — and the more useful the contract has been, the larger
+that incentive. Futures markets solve this not by improving trust but by removing the need for it: standardise the
+contract so anyone can take either side, interpose a **CCP** so you never face your counterparty, and settle the
+change in value *every day* so no large claim ever accumulates.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+The **forward price** is the price agreed now for settlement later. For a storable asset it is not a forecast: it
+is pinned by arbitrage to the **spot** price plus the **cost of carry** — financing, **storage** and insurance,
+less any income the asset produces. Anyone with a warehouse and a loan can enforce it.
+
+A future is a **standardisation** forward traded on an exchange, and two mechanisms make it a different animal.
+**Margin** is collateral posted against the position: *initial* margin at the start, sized to a plausible adverse
+move, and *variation* margin exchanged daily. **Mark-to-market** is that daily settlement — the position's change
+in value is actually paid, so credit exposure resets to zero each day and a futures position generates cash flows
+before it expires, which a forward does not.
+
+Because each contract expires, holding a long-term exposure means a repeated **roll** into later contracts. Its
+cost depends on the curve's shape: **contango** is longer-dated above nearer, the normal state for a storable
+asset since it merely reflects carry; **backwardation** is the reverse, implying a convenience yield — someone
+needs the physical material now badly enough to pay for holding it.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+The no-arbitrage relation is enforceable rather than assumed. With financing rate $r$, storage cost $u$ and income
+yield $q$, all continuous,
+
+$$
+F(t,T) = S_t \, e^{\left(r + u - q\right)\left(T - t\right)}
+$$
+
+If $F$ exceeded this, you would buy spot, store, and sell forward for a certain profit; if it fell below, the
+reverse, provided the asset can be borrowed and sold short. That proviso matters: for many commodities the reverse
+trade is impossible, so the relation holds as an inequality in one direction only, and **backwardation** can
+persist without being an arbitrage.
+
+The consequence for anyone holding exposure through futures is the roll return. If the curve keeps its shape and
+spot is unchanged, rolling from a contract at $F(t,T_1)$ into one at $F(t,T_2)$ earns
+
+$$
+r_{\text{roll}} \approx -\left(r + u - q\right)\left(T_2 - T_1\right)
+$$
+
+which is *negative* in **contango**. Over years this term dominates the return of commodity index products —
+frequently overwhelming the move in the spot price entirely, so that an investor can be right about oil and lose
+money holding it through futures. That is the single most consequential fact on this page.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A constraint, not a prediction">
+The relation $F = S e^{(r+u-q)\tau}$ is a constraint imposed by the existence of a physical operation — buy,
+store, deliver — in the same way a conservation law is imposed by a symmetry rather than derived from dynamics. It
+tells you nothing about where the price is going, only which price pairs cannot coexist. A physicist should find
+this reassuring and a forecaster should find it disappointing, and the persistent misreading of contango as
+bullishness is what happens when the two are confused.
+
+The interesting physics is where the constraint breaks. Short selling asymmetry means the arbitrage is executable
+in one direction only, so the relation is a one-sided bound and the market can sit inside it indefinitely.
+Storage capacity is finite, so $u$ is not a constant but rises steeply as inventories fill — and diverges when
+they are full, which is how crude oil traded below zero in April 2020. A constraint derived by assuming an
+unbounded reservoir stops constraining anything at the moment the reservoir fills.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **A futures price is not a forecast of the spot price.** For a storable asset it is spot plus carry, an
+  arbitrage identity. This bears repeating because the mistake is nearly universal outside the market.
+- **Contango is not bearish and backwardation is not bullish.** They are statements about carry and physical
+  tightness, not about direction.
+- **Futures and forwards are not identical.** Daily **mark-to-market** means a futures position generates interim
+  cash flows, which matters when rates are correlated with the underlying.
+- **Margin is not a deposit or a down payment.** It is collateral against loss, and a **margin** call is a demand
+  for more of it, not a payment for the asset.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Hull, *Options, Futures, and Other Derivatives*, chapters 2, 3 and 5. The standard treatment of mechanics and
+  cost of carry.
+- Harris, *Trading and Exchanges*, chapter 3, on why standardisation and clearing developed as they did.
+- Geman, *Commodities and Commodity Derivatives*, for convenience yield and storage in depth.
+- Paper: Kaldor, *Speculation and Economic Stability* (1939) — the origin of convenience yield and still the
+  clearest account of why inventory holders accept a negative carry.
