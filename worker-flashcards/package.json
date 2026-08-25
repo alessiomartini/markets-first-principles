@@ -1,0 +1,14 @@
+{
+  "name": "markets-first-principles-flashcards",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "migrate:local": "wrangler d1 migrations apply markets-first-principles-flashcards --local",
+    "migrate:remote": "wrangler d1 migrations apply markets-first-principles-flashcards --remote"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

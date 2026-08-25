@@ -1,0 +1,112 @@
+name: Deploy flashcards worker
+
+# Manual only, like the notes worker. This provisions a D1 database and a
+# Worker, so it must never fire on a push. Run it from the Actions tab when the
+# worker code or a migration changes.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: worker-flashcards
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm install
+
+      # Look the database up by name and create it only if missing, so the
+      # workflow is safe to re-run. Creating a second database under a new id
+      # would silently split the review log in two — and the review log is the
+      # only irreplaceable data in this project.
+      - name: Find or create the D1 database
+        id: database
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          name=markets-first-principles-flashcards
+
+          # Capture wrangler's output before jq sees it, and never pipe it into
+          # anything that exits early. `... | jq | head -n1` closes the pipe
+          # under wrangler, which dies with EPIPE, and the stack trace buries
+          # whatever the Cloudflare API actually said. That cost a debugging
+          # round on the notes worker: the real error was an auth failure,
+          # hidden three lines above the noise.
+          lookup() {
+            local out
+            if ! out=$(npx wrangler d1 list --json 2>&1); then
+              echo "wrangler d1 list failed:" >&2
+              echo "$out" >&2
+              return 1
+            fi
+            printf '%s' "$out" | jq -r --arg n "$name" '[.[] | select(.name == $n) | .uuid][0] // ""'
+          }
+
+          id=$(lookup)
+
+          if [ -z "$id" ]; then
+            echo "creating $name"
+            npx wrangler d1 create "$name"
+            id=$(lookup)
+          else
+            echo "reusing existing $name"
+          fi
+
+          if [ -z "$id" ] || [ "$id" = "null" ]; then
+            echo "could not determine the database id" >&2
+            exit 1
+          fi
+
+          echo "database_id=$id" >> "$GITHUB_OUTPUT"
+          echo "id is $id"
+
+      # Substitute before migrating: `wrangler d1 migrations apply` reads the
+      # binding out of wrangler.jsonc, and a fresh clone carries the
+      # REPLACE_WITH_DATABASE_ID placeholder.
+      - name: Point wrangler.jsonc at the database
+        env:
+          DATABASE_ID: ${{ steps.database.outputs.database_id }}
+        run: |
+          set -euo pipefail
+          sed -i -E "s/(\"database_id\": )\"[^\"]*\"/\1\"$DATABASE_ID\"/" wrangler.jsonc
+          grep database_id wrangler.jsonc
+
+      # Migrations are tracked in a d1_migrations table, so re-running applies
+      # only what is new. The statements are CREATE TABLE IF NOT EXISTS anyway.
+      - name: Apply migrations
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: npx wrangler d1 migrations apply markets-first-principles-flashcards --remote
+
+      - name: Deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: npx wrangler deploy
+
+      - name: Summary
+        run: |
+          {
+            echo "### Flashcards worker deployed"
+            echo
+            echo "- database_id: \`${{ steps.database.outputs.database_id }}\`"
+            echo
+            echo "The API refuses every request until a token exists. From a laptop:"
+            echo
+            echo '```'
+            echo "cd worker-flashcards && npx wrangler secret put API_TOKEN"
+            echo '```'
+            echo
+            echo "Secrets cannot be set from this workflow — that would mean"
+            echo "putting the token in a place CI can read it back."
+          } >> "$GITHUB_STEP_SUMMARY"

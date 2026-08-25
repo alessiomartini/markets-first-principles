@@ -1,0 +1,4 @@
+# Copy to .dev.vars (gitignored) for `wrangler dev`.
+# Any value works locally; use a real random one for the deployed secret:
+#   npx wrangler secret put API_TOKEN
+API_TOKEN = "local-dev-token"

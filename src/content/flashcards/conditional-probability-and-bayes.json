@@ -1,0 +1,191 @@
+{
+  "deck": "conditional-probability-and-bayes",
+  "topic": "Probability & Statistics",
+  "cards": [
+    {
+      "id": "bayes-derive-from-definition",
+      "type": "formula",
+      "front": "Derive Bayes' rule from the definition of conditional probability.",
+      "back": "Conditional probability is defined by $P(A \\mid B) = P(A \\cap B)/P(B)$. Writing the joint two ways, $P(A \\cap B) = P(B \\mid A)P(A) = P(A \\mid B)P(B)$, and rearranging:\n\n$$P(A \\mid B) = \\frac{P(B \\mid A)\\,P(A)}{P(B)}$$\n\nBayes' rule is not an extra axiom — it is the symmetry of the joint probability, read in the other direction.",
+      "answer": "P(B|A)P(A)/P(B)",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Bayes' theorem",
+          "url": "https://en.wikipedia.org/wiki/Bayes%27_theorem",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "bayes",
+        "conditional"
+      ]
+    },
+    {
+      "id": "bayes-denominator-role",
+      "type": "why",
+      "front": "In $P(A \\mid B) = P(B \\mid A)P(A)/P(B)$, what job is the denominator doing?",
+      "back": "It normalises. The numerator gives the unnormalised weight of the hypothesis $A$ after seeing $B$; dividing by $P(B) = \\sum_i P(B \\mid A_i)P(A_i)$ makes the posterior probabilities over all hypotheses sum to one.\n\nTwo consequences. Comparing two hypotheses on the same evidence lets the denominator cancel, which is why the posterior *odds* form is often easier. And computing $P(B)$ is the hard part in real problems, which is what sampling methods exist to avoid.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Bayes' theorem",
+          "url": "https://en.wikipedia.org/wiki/Bayes%27_theorem",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "bayes",
+        "normalisation"
+      ]
+    },
+    {
+      "id": "law-of-total-probability",
+      "type": "formula",
+      "front": "State the law of total probability for a partition $\\{A_i\\}$.",
+      "back": "$$P(B) = \\sum_i P(B \\mid A_i)\\,P(A_i)$$\n\nValid whenever the $A_i$ are disjoint and cover the whole space. It is the conditioning move: split an intractable probability into cases you can compute inside.",
+      "answer": "sum_i P(B|A_i)P(A_i)",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Law of total probability",
+          "url": "https://en.wikipedia.org/wiki/Law_of_total_probability",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "conditioning",
+        "partition"
+      ]
+    },
+    {
+      "id": "base-rate-positive-test",
+      "type": "why",
+      "front": "A test is 99% accurate both ways and the condition affects 1 in 10,000. Why is a positive result still probably a false positive?",
+      "back": "Per 10,000 people: 1 true case, detected with probability 0.99, so about 1 true positive. The other 9,999 are healthy and 1% test positive anyway, so about 100 false positives. The posterior is roughly $1/101 \\approx 1\\%$.\n\nThe general point is that the likelihood ratio multiplies the *prior odds*, and when the prior odds are tiny even a strong likelihood ratio leaves them small. Reasoning from the accuracy figure alone ignores the base rate entirely, which is the single most common probabilistic error in practice — including in backtests, where a screen with a good hit rate applied to thousands of hypotheses returns mostly noise.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Base rate fallacy",
+          "url": "https://en.wikipedia.org/wiki/Base_rate_fallacy",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "bayes",
+        "base-rate",
+        "multiple-testing"
+      ]
+    },
+    {
+      "id": "zero-correlation-not-independence",
+      "type": "why",
+      "front": "Construct a pair of variables that are uncorrelated but not independent.",
+      "back": "Let $X \\sim \\mathcal{N}(0,1)$ and $Y = X^2$. Then $\\operatorname{Cov}(X, Y) = \\mathbb{E}[X^3] - \\mathbb{E}[X]\\mathbb{E}[X^2] = 0$ by symmetry, so they are uncorrelated. But $Y$ is a deterministic function of $X$ — knowing $X$ tells you $Y$ exactly.\n\nCorrelation measures *linear* dependence only. Independence means the joint factors, which is far stronger. The exception worth remembering: for a jointly Gaussian pair, zero correlation does imply independence — and \"jointly\" is doing real work there, since two marginally Gaussian variables need not be jointly Gaussian.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Correlation",
+          "url": "https://en.wikipedia.org/wiki/Correlation",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "correlation",
+        "independence",
+        "counterexample"
+      ]
+    },
+    {
+      "id": "law-of-total-expectation",
+      "type": "formula",
+      "front": "State the law of total expectation (tower property).",
+      "back": "$$\\mathbb{E}[X] = \\mathbb{E}\\left[\\mathbb{E}[X \\mid Y]\\right]$$\n\nThe inner expectation is a random variable — a function of $Y$ — and averaging it over $Y$ recovers the unconditional mean.",
+      "answer": "E[E[X|Y]]",
+      "hint": "Average the conditional average.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Law of total expectation",
+          "url": "https://en.wikipedia.org/wiki/Law_of_total_expectation",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "tower",
+        "conditioning"
+      ]
+    },
+    {
+      "id": "law-of-total-variance",
+      "type": "formula",
+      "front": "State the law of total variance.",
+      "back": "$$\\operatorname{Var}(X) = \\mathbb{E}\\left[\\operatorname{Var}(X \\mid Y)\\right] + \\operatorname{Var}\\left(\\mathbb{E}[X \\mid Y]\\right)$$",
+      "answer": "E[Var(X|Y)] + Var(E[X|Y])",
+      "hint": "Two terms: the average of the conditional variance, and the variance of the conditional average.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Law of total variance",
+          "url": "https://en.wikipedia.org/wiki/Law_of_total_variance",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "variance",
+        "conditioning"
+      ]
+    },
+    {
+      "id": "total-variance-interpret-terms",
+      "type": "why",
+      "front": "In the law of total variance, what does each of the two terms mean, and which one does a better forecast reduce?",
+      "back": "$\\mathbb{E}[\\operatorname{Var}(X \\mid Y)]$ is the variation left *within* groups once $Y$ is known — the unexplained part. $\\operatorname{Var}(\\mathbb{E}[X \\mid Y])$ is the variation *between* group means — the part $Y$ explains.\n\nA better predictor $Y$ moves variance from the first term into the second; the total is fixed. This is exactly the decomposition behind $R^2$, and behind the observation that conditioning can never increase expected variance: $\\mathbb{E}[\\operatorname{Var}(X\\mid Y)] \\le \\operatorname{Var}(X)$.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Law of total variance",
+          "url": "https://en.wikipedia.org/wiki/Law_of_total_variance",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "variance",
+        "decomposition",
+        "r-squared"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+name: CI
+
+# Runs on pull requests and on pushes to main.
+#
+# The deploy workflow also runs these checks, but only once a change has already
+# reached main — which is too late to be a gate. This is the one that can fail
+# before a merge.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # The content map is the single source of truth for which pages exist.
+      - name: Check content map
+        run: npm run scaffold -- --check
+
+      # Card ids join content in git to review history in D1. Renaming one
+      # orphans every review ever recorded about that card. The strongest check
+      # needs database credentials CI does not have and is skipped here with a
+      # warning; run `npm run flashcards:pull-ids` locally before a rename.
+      - name: Validate flashcards
+        run: npm run validate:cards
+
+      - name: Unit tests
+        run: npm test
+
+      - run: npm run build
+
+      # The browser checks are not run here. They need Playwright, which is
+      # deliberately not a project dependency, and both drive a real session
+      # against the built site — see scripts/check-trainer.mjs for why they
+      # exist and docs/flashcards-operations.md for how to run them.

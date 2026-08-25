@@ -1,0 +1,237 @@
+{
+  "deck": "distributions-and-moments",
+  "topic": "Probability & Statistics",
+  "cards": [
+    {
+      "id": "mgf-definition",
+      "type": "formula",
+      "front": "Write the moment generating function of a random variable $X$.",
+      "back": "$$M_X(t) = \\mathbb{E}\\left[e^{tX}\\right]$$\n\nIt exists only where the expectation is finite, which for some distributions is nowhere except $t=0$.",
+      "answer": "E[e^{tX}]",
+      "hint": "It is an expectation of an exponential in $X$.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Moment-generating function",
+          "url": "https://en.wikipedia.org/wiki/Moment-generating_function",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "mgf",
+        "moments"
+      ]
+    },
+    {
+      "id": "mgf-why-generates-moments",
+      "type": "why",
+      "front": "Why does differentiating $M_X(t)$ at $t=0$ produce the moments of $X$?",
+      "back": "Expand the exponential inside the expectation: $e^{tX} = \\sum_k t^k X^k / k!$, so $M_X(t) = \\sum_k t^k \\mathbb{E}[X^k]/k!$. That is a power series whose $k$-th coefficient is $\\mathbb{E}[X^k]/k!$, and differentiating $k$ times at zero extracts exactly that coefficient. The MGF is a generating function in the ordinary combinatorial sense — the moments are its Taylor coefficients.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Moment-generating function",
+          "url": "https://en.wikipedia.org/wiki/Moment-generating_function",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "mgf",
+        "moments"
+      ]
+    },
+    {
+      "id": "mgf-variance-from-derivatives",
+      "type": "formula",
+      "front": "Express $\\operatorname{Var}(X)$ using derivatives of $M_X$ at zero.",
+      "back": "$$\\operatorname{Var}(X) = M_X''(0) - \\left[M_X'(0)\\right]^2$$\n\nThe first term is $\\mathbb{E}[X^2]$, the second is $\\left(\\mathbb{E}[X]\\right)^2$.",
+      "hint": "Variance is the second moment minus the square of the first.",
+      "answer": "M''(0) - (M'(0))^2",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Moment-generating function",
+          "url": "https://en.wikipedia.org/wiki/Moment-generating_function",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "mgf",
+        "variance"
+      ]
+    },
+    {
+      "id": "mgf-sum-independent",
+      "type": "formula",
+      "front": "If $X$ and $Y$ are independent, what is $M_{X+Y}(t)$?",
+      "back": "$$M_{X+Y}(t) = M_X(t)\\,M_Y(t)$$\n\nBecause $\\mathbb{E}[e^{t(X+Y)}] = \\mathbb{E}[e^{tX}e^{tY}]$, and independence lets the expectation factor. This is why MGFs are the standard tool for identifying the distribution of a sum.",
+      "answer": "M_X(t) M_Y(t)",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Moment-generating function",
+          "url": "https://en.wikipedia.org/wiki/Moment-generating_function",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "mgf",
+        "independence",
+        "sums"
+      ]
+    },
+    {
+      "id": "mgf-cauchy-has-none",
+      "type": "why",
+      "front": "Give a distribution with no moment generating function, and say what goes wrong.",
+      "back": "The Cauchy distribution. Its tails decay like $x^{-2}$, so $\\mathbb{E}[e^{tX}]$ diverges for every $t \\neq 0$ — the exponential grows faster than the density decays. The same failure means the Cauchy has no finite mean either.\n\nThe practical lesson is that MGF-based arguments quietly assume the tails are light enough, and heavy-tailed financial returns are exactly where that assumption is least safe. The characteristic function $\\mathbb{E}[e^{itX}]$ always exists and is the usual replacement.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Cauchy distribution",
+          "url": "https://en.wikipedia.org/wiki/Cauchy_distribution",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "mgf",
+        "heavy-tails",
+        "cauchy"
+      ]
+    },
+    {
+      "id": "binomial-mean-variance",
+      "type": "formula",
+      "front": "State the mean and variance of $X \\sim \\text{Binomial}(n, p)$.",
+      "back": "$$\\mathbb{E}[X] = np, \\qquad \\operatorname{Var}(X) = np(1-p)$$\n\nBoth follow from writing $X$ as a sum of $n$ independent Bernoulli variables and using linearity for the mean, independence for the variance.",
+      "answer": "np, np(1-p)",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Binomial distribution",
+          "url": "https://en.wikipedia.org/wiki/Binomial_distribution",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "binomial",
+        "moments"
+      ]
+    },
+    {
+      "id": "binomial-variance-maximum",
+      "type": "why",
+      "front": "For fixed $n$, at what $p$ is the binomial variance largest, and why should that be obvious before computing?",
+      "back": "At $p = 1/2$, giving $\\operatorname{Var} = n/4$. Maximising $p(1-p)$ is a one-line calculation, but the reason is worth seeing without it: variance measures uncertainty about the outcome, and a coin is most uncertain when it is fair. As $p \\to 0$ or $p \\to 1$ the result becomes predictable and the variance vanishes.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Binomial distribution",
+          "url": "https://en.wikipedia.org/wiki/Binomial_distribution",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "binomial",
+        "variance",
+        "intuition"
+      ]
+    },
+    {
+      "id": "poisson-mean-equals-variance",
+      "type": "why",
+      "front": "The Poisson distribution has $\\mathbb{E}[X] = \\operatorname{Var}(X) = \\lambda$. Why are they equal, and what does it let you test?",
+      "back": "Take the Poisson as the limit of $\\text{Binomial}(n, \\lambda/n)$ as $n \\to \\infty$. The mean is $np = \\lambda$ throughout, and the variance is $np(1-p) = \\lambda(1 - \\lambda/n) \\to \\lambda$: the $(1-p)$ correction vanishes because each trial becomes vanishingly unlikely.\n\nIt gives a free diagnostic. Count data whose sample variance far exceeds its mean is *overdispersed* and not Poisson — usually because the rate itself varies, which is the situation a negative binomial or a Cox process is for.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Poisson distribution",
+          "url": "https://en.wikipedia.org/wiki/Poisson_distribution",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "poisson",
+        "overdispersion"
+      ]
+    },
+    {
+      "id": "exponential-memorylessness-derive",
+      "type": "why",
+      "front": "Derive the memorylessness of the exponential distribution, and state what it implies about a waiting time.",
+      "back": "With $P(X > x) = e^{-\\lambda x}$,\n$$P(X > s+t \\mid X > s) = \\frac{e^{-\\lambda(s+t)}}{e^{-\\lambda s}} = e^{-\\lambda t} = P(X > t)$$\n\nHaving already waited $s$ tells you nothing about how much longer you will wait. The exponential is the only continuous distribution with this property, which is why it is the inter-arrival time of a Poisson process — and why using it to model something with ageing or wear is a modelling error rather than an approximation.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Exponential distribution",
+          "url": "https://en.wikipedia.org/wiki/Exponential_distribution",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "exponential",
+        "memorylessness"
+      ]
+    },
+    {
+      "id": "lognormal-mean-vs-median",
+      "type": "basic",
+      "front": "For $X = e^{Y}$ with $Y \\sim \\mathcal{N}(\\mu, \\sigma^2)$, give the mean and the median of $X$, and the gap between them.",
+      "back": "$$\\mathbb{E}[X] = e^{\\mu + \\sigma^2/2}, \\qquad \\text{median}(X) = e^{\\mu}$$\n\nThe mean exceeds the median by the factor $e^{\\sigma^2/2}$. The mean is pulled up by rare large realisations and is not where the distribution lives.\n\nThis is the same $\\sigma^2/2$ that separates the expected value of wealth from the growth rate actually experienced under a multiplicative process — the Jensen gap behind the Kelly criterion.",
+      "hint": "Both are exponentials of something; only one carries a variance correction.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Log-normal distribution",
+          "url": "https://en.wikipedia.org/wiki/Log-normal_distribution",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "lognormal",
+        "jensen",
+        "growth"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "deck": "covariance-and-correlation",
+  "topic": "Probability & Statistics",
+  "cards": [
+    {
+      "id": "covariance-definition",
+      "type": "formula",
+      "front": "Define $\\operatorname{Cov}(X, Y)$ and give the computational form.",
+      "back": "$$\\operatorname{Cov}(X,Y) = \\mathbb{E}\\left[(X - \\mathbb{E}X)(Y - \\mathbb{E}Y)\\right] = \\mathbb{E}[XY] - \\mathbb{E}[X]\\mathbb{E}[Y]$$",
+      "answer": "E[XY] - E[X]E[Y]",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Covariance",
+          "url": "https://en.wikipedia.org/wiki/Covariance",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "covariance"
+      ]
+    },
+    {
+      "id": "covariance-bilinearity",
+      "type": "formula",
+      "front": "What is $\\operatorname{Cov}(aX + b,\\; cY + d)$?",
+      "back": "$$\\operatorname{Cov}(aX+b,\\, cY+d) = ac\\,\\operatorname{Cov}(X,Y)$$\n\nCovariance is bilinear and blind to shifts: adding a constant moves the mean and changes no deviation from it.",
+      "answer": "ac Cov(X,Y)",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Covariance",
+          "url": "https://en.wikipedia.org/wiki/Covariance",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "covariance",
+        "bilinearity"
+      ]
+    },
+    {
+      "id": "variance-of-sum",
+      "type": "formula",
+      "front": "Write $\\operatorname{Var}(X + Y)$ without assuming independence.",
+      "back": "$$\\operatorname{Var}(X+Y) = \\operatorname{Var}(X) + \\operatorname{Var}(Y) + 2\\operatorname{Cov}(X,Y)$$\n\nThe cross term is the whole content of diversification: it is what makes a portfolio less risky than its parts, and what disappears when correlations go to one in a crisis.",
+      "answer": "Var(X) + Var(Y) + 2Cov(X,Y)",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Variance",
+          "url": "https://en.wikipedia.org/wiki/Variance",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "variance",
+        "diversification"
+      ]
+    },
+    {
+      "id": "correlation-definition",
+      "type": "formula",
+      "front": "Define the correlation coefficient and state its range.",
+      "back": "$$\\rho_{XY} = \\frac{\\operatorname{Cov}(X,Y)}{\\sigma_X \\sigma_Y} \\in [-1, 1]$$\n\nIt is covariance made scale-free by dividing out both standard deviations, which is why it can be compared across pairs with different units.",
+      "answer": "Cov(X,Y)/(sigma_X sigma_Y)",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Correlation",
+          "url": "https://en.wikipedia.org/wiki/Correlation",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "correlation"
+      ]
+    },
+    {
+      "id": "correlation-bound-cauchy-schwarz",
+      "type": "why",
+      "front": "Why is $|\\rho| \\le 1$, and what does equality mean?",
+      "back": "Cauchy–Schwarz applied to the centred variables: $\\left|\\mathbb{E}[\\tilde X \\tilde Y]\\right| \\le \\sqrt{\\mathbb{E}[\\tilde X^2]\\,\\mathbb{E}[\\tilde Y^2]}$, which is exactly $|\\operatorname{Cov}| \\le \\sigma_X \\sigma_Y$.\n\nEquality holds precisely when the centred variables are linearly dependent, $\\tilde Y = a\\tilde X$ almost surely. Reading covariance as an inner product on the space of centred random variables makes this immediate — correlation is then the cosine of the angle between them, and $|\\cos| \\le 1$.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Cauchy–Schwarz inequality",
+          "url": "https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "correlation",
+        "cauchy-schwarz",
+        "geometry"
+      ]
+    },
+    {
+      "id": "correlation-not-transitive",
+      "type": "why",
+      "front": "If $X$ correlates with $Y$ at 0.7 and $Y$ with $Z$ at 0.7, what can you say about $\\rho_{XZ}$?",
+      "back": "Only that it lies in roughly $[-0.02, 1]$. Correlation is not transitive.\n\nThe geometric reading gives the bound directly: correlations are cosines of angles between vectors, so two angles of about $45.6°$ can compose to anything from $0°$ to $91.2°$. In general $\\rho_{XZ} \\ge \\rho_{XY}\\rho_{YZ} - \\sqrt{(1-\\rho_{XY}^2)(1-\\rho_{YZ}^2)}$. Only when both correlations are high enough that the bound exceeds zero is a positive relationship forced.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Correlation",
+          "url": "https://en.wikipedia.org/wiki/Correlation",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "correlation",
+        "transitivity",
+        "geometry"
+      ]
+    },
+    {
+      "id": "portfolio-variance-matrix-form",
+      "type": "formula",
+      "front": "Write the variance of a portfolio with weights $w$ and covariance matrix $\\Sigma$.",
+      "back": "$$\\sigma_p^2 = w^\\top \\Sigma\\, w$$\n\nA quadratic form, and positive semi-definite because a variance cannot be negative — which is also the condition any estimated $\\Sigma$ must satisfy to be usable.",
+      "answer": "w^T Sigma w",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Modern portfolio theory",
+          "url": "https://en.wikipedia.org/wiki/Modern_portfolio_theory",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "portfolio",
+        "quadratic-form"
+      ]
+    },
+    {
+      "id": "portfolio-variance-interpret-off-diagonal",
+      "type": "why",
+      "front": "In $\\sigma_p^2 = w^\\top \\Sigma w$, what do the off-diagonal entries contribute, and why does diversification stop working in a crisis?",
+      "back": "The diagonal contributes $\\sum_i w_i^2 \\sigma_i^2$, the standalone risk of each holding. The off-diagonals contribute $\\sum_{i \\neq j} w_i w_j \\sigma_i \\sigma_j \\rho_{ij}$ — the entire diversification effect lives there.\n\nWith $n$ equally weighted assets of equal variance, $\\sigma_p^2 = \\sigma^2\\left[\\frac{1}{n} + \\left(1 - \\frac{1}{n}\\right)\\bar\\rho\\right]$. As $n \\to \\infty$ the first term vanishes and the floor is $\\sigma^2 \\bar\\rho$: adding names cannot diversify away average correlation. In a crisis $\\bar\\rho$ rises toward one and that floor rises with it, which is why diversification fails exactly when it is needed.",
+      "sources": [
+        {
+          "label": "OpenQuant Study Guide — Probability & Statistics",
+          "url": "https://openquant.co/guide",
+          "kind": "primary"
+        },
+        {
+          "label": "Wikipedia — Diversification (finance)",
+          "url": "https://en.wikipedia.org/wiki/Diversification_(finance)",
+          "kind": "wikipedia"
+        }
+      ],
+      "tags": [
+        "portfolio",
+        "diversification",
+        "correlation"
+      ]
+    }
+  ]
+}
