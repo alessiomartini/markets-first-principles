@@ -159,12 +159,10 @@ no-JavaScript budget. The direct labels and the data table carry the accessibili
 
 ## Known follow-ups
 
-- **Astro 5, not 7.** Astro 7 is current; this project is pinned to 5 with `@astrojs/mdx@4`
-  because that pairing is known-good. The upgrade is a separate, mechanical change.
-- 48 of 51 pages are stubs, with their vocabulary and figure specs already written.
-- 29 of ~300 declared glossary terms are written. `npm run audit:content` lists the rest.
-- Figure scripts exist for 3 of the 51 specified figures; the other 48 name the script still to
-  be written.
+See `FUTURE-ARCHITECTURE.md` for the full list — unwritten pages/terms/figure scripts, the
+Astro 7 upgrade (deferred, but now also flagged by `npm audit` for security advisories), a
+reverted `katex` major-version bump, and an undecided idea about a shared notes database across
+Alessio's sites.
 
 ## Not for indexing
 
