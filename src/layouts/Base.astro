@@ -44,7 +44,7 @@ const fullTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
           <a href={`${base}/notation/`}>Notation</a>
           <a href={`${base}/references/`}>References</a>
           <a href={`${base}/data-sources/`}>Data</a>
-          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch between light and dark">
+          <button class="theme-toggle theme-btn" type="button" data-theme-toggle aria-label="Switch between light and dark">
             theme
           </button>
         </nav>
@@ -72,17 +72,30 @@ const fullTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
     <script is:inline src={`${base}/js/notes-widget.js`} defer></script>
 
     <script is:inline>
-      document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => {
+      // Default follows the system; the button stores an explicit choice and its
+      // label names the mode it switches to.
+      (() => {
         const root = document.documentElement;
-        const current =
-          root.dataset.theme ??
-          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        const next = current === 'dark' ? 'light' : 'dark';
-        root.dataset.theme = next;
-        try {
-          localStorage.setItem('theme', next);
-        } catch {}
-      });
+        const sysDark = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = () => (root.dataset.theme ? root.dataset.theme === 'dark' : sysDark());
+        const label = () =>
+          document.querySelectorAll('.theme-btn').forEach((b) => {
+            b.textContent = isDark() ? '☀ Light' : '☾ Dark';
+            b.setAttribute('aria-label', isDark() ? 'Switch to light mode' : 'Switch to dark mode');
+          });
+        label();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', label);
+        document.querySelectorAll('.theme-btn').forEach((b) =>
+          b.addEventListener('click', () => {
+            const next = isDark() ? 'light' : 'dark';
+            root.dataset.theme = next;
+            try {
+              localStorage.setItem('theme', next);
+            } catch {}
+            label();
+          }),
+        );
+      })();
     </script>
   </body>
 </html>
