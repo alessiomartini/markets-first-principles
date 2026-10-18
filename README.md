@@ -159,7 +159,7 @@ no-JavaScript budget. The direct labels and the data table carry the accessibili
 
 ## Known follow-ups
 
-See `FUTURE-ARCHITECTURE.md` for the full list — unwritten pages/terms/figure scripts, the
+See `ROADMAP.md` for the full list — unwritten pages/terms/figure scripts, the
 Astro 7 upgrade (deferred, but now also flagged by `npm audit` for security advisories), a
 reverted `katex` major-version bump, and an undecided idea about a shared notes database across
 Alessio's sites.
