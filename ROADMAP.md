@@ -129,6 +129,6 @@ suo D1 vanno spenti da Alessio dopo la migrazione. Rate limiting e pulizia delle
 `worker-flashcards/` non è toccato.
 
 ## Log
-- 2026-10-19: note spostate nel backend unico `site-notes`
+- 2026-10-19: note spostate nel backend unico `site-notes`; nota del sito su call/put e opzioni americane/europee: già nel glossario (`call-option`, `put-option`, `exercise-style`)
 - 2026-10-18: FUTURE-ARCHITECTURE.md unito in ROADMAP.md (protocollo unico); 🤖 scritti 10 nuovi termini del glossario (Sharpe ratio, delta, gamma, delta hedging, put-call parity, expected shortfall, repo, margin call, overfitting, beta)
 - 2026-10-15: creata la roadmap per Projects Overview
