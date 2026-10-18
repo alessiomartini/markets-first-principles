@@ -9,7 +9,7 @@ Unico file per todo, idee, decisioni e diario, letto da Projects Overview
 - [x] Struttura: 8 percorsi e 51 pagine con vocabolario e specifiche delle figure
 - [x] 3 pagine scritte
 - [ ] Scrivere le altre 48 pagine (oggi sono bozze)
-- [ ] Glossario: 29 termini scritti su circa 300
+- [ ] Glossario: 180 termini scritti su 300 dichiarati
 - [ ] Script per le figure: 3 su 51
 - [ ] Compilare `pipeline/manual/market_sizes.csv`
 
@@ -64,7 +64,7 @@ tried and reverted, or already ruled out.
 - **48 of 51 pages are stubs.** Vocabulary and figure specs are already
   written in `content-map.json`; the prose is not. `npm run audit:content`
   lists exactly which ones.
-- **29 of ~300 declared glossary terms are written.** Same command lists the
+- **180 of 300 declared glossary terms are written** (count from `npm run audit:content`, 2026-10-18; it was stale at 29). Same command lists the
   rest.
 - **Figure scripts exist for 3 of the 51 specified figures**
   (`fetch_order_book.py`, `fetch_tails.py`, `fetch_market_sizes.py`). The other
@@ -130,5 +130,5 @@ suo D1 vanno spenti da Alessio dopo la migrazione. Rate limiting e pulizia delle
 
 ## Log
 - 2026-10-19: note spostate nel backend unico `site-notes`
-- 2026-10-18: FUTURE-ARCHITECTURE.md unito in ROADMAP.md (protocollo unico)
+- 2026-10-18: FUTURE-ARCHITECTURE.md unito in ROADMAP.md (protocollo unico); 🤖 scritti 10 nuovi termini del glossario (Sharpe ratio, delta, gamma, delta hedging, put-call parity, expected shortfall, repo, margin call, overfitting, beta)
 - 2026-10-15: creata la roadmap per Projects Overview
