@@ -14,13 +14,13 @@ Unico file per todo, idee, decisioni e diario, letto da Projects Overview
 - [ ] Compilare `pipeline/manual/market_sizes.csv`
 
 ## Tecnica
-- [ ] Notes worker: rate limiting su `POST /notes`
+- [x] Notes worker: rate limiting su `POST /notes` (spostato nel repo `site-notes`, che ora riceve le note)
 
 ## Idee
 
 ### Feedback centralizzato (idea, non ancora decisa)
 
-- [ ] Feedback centralizzato (idea, non ancora decisa)
+- [x] Feedback centralizzato (fatto il 2026-10-19: backend unico `site-notes`)
 
 Oggi ogni sito di Alessio che vuole raccogliere note (questo, e
 `realtime-earth`) ha il proprio D1 dedicato più un Worker dedicato: qui è
@@ -121,15 +121,14 @@ before retrying the bump.
 in the same session — both patch releases within the existing `package.json`
 ranges, both verified green (`npm run test`, `npm run build`).
 
-### Notes worker — smaller open items
+### Note nel backend unico (2026-10-19)
 
-- No rate limiting on `POST /notes` beyond the CORS allowlist, length cap and
-  honeypot. Low risk today (the URL is not advertised anywhere public), but
-  worth adding if the "Feedback centralizzato" idea above is ever picked up,
-  since a shared Worker is a bigger target.
-- `worker/README.md` documents deleting notes by id once triaged; there is no
-  automated cleanup, so the table grows until someone prunes it by hand.
+Il widget scrive in `site-notes` (repo `alessiomartini/site-notes`, `site = 'markets-first-principles'`);
+tolti `worker/` e il workflow *Deploy notes worker*. Il vecchio worker `markets-first-principles-notes` e il
+suo D1 vanno spenti da Alessio dopo la migrazione. Rate limiting e pulizia delle note ora sono temi di quel repo.
+`worker-flashcards/` non è toccato.
 
 ## Log
+- 2026-10-19: note spostate nel backend unico `site-notes`
 - 2026-10-18: FUTURE-ARCHITECTURE.md unito in ROADMAP.md (protocollo unico)
 - 2026-10-15: creata la roadmap per Projects Overview

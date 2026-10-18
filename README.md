@@ -126,17 +126,10 @@ The Economics track needs the same key, so setting it once unlocks both. Get one
 ### The notes widget
 
 A floating **+ Note** button on every page opens a box for leaving myself notes while reading —
-"this caption is wrong", "this page needs a figure". Notes POST to a Cloudflare Worker
-(`worker/`) which appends them to a D1 database, and are read later straight from D1 rather than
-copied out of a browser.
-
-There is no read endpoint on the Worker, deliberately: anything that can serve the notes over
-HTTP can leak them. Writes are guarded by a CORS allowlist, a length cap, and a hidden honeypot
-field that silently discards bot submissions.
-
-Deploy it with the manual **Deploy notes worker** workflow, which needs a `CLOUDFLARE_API_TOKEN`
-repository secret. See `worker/README.md` for the whole path, including reading and deleting
-notes.
+"this caption is wrong", "this page needs a figure". Notes POST to the shared `site-notes` backend
+(one Cloudflare Worker + D1 for all of Alessio's sites, repo `alessiomartini/site-notes`) and are
+read later straight from that D1 (see its README). Writes are guarded by a CORS allowlist, a length
+cap and a hidden honeypot field; reading needs the owner's token.
 
 ### Working offline
 
