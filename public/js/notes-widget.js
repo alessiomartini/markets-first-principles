@@ -14,6 +14,18 @@
 
   var WORKER_URL = 'https://site-notes.alemarti-2001.workers.dev/markets-first-principles/notes';
 
+  // ?sono-alessio on any page marks this browser as Alessio's (every alessiomartini.github.io site shares
+  // localStorage): its notes get author 'alessio' in site-notes. A label to tell them from visitors', not a login.
+  function noteAuthor() {
+    try {
+      if (new URLSearchParams(location.search).has('sono-alessio')) localStorage.setItem('site-notes.author', 'alessio');
+      return localStorage.getItem('site-notes.author') || undefined;
+    } catch (e) {
+      return undefined;
+    }
+  }
+  noteAuthor();
+
   var MAX_TEXT = 2000;
 
   if (document.querySelector('.notes-widget')) return;
@@ -106,6 +118,7 @@
         text: body,
         page: location.pathname,
         website: honeypot.value,
+        author: noteAuthor(),
       }),
     })
       .then(function (response) {
