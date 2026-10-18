@@ -1,7 +1,8 @@
 /**
  * "+ Note" widget — a box for leaving myself notes while reading the site.
  *
- * Notes are POSTed to a Cloudflare Worker which appends them to D1. Nothing is
+ * Notes are POSTed to the shared site-notes Worker (repo alessiomartini/site-notes,
+ * one D1 for all of Alessio's sites, site = "markets-first-principles"). Nothing is
  * ever read back here: the point is to capture an idea without breaking
  * reading flow, and to collect it later straight from the database.
  *
@@ -11,9 +12,7 @@
 (function () {
   'use strict';
 
-  // Taken from the output of `wrangler deploy`, not guessed: the workers.dev
-  // subdomain is per-account and is not the GitHub username.
-  var WORKER_URL = 'https://markets-first-principles-notes.alemarti-2001.workers.dev/notes';
+  var WORKER_URL = 'https://site-notes.alemarti-2001.workers.dev/markets-first-principles/notes';
 
   var MAX_TEXT = 2000;
 

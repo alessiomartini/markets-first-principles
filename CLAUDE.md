@@ -27,8 +27,9 @@ validation scripts.
 - `astro` and `@astrojs/mdx` are pinned to major versions 5/4 on purpose — see
   `ROADMAP.md` for why, and for the `npm audit` findings that make the eventual
   Astro 7 upgrade more than a style preference.
-- `worker/` and `worker-flashcards/` are separate npm projects (Cloudflare Workers); run
-  `npm install`/`npm outdated` inside each one, not from the root.
+- `worker-flashcards/` is a separate npm project (Cloudflare Worker); run
+  `npm install`/`npm outdated` inside it, not from the root. The notes widget posts to the
+  shared `site-notes` Worker (repo `alessiomartini/site-notes`), not to a worker in this repo.
 
 ## Roadmap, idee e progressi
 
