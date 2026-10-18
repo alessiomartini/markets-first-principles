@@ -9,7 +9,7 @@ Unico file per todo, idee, decisioni e diario, letto da Projects Overview
 - [x] Struttura: 8 percorsi e 51 pagine con vocabolario e specifiche delle figure
 - [x] 3 pagine scritte
 - [ ] Scrivere le altre 48 pagine (oggi sono bozze)
-- [ ] Glossario: 29 termini scritti su circa 300
+- [ ] Glossario: 39 termini scritti su circa 300
 - [ ] Script per le figure: 3 su 51
 - [ ] Compilare `pipeline/manual/market_sizes.csv`
 
@@ -130,5 +130,5 @@ suo D1 vanno spenti da Alessio dopo la migrazione. Rate limiting e pulizia delle
 
 ## Log
 - 2026-10-19: note spostate nel backend unico `site-notes`
-- 2026-10-18: FUTURE-ARCHITECTURE.md unito in ROADMAP.md (protocollo unico)
+- 2026-10-18: FUTURE-ARCHITECTURE.md unito in ROADMAP.md (protocollo unico); 🤖 scritti 10 nuovi termini del glossario (Sharpe ratio, delta, gamma, delta hedging, put-call parity, expected shortfall, repo, margin call, overfitting, beta)
 - 2026-10-15: creata la roadmap per Projects Overview
