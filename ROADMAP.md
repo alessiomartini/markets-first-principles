@@ -9,6 +9,7 @@ Unico file per todo, idee, decisioni e diario, letto da Projects Overview
 - [x] Struttura: 8 percorsi e 51 pagine con vocabolario e specifiche delle figure
 - [x] 3 pagine scritte
 - [ ] Scrivere le altre 48 pagine (oggi sono bozze)
+  - [x] Pagina "Derivatives: what the word actually means" scritta (conteggio reale ora 24/51 scritte secondo `npm run audit:content`)
 - [ ] Glossario: 180 termini scritti su 300 dichiarati
 - [ ] Script per le figure: 3 su 51
 - [ ] Compilare `pipeline/manual/market_sizes.csv`
@@ -129,6 +130,7 @@ suo D1 vanno spenti da Alessio dopo la migrazione. Rate limiting e pulizia delle
 `worker-flashcards/` non è toccato.
 
 ## Log
+- 2026-10-20: 🤖 scritta la pagina "Derivatives: what the word actually means" (track 1), prima delle bozze del percorso Contracts and instruments; la figura BIS non ha ancora lo script dati
 - 2026-10-19: note spostate nel backend unico `site-notes`; nota del sito su call/put e opzioni americane/europee: già nel glossario (`call-option`, `put-option`, `exercise-style`); le note mandano l'autore (`?sono-alessio` segna il browser di Alessio, le altre sono di visitatori); installabile come app a sé dal telefono (manifest con nome, icona e perimetro propri)
 - 2026-10-18: FUTURE-ARCHITECTURE.md unito in ROADMAP.md (protocollo unico); 🤖 scritti 10 nuovi termini del glossario (Sharpe ratio, delta, gamma, delta hedging, put-call parity, expected shortfall, repo, margin call, overfitting, beta)
 - 2026-10-15: creata la roadmap per Projects Overview
