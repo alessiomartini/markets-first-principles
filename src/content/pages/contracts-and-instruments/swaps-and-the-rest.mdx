@@ -2,7 +2,7 @@
 title: "Swaps and the rest"
 track: 1
 order: 6
-status: stub
+status: written
 summary: "Exchanging one stream of payments for another — the largest market in the world by notional, and the least visible."
 terms:
   - "interest rate swap"
@@ -19,35 +19,106 @@ figure:
   series: "swap rates vs Treasury constant maturity"
   period: "2000-present, daily"
   script: "pipeline/fetch_swap_spread.py"
+  notice: "The swap spread is not a constant: it moves with funding conditions and with the balance sheets of the dealers who intermediate, and at long maturities it has spent long stretches below zero."
+  falsifiedBy: "The reading fails if the spread stays flat at one level through funding stress, which would mean swap rates and government yields were the same quantity under two names."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+A swap is an agreement to trade one stream of payments for another over several dates, so that each side ends up
+with the cash-flow shape it actually wants.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Borrowers and lenders rarely want the same kind of interest. A company with a floating-rate loan may prefer to
+know its costs in advance; a pension fund holding long fixed-rate bonds may fear that rates will rise. Each could
+rearrange its balance sheet by selling and buying the underlying securities, but that is slow, expensive, and
+changes the principal as well as the interest.
+
+A swap changes only the stream of payments. Nobody lends or borrows anything new, and the principal stays where it
+is. This is why the market is so large: it is the cheapest way to change the *shape* of an exposure without
+touching the asset or liability that produced it.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+In an **interest rate swap**, one side pays interest at a rate fixed at the start and the other pays interest at a
+rate that resets periodically against a reference index. Both are computed on the same **notional**, an amount
+that is only a unit of account and never changes hands.
+
+The side paying the agreed rate is the **fixed leg**; the side paying the reset rate is the **floating leg**. On
+each payment date only the difference is transferred. The rate on the fixed leg is chosen so that the swap has
+zero value at inception: no one pays the other to enter it. That rate is the swap rate.
+
+The same idea reaches beyond interest rates, and the rest of the family is defined by what the legs pay:
+
+- A **CDS** pays one side if a named borrower defaults, in exchange for a periodic fee from the other.
+- A **total return swap** pays one side everything an asset earns, income and price change, in exchange for a
+  floating rate from the other. It gives the economics of owning the asset without owning it.
+- A **basis** swap exchanges two floating rates against each other, for example two different reference indices
+  or two currencies. The **basis** is the spread that makes the exchange fair.
+
+An illustrative example, with numbers chosen for ease rather than taken from any market. Take a notional of
+100 million and annual payments. One side pays a fixed 3% and receives the floating rate. If the floating rate
+resets to 4% for a period, the fixed payer receives net 1% of the notional, 1 million. If it resets to 2%, the
+fixed payer pays net 1 million. The fixed payer has in effect turned a floating-rate cost into a fixed one.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Let the payment dates be $t_1, \dots, t_n$ with accrual fractions $\delta_i$, and let $P(0, t_i)$ be today's price
+of one unit received at $t_i$. At a floating reset, the floating leg pays the forward rate $F_i$ for that period.
+The value to the fixed-rate payer, per unit notional, is
+
+$$
+V = \sum_{i=1}^{n} \delta_i \, P(0, t_i)\,(F_i - K),
+$$
+
+where $K$ is the fixed rate. The swap is therefore a portfolio of $n$ forward contracts on the short rate, each
+struck at the same $K$. The swap rate $K^*$ is the value of $K$ that sets $V = 0$:
+
+$$
+K^* = \frac{\sum_i \delta_i \, P(0, t_i)\, F_i}{\sum_i \delta_i \, P(0, t_i)}.
+$$
+
+It is a weighted average of the forward rates, weighted by the discount factors. After inception the value moves
+away from zero as the forward rates move, and it is carried almost entirely by the fixed leg: the floating leg
+resets to market at each date, so its value stays close to its notional and its duration is short.
+
+Two things follow. First, the exposure is measured by $V$ and by its sensitivity to rates, not by the notional.
+Second, the swap rate is not an independent quantity: given the discount curve, it is fixed by arbitrage, since
+the same payments can be assembled from the forwards.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Conserved total, redistributed in time">
+A swap moves nothing into or out of the system on net: what one side pays, the other receives, and at inception
+the total value exchanged is zero. What it changes is how the same stock of risk is distributed over time and
+over holders, in the way a conserved quantity can be redistributed without being created.
+
+This is also why the notional is the wrong measure of size. It plays the role of a unit of normalisation, like
+the area through which a flux is measured, and the quantity that matters is the flux, here the net payment and
+its sensitivity to the rate.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Notional is not exposure and not money at risk.** A swap on 100 million does not put 100 million at risk.
+  The headline total of derivatives outstanding adds up notionals, and for that reason overstates risk by a very
+  large factor.
+- **The fixed payer is not simply betting that rates rise.** The fixed payer gains when floating rates end up above
+  the agreed rate, but is often a borrower using the swap to remove an exposure rather than create one.
+- **A swap is not a loan.** No principal is advanced. The only credit exposure is to the other side's ability to
+  make the net payments, which is why collateral and clearing exist.
+- **The swap rate is not a government yield.** The two differ by a spread that reflects credit, funding and
+  dealer balance-sheet conditions, and that is the object in the figure above.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Hull, *Options, Futures, and Other Derivatives*, the chapter on swaps. Interest rate swaps, valuation as
+  a portfolio of forward contracts, and the other swap types.
+- Tuckman and Serrat, *Fixed Income Securities*, the chapters on swaps and on the relation between swap and
+  government curves.
+- Paper: Duffie and Huang, *Swap Rates and Credit Quality* (1996, *Journal of Finance*), on why swap rates differ
+  from government yields.
