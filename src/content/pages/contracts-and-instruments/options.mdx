@@ -2,7 +2,7 @@
 title: "Options"
 track: 1
 order: 5
-status: stub
+status: written
 summary: "The right without the obligation, which is what makes the payoff non-linear and the pricing interesting."
 terms:
   - "call option"
@@ -22,35 +22,115 @@ figure:
   series: "one index option chain, all strikes at one expiry"
   period: "latest available snapshot"
   script: "pipeline/fetch_option_chain.py"
+  notice: "Mid prices lie on a smooth convex curve that sits on or above the payoff-at-expiry kink; the gap between them is largest at the money and shrinks as the option moves deep in or out of the money."
+  falsifiedBy: "The reading fails if quoted prices fall below the intrinsic value, or if the curve is not convex in strike, since either would be an arbitrage rather than a feature of option pricing."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+An option gives its holder the right, but not the obligation, to trade something at a fixed price, so the holder
+keeps the good outcomes and walks away from the bad ones.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+A forward fixes a price and binds both sides: if the market moves your way you gain, and if it moves against you
+you lose the same amount. Many real exposures are not symmetric. A company bidding for a foreign contract needs
+the exchange rate to be right only if it wins the bid; an investor who wants to own a share but fears a crash
+wants protection against the fall without giving up the rise.
+
+An option is the contract built for that asymmetry. One party pays a price up front to acquire a choice, and the
+other party is paid to take on the obligation. The price of that choice is the central question of derivatives
+pricing, and it exists because a choice that can only help its holder cannot be free.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+A **call option** gives the right to buy the underlying at a fixed price; a **put option** gives the right to sell
+it. That fixed price is the **strike**. The right lasts until the **expiry**, after which the contract is worth
+nothing. The seller, often called the writer, has the opposite position: an obligation to trade if the holder
+asks.
+
+The **exercise style** says when the right can be used. A *European* option can be exercised only at expiry; an
+*American* option at any time up to expiry. Which style a contract has depends on the contract, not on the
+continent where it trades.
+
+The **payoff** at expiry is what the option is worth then, and it has a kink at the strike. A call pays the
+amount by which the underlying exceeds the strike, or nothing if it does not. A put pays the amount by which the
+underlying falls below the strike, or nothing. **Moneyness** describes where the current price sits relative to
+the strike: an option that would pay if it expired now is in the money, one that would not is out of the money,
+and one sitting at the strike is at the money.
+
+The price paid for the option today is the **premium**. It splits into two parts. The **intrinsic value** is what
+the option would pay if exercised right now, and it can never be negative. The **time value** is the rest: what
+buyers pay for the chance that the underlying moves favourably before expiry. An option far out of the money is
+all time value, and that time value fades to zero as expiry approaches if the move never comes.
+
+The buyer's loss is capped at the premium. The writer's position is the mirror image: a small known gain, and a
+loss that is large, and for a written call on a rising asset in principle unlimited.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+For strike $K$ and underlying price $S_T$ at expiry, the payoffs of the long positions are
+
+$$
+C_T = \max(S_T - K,\, 0), \qquad P_T = \max(K - S_T,\, 0).
+$$
+
+Before expiry the premium decomposes as
+
+$$
+\text{premium} = \underbrace{\max(S - K,\, 0)}_{\text{intrinsic value (call)}} + \text{time value},
+$$
+
+and time value is non-negative for a European call on an asset that pays no income, because the option can always
+be held to expiry rather than exercised early.
+
+Calls and puts on the same underlying, strike and expiry are tied to each other. For European options on an asset
+paying no income, with continuous interest rate $r$ and time $\tau$ to expiry,
+
+$$
+C - P = S - K e^{-r\tau}.
+$$
+
+This is put-call parity. It holds by replication: a long call and a short put have exactly the payoff of a forward
+struck at $K$, which is worth the share price minus the discounted strike. It says that once you know the price
+of the call, the price of the put is not a separate question.
+
+Notice what the formulas do not contain. They give the payoff at expiry and a relation between two prices, but
+they do not say what the premium itself should be. That requires a model of how the underlying moves, which is
+the subject of the pricing track.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A kinked potential with a smoothed profile">
+The payoff at expiry is a function with a kink: flat on one side of the strike and rising with unit slope on the
+other. Before expiry the option price is that kink smoothed out. The more uncertain the final price and the more
+time remaining, the wider and rounder the smoothing, in the way a sharp initial profile spreads under diffusion.
+
+This is why the price of an option depends on the width of the distribution of future prices and not only on its
+centre, and why the premium is largest at the strike, where the kink is sharpest and the smoothing adds the most.
+The relation to a heat-equation picture is not a loose analogy; it is made exact in the Black-Scholes treatment
+later in the course.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Buying an option is not the same as buying the underlying.** The option has a limited life, a premium that
+  decays, and a payoff that is zero in a large part of the outcomes. Being right about direction is not enough;
+  the move has to be large enough and early enough to beat the premium.
+- **An option that expires out of the money is not a mistake in the contract.** It is the outcome the buyer
+  paid to avoid being forced into. The premium is the cost of the insurance, whether or not the claim is made.
+- **A call is not a bullish bet and a put is not a bearish one by definition.** A put held against a share is
+  protection, and a written put is a bet that the price will not fall far. What the position is depends on the
+  other holdings and on which side of the contract you are on.
+- **American and European do not describe where the option trades.** They describe when it can be exercised.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Hull, *Options, Futures, and Other Derivatives*, chapters 10 and 11. Properties of option prices, payoffs and
+  put-call parity.
+- Natenberg, *Option Volatility and Pricing*, early chapters, for the vocabulary as traders use it.
+- Paper: Merton, *Theory of Rational Option Pricing* (1973), for the model-free restrictions on option prices
+  such as the floor given by intrinsic value.
