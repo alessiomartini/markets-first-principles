@@ -12,6 +12,7 @@ Unico file per todo, idee, decisioni e diario, letto da Projects Overview
   - [x] Pagina "Derivatives: what the word actually means" scritta (conteggio reale ora 24/51 scritte secondo `npm run audit:content`)
   - [x] Pagina "Options" scritta (conteggio reale ora 25/51 scritte secondo `npm run audit:content`)
   - [x] Pagina "Swaps and the rest" scritta (conteggio reale ora 26/51 scritte secondo `npm run audit:content`)
+  - [x] Pagina "Hedging vs speculation vs arbitrage" scritta (conteggio reale ora 27/51 scritte secondo `npm run audit:content`)
 - [ ] Glossario: 180 termini scritti su 300 dichiarati
 - [ ] Script per le figure: 3 su 51
 - [ ] Compilare `pipeline/manual/market_sizes.csv`
@@ -132,6 +133,7 @@ suo D1 vanno spenti da Alessio dopo la migrazione. Rate limiting e pulizia delle
 `worker-flashcards/` non è toccato.
 
 ## Log
+- 2026-10-22: 🤖 scritta la pagina "Hedging vs speculation vs arbitrage" (27/51, track 1 completo); la figura airline-hedge non ha ancora lo script dati `pipeline/fetch_fuel_hedge.py`
 - 2026-10-21: 🤖 pagine "Options" (25/51) e "Swaps and the rest" (26/51) scritte; le figure option-chain e swap-spread non hanno ancora lo script dati
 - 2026-10-20: 🤖 scritta la pagina "Derivatives: what the word actually means" (track 1), prima delle bozze del percorso Contracts and instruments; la figura BIS non ha ancora lo script dati
 - 2026-10-19: note spostate nel backend unico `site-notes`; nota del sito su call/put e opzioni americane/europee: già nel glossario (`call-option`, `put-option`, `exercise-style`); le note mandano l'autore (`?sono-alessio` segna il browser di Alessio, le altre sono di visitatori); installabile come app a sé dal telefono (manifest con nome, icona e perimetro propri)
