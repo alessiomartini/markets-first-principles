@@ -16,7 +16,7 @@ Unico file per todo, idee, decisioni e diario, letto da Projects Overview
   - [x] Pagina "No-arbitrage and replication" scritta (conteggio reale ora 28/51 scritte secondo `npm run audit:content`; apre il percorso Pricing and risk)
   - [x] Pagina "Bachelier and Black-Scholes" scritta (conteggio reale ora 29/51 scritte secondo `npm run audit:content`)
   - [x] Pagina "The volatility surface" scritta (conteggio reale ora 30/51 scritte secondo `npm run audit:content`)
-- [ ] Glossario: 180 termini scritti su 300 dichiarati
+- [ ] Glossario: 196 termini scritti su 300 dichiarati
 - [ ] Script per le figure: 3 su 51
 - [ ] Compilare `pipeline/manual/market_sizes.csv`
 
@@ -136,7 +136,7 @@ suo D1 vanno spenti da Alessio dopo la migrazione. Rate limiting e pulizia delle
 `worker-flashcards/` non è toccato.
 
 ## Log
-- 2026-10-23: 🤖 scritta la pagina "Bachelier and Black-Scholes" (29/51, percorso Pricing and risk); la figura delta-hedge-pnl non ha ancora lo script dati `pipeline/fetch_delta_hedge.py`; poi scritta la pagina "The volatility surface" (30/51); la figura vol-surface non ha ancora lo script dati `pipeline/fetch_vol_surface.py`
+- 2026-10-23: 🤖 scritta la pagina "Bachelier and Black-Scholes" (29/51, percorso Pricing and risk); la figura delta-hedge-pnl non ha ancora lo script dati `pipeline/fetch_delta_hedge.py`; poi scritta la pagina "The volatility surface" (30/51); la figura vol-surface non ha ancora lo script dati `pipeline/fetch_vol_surface.py`; poi 16 voci di glossario per il percorso Pricing and risk
 - 2026-10-22: 🤖 scritta anche la pagina "No-arbitrage and replication" (28/51, apre il percorso Pricing and risk; la figura put-call-parity non ha ancora lo script `pipeline/fetch_parity.py`); prima scritta la pagina "Hedging vs speculation vs arbitrage" (27/51, track 1 completo); la figura airline-hedge non ha ancora lo script dati `pipeline/fetch_fuel_hedge.py`
 - 2026-10-21: 🤖 pagine "Options" (25/51) e "Swaps and the rest" (26/51) scritte; le figure option-chain e swap-spread non hanno ancora lo script dati
 - 2026-10-20: 🤖 scritta la pagina "Derivatives: what the word actually means" (track 1), prima delle bozze del percorso Contracts and instruments; la figura BIS non ha ancora lo script dati
