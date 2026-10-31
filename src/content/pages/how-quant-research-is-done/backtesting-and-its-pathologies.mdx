@@ -2,7 +2,7 @@
 title: "Backtesting and its pathologies"
 track: 7
 order: 2
-status: stub
+status: written
 summary: "A backtest is a measurement performed on data you have already looked at, which is a category of experiment physics has strong opinions about."
 terms:
   - "look-ahead bias"
@@ -17,35 +17,78 @@ figure:
   series: "one signal, split sample"
   period: "2005-present, daily"
   script: "pipeline/fetch_backtest.py"
+  notice: "The same rule, tuned on the first part of the sample, looks much better there than in the later part that was held back, and the equity curve visibly flattens at the boundary. The drop is what one expects when the rule was chosen as the best of many variants on the first part: its apparent skill there includes luck that does not carry over. The size of the drop, not the existence of a profit in the first period, is the evidence about how much of the result was selection."
+  falsifiedBy: "The reading fails if the out-of-sample Sharpe ratio is equal to the in-sample one within its sampling error, because then selection has not inflated the result. It also fails if the held-back period was used more than once to adjust the rule, since the split is then no longer out of sample and the comparison proves nothing either way."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+A backtest is a measurement made on data you have already looked at, so it is only as trustworthy as the care taken to stop the answer from leaking into the question.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+A trading idea cannot be run as a controlled experiment with fresh data on demand. The history is all there is, it is short compared with the number of ideas worth trying, and every researcher sees the same history. The backtest answers the question "what would this rule have earned?" by replaying the rule on the past. That is necessary, since nothing else is available, and it is dangerous for the same reason: with enough attempts, some rule will have earned a lot by luck alone.
+
+The danger is not dishonesty. It is that every choice made while looking at the results, from which stocks to include to which parameter to use, is a step of fitting, and fitting steps accumulate without being counted. The aim of a backtesting discipline is to make the number of looks visible and to guard against the specific ways in which information from the future finds its way into the past. The [signals and alpha](/markets-first-principles/tracks/how-quant-research-is-done/signals-and-alpha/) page defined what is being measured; this page is about when to believe the measurement.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+**Look-ahead bias** is the use, at a given date in a simulation, of information that was not available then. It takes many forms: a company's accounts are used from the end of the quarter they describe, though they were published weeks later; financial data are taken as they stand today, after restatements, instead of as first reported; a rule trades at a closing price that it used to compute its signal; an index's membership is taken from today's list. Each makes the strategy appear to know the future. Data kept "point-in-time", with the date each value became known, are the standard cure.
+
+**Survivorship bias** arises when the data contain only the assets that survived to the end of the sample. Companies that failed, were delisted, or were merged away disappear, and a backtest of buying cheap stocks then leaves out the cheap stocks that went bankrupt. Brown, Goetzmann, Ibbotson and Ross (1992) showed how this inflates the apparent performance of funds, and Elton, Gruber and Blake (1996) measured it for mutual funds. Shumway (1997) pointed to a closely related problem in stock databases, in which the return on the delisting month was often missing and that month was frequently very negative.
+
+**Overfitting** is the fitting of a rule to the noise of the sample and not to a relation that persists. The more parameters a rule has, and the more variants are tried, the better the best of them looks.
+
+**Multiple testing** is the statistical core of the problem. A conventional threshold, such as a significance level of 5 per cent, controls the chance of a false discovery in a single test. If one hundred rules with no skill are tested, about five will pass it. Harvey, Liu and Zhu (2016) counted hundreds of factors reported in the academic literature and argued that, accounting for the number of tests, a new factor should be required to have a t-statistic of about 3 or more, not the conventional 2. Techniques such as the Bonferroni correction, which tightens the threshold in proportion to the number of tests, or White's reality check and procedures that control the false discovery rate, adjust for it.
+
+The **deflated Sharpe ratio**, proposed by Bailey and Lopez de Prado (2014), applies this to a backtest's headline number. It asks what the probability is that the true Sharpe ratio is positive after allowing for the number of strategies tried, the length of the sample, and the skewness and fat tails of the returns. A Sharpe ratio of 1 that was the best of a hundred attempts is far less convincing than the same number from a single, pre-specified idea.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+The estimate of an annualised Sharpe ratio from $T$ years of independent returns has a standard error close to $1/\sqrt{T}$ for modest values. With five years of data the standard error is about $0.45$. If $N$ strategies with no skill are tried, the best of them has an expected Sharpe estimate that grows with $N$: the expected maximum of $N$ independent standard normal variables is close to $\sqrt{2\ln N}$ for large $N$, and for $N = 100$ is about $2.5$. The best of one hundred skill-free rules over five years would therefore be expected to show
+
+$$
+\widehat{SR}_{\max} \approx 2.5 \times 0.45 \approx 1.1 ,
+$$
+
+a result that looks like a good strategy.
+
+The deflated Sharpe ratio turns this into a probability. Let $\widehat{SR}$ be the observed Sharpe ratio (per period), $SR_0$ the Sharpe ratio expected from the best of $N$ trials with no skill, $T$ the number of observations, and $\gamma_3,\gamma_4$ the skewness and kurtosis of returns. Then
+
+$$
+\mathrm{DSR} = \Phi\!\left(\frac{\left(\widehat{SR} - SR_0\right)\sqrt{T-1}}{\sqrt{1 - \gamma_3\widehat{SR} + \tfrac{\gamma_4 - 1}{4}\widehat{SR}^{2}}}\right),
+$$
+
+where $\Phi$ is the standard normal distribution function. Values near 1 mean that the result survives the deflation; values near 0.5 or below mean that it is what luck would produce. The number of independent trials $N$ is the hard input, since variants are correlated and the researcher's history of attempts is rarely recorded.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="The look-elsewhere effect: local and global significance">
+Particle physics met this problem long ago. A bump in a spectrum at one chosen mass has a local significance; but if the experimenter would have been equally excited by a bump at any of many masses, the chance that some bump appears somewhere is larger, and the relevant number is the global significance. This is the look-elsewhere effect, and it is why the field requires five standard deviations before announcing a discovery, such as the Higgs boson in 2012, since a threshold of 2 would be crossed by chance somewhere in a broad search far too often.
+
+A backtest has exactly this structure, with the added difficulty that the number of places looked at is not set by the detector but by the researcher's history, which is unrecorded. The physical protocol also has no equivalent for the central rule of the discipline, that the data used to choose the analysis must not be the data used to test it, though physicists use "blind" analyses for the same purpose. A held-out period used once is the market version of unblinding only at the end.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
+
+The figure shows one rule applied to a single history, divided at a date. The rule's parameters were chosen on the first part, where it looks good, and then it was run, unchanged, on the second. The performance in the second part is lower, and that gap is the amount by which selection flattered the first. This is the ordinary outcome, and it is what the numbers above would lead one to expect.
+
+The test is informative only if the second part was kept out of the search. A researcher who sees the out-of-sample result, adjusts the rule, and tests again has turned the held-out data into more training data. Practical protocols follow from that: reserve a final period that is touched once; use walk-forward testing, in which the rule is repeatedly fitted on a past window and tested on the next one; and, when labels overlap in time, as with returns measured over several days, remove observations from the training set near the test boundary (purging and an embargo, in the vocabulary of Lopez de Prado) so that information does not cross it. What would count against the account is a set of rules for which the out-of-sample performance was as good as the in-sample, or better, across many independent tries.
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **A large backtest is not a large sample.** Ten years of daily returns give a long series, but the number of independent bets and of independent market regimes is much smaller.
+- **Out-of-sample means never used for choosing.** A period that influenced any decision, including which ideas to drop, is in sample.
+- **Fewer parameters do not rescue a rule that was chosen from many.** The count that matters is the number of variants tried, including those thrown away.
+- **Look-ahead bias is often small and silent.** A one-day shift in when data are assumed to be known can account for the whole of a short-horizon signal's apparent return.
+- **A good Sharpe ratio is not a probability.** It is an estimate with a standard error and, after selection, a bias, which is why it needs deflating.
+- **Costs are part of the test.** A backtest that ignores trading costs overstates every short-horizon result; see the [costs](/markets-first-principles/tracks/how-quant-research-is-done/costs/) page.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Lopez de Prado, *Advances in Financial Machine Learning* (2018), the chapters on backtesting, cross-validation with purging and embargo, and the dangers of backtest overfitting.
+- Aronson, *Evidence-Based Technical Analysis* (2006), for the statistical treatment of data mining in rule discovery.
+- Paper: Bailey and Lopez de Prado, "The deflated Sharpe ratio: correcting for selection bias, backtest overfitting and non-normality", *Journal of Portfolio Management* 40 (2014).
+- Paper: Harvey, Liu and Zhu, "...and the cross-section of expected returns", *Review of Financial Studies* 29 (2016).
+- Paper: Bailey, Borwein, Lopez de Prado and Zhu, "Pseudo-mathematics and financial charlatanism", *Notices of the AMS* 61 (2014).
