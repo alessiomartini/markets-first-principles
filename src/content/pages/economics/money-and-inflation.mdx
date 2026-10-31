@@ -2,7 +2,7 @@
 title: "Money and inflation"
 track: 5
 order: 2
-status: stub
+status: written
 summary: "The quantity theory is an identity plus two heroic assumptions, and 2021 was the cleanest test of it in forty years."
 terms:
   - "monetary base"
@@ -19,35 +19,82 @@ figure:
   series: "M2SL, CPIAUCSL"
   period: "1960-present, monthly"
   script: "pipeline/fetch_money.py"
+  notice: "Over several decades, money growth and inflation move together on average: the periods with the fastest growth of M2 are mostly followed by higher inflation, and the periods of slow money growth by lower. Over short windows the link is loose, and in 2021 M2 grew faster than at any time in the post-war record while consumer prices began to accelerate only after a delay of several months, and then rose by more than in any year since the early 1980s."
+  falsifiedBy: "The reading fails if, across long samples and across countries, money growth and inflation are uncorrelated, or if the 2021 surge in M2 had been followed by no rise in prices at all; either would mean the quantity relation carries no information even at long horizons."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Inflation is a sustained rise in the general price level, and the oldest explanation of it is that it happens when the amount of money grows faster than the quantity of goods it is chasing.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+An economy needs a unit in which to quote prices and a medium that settles debts. Once that medium can be created at little cost, the question arises of how much to create, and what happens to the value of the unit if too much is. The question is ancient: coins were clipped and debased by rulers who wanted to spend more than they collected, and the sixteenth-century inflow of silver from the Americas into Spain was linked to a long rise in European prices by writers of the time.
+
+The modern form of the problem is that nearly all money today is a claim created by the banking system and by central banks, backed by nothing physical. Its value is whatever it will buy, so the price level is a statement about the money and not only about goods. Milton Friedman and Anna Schwartz's monetary history of the United States (1963) made the case that large movements in the money stock had preceded large movements in output and prices. Central banks were later organised around the aim of keeping the price level stable, which first requires a way to say what the price level is and to measure its change.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+The **monetary base** is the money issued by the central bank: currency in circulation and the reserves that commercial banks hold at the central bank. **M2** is a broader measure of the money the public holds, adding to currency and bank deposits the more liquid savings instruments. Most money in M2 was created by banks making loans, not by the central bank directly, so the two measures can move apart: the base can rise sharply while M2 barely moves, as it did when central banks expanded their balance sheets after 2008.
+
+The **velocity of money** is the rate at which the stock of money is spent: nominal spending in a period divided by the money stock. It is not observed directly. It is inferred from the other three quantities, and so it absorbs everything the other three leave out.
+
+Inflation is measured by price indices over a fixed basket. The **CPI** (consumer price index) prices a basket of what households buy, with weights from household expenditure surveys. The **PCE deflator** is the price index of personal consumption in the national accounts and is the measure the US Federal Reserve targets; it has broader coverage and weights that change as spending shifts. The **HICP** is the harmonised index used by the European Central Bank, built to be comparable across member states. The three differ in coverage, in weights and in how housing is treated, which is why they give different numbers for the same year.
+
+**Inflation expectations** are what households, firms and markets believe inflation will be. They matter because wages and contracts are set in advance on the basis of expected prices, so an expectation that inflation will stay low helps keep it low, and one that has come loose from the target can sustain inflation without any further push from money.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+The quantity relation is an identity. With $M$ the money stock, $V$ its velocity, $P$ the price level and $y$ real output,
+
+$$
+M V = P y .
+$$
+
+It holds because $V$ is defined as $Py/M$. In growth rates, with small changes,
+
+$$
+g_M + g_V \approx \pi + g_y ,
+$$
+
+where $\pi$ is inflation. The relation becomes a theory with two assumptions: that velocity is stable or changes predictably, so $g_V \approx 0$, and that real output is determined by real factors such as labour, capital and technology, so that $g_y$ does not respond to money. Then
+
+$$
+\pi \approx g_M - g_y ,
+$$
+
+and inflation is the excess of money growth over output growth. Both assumptions fail in the short run. Velocity falls in a crisis, when people hold more money against uncertainty, and rises when they spend it faster, and output responds to money for a time when prices and wages adjust slowly. The long-run claim is the weaker one: that sustained inflation requires sustained money growth faster than output.
+
+Expectations enter through the expectations-augmented Phillips relation,
+
+$$
+\pi_t = \pi^{e}_t + \kappa\,(y_t - y^{*}_t) + u_t ,
+$$
+
+where $\pi^{e}$ is expected inflation, $y - y^{*}$ the gap between output and its sustainable level, $\kappa$ a slope and $u$ a shock. The relation says that inflation is expected inflation plus pressure from demand plus supply shocks, and it is the place where the money story and the expectations story meet.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="An identity versus a law, and a relation that holds only in a regime">
+$MV = Py$ is a definition of $V$ and has the status of a bookkeeping identity, like a balance of fluxes. It becomes a physical-style law only once $V$ is shown to be a stable parameter, in the way a transport coefficient is constant over a range of conditions. Where it is, the relation predicts; where it drifts, it only restates the data.
+
+The analogy is useful in that it separates the two things that are easily mixed: the identity, which cannot be wrong, and the closure assumption that makes it informative, which can. It fails in that $V$ is not a property of a medium but the aggregate of the choices of agents who change their behaviour when the policy changes, so the "constant" depends on the regime it is measured in.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **The quantity theory is not an identity.** $MV = Py$ is, but the theory is the claim that $V$ is stable and $y$ is independent of $M$. Treating the identity as the theory makes it look unfalsifiable.
+- **A larger monetary base is not the same as faster money growth.** Large rises in the base do not by themselves lead to large rises in M2 or in spending, since that depends on whether banks lend and whether the public spends.
+- **CPI, PCE and HICP are not the same number.** The gaps between them come from coverage, weights and the treatment of housing, and a statement that inflation is a given figure needs the index named.
+- **Expectations are not a residual.** They can be measured, from surveys and from the pricing of inflation-linked bonds, and they affect inflation through wage and price setting in advance.
+- **Inflation is a rate of change, not a level.** Prices can stay far above their earlier level after inflation has fallen back to target, which is why disinflation does not feel like a return to the old prices.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Friedman and Schwartz, *A Monetary History of the United States, 1867-1960* (1963), the chapters on the Great Contraction, for the evidence tying money to output and prices.
+- Mehrling, *The New Lombard Street* (2011), for how money is created and held up in practice by the banking system and the central bank, which the quantity relation hides.
+- Woodford, *Interest and Prices* (2003), the introduction, for the modern view in which expectations and the policy rule, not a money target, anchor the price level.
+- Paper: Friedman, "The Role of Monetary Policy" (1968), for the expectations-augmented argument that no stable trade-off between inflation and output survives in the long run.
