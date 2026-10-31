@@ -2,7 +2,7 @@
 title: "Interest rates and central banks"
 track: 5
 order: 3
-status: stub
+status: written
 summary: "A central bank sets one overnight rate. Everything that matters happens in how the rest of the curve responds."
 terms:
   - "policy rate"
@@ -17,35 +17,80 @@ figure:
   series: "DFF, DGS2, DGS10"
   period: "1990-present, daily"
   script: "pipeline/fetch_policy_rates.py"
+  notice: "The 2-year yield tends to move ahead of the policy rate, rising before a tightening cycle and falling before an easing one, because it prices the expected path of the overnight rate. The 10-year yield moves much less than the policy rate over a cycle and sometimes in the opposite direction. In the tightening of 2022-23 the policy rate rose faster than in any cycle in the sample, the 2-year yield rose with it, and the curve between them inverted for a long stretch."
+  falsifiedBy: "The reading fails if the 2-year yield had no systematic relation to later changes in the policy rate, or if long yields simply tracked the overnight rate one for one; either would mean the central bank's rate and market expectations of it carry no separate information."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+A central bank directly controls only the price of overnight money between banks, and the interest rates that households and firms actually pay follow from it through expectations, risk and the balance sheets of the financial system.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+An economy that runs on credit needs a price for credit, and the banking system needs a place where a bank short of reserves can borrow from one that has too many. Without a lender willing to supply reserves in a panic, a run on one bank spreads to the rest, as nineteenth-century banking crises showed repeatedly. The central bank grew out of this role: it is the one institution that can create reserves at will, so it can lend when no one else will, and it can set the price at which it does so.
+
+Once that price exists it is also the lever for the economy as a whole. Moving it changes the cost of borrowing across the system and, with a delay, spending, employment and prices. The aim is not to hit an interest rate for its own sake. It is to keep inflation near a target and employment high, using one short rate as the instrument.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+The **policy rate** is the interest rate the central bank sets or targets on overnight lending between banks and on its own facilities. In the United States it is a target range for the federal funds rate; in the euro area it is the rate on the deposit facility, among others. It is a rate on reserves, the balances commercial banks hold at the central bank, and not a rate that anyone outside the banking system pays directly.
+
+There are two ways to hold the market rate close to the policy rate. In a **corridor system** the central bank sets a rate at which it lends to banks (the ceiling) and a rate at which it pays on their deposits (the floor), and the overnight market rate stays between them, since no bank would borrow from another above the ceiling or lend below the floor. In a **floor system**, used when reserves are abundant after large asset purchases, the rate paid on reserves is itself the effective rate, because no bank will lend reserves to the market at less than it can earn at the central bank.
+
+The **real interest rate** is the nominal rate minus expected inflation. It is the cost of borrowing in terms of goods and not of money, and so the rate that matters for the decision to invest or to save. It cannot be observed directly, since expected inflation cannot, and it is estimated from surveys or from the yields on inflation-linked bonds.
+
+The **term premium** is the extra yield investors demand to hold a long bond rather than roll a series of short ones. A long yield can be split into the average of expected future short rates and this premium. The first part is what the market thinks the central bank will do; the second is compensation for the risk that it, or inflation, will turn out differently.
+
+**Quantitative easing** (QE) is the purchase by the central bank of long-dated bonds, paid for with newly created reserves, used when the policy rate is already at or near its lower bound. It is meant to lower long yields directly by removing duration from the market and by signalling that short rates will stay low. The reverse, **quantitative tightening**, lets the bonds run off.
+
+**Monetary transmission** is the chain by which a change in the policy rate reaches the economy: through the expected path of short rates and so the whole yield curve, through the cost and availability of bank credit, through asset prices and the wealth they carry, through the exchange rate, and through expectations of inflation. Each link takes time and none is mechanical.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+The Fisher relation links the nominal rate $i$, the real rate $r$ and expected inflation $\pi^{e}$,
+
+$$
+i \approx r + \pi^{e} .
+$$
+
+A common description of how central banks set the policy rate is the Taylor rule. With $\pi$ inflation, $\pi^{*}$ its target, $r^{*}$ the neutral real rate and $y - y^{*}$ the output gap,
+
+$$
+i_t = r^{*} + \pi_t + a\,(\pi_t - \pi^{*}) + b\,(y_t - y^{*}_t) ,
+$$
+
+where $a$ and $b$ are positive coefficients. The rule says that the policy rate rises by more than one for one with inflation, so that the real rate rises when inflation does, and that it also leans against a positive output gap. It is a description of past behaviour and a benchmark, not a mechanical procedure that any bank follows.
+
+The long yield decomposes by the expectations hypothesis plus a premium. For an $n$-period bond,
+
+$$
+y^{(n)}_t = \frac{1}{n}\sum_{k=0}^{n-1} \mathbb{E}_t\, i_{t+k} + \mathrm{TP}^{(n)}_t ,
+$$
+
+where the first term is the average expected short rate over the life of the bond and $\mathrm{TP}$ the term premium. The premium is not observed: it is a residual from a model of expected rates, and different models give different values.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A control loop with a delayed, noisy response">
+The policy rate is the control input of a feedback loop whose output is inflation and employment. The Taylor rule is a proportional controller: the response is proportional to the error in inflation and in the output gap. The difficulty is the same as in any control problem with long lags, since the effect of a change arrives after many months, the state being controlled is measured with error, and a controller that reacts too hard to what it sees now overshoots.
+
+The analogy fails because the plant reacts to the controller. Households and firms form expectations about the rule itself, so a commitment to respond to inflation changes how inflation behaves before the rate moves at all. A thermostat does not change the physics of the room because it is known to be there; a central bank changes the system it controls by announcing how it will act.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **The central bank does not set mortgage or corporate rates.** It sets one overnight rate. Longer rates are set in the market and depend on the expected path of that rate, on the term premium and on credit risk, which is why they can fall when the bank is raising its rate and rise when it is cutting.
+- **A low nominal rate is not an easy policy.** Policy is easy or tight according to the real rate relative to the neutral one. A nominal rate of 2 per cent with inflation of 6 is deeply negative in real terms; the same rate with inflation near zero is not.
+- **QE is not money printing in the sense of handing out cash.** The bank swaps reserves for bonds. Its effect runs through lower long yields, through portfolio shifts and through signalling, and not through new spending by the sellers, who mostly hold the reserves or buy other assets.
+- **The Taylor rule is not the rule the bank follows.** It fits average behaviour reasonably over some periods and poorly over others, and the value of the neutral rate $r^{*}$, which it needs, cannot be observed and is itself the object of dispute.
+- **The term premium is not a market price.** It is the part of the long yield left over after a model has removed expected short rates, so the number depends on the model.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Taylor, "Discretion versus policy rules in practice", *Carnegie-Rochester Conference Series on Public Policy* 39 (1993), for the original rule and the observation that it described US policy from 1987 to 1992.
+- Woodford, *Interest and Prices* (2003), the chapters on the policy rule and on expectations, for the modern framework in which the central bank steers the economy mainly by steering expectations of its own path.
+- Mehrling, *The New Lombard Street* (2011), the chapters on the central bank as dealer of last resort, for the plumbing behind the policy rate and why the balance sheet matters as well as the rate.
+- Paper: Bernanke and Blinder, "The federal funds rate and the channels of monetary transmission", *American Economic Review* 82 (1992), for evidence on how a change in the policy rate reaches bank lending and spending.
