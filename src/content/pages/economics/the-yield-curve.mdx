@@ -2,13 +2,16 @@
 title: "The yield curve"
 track: 5
 order: 4
-status: stub
+status: written
 summary: "The term structure of interest rates, and the most-watched recession indicator that nobody can fully explain."
 terms:
   - "steepening"
   - "flattening"
   - "curve inversion"
   - "forward rate"
+  - "yield curve"
+  - "expectations hypothesis"
+  - "Nelson-Siegel model"
 figure:
   id: "curve-inversions"
   title: "Curve inversions against NBER recessions"
@@ -16,35 +19,83 @@ figure:
   series: "T10Y2Y, USREC"
   period: "1976-present, daily"
   script: "pipeline/fetch_yield_curve.py"
+  notice: "The spread between the 10-year and the 2-year yield has gone negative before most of the recessions in the sample. The lead time between the inversion and the start of the recession varies a great deal, and the 2022-23 inversion was the deepest and longest in the sample, so it is a test of the signal that the reader can follow in the data."
+  falsifiedBy: "The reading fails if inversions were as frequent outside the periods before recessions as inside them, so that the spread carries no information about later output; with only a handful of recessions in the sample, a few false signals would be enough to remove the evidence."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+The yield curve is the price of borrowing money plotted against how long you borrow it for, and its shape is a summary of what the market expects of future short rates plus what it charges for the risk of being wrong.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+A single interest rate does not exist. A bond that repays in three months and one that repays in thirty years are different promises, held by different people for different reasons, and each has its own yield. Someone pricing a loan, a mortgage, a pension liability or a corporate bond needs a rate for each maturity, and needs to know how those rates relate, since the pattern between them is information in its own right.
+
+The earlier page on [interest rates and central banks](/markets-first-principles/tracks/economics/interest-rates-and-central-banks/) explained that the central bank fixes only the overnight rate. The yield curve is what the market builds on top of it. This page is about the shape of that structure and what it can and cannot tell you.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+The **yield curve** is the set of yields on bonds of the same credit quality across maturities, usually government bonds, from a few months to thirty years. It is normally built from the zero-coupon curve, so that each point is the annualised return from lending for exactly that horizon, with no coupons in between. A curve that rises with maturity is called *upward sloping* or *normal*, a flat one is flat, and one in which short yields exceed long ones is inverted.
+
+Changes in shape have names. A **steepening** is a widening of the gap between long and short yields, a **flattening** its narrowing. Each comes in two kinds depending on which end moves: a *bull* move is driven by yields falling and a *bear* move by yields rising. A flattening that continues past zero ends in a **curve inversion**.
+
+A **forward rate** is the rate for a future period that is implied by today's curve. If lending for one year earns 3 per cent and lending for two earns 4 per cent, the rate for the second year alone is fixed by arbitrage at about 5 per cent: any other value would let someone borrow in one maturity, lend in the other and keep the difference with no risk. The forward rates are the local slope of the curve in the same way that a velocity is the local slope of a position.
+
+The **expectations hypothesis** says that forward rates are the market's expected future short rates, so that a long yield is the average of the short rates expected over its life and nothing else. In that case the shape of the curve would be a pure forecast: upward slope means rising rates expected, inversion means falling ones. The hypothesis in its pure form is rejected by the data. Long yields carry a **term premium**, defined on the previous page, which is time-varying and is not observed directly. The curve is a sum of an expectation and a premium and the two cannot be told apart by looking at the curve alone.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Let $y_t^{(n)}$ be the continuously compounded yield on a zero-coupon bond maturing in $n$ years, so that its price is $P_t^{(n)} = e^{-n\, y_t^{(n)}}$. The forward rate for the period between $n-1$ and $n$ is
+
+$$
+f_t^{(n-1,n)} = n\, y_t^{(n)} - (n-1)\, y_t^{(n-1)} ,
+$$
+
+and the instantaneous forward rate is the derivative of the integrated yield,
+
+$$
+f_t(n) = \frac{\partial}{\partial n}\big[ n\, y_t^{(n)} \big], \qquad y_t^{(n)} = \frac{1}{n}\int_0^n f_t(s)\, ds .
+$$
+
+So the yield is the average of the forward rates out to the horizon. Under the expectations hypothesis the forward rate equals the expected future short rate, $f_t(s) = \mathbb{E}_t\, r_{t+s}$. With a premium,
+
+$$
+f_t(s) = \mathbb{E}_t\, r_{t+s} + \phi_t(s) ,
+$$
+
+where $\phi_t(s)$ is the forward term premium, positive on average. The Nelson-Siegel model is a description of the whole curve with four numbers,
+
+$$
+y(n) = \beta_0 + \beta_1 \frac{1 - e^{-n/\tau}}{n/\tau} + \beta_2\left(\frac{1 - e^{-n/\tau}}{n/\tau} - e^{-n/\tau}\right) .
+$$
+
+The three terms are read as a level ($\beta_0$, the long-run yield), a slope ($\beta_1$, the short end relative to the long) and a curvature ($\beta_2$, a hump at a maturity set by $\tau$). It is a fitting device and not a theory of why the curve has the shape it does.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A dispersion relation, with a few dominant modes">
+The curve is a function of a "wavelength", the maturity, and the forward rate is its local derivative, just as a group velocity is the derivative of the phase. The Nelson-Siegel decomposition is a truncated expansion in a small number of modes: level, slope and curvature capture most of the variation in the curve over time, in the way that a few principal components capture most of the variance of a larger system.
+
+The analogy is weak at the point that matters. A dispersion relation follows from an equation of motion, while the shape of the curve follows from the beliefs and constraints of the people who trade it, and those change when the curve is observed and acted on. The modes are a statistical regularity and not a law.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
+
+The spread between long and short yields is the most common single summary of the slope, and inversions have preceded most US recessions since the 1960s. Estrella and Mishkin (1998) showed that the spread between the 10-year and the 3-month yield has predictive power for recessions several quarters ahead that is hard to replicate with other financial variables. The record is short, though: a handful of recessions, an uneven lead time of months to about two years, and some episodes that fit badly. It is a good signal and not an explanation, and the causal story is disputed. One reading is that inversion marks tight monetary policy that will cut growth; another is that it marks a market expecting the central bank to cut because it sees weakness coming; a third is that falling term premia, driven by demand for long bonds, can invert the curve without any signal about the economy at all.
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **The curve is not a forecast.** Under the expectations hypothesis it would be, but long yields include a term premium that moves over time, so a steep curve may reflect higher required compensation as much as expected rate rises. The same applies to forward rates.
+- **Inversion does not cause a recession.** It is a correlation with a variable lag, and it can arise from several mechanisms. Reading it as a countdown to a specific date is a mistake the data does not support.
+- **"Steepening" does not tell you whether rates are rising or falling.** A bull steepener, with short yields falling, and a bear steepener, with long yields rising, describe opposite moves in the level of rates and carry opposite macro readings.
+- **Which spread is used matters.** The 10-year minus the 2-year and the 10-year minus the 3-month can differ in sign and timing, and studies that find predictive power are specific about the pair.
+- **A fitted curve is not the market.** Nelson-Siegel and similar models smooth and interpolate, and the implied forward rates can be sensitive to the fitting choices.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Fabozzi, *Bond Markets, Analysis and Strategies*, the chapters on the term structure of interest rates and on yield curve strategies, for spot and forward rates and the theories of the curve's shape.
+- Cochrane, *Asset Pricing* (2005), the chapter on the term structure of interest rates, for the expectations hypothesis and why risk premia make it fail.
+- Paper: Estrella and Mishkin, "Predicting U.S. recessions: financial variables as leading indicators", *Review of Economics and Statistics* 80 (1998), for the evidence on the slope of the curve as a recession predictor.
+- Paper: Nelson and Siegel, "Parsimonious modeling of yield curves", *Journal of Business* 60 (1987), for the level-slope-curvature description.
+- Paper: Cochrane and Piazzesi, "Bond risk premia", *American Economic Review* 95 (2005), for the finding that forward rates predict excess bond returns, which is evidence against the expectations hypothesis.
