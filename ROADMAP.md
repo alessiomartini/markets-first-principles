@@ -19,8 +19,10 @@ Unico file per todo, idee, decisioni e diario, letto da Projects Overview
   - [x] Pagina "Portfolio construction" scritta (conteggio reale ora 31/51 scritte secondo `npm run audit:content`)
   - [x] Pagina "Risk measures" scritta (conteggio reale ora 32/51 scritte secondo `npm run audit:content`)
   - [x] Pagina "Position sizing" scritta (conteggio reale ora 33/51 scritte secondo `npm run audit:content`; chiude il percorso Pricing and risk)
-- [ ] Glossario: 201 termini scritti su 300 dichiarati
+  - [x] Pagina "What GDP actually measures" scritta (conteggio reale ora 34/51 scritte secondo `npm run audit:content`; apre il percorso Economics)
+- [ ] Glossario: 227 termini scritti su 300 dichiarati
   - [x] 20 voci (Volatility surface, già usata dalla pagina del percorso Pricing and risk; 19 termini del percorso Economics: PIL nominale/reale/deflatore, identità della spesa, base monetaria, M2, velocità, CPI/PCE/HICP, attese di inflazione, tasso di policy, tasso reale, term premium, QE, trasmissione monetaria, steepening/flattening/inversione) (221/300)
+  - [x] 6 voci (Position sizing, Fractional Kelly, Volatility targeting, Risk budgeting, già usate dalla pagina Position sizing; Flow, Stock per la pagina "What GDP actually measures") (227/300)
 - [ ] Script per le figure: 3 su 51
 - [ ] Compilare `pipeline/manual/market_sizes.csv`
 
@@ -140,7 +142,7 @@ suo D1 vanno spenti da Alessio dopo la migrazione. Rate limiting e pulizia delle
 `worker-flashcards/` non è toccato.
 
 ## Log
-- 2026-10-31: 🤖 aggiunte 20 voci di glossario (volatility surface + percorso Economics, 221/300); pagina "Risk measures" scritta (32/51, percorso Pricing and risk); la figura var-exceedances non ha ancora lo script dati `pipeline/fetch_var.py`; i termini di glossario esistevano già; pagina "Position sizing" scritta (33/51), chiude il percorso Pricing and risk; aggiunta la voce di glossario "Growth rate" (201/300); la figura kelly-curve non ha ancora lo script dati `pipeline/fetch_kelly.py`
+- 2026-10-31: 🤖 aggiunte 20 voci di glossario (volatility surface + percorso Economics, 221/300); pagina "Risk measures" scritta (32/51, percorso Pricing and risk); la figura var-exceedances non ha ancora lo script dati `pipeline/fetch_var.py`; i termini di glossario esistevano già; pagina "Position sizing" scritta (33/51), chiude il percorso Pricing and risk; aggiunta la voce di glossario "Growth rate" (201/300); la figura kelly-curve non ha ancora lo script dati `pipeline/fetch_kelly.py`; pagina "What GDP actually measures" scritta (34/51, apre il percorso Economics); la figura gdp-decomposition non ha ancora lo script dati `pipeline/fetch_gdp.py`; aggiunte 6 voci di glossario (227/300), tra cui le 4 che mancavano a Position sizing
 - 2026-10-24: 🤖 pagina "Portfolio construction" scritta (31/51, percorso Pricing and risk); la figura frontier-out-of-sample non ha ancora lo script dati `pipeline/fetch_frontier.py`; aggiunte 4 voci di glossario (Markowitz optimisation, efficient frontier, factor, alpha)
 - 2026-10-23: 🤖 scritta la pagina "Bachelier and Black-Scholes" (29/51, percorso Pricing and risk); la figura delta-hedge-pnl non ha ancora lo script dati `pipeline/fetch_delta_hedge.py`; poi scritta la pagina "The volatility surface" (30/51); la figura vol-surface non ha ancora lo script dati `pipeline/fetch_vol_surface.py`; poi 16 voci di glossario per il percorso Pricing and risk
 - 2026-10-22: 🤖 scritta anche la pagina "No-arbitrage and replication" (28/51, apre il percorso Pricing and risk; la figura put-call-parity non ha ancora lo script `pipeline/fetch_parity.py`); prima scritta la pagina "Hedging vs speculation vs arbitrage" (27/51, track 1 completo); la figura airline-hedge non ha ancora lo script dati `pipeline/fetch_fuel_hedge.py`
