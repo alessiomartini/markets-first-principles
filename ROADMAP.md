@@ -17,6 +17,7 @@ Unico file per todo, idee, decisioni e diario, letto da Projects Overview
   - [x] Pagina "Bachelier and Black-Scholes" scritta (conteggio reale ora 29/51 scritte secondo `npm run audit:content`)
   - [x] Pagina "The volatility surface" scritta (conteggio reale ora 30/51 scritte secondo `npm run audit:content`)
   - [x] Pagina "Portfolio construction" scritta (conteggio reale ora 31/51 scritte secondo `npm run audit:content`)
+  - [x] Pagina "Risk measures" scritta (conteggio reale ora 32/51 scritte secondo `npm run audit:content`)
 - [ ] Glossario: 200 termini scritti su 300 dichiarati
 - [ ] Script per le figure: 3 su 51
 - [ ] Compilare `pipeline/manual/market_sizes.csv`
@@ -137,6 +138,7 @@ suo D1 vanno spenti da Alessio dopo la migrazione. Rate limiting e pulizia delle
 `worker-flashcards/` non è toccato.
 
 ## Log
+- 2026-10-31: 🤖 pagina "Risk measures" scritta (32/51, percorso Pricing and risk); la figura var-exceedances non ha ancora lo script dati `pipeline/fetch_var.py`; i termini di glossario esistevano già; resta da scrivere "Position sizing" per chiudere il percorso
 - 2026-10-24: 🤖 pagina "Portfolio construction" scritta (31/51, percorso Pricing and risk); la figura frontier-out-of-sample non ha ancora lo script dati `pipeline/fetch_frontier.py`; aggiunte 4 voci di glossario (Markowitz optimisation, efficient frontier, factor, alpha)
 - 2026-10-23: 🤖 scritta la pagina "Bachelier and Black-Scholes" (29/51, percorso Pricing and risk); la figura delta-hedge-pnl non ha ancora lo script dati `pipeline/fetch_delta_hedge.py`; poi scritta la pagina "The volatility surface" (30/51); la figura vol-surface non ha ancora lo script dati `pipeline/fetch_vol_surface.py`; poi 16 voci di glossario per il percorso Pricing and risk
 - 2026-10-22: 🤖 scritta anche la pagina "No-arbitrage and replication" (28/51, apre il percorso Pricing and risk; la figura put-call-parity non ha ancora lo script `pipeline/fetch_parity.py`); prima scritta la pagina "Hedging vs speculation vs arbitrage" (27/51, track 1 completo); la figura airline-hedge non ha ancora lo script dati `pipeline/fetch_fuel_hedge.py`
