@@ -23,6 +23,8 @@ SCRIPTS = [
     "fetch_policy_rates.py",
     "fetch_money.py",
     "fetch_phillips.py",
+    "fetch_gdp.py",
+    "fetch_funding.py",
     # Simulated figures (synthetic=true, fixed seeds): offline and deterministic.
     "fetch_kelly.py",
     "fetch_backtest.py",
