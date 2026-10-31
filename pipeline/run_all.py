@@ -19,6 +19,10 @@ SCRIPTS = [
     "fetch_order_book.py",
     "fetch_tails.py",
     "fetch_market_sizes.py",
+    "fetch_yield_curve.py",
+    "fetch_policy_rates.py",
+    "fetch_money.py",
+    "fetch_phillips.py",
     # Simulated figures (synthetic=true, fixed seeds): offline and deterministic.
     "fetch_kelly.py",
     "fetch_backtest.py",

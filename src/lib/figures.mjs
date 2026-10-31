@@ -199,6 +199,10 @@ const RENDERERS = {
         x: { label: figure.x?.label ?? null, type: figure.x?.type ?? 'linear', grid: true },
         y: { label: figure.y?.label ?? null, type: figure.y?.type ?? 'linear', grid: true },
         marks: [
+          // Optional shaded x-intervals (recessions, a highlighted episode).
+          ...(figure.bands?.length
+            ? [Plot.rectX(figure.bands, { x1: 'x1', x2: 'x2', fill: LIGHT.muted, fillOpacity: 0.15 })]
+            : []),
           Plot.line(rows, { x: 'x', y: 'y', z: 'series', stroke: (d) => colourFor(d.series), strokeWidth: 2 }),
           ...directLabels(rows, colourFor),
           Plot.ruleY([0], { stroke: LIGHT.muted, strokeOpacity: 0.6 }),

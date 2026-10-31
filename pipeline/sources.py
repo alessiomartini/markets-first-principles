@@ -24,6 +24,40 @@ BROWSER_UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Ge
 
 
 # --------------------------------------------------------------------------
+# FRED, keyless CSV (US-government series only: public domain)
+# --------------------------------------------------------------------------
+
+def fred_csv(series_id: str) -> list[tuple[str, float]]:
+    """(ISO date, value) pairs from FRED's keyless graph CSV, missing days dropped.
+
+    Only series produced by US government agencies (Treasury, Fed Board, BLS,
+    BEA, NBER-dated recessions as republished by FRED) should go through here:
+    FRED also hosts licensed series (ICE/BofA, S&P, Moody's) that must not be
+    redistributed in this public repo.
+    """
+    text = fetch(f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}").decode("utf8", "replace")
+    reader = csv.reader(io.StringIO(text))
+    header = next(reader, None)
+    if not header or len(header) < 2 or header[1] != series_id:
+        raise RuntimeError(f"FRED {series_id}: unexpected header {header!r}")
+
+    rows = []
+    for row in reader:
+        try:
+            rows.append((row[0], float(row[1])))
+        except (IndexError, ValueError):
+            continue  # FRED writes "." for missing observations
+    if len(rows) < 20:
+        raise RuntimeError(f"FRED {series_id}: only {len(rows)} observations")
+    return rows
+
+
+def decimal_year(iso_date: str) -> float:
+    year, month, day = (int(part) for part in iso_date.split("-"))
+    return year + (month - 1) / 12 + (day - 1) / 365
+
+
+# --------------------------------------------------------------------------
 # Daily closes
 # --------------------------------------------------------------------------
 
