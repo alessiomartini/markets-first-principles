@@ -2,7 +2,7 @@
 title: "Wrappers"
 track: 6
 order: 4
-status: stub
+status: written
 summary: "Funds, ETFs and notes are containers, not assets. What matters is the mechanism that keeps the container's price near its contents."
 terms:
   - "ETF"
@@ -19,35 +19,86 @@ figure:
   series: "one bond ETF, price vs NAV"
   period: "2015-present, daily"
   script: "pipeline/fetch_etf_nav.py"
+  notice: "In ordinary conditions the price of a bond ETF stays very close to its net asset value, with gaps of the order of a few tenths of a per cent at most. In March 2020, when the bond market itself stopped trading smoothly, large bond ETFs fell several per cent below their reported net asset value for days, and the gap narrowed once the central bank announced that it would buy corporate bonds and bond ETFs. Part of the apparent gap is that the ETF price is current and the reported net asset value is built from stale bond prices."
+  falsifiedBy: "The account fails if the gap in March 2020 was no larger than in calm periods, or if it persisted for weeks after the central bank's announcement and the return of normal trading in the underlying bonds. The claim that the gap reflects stale underlying prices fails if net asset values built from fresh, executable bond prices showed the same discount as the reported ones."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+A fund, an ETF or a note is a container that holds assets and sells shares of the container, and the interesting question about any container is what keeps its price close to the value of what is inside.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Most people cannot buy a thousand bonds, or three hundred stocks in the right proportions, or follow an index by hand. A wrapper solves this by pooling money, buying a basket, and issuing small, identical shares in it. It delivers diversification, professional management or mechanical index tracking, and a single price to trade at. The wrapper also changes the asset's behaviour in ways that matter: a share in a fund can be traded when the bonds inside it cannot, the tax treatment can differ from direct holding, and a new party, the issuer, stands between the investor and the asset.
+
+The design problem is that the container and its contents are traded separately, and unless something links them, their prices can drift apart. Different wrappers solve it differently. The older solution, the mutual fund, is to let investors buy and sell only with the fund itself, at the value of the contents. The newer one, the exchange-traded fund, lets investors trade with each other on an exchange, and relies on a small group of dealers to keep the price in line with the contents. Each choice moves the risk to a different place, and that is the topic of this page. The page on [equity vs crypto](/markets-first-principles/tracks/the-map-of-the-territory/equity-vs-crypto/) and the [crypto plumbing](/markets-first-principles/tracks/plumbing-and-institutions/crypto-plumbing/) page that follows show the same logic applied to newer assets.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+The **net asset value**, or NAV, of a fund is the market value of everything it holds, less its liabilities, divided by the number of its shares. It is the reference against which the price of a share is judged.
+
+A **mutual fund** in the strict sense, an open-end fund, issues and redeems shares directly with investors at the NAV calculated at the end of each trading day. Orders placed during the day get that evening's price. The investor never faces a market price different from NAV, and so there is no premium or discount to speak of. The weakness is that redemptions are paid from the fund's assets: an investor who leaves takes out cash at the NAV, and if the fund must sell illiquid holdings at a cost to meet the request, the cost falls on those who remain. Where the assets are illiquid, the first to redeem therefore do better than the last, which is the same incentive to run as in the funding markets. Chen, Goldstein and Jiang (2010) find evidence of this in outflows from funds that hold illiquid assets.
+
+An **ETF**, or exchange-traded fund, is a fund whose shares trade on an exchange throughout the day, like a stock. The first US ETF, tracking the S&P 500, began trading in January 1993. Investors buy and sell shares with one another, so the price is set by the market and can differ from NAV. The difference, as a fraction of NAV, is the **premium** when the price is above and the **discount** when it is below.
+
+What stops the gap from growing is **creation and redemption**. Certain large dealers, called authorised participants, can deal directly with the fund in large blocks, called creation units. If the ETF trades above the value of its basket, a dealer buys the basket of securities, delivers it to the fund, receives new ETF shares in exchange, and sells them on the exchange at the higher price. If the ETF trades below, the dealer buys ETF shares, delivers them to the fund, receives the basket, and sells the securities. Either way the dealer earns the gap, less costs, and its trading pushes the price back. The exchange of securities for shares in kind, instead of cash, is also why ETFs usually distribute fewer taxable gains than mutual funds in the US. The mechanism works as an arbitrage: its strength depends on how cheaply the dealer can trade the underlying securities and on how much balance sheet it can commit.
+
+An **index** is a published, rule-based measure of a set of securities, which a fund can be designed to follow. The S&P 500, for example, is weighted by the market value of the shares available to the public. An index is a calculation, not something that can be bought; what an investor owns is a fund that replicates it, with a fee, trading costs, and a small, persistent difference from the index called tracking difference. The index rules then become a source of demand: securities added to a widely followed index tend to be bought by funds that track it, as noted in the glossary entry on asset managers.
+
+Other wrappers differ in who bears what. An exchange-traded note (ETN) is a debt security issued by a bank whose payoff follows an index, so the investor holds no assets but a claim on the issuer. A trust that holds one commodity, such as physical gold, issues shares against bars in a vault. Structured notes package a derivative into a bond. The questions to ask of any wrapper are the same: what is held, who holds it, how do shares get created and removed, and what happens in stress.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+For a fund with assets $A$, liabilities $L$ and $N$ shares outstanding,
+
+$$
+\text{NAV} = \frac{A - L}{N}, \qquad \delta_t = \frac{P_t - \text{NAV}_t}{\text{NAV}_t},
+$$
+
+where $P_t$ is the market price of a share and $\delta_t$ the premium (positive) or discount (negative). The arbitrage condition is that a dealer acts when the gap exceeds its round-trip cost $c$, composed of the cost of trading the basket, of hedging the position while it is open, of funding it, and of the creation fee. Then, approximately,
+
+$$
+|\delta_t| \lesssim c ,
+$$
+
+and the bound holds as long as the dealer can trade the basket at the prices used to compute the NAV. A simple description of the gap inside the bound is a mean-reverting process,
+
+$$
+d\delta_t = -\kappa\,\delta_t\,dt + \sigma\, dW_t ,
+$$
+
+with a reversion speed $\kappa$ that is high when arbitrage is cheap and falls when it is costly or when dealers' balance sheets are full. In a liquid equity ETF, $\kappa$ is large and $c$ is tiny. In a bond ETF in a market that has stopped trading, $c$ is large, $\kappa$ is small, and a wide gap can persist for days.
+
+There is a measurement point as well. The NAV of a bond fund is built from end-of-day evaluated prices for bonds that may not have traded that day. When bond prices move quickly the NAV lags, and the ETF's price may be the better estimate of the true value. Then an apparent discount partly reflects the stale NAV, not a mispricing, which is why studies of March 2020 treat the two readings separately.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A particle tethered to a reference by a spring, with a dead zone of friction">
+The price of the ETF behaves like a particle pulled towards the NAV. Within the band set by transaction costs, nothing acts on it, as with static friction: gaps smaller than the cost are not worth closing. At the edge of the band, arbitrage acts as a wall that pushes back hard. The result is a mean-reverting process, regulated by barriers, which spends most of its time inside a narrow band.
+
+In stress the stiffness of the spring and the width of the band both change: costs rise, the dealers' capacity falls, and the band widens exactly when the gap is largest. The picture shows why a wrapper can behave well for years and fail in a week, since the stability is a property of the arbitrage and not of the instrument. As usual, it is an analogy; the "spring" is a set of institutions whose willingness to act depends on their own funding and risk limits.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
+
+In calm markets the gap between the price of a large bond ETF and its NAV is small and short-lived. In March 2020, as investors sold bond funds for cash and dealers stopped making markets in the underlying bonds, large investment-grade bond ETFs traded several per cent below their NAV for days, and the Federal Reserve then announced facilities to buy corporate bonds, including bond ETFs, after which the discounts narrowed. O'Hara and Zhou (2021) show that the ETF price carried information that the stale bond prices did not, so the discount was in part a measure of the true price of liquidity.
+
+The August 2015 episode shows the same in equities. On the morning of 24 August 2015, trading halts in many stocks left the NAV of ETFs holding them hard to compute, and some ETFs traded far below any plausible value of their contents before recovering. What would count against the account of wrappers given here is a gap that was as large in calm markets as in stressed ones, or discounts that did not respond to a change in dealer capacity or to a central bank backstop.
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **An ETF is not the index.** It is a fund that tracks the index with a fee and trading costs, and its price can deviate from NAV, which itself can deviate from the index.
+- **ETF liquidity is not the liquidity of the contents.** The ETF can trade while the underlying bonds do not, and then it carries the price discovery, at the risk of a discount. The ETF is as liquid as the arbitrage behind it.
+- **A discount is not necessarily a bargain.** It may be the correct price for liquidity, and the NAV may be stale. It can also persist: closed-end funds, which have no creation and redemption, trade at discounts for years, and the large discount of the Grayscale Bitcoin Trust to its holdings before it became an ETF in 2024 is an example.
+- **An ETN is not a fund.** It is a debt of the issuer, with credit risk. In February 2018 a bank-issued note that gave inverse exposure to the VIX lost most of its value in a day and was then terminated by the issuer.
+- **Passive does not mean riskless or unimportant.** Funds that track indices hold a very large part of the market, and Ben-David, Franzoni and Moussawi (2018) find that ETF ownership is associated with higher volatility of the underlying stocks, an effect that is debated.
+- **Mutual fund investors face the other risk.** They always transact at NAV, and bear the costs that other investors' redemptions impose on the fund.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Bodie, Kane and Marcus, *Investments*, the chapter on investment companies, for the legal forms, NAV, fees and the difference between open-end and closed-end funds.
+- Hull, *Options, Futures, and Other Derivatives*, for the structured products built from derivatives.
+- Paper: Petajisto, "Inefficiencies in the pricing of exchange-traded funds", *Financial Analysts Journal* 73 (2017).
+- Paper: Ben-David, Franzoni and Moussawi, "Do ETFs increase volatility?", *Journal of Finance* 73 (2018).
+- Paper: O'Hara and Zhou, "Anatomy of a liquidity crisis: Corporate bonds in the COVID-19 crisis", *Journal of Financial Economics* 142 (2021).
