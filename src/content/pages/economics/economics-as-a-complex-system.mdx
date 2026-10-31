@@ -2,7 +2,7 @@
 title: "Economics as a complex system"
 track: 5
 order: 8
-status: stub
+status: written
 summary: "Agents that copy each other produce the stylised facts of real markets without any of the equilibrium apparatus."
 terms:
   - "equilibrium"
@@ -16,35 +16,69 @@ figure:
   series: "Kirman ant model output vs equity index returns"
   period: "matched sample lengths"
   script: "pipeline/simulate_herding.py"
+  notice: "A model in which agents do nothing more than copy each other, with no news and no optimisation, produces return series whose distribution has fat tails and whose large moves cluster in time, and the same two features are found in real equity returns. The simulated series also shows long stretches in which most agents hold one view, broken by abrupt switches, which is what the real series looks like around bubbles and crashes. The match is in the shape of the distribution and in the clustering, not in the level of any particular number."
+  falsifiedBy: "The herding reading fails if the real series, once sampled at the same frequency, has thin tails and no clustering of large moves, or if the same two features appear in a simulation of independent agents with no copying; it also fails if the match depends on parameters tuned until it appears, with no range of values giving the same shape."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Instead of asking what prices would be if everyone were rational and the market cleared, the complex-systems view asks what happens when many agents react to each other, and finds that the answer reproduces much of what real markets look like.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+The standard model of an economy treats it as an **equilibrium**: each agent optimises given prices, prices adjust until supply equals demand, and the economy sits at the resulting point, moving only when something outside it changes. It is a powerful discipline and it explains a great deal about the long run, as the earlier pages on [output](/markets-first-principles/tracks/economics/what-gdp-measures/) and [interest rates](/markets-first-principles/tracks/economics/interest-rates-and-central-banks/) show.
+
+It has trouble with the facts that the earlier tracks laid out. Returns have [fat tails](/markets-first-principles/tracks/statistical-anatomy-of-prices/fat-tails/), their volatility [clusters](/markets-first-principles/tracks/statistical-anatomy-of-prices/volatility-clustering/), and crashes occur with no news large enough to account for them. If prices only move when fundamentals move, those facts require fundamentals to be fat-tailed and clustered in just the same way, which pushes the question back a step without answering it. The [credit cycle](/markets-first-principles/tracks/economics/credit-and-the-cycle/) is a second problem: booms and busts generated from within, with no outside shock to blame.
+
+The complex-systems approach starts from the other end. It specifies simple agents, lets them interact, and looks at what the whole does, without assuming the whole is at rest.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+An **equilibrium** in economics is a state in which no agent wants to change what it is doing given what the others are doing, and in which markets clear. It is a claim about where the system ends up, and it says nothing about how it gets there or how long that takes.
+
+An **agent-based model** simulates a population of agents, each following a simple rule, and records what emerges when they interact. The rules are not derived from optimisation; they are chosen to be plausible, such as "buy when others are buying" or "follow the trend". The aggregate behaviour is read off the simulation and not solved for.
+
+**Herding** is the tendency of agents to copy the choices of others, whether because they take those choices as information, because they are measured against one another, or because following the crowd is cheaper than thinking. It makes individual decisions dependent, so that the aggregate is much more variable than independent decisions would be.
+
+**Reflexivity** is the feedback between beliefs and the thing the beliefs are about. A rising price makes the asset look attractive, which raises demand and the price. In the equilibrium picture prices reflect fundamentals; under reflexivity, prices also shape the fundamentals, for example when a high share price makes it cheap for a firm to borrow, so that the firm is in fact stronger. The term is associated with Soros, and the idea has older roots in Keynes's description of the market as a beauty contest, in which the aim is to guess what others will guess.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+The simplest herding model with a known solution is Kirman's ant model. There are $N$ agents, each holding one of two views. In each step an agent picks one other agent at random and adopts that agent's view, or switches on its own with a small probability $\varepsilon$. Let $k$ be the number holding the first view and $x = k/N$ their share. The chain moves up by one with probability
+
+$$
+P(k \to k+1) = \left(1 - \frac{k}{N}\right)\left(\varepsilon + (1-\varepsilon)\,\frac{k}{N-1}\right),
+$$
+
+with a matching expression for the move down. When the independent switching probability is small compared with $1/N$, the stationary distribution of $x$ is not concentrated around one half, as independent agents would give, but is U-shaped: the population spends most of its time near consensus on one view or the other and crosses the middle quickly. The equal split, which is the equilibrium of the textbook picture, is the least likely state.
+
+If the price responds to the imbalance $x - \tfrac{1}{2}$, returns inherit this behaviour: long quiet spells with a stable majority, then sudden regime switches with large moves. Clusters of large returns and heavy tails follow from the copying alone. This model is solved here only for its stationary distribution; with more realistic agents there is usually no solution and one simulates.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Collective behaviour from local interaction, as in a ferromagnet near its critical point">
+Herding is the Ising model with a different cast. Each agent is a spin that tends to align with the others; the independent switching plays the role of temperature. Below a critical temperature the system orders and most spins agree, and near it fluctuations are large, correlated and heavy-tailed. The U-shaped distribution of the Kirman model is the finite-size ordered phase, and its switches are the flips between the two ordered states. The lesson carried over is that the aggregate behaviour need not resemble the behaviour of any one component.
+
+The analogy fails in three places. Spins have fixed rules, while agents learn and change their rules in response to the aggregate, which is what reflexivity means. There is no conserved energy that forces a market towards an equilibrium. And the "temperature" is not a quantity anyone can measure, so agreement with the data is a statement about shape and not a calibrated prediction.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
+
+The simulated series and the real index returns look alike in the two features that matter: occasional very large moves, and clustering of those moves in time. Neither is put into the model by hand. The agreement is qualitative, and it is also what makes the model easy to oversell, since several quite different models produce the same two features. What the exercise shows is that the features do not require news-driven fundamentals; it does not show that herding is the cause. The test of a model of this kind is whether it predicts something beyond the features it was built to reproduce, and most do not yet.
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Equilibrium is not the same as efficiency or fairness.** It only says that nobody wants to deviate. An equilibrium can be bad for everyone in it, and a bank run is an equilibrium.
+- **Herding is not irrational.** Copying others can be the sensible response when others know something you do not, and in that case it can also produce a cascade in which the whole crowd is wrong. See [who is on the other side](/markets-first-principles/tracks/the-map-of-the-territory/who-is-on-the-other-side/) for why some counterparties know more than you.
+- **Reproducing stylised facts is weak evidence.** A model that matches fat tails and volatility clustering has passed a low bar, because many models pass it. The stronger evidence is in the mechanism: whether the assumed copying is observed in order flow or in survey data.
+- **Complex does not mean random.** The models are fully specified and the simulations reproducible; what is lost is a closed-form answer, not determinism.
+- **Reflexivity is not a law.** It is a description of feedback that sometimes dominates and sometimes does not, and it gives no rule for telling which in advance.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Arthur, "Complexity and the economy", *Science* 284 (1999), and Farmer and Foley, "The economy needs agent-based modelling", *Nature* 460 (2009), for the argument for the approach.
+- Soros, *The Alchemy of Finance*, the early chapters on reflexivity, for the original statement by a practitioner.
+- Bouchaud and Potters, *Theory of Financial Risk and Derivative Pricing*, the chapters on the statistics of returns, for the stylised facts the models aim to reproduce.
+- Paper: Kirman, "Ants, rationality, and recruitment", *Quarterly Journal of Economics* 108 (1993), for the model used here.
+- Paper: Cont and Bouchaud, "Herd behavior and aggregate fluctuations in financial markets", *Macroeconomic Dynamics* 4 (2000), for herding as a source of fat tails.
