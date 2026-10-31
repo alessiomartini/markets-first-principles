@@ -2,7 +2,7 @@
 title: "Credit and the cycle"
 track: 5
 order: 7
-status: stub
+status: written
 summary: "Recessions are usually credit events. The spread is a price, a forecast, and a feedback loop at the same time."
 terms:
   - "leverage"
@@ -10,6 +10,8 @@ terms:
   - "deleveraging"
   - "financial accelerator"
   - "systemic risk"
+  - "credit-to-GDP gap"
+  - "financial instability hypothesis"
 figure:
   id: "hy-spread-vs-recessions"
   title: "High-yield spread against recessions"
@@ -17,35 +19,93 @@ figure:
   series: "BAMLH0A0HYM2, USREC"
   period: "1997-present, daily"
   script: "pipeline/fetch_credit.py"
+  notice: "The high-yield spread is low and quiet for long stretches, then jumps within weeks, and the jumps coincide with or slightly precede the recession bands (2001, 2008-09, 2020). The spread is also wide in episodes that were not followed by a recession, such as 2011 and 2015-16, and it has fallen back before the end of the recession itself. It is a fast, noisy indicator of stress, and not a clock for the cycle."
+  falsifiedBy: "The reading fails if spreads widened as often outside recessions as inside them, or if they systematically lagged the downturn by quarters, because then they would carry no information beyond what output data already show. The financial-accelerator story fails if downturns of the same size occurred equally often without any prior deterioration in credit conditions."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Most of what we call a business cycle is the swing in how freely borrowing is extended, because credit lets spending run ahead of income on the way up and forces it below income on the way down.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+The earlier pages treated [money](/markets-first-principles/tracks/economics/money-and-inflation/), the [policy rate](/markets-first-principles/tracks/economics/interest-rates-and-central-banks/) and the [yield curve](/markets-first-principles/tracks/economics/the-yield-curve/) as the central bank's levers. The lever acts through borrowing: a lower rate matters only if firms and households take on more debt, and a higher one matters only if they cannot. Output, as defined in [what GDP measures](/markets-first-principles/tracks/economics/what-gdp-measures/), is a flow of spending, and spending can exceed income only if someone lends the difference. Credit is the way spending is decoupled from current income, in both directions.
+
+That is useful, since it moves resources to those with projects and no savings, and it is dangerous for the same reason. Debt is a promise fixed in money terms, while the income that has to service it, and the value of the assets that stand behind it, are not. A shock that would otherwise be absorbed becomes a problem of who can still pay, and the answer depends on how much was borrowed beforehand.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+Banks create most of the money in circulation when they lend. A loan appears as a deposit on the borrower's side and a claim on the borrower on the bank's, and the bank does not first need a saver's deposit. What limits the process is not a stock of reserves, as the textbook multiplier suggests, but the bank's capital, regulation, its view of the borrower, and the demand for loans. It follows that credit is elastic: it expands when lenders and borrowers are confident, and contracts when they are not. Non-bank lenders and bond markets work the same way for the part of lending that does not go through banks.
+
+**Leverage** is the ratio of an exposure to the capital behind it. Borrowing against an asset whose price is rising raises both the return on equity and the capacity to borrow more, since the asset serves as collateral. The same arithmetic runs in reverse, which is the point of the [margin and leverage](/markets-first-principles/tracks/plumbing-and-institutions/margin-and-leverage/) page.
+
+The **credit spread** is the extra yield a risky borrower pays over a safe one of the same maturity. It is a price for default risk and for the liquidity and risk-bearing capacity of whoever holds the debt, so it moves with both the borrowers' prospects and the lenders' balance sheets.
+
+**Deleveraging** is the reduction of debt relative to income or assets, by repayment, default, or forced sale. It is rational for each borrower and, when many do it at once, it lowers spending and asset prices and so makes the debt burden of the others heavier. This is the paradox of thrift applied to balance sheets.
+
+The **financial accelerator** is the mechanism by which the borrower's net worth feeds back on borrowing costs. The cost of external funds exceeds that of internal funds because lenders cannot observe the borrower perfectly and need to monitor, so a firm with less net worth pays a higher premium. A downturn lowers net worth, raises the premium, reduces investment, and deepens the downturn. Bernanke, Gertler and Gilchrist (1999) built this into a macroeconomic model.
+
+The **financial instability hypothesis** of Hyman Minsky is a claim about how the cycle arises from within. A long calm leads borrowers to move from hedge finance, where income covers both interest and principal, to speculative finance, where income covers only interest, and to Ponzi finance, where debt is serviced by borrowing more. Stability breeds the behaviour that undermines it. It is a hypothesis in the strict sense, one that is plausible and has some support, and it is not a settled model. The popular phrase "Minsky moment" refers to the sudden turn when lenders stop rolling over debt.
+
+**Systemic risk** is the risk that the failure of one part of the financial system spreads to the rest, through common exposures, funding links, or the fire sales described below, so that the damage far exceeds the first loss.
+
+The **credit-to-GDP gap** is a measure of how far private-sector credit, relative to GDP, sits from its own long-run trend. The reasoning is that credit growing much faster than income cannot continue, and that the gap flags a build-up before it turns. Regulators have used it as a reference for setting the countercyclical capital buffer. It has a known weakness: the trend must be estimated, and it is estimated with the data that include the boom.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Three small pieces carry most of the logic. The first is the leverage identity. With assets $A$, equity $E$ and debt $D = A - E$, leverage is $\lambda = A/E$. A fractional change $r$ in asset value changes equity by
+
+$$
+\frac{\Delta E}{E} = \lambda\, r ,
+$$
+
+so with $\lambda = 10$ a fall of $10\%$ in assets removes all equity. If lenders hold leverage fixed, the investor must sell assets in proportion to any rise in equity, which makes demand pro-cyclical: buying when prices rise and selling when they fall.
+
+The second is the spread as a decomposition. For a bond with default probability $p$ (per year) and loss given default $L$, the expected-loss part of the spread is approximately $p\,L$, and the observed spread is
+
+$$
+s \approx p\,L + \text{risk and liquidity premium} .
+$$
+
+Empirically the second term is large, and it is the one that moves most.
+
+The third is the financial accelerator in its simplest form. Let the external finance premium be a decreasing function of the borrower's net worth to the value of its capital, $\theta = N/(QK)$:
+
+$$
+\text{premium} = \phi(\theta), \qquad \phi' < 0 .
+$$
+
+A fall in the asset price $Q$ lowers $\theta$, raises the premium, lowers investment and thus future $Q$, and the loop gains amplification when $\phi$ is steep. The credit-to-GDP gap is $\text{gap}_t = c_t - \bar c_t$, with $c_t$ the credit ratio and $\bar c_t$ its one-sided filtered trend.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Positive feedback near an instability, and a system that drives itself towards its own threshold">
+Leverage cycles are a positive feedback loop: a price fall tightens margins, forced sales push the price down further, and the loop gain exceeds one when leverage is high. This is the behaviour of a system near a linear instability, where a perturbation grows instead of decaying and the response to an equal shock is far larger than in the calm state. The financial accelerator is a gain applied to the shock.
+
+Minsky's hypothesis adds that the system tunes itself towards the instability, since each quiet period raises leverage. Physicists will think of self-organised criticality, and the analogy is a suggestive one, not a result: no model here is derived from conserved quantities, and the agents change their behaviour in response to what they see, which a physical medium does not.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
+
+Credit spreads on high-yield bonds are quiet for years and then widen sharply in a few weeks. The widening in 2008 was the largest in the sample and came with the worst recession; the 2020 jump was very fast and was reversed within months once central banks intervened. Both fit the accelerator account, in which the rise in the premium is part of the mechanism and not only a symptom. The episodes of wide spreads without a recession, which also appear, are what prevents the spread from being read as a recession predictor.
+
+Longer data point the same way. Schularick and Taylor (2012), using a panel of countries over about a century and a half, find that the growth of bank credit in the preceding years is among the better predictors of a financial crisis, and Jordà, Schularick and Taylor (2013) find that recessions that follow credit booms are deeper and recover more slowly. Neither supplies a timing rule. What would count against the credit view is a set of deep downturns with no earlier credit build-up, and the oil shocks of the 1970s are usually cited as such.
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **A wide spread is not a forecast of default.** Most of its variation is a premium for risk and illiquidity, and it can widen sharply with no change in expected losses.
+- **Banks do not lend out deposits they hold.** Lending creates deposits; the binding constraints are capital, regulation and the quality of the borrower, which is why credit can grow quickly in a boom.
+- **Minsky is a hypothesis, not a law.** It describes a mechanism that has plausible examples, and no one has a reliable way of saying when a boom has become fragile.
+- **The credit-to-GDP gap is not a timing tool.** It signals an elevated risk over a horizon of years, and the trend it is measured against changes as data arrive.
+- **Debt is not bad in itself.** What matters is who owes it, in which currency, at what maturity, and against what collateral. Debt among households with stable income differs from debt financing speculative asset purchases.
+- **Deleveraging by one is not deleveraging by all.** What is prudent for an individual borrower can lower the income and asset values that the others rely on.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Mishkin, *The Economics of Money, Banking, and Financial Markets*, the chapters on financial crises and on asymmetric information, for the standard account of why credit amplifies shocks.
+- Minsky, *Stabilizing an Unstable Economy* (1986), for the financial instability hypothesis in its author's words.
+- Paper: Bernanke, Gertler and Gilchrist, "The financial accelerator in a quantitative business cycle framework", in Taylor and Woodford (eds.), *Handbook of Macroeconomics*, vol. 1C (1999).
+- Paper: Kiyotaki and Moore, "Credit cycles", *Journal of Political Economy* 105 (1997), for how collateral values and borrowing limits feed one another.
+- Paper: Geanakoplos, "The leverage cycle", *NBER Macroeconomics Annual* 24 (2010).
+- Paper: Schularick and Taylor, "Credit booms gone bust", *American Economic Review* 102 (2012), for the long-run evidence on credit growth and crises.
