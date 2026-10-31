@@ -17,7 +17,7 @@ figure:
   title: "Curve inversions against NBER recessions"
   source: "FRED"
   series: "T10Y2Y, USREC"
-  period: "1976-present, daily"
+  period: "1976-present, weekly"
   script: "pipeline/fetch_yield_curve.py"
   notice: "The spread between the 10-year and the 2-year yield has gone negative before most of the recessions in the sample. The lead time between the inversion and the start of the recession varies a great deal, and the 2022-23 inversion was the deepest and longest in the sample, so it is a test of the signal that the reader can follow in the data."
   falsifiedBy: "The reading fails if inversions were as frequent outside the periods before recessions as inside them, so that the spread carries no information about later output; with only a handful of recessions in the sample, a few false signals would be enough to remove the evidence."
