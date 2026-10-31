@@ -2,7 +2,7 @@
 title: "Regulation"
 track: 6
 order: 5
-status: stub
+status: written
 summary: "The rules that decide where you may trade, what you must tell people, and which clever idea is a felony."
 terms:
   - "MiFID II"
@@ -17,35 +17,81 @@ figure:
   series: "off-exchange share with regime boundaries marked"
   period: "2005-present"
   script: "pipeline/fetch_off_exchange.py"
+  notice: "The share of US equity volume that is traded off exchange rose over the period from a modest fraction to well over a third, in a gradual climb with no single jump at any of the marked regime boundaries. The regimes mark when the rules changed and the series shows where trading went, so the figure supports a statement about association and timing, and does not isolate the effect of any one rule from the changes in technology and competition that took place alongside."
+  falsifiedBy: "The reading that rules shape where trading happens fails if the off-exchange share moved the same way in markets that had no change of rules at those dates, or if it did not move at all when the rules did. A claim that a particular rule caused a particular shift fails if the same shift was already under way before the rule took effect."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Regulation is the set of rules that decide where a trade may happen, what must be disclosed, how a broker must treat a client, and which ways of making money from a market are illegal.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+A market works only if people are willing to use it, and they will only do so if they believe the prices are not rigged and their orders are not used against them. Two kinds of problem follow. The first is information: some participants know things others do not, or can create a false impression of supply and demand, and gain at the expense of the rest. The second is structure: left alone, trading tends to concentrate where it is cheapest, or to splinter into venues that do not see each other, and the rules decide which. In both cases, an individual participant has little reason to bear the cost of fixing the problem, and the result is a rule imposed from outside.
+
+Most of the large rule sets came after a failure. The US Securities Act of 1933 and Exchange Act of 1934 followed the crash of 1929 and created the Securities and Exchange Commission. The Commodity Exchange Act of 1936 came from abuses in grain futures. The Dodd-Frank Act of 2010 and the European regulation EMIR followed the 2008 crisis and moved standard derivatives into central clearing, as the page on [clearing and settlement](/markets-first-principles/tracks/plumbing-and-institutions/clearing-and-settlement/) describes. The reader should therefore expect the rules to be a record of what went wrong, and to lag the next problem.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+**Reg NMS**, the Regulation National Market System, is the US framework for equity trading adopted by the SEC in 2005, with compliance phased in by 2007. Its aim was to link a market that had several competing venues so that it acted like one. Its best-known element is the Order Protection Rule, which forbids a trading venue from executing an order at a price worse than a better price displayed on another venue (a "trade-through"), when that better quote is automatically accessible. The consolidated best bid and offer across venues, the NBBO, is the reference. Other parts cap the fee a venue can charge to take its displayed quotes, which shapes maker-taker pricing, and prohibit quoting in increments smaller than a cent for most stocks, which fixes the tick size. The result was a market of many competing exchanges and off-exchange venues, all required to respect each other's best prices.
+
+**MiFID II**, the Markets in Financial Instruments Directive together with its accompanying regulation, applies in the European Union since 3 January 2018. It replaced the first MiFID of 2007, which had abolished the requirement to trade on a national exchange and allowed competing venues. MiFID II widens the scope to bonds, derivatives and other instruments. It requires more pre-trade and post-trade transparency, limits trading in dark pools through volume caps, creates a category of firms called systematic internalisers for those that trade against clients on their own account, imposes controls on algorithmic and high-frequency trading, and separates the payment for research from the commission paid for execution. Where Reg NMS is about linking venues by price, MiFID II is closer to a general rulebook for investment firms and venues.
+
+**Best execution** is the duty of a broker to obtain the best possible result for its client when executing an order. In Europe the standard is to take all sufficient steps, and in the US to use reasonable diligence under FINRA's rule. It does not mean the lowest price alone: the firm must weigh price, costs, speed, likelihood of execution and settlement, size and the nature of the order. The duty matters because the broker often chooses where to send an order, and the choice can be influenced by payments from the venue, a conflict at the centre of the debate over payment for order flow.
+
+**Market abuse** covers behaviour that undermines confidence in the fairness of the market. The European Market Abuse Regulation of 2016 names insider dealing (trading on non-public price-sensitive information), unlawful disclosure of such information, and market manipulation. In the US, the main general provision is Section 10(b) of the Exchange Act and Rule 10b-5. Manipulation includes spreading false information, wash trades with oneself, and placing orders with no intention of executing them in order to move the price, called spoofing or layering. Spoofing has been a specific criminal offence in the US since the Dodd-Frank Act, and Michael Coscia was convicted of it in 2015. The prosecution of Navinder Sarao, charged in connection with the market of May 2010, is another.
+
+A **position limit** caps the number of contracts a trader may hold in a given derivative, so that no one can corner the underlying supply. They are applied mainly to commodity derivatives, by exchanges and regulators such as the CFTC in the US, and since MiFID II by national authorities in the EU. The motive is the squeeze: in 1979 and 1980 the Hunt brothers accumulated large positions in silver, the price rose sharply and then collapsed on "Silver Thursday" in March 1980, which tested the clearing arrangements and led to tighter rules. Limits are typically tighter in the spot month, when delivery is near and the deliverable supply is smallest.
+
+One further feature runs through all of these: the split between regulators. In the US, securities are overseen by the SEC and the self-regulatory body FINRA, and futures by the CFTC, which makes products that sit between the two, such as index futures, or swaps, a matter of jurisdiction. In Europe, national authorities apply EU law under the coordination of ESMA. Crypto-assets, which the page on [crypto plumbing](/markets-first-principles/tracks/plumbing-and-institutions/crypto-plumbing/) takes up, have been placed under their own regime in the EU, MiCA, and remain a subject of dispute over jurisdiction in the US.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Two small formalisations help.
+
+First, the order protection rule. Let venue $v$ display a best bid $b_v$ and ask $a_v$. The consolidated quotes are
+
+$$
+\text{NBB} = \max_v b_v, \qquad \text{NBO} = \min_v a_v ,
+$$
+
+and a buy order is not allowed to execute at a price above the NBO when that quote is protected, unless the order is routed to match it or an exception applies. The effect is to turn many order books into one price schedule, at the cost of making the fastest connection between venues valuable.
+
+Second, the economics of enforcement. In Becker's (1968) model, a rational offender commits an offence when the gain $G$ exceeds the expected penalty $p\,F$, with $p$ the probability of being caught and convicted and $F$ the sanction. Deterrence therefore requires
+
+$$
+p\,F \;\ge\; G .
+$$
+
+In markets the gain $G$ can be large and the probability $p$ small. Manipulation can be profitable and hard to prove, since the same orders can be legitimate or not depending on intent, which makes the intent standard, and the surveillance data that support it, central to enforcement.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Constraints as boundary conditions, and a displaced system finding the unconstrained direction">
+A rule is a constraint imposed on a system. The system does not stop moving; it moves along whatever directions the constraint leaves free. Cap the volume that may trade in dark pools, and it reappears in other off-exchange forms. Cap the fee for taking liquidity, and rebates and payments move elsewhere. The pattern is that of a fluid forced through a narrowed channel, where the flow continues and the pressure shifts elsewhere. Participants who write the rules know this, and rule-makers therefore need to model where the displaced activity will go and not only the activity they target.
+
+The comparison has a limit that matters. A physical constraint does not react to being understood, while market participants study the rule and design products and venues to fit its edges, so the system changes in response to the constraint and the regulator's model of it becomes out of date. This is the market version of the Lucas critique in economics.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
+
+The figure shows the share of US equity trading done away from the exchanges, with the dates of the main rule changes marked. The share rises through the period from a modest fraction to well over a third, which is consistent with the picture of a market that fragmented after rules that encouraged competition between venues and that allowed brokers and wholesalers to match orders internally. The climb is gradual and does not jump at any of the marked dates, and a reader should therefore not read it as the effect of any single rule: technology, fees, the arrival of new venues and changes in investor behaviour moved at the same time.
+
+What would count against the story is an off-exchange share that moved in the same way in markets that had no rule changes, or that shifted before the rules did. A related caution applies to claims that a rule has failed or succeeded. Evidence on the effect of rules such as the dark-trading caps of MiFID II points to a displacement of volume to other forms of trading, with a limited effect on the total, as the physical picture suggests, and the size of the displacement is a matter of continuing study.
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Best execution is not best price.** It is a duty to weigh several factors, and a firm that always routes to the venue with the most favourable payment to itself is likely to fail it.
+- **Reg NMS does not create one exchange.** It requires venues to respect each other's protected best prices, and a market with many venues and a consolidated reference price results.
+- **Insider trading is not any trade by someone who knows something.** The law concerns non-public, price-sensitive information and a duty or an unlawful source, and its definition differs between the US and the EU.
+- **Spoofing is not cancelling orders.** Most orders are cancelled for good reasons. The offence is placing orders with intent to cancel them in order to mislead.
+- **Position limits are not the same as margin.** Margin is a requirement to post collateral against risk. A limit is a cap on size, whatever collateral is posted.
+- **More rules do not always mean less risk.** They can move activity to places that are less transparent or less supervised, and the displacement is itself a risk to be measured.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Harris, *Trading and Exchanges: Market Microstructure for Practitioners* (2003), the chapters on regulation and on the structure of markets, for the economic reasoning behind the rules.
+- US Securities and Exchange Commission, the adopting release of Regulation NMS (2005), for the stated purpose and the text of the Order Protection Rule.
+- Paper: Becker, "Crime and punishment: an economic approach", *Journal of Political Economy* 76 (1968).
+- Paper: Angel, Harris and Spatt, "Equity trading in the 21st century: an update", *Quarterly Journal of Finance* 5 (2015).
