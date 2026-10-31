@@ -2,7 +2,7 @@
 title: "Margin and leverage"
 track: 6
 order: 2
-status: stub
+status: written
 summary: "How much capital you must post to hold a position, and why that number is the real constraint on every leveraged strategy."
 terms:
   - "initial margin"
@@ -17,35 +17,84 @@ figure:
   series: "margin debt outstanding vs index level"
   period: "1997-present, monthly"
   script: "pipeline/fetch_margin_debt.py"
+  notice: "Margin debt rises and falls with the index it finances. It has reached its highs close to the market tops of 2000, 2007 and 2021, and it fell sharply in the declines that followed, partly because borrowers were forced to sell and partly because the collateral lost value. The two series move together so closely that the figure shows the procyclical nature of leverage, and it does not by itself show that margin debt leads the market."
+  falsifiedBy: "The procyclical reading fails if margin debt did not fall in the large market declines, or if its peaks lay years away from the index peaks with no consistent relation. Using it as a warning signal fails if, relative to the size of the market, it gave no information about subsequent returns beyond the level of prices itself."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Margin is the cash or collateral you must keep behind a position, and because it is what stands between you and a forced sale, it limits how much leverage anyone can actually use.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+A lender who funds a position bears the risk that the position loses more than the borrower can pay. The cheapest protection is to hold something of the borrower's as security, and to ask for more of it when the loss grows. Margin is that security. It exists in every leveraged market under different names: the cash deposited with a broker who lends against shares, the deposit that a [clearing house](/markets-first-principles/tracks/plumbing-and-institutions/clearing-and-settlement/) takes against a futures position, and the discount applied to bonds pledged for a loan in the repo market.
+
+The need for it was learned painfully. In the United States of the 1920s, brokers lent against shares on very thin margins, and when prices fell the forced selling fed on itself. After the crash, the Securities Exchange Act of 1934 gave the Federal Reserve the power to set margin requirements for loans on securities, which it exercises through Regulation T. The reasoning is the one on the [credit and the cycle](/markets-first-principles/tracks/economics/credit-and-the-cycle/) page: borrowing against an asset that is rising lets you buy more of it, and the same arithmetic runs in reverse when it falls. Margin rules are a brake on that loop, set by rule where private lenders would loosen them in booms.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+**Margin** in the general sense is collateral posted against a leveraged exposure. Two kinds are distinguished.
+
+**Initial margin** is the amount posted when the position is opened. It is sized to cover a plausible adverse move over the time it would take to close the position out, and so depends on the volatility of the asset and on how liquid it is. For equities bought on credit in the US, Regulation T sets it at 50 per cent of the purchase price. For futures, the exchange or its clearing house sets it using a risk model, and revises it when volatility changes. For derivatives that are not centrally cleared, the margin rules agreed after the 2008 crisis under the framework of the Basel Committee and IOSCO require both sides of many trades to post initial margin to each other, phased in between 2016 and 2022.
+
+**Variation margin** is the payment that follows the daily change in the position's value: the loser pays the winner each day, which is the practical meaning of mark-to-market. It keeps the current exposure close to zero, so that what remains at risk is only the move that can happen between one payment and the next.
+
+A **margin call** is the demand to restore the account when losses push it below a *maintenance* level, below the initial requirement. If the call is not met in the time allowed, the lender may sell the position without further notice, whatever the borrower's view of its long-run value. FINRA's rule sets a minimum maintenance level of 25 per cent of the market value for long equity positions, and many brokers require more, particularly for concentrated or volatile ones.
+
+A **haircut** is the margin in the repo and securities-lending markets, expressed as the percentage by which the collateral's value exceeds the loan. A bond worth 100 pledged with a 2 per cent haircut borrows 98. The haircut depends on the credit quality, maturity and liquidity of the collateral and on the lender's view of the market, and it can be raised at short notice. For a borrower who finances a position wholly with repo, the haircut is the equity needed to hold it, and the largest leverage possible is its inverse.
+
+**Rehypothecation** is the reuse by a lender of the collateral it has been given, for its own borrowing. A prime broker that holds a hedge fund's securities as security for a loan may pledge them in turn to fund itself. It makes borrowing cheaper and it lengthens the chain of claims: the same asset supports several debts, and the original owner becomes an unsecured creditor to the extent that the asset is reused. In the US the amount that a broker may rehypothecate is limited relative to the client's debit balance, while in the UK it has not been limited in the same way for institutional clients, and the claims of clients of Lehman Brothers International (Europe) in 2008 were tied up for years in that difference.
+
+**Leverage** itself is the ratio of exposure to the capital behind it. Margin and leverage are two ways of describing the same thing: a requirement of 10 per cent is a maximum leverage of 10 to 1.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Let a position with market value $P$ be bought at $P_0$ with an equity fraction $m_0$ (the initial margin), so that the loan is $(1-m_0)P_0$. Equity at price $P$ is $E = P - (1-m_0)P_0$. A margin call is triggered when the ratio of equity to position value falls to the maintenance level $m_m$:
+
+$$
+\frac{P - (1-m_0)P_0}{P} = m_m \quad\Longrightarrow\quad \frac{P}{P_0} = \frac{1-m_0}{1-m_m} .
+$$
+
+With Regulation T at $m_0 = 0.5$ and a maintenance level of $m_m = 0.25$ the call comes after a fall of one third. With $m_0 = 0.1$ and $m_m = 0.05$, the same formula gives a fall of about $5.3$ per cent. The more leverage, the nearer the barrier.
+
+Second, the return on equity for leverage $\lambda = 1/m_0$ on assets earning $r$ with borrowing at rate $b$ is
+
+$$
+r_E = \lambda r - (\lambda - 1)\, b ,
+$$
+
+which multiplies the excess return, $r - b$, by $\lambda$ and also the volatility by $\lambda$, and so leaves the Sharpe ratio approximately unchanged while moving the position nearer to the barrier.
+
+Third, a haircut $h$ means that each unit of collateral raises $1-h$ of cash, so the leverage obtainable is $1/h$. If $h$ rises from 2 to 4 per cent, the permitted leverage falls from 50 to 25, and a borrower at the limit must sell half of the position, whatever happened to the price.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="First passage to an absorbing barrier, and threshold dynamics with feedback">
+A leveraged position is a random walk with an absorbing barrier. If the log-price moves as a driftless Brownian motion with volatility $\sigma$, the reflection principle gives the probability that the price falls by at least a fraction $b$ at some time before $T$ as $2\,\Phi\!\left(-b/(\sigma\sqrt{T})\right)$, with $\Phi$ the standard normal distribution function. The barrier is the margin call. Doubling the leverage halves the distance to it, and since the probability depends on $b/\sigma\sqrt{T}$, the effect on the chance of being stopped out is large. What matters is the path, and the value at the end of the period does not.
+
+The feedback is the second element. When many positions share the same barrier, the first passage of a few of them produces sales that move the price towards the barrier of the others, so that the barriers are crossed in a cluster instead of independently. This is the structure of threshold models of avalanches. As with all such analogies it is a picture of the mechanism, not a calibrated model; Brunnermeier and Pedersen (2009) give the economic version, in which funding conditions and market liquidity reinforce each other.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
+
+Margin debt, which FINRA publishes monthly from its member firms' records, follows the market closely. It rose through the late 1990s and peaked in 2000, rose again to a peak in 2007, and reached a new high in 2021, and each peak was close to the top of the market. It fell sharply in the declines that followed. The reading that fits the data is that leverage is procyclical, with borrowing growing when collateral values rise and being forced down when they fall. It does not show that margin debt is a good timing signal, since it is in large part a restatement of the price level; the better test is whether it carries information once price is controlled for.
+
+The aggregate series understates the point, because much leverage does not appear in it. The collapse of Archegos Capital in March 2021 came through total return swaps with several prime brokers, each of which saw only part of the exposure. When the price of a few concentrated holdings fell, margin calls were issued, the positions were sold, and the banks that were slowest to act lost billions, with Credit Suisse the largest loser. In the funding markets, haircuts on some collateral rose sharply in 2007 and 2008, as shown by Gorton and Metrick (2012), and a rise in the haircut works like a margin call on the whole system.
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Margin is not a fee.** It is collateral that belongs to the poster and is returned when the position is closed, less any losses. The cost of leverage is the interest on what is borrowed.
+- **Initial and variation margin do different jobs.** The first covers the loss that can accrue before a defaulting party is closed out, and the second settles the losses that have already happened.
+- **Higher margin does not make a market safer by itself.** It protects the lender against one borrower, and when it is raised in a crisis it forces sales that make the next call larger. For this reason regulators discuss limiting how quickly requirements can change.
+- **A position that is right can still be liquidated.** The barrier is about the path, so the final value, which would have vindicated the trade, is irrelevant if the call arrives earlier. Sizing a bet therefore has to account for margin, as discussed under [position sizing](/markets-first-principles/tracks/pricing-and-risk/position-sizing/).
+- **Leverage is not only borrowing.** Futures, options and swaps give exposure larger than the capital posted without any loan appearing on a balance sheet.
+- **Rehypothecation is not theft.** It is usually permitted by the client agreement, and the risk is that of an unsecured claim on the broker if it fails. How much is reused and who has a claim on the reused collateral differ greatly between jurisdictions.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Hull, *Options, Futures, and Other Derivatives*, the chapter on the mechanics of futures markets, for margin accounts and daily settlement, and the discussion of the margin rules for over-the-counter derivatives.
+- Mishkin, *The Economics of Money, Banking, and Financial Markets*, the chapters on financial crises, for how collateral and net worth amplify downturns.
+- Paper: Brunnermeier and Pedersen, "Market liquidity and funding liquidity", *Review of Financial Studies* 22 (2009).
+- Paper: Geanakoplos, "The leverage cycle", *NBER Macroeconomics Annual* 24 (2010).
+- Paper: Gorton and Metrick, "Securitized banking and the run on repo", *Journal of Financial Economics* 104 (2012).
