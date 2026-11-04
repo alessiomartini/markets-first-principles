@@ -1,10 +1,10 @@
 {
  "id": "policy-vs-curve",
- "generatedAt": "2026-11-03T14:23:45+00:00",
+ "generatedAt": "2026-11-04T14:38:38+00:00",
  "synthetic": false,
  "chart": "line",
  "source": "FRED (Federal Reserve Board; US Treasury)",
- "series_note": "DFF, DGS2, DGS10 monthly averages, 1990-01 to 2026-10",
+ "series_note": "DFF, DGS2, DGS10 monthly averages, 1990-01 to 2026-11",
  "x": {
   "label": "year"
  },
@@ -2237,6 +2237,11 @@
    "y": 3.88
   },
   {
+   "series": "DFF",
+   "x": 2026.83,
+   "y": 3.88
+  },
+  {
    "series": "DGS2",
    "x": 1990.0,
    "y": 8.08524
@@ -4447,6 +4452,11 @@
    "y": 4.74333
   },
   {
+   "series": "DGS2",
+   "x": 2026.83,
+   "y": 4.59
+  },
+  {
    "series": "DGS10",
    "x": 1990.0,
    "y": 8.20667
@@ -6655,6 +6665,11 @@
    "series": "DGS10",
    "x": 2026.75,
    "y": 5.13095
+  },
+  {
+   "series": "DGS10",
+   "x": 2026.83,
+   "y": 4.91
   }
  ]
 }
