@@ -1,6 +1,6 @@
 {
  "id": "delta-hedge-pnl",
- "generatedAt": "2026-11-05T14:43:36+00:00",
+ "generatedAt": "2026-11-06T14:21:25+00:00",
  "synthetic": true,
  "chart": "scatter",
  "source": "Simulation (GBM, daily hedge, seed 20261031)",

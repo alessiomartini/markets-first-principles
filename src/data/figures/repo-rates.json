@@ -1,10 +1,10 @@
 {
  "id": "repo-rates",
- "generatedAt": "2026-11-05T14:43:36+00:00",
+ "generatedAt": "2026-11-06T14:21:24+00:00",
  "synthetic": false,
  "chart": "line",
  "source": "Federal Reserve Bank of New York and Federal Reserve Board via FRED",
- "series_note": "SOFR, EFFR, IORB (IOER before July 2021), daily, 2018-04-03 to 2026-11-04",
+ "series_note": "SOFR, EFFR, IORB (IOER before July 2021), daily, 2018-04-03 to 2026-11-05",
  "x": {
   "label": "year"
  },
@@ -10761,6 +10761,11 @@
    "series": "sofr",
    "x": 2026.84,
    "y": 3.94
+  },
+  {
+   "series": "sofr",
+   "x": 2026.84,
+   "y": 3.92
   },
   {
    "series": "effr",
@@ -21535,6 +21540,11 @@
   {
    "series": "effr",
    "x": 2026.83,
+   "y": 3.88
+  },
+  {
+   "series": "effr",
+   "x": 2026.84,
    "y": 3.88
   },
   {
@@ -37245,6 +37255,11 @@
   {
    "series": "iorb",
    "x": 2026.84,
+   "y": 3.9
+  },
+  {
+   "series": "iorb",
+   "x": 2026.85,
    "y": 3.9
   }
  ]
