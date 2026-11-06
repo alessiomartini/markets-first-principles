@@ -2,7 +2,7 @@
 title: "Signals and alpha"
 track: 7
 order: 1
-status: stub
+status: written
 summary: "A signal is a forecast with a horizon. Everything about its value follows from how fast it decays and how much it can absorb."
 terms:
   - "feature"
@@ -18,35 +18,95 @@ figure:
   series: "cross-sectional returns of index constituents"
   period: "2010-present, daily"
   script: "pipeline/fetch_ic_decay.py"
+  notice: "The rank correlation between a short-term reversal signal and the returns that follow is small, a few hundredths at most, and it is largest at the shortest horizon and falls towards zero within days. The small size is typical of signals that are real and usable, since a faint but persistent relation applied across many stocks and many days can still produce a worthwhile return. The decay with horizon is the property that decides how often the portfolio must trade, and so what it costs."
+  falsifiedBy: "The reading fails if the information coefficient is indistinguishable from zero at all horizons once its sampling error is taken into account, or if it does not decline with the horizon but stays flat, because then the signal would not be a short-lived forecast. The claim that such signals fade as they become known fails if the coefficient in recent years is as large as in the early part of the sample."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+A signal is a number, computed from information available today, that is meant to predict returns over a stated horizon, and almost everything about its value follows from how weak it is, how fast it fades and how much money it can take before it stops working.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Research in a trading firm has to produce something that can be traded. A price chart, a balance sheet or a news story is not a trading decision; it has to be turned into a forecast of how much each asset will return, with a size and a time frame, so that a portfolio can be built from it. The signal is the standard form of that forecast, and the point of defining it carefully is that it makes ideas comparable. A momentum rule, an earnings revision and a text-based sentiment score can all be reduced to a number per asset per day and judged by the same yardstick: how well the number predicts what happens next.
+
+Without this discipline, research degenerates into stories. Markets already contain many people looking for the same patterns, so any signal that is large and obvious has been found and traded away, and what remains is faint. That is why the quantity that matters is not whether a pattern exists, but how small it is, how long it lasts and how much trading it can support. The costs side of the same question is taken up on the [costs](/markets-first-principles/tracks/how-quant-research-is-done/costs/) page, and the tests that guard against fooling oneself on the [backtesting](/markets-first-principles/tracks/how-quant-research-is-done/backtesting-and-its-pathologies/) page.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+A **feature** is an input to a forecast: a quantity computed from data available at the time of the decision, such as the return over the last month, the ratio of price to earnings, the change in an analyst's estimate, or the imbalance in the order book. Features are raw material; most have no predictive power on their own.
+
+A **signal** is a forecast built from one or more features: a number for each asset and date that is meant to be related to its future return, usually in the sense of ranking assets from most to least attractive. Signals are normally standardised so that they can be combined and compared.
+
+The **forecast horizon** is the period over which the signal is meant to predict, from a few seconds for an order-book signal to months for a valuation signal. Everything is defined relative to it: the signal is evaluated against returns over that horizon, and the portfolio is traded on that time scale.
+
+The **information coefficient** (IC) measures how good the forecast is. It is the correlation, across assets, between the signal on a given date and the returns realised over the horizon that follows. Because a few extreme returns can dominate an ordinary correlation, the rank version, the correlation between the ranks of the signal and of the returns, is also used. A useful IC is small. Values of a few hundredths are common for signals that are real, and a coefficient of 0.1 or more, if it holds up, would be unusual.
+
+**Alpha decay** is the decline of a signal's predictive power, either as the horizon is lengthened (the signal knows about tomorrow but not about next month) or over calendar time as the signal becomes known and is traded on. McLean and Pontiff (2016) studied predictors of stock returns published in academic journals and found that their returns were about a quarter lower out of the original sample and more than half lower after publication. The first kind of decay sets how fast the portfolio must turn over; the second is the reason a research process has to keep producing new ideas.
+
+**Capacity** is the amount of capital a signal can absorb before the cost of trading it consumes the return it earns. A signal with a short horizon trades often and in many small pieces, so its costs grow with size faster than its gross return does, and its capacity is limited. A slow signal has less turnover and can take more money, though it usually earns less per unit of risk.
+
+The terms **alpha** and **factor** have their usual meanings: a signal is useful to the degree that it carries return not already explained by exposure to known factors. A signal that looks strong but turns out to be a disguised exposure to the market, or to value or momentum, is not new alpha, as the page on [from research to P&L](/markets-first-principles/tracks/how-quant-research-is-done/from-research-to-pnl/) explains.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Let $s_{i,t}$ be the signal for asset $i$ at date $t$ and $r_{i,t+h}$ its return over the horizon $h$. The information coefficient is
+
+$$
+\mathrm{IC}_h = \mathrm{corr}_i\!\left(s_{i,t},\; r_{i,t+h}\right),
+$$
+
+taken across assets at each date and averaged over dates. Grinold's fundamental law of active management links it to performance: if the forecasts are used with sensible weights and there are $N$ independent bets per year, the information ratio, the annual excess return per unit of risk, is approximately
+
+$$
+\mathrm{IR} \approx \mathrm{IC}\,\sqrt{N} .
+$$
+
+The law has two lessons. A small IC can be enough if it is applied to many independent bets: an IC of $0.03$ over $1{,}000$ independent bets a year gives an IR near $0.95$. And the bets must be independent; a thousand stocks whose signals are all the same bet on the market are not a thousand bets.
+
+For the decay with horizon, a convenient description is exponential,
+
+$$
+\mathrm{IC}_h = \mathrm{IC}_0\, e^{-h/\tau}, \qquad t_{1/2} = \tau \ln 2 ,
+$$
+
+with half-life $t_{1/2}$ that tells how often the portfolio must be rebalanced.
+
+For capacity, suppose the gross return on capital $K$ is $a$ per period and the cost of trading is a fraction of the value traded that rises with the square root of the size, in line with the square-root impact law on the [price formation and impact](/markets-first-principles/tracks/market-microstructure/price-formation-and-impact/) page. Then the net return is of the form $aK - cK^{3/2}$, where $c$ collects the turnover, volatility and market volume. It is largest at
+
+$$
+K^{*} = \left(\frac{2a}{3c}\right)^{2},
+$$
+
+and falls to zero at $K = (a/c)^2$. Capacity is therefore very sensitive to $a/c$: halving the gross return per unit of capital cuts the capacity by a factor of four.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Detecting a weak signal in noise by averaging, and a correlation function that relaxes with lag">
+A signal with an IC of a few hundredths is a weak signal buried in noise, and the way to see it is the one used in experimental physics: average over many independent samples. The signal-to-noise ratio grows as the square root of the number of independent observations, which is the content of $\mathrm{IR}\approx\mathrm{IC}\sqrt N$. It is lock-in detection applied to a portfolio.
+
+The decay of the IC with horizon is a correlation function relaxing with lag, and its half-life is a relaxation time. The calendar-time decay is different in kind. It is not a property of the signal alone, since it depends on how many others measure the same thing and act on it, which is a feedback on the measurement similar to an observer effect. The analogy therefore holds for the horizon, where the relaxation is a statistical property, and it does not hold for the crowding, where the system responds to being observed.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
+
+The figure shows the information coefficient of a short-term reversal signal, which ranks stocks by their recent return and expects the recent losers to outperform the recent winners, at horizons from one day onward. Two things should be noticed. The coefficient is small, at the scale of hundredths, and it is largest at the shortest horizon and fades within days. A signal like this must trade almost every day to collect its return, and the cost of doing so is the main obstacle to using it, which is the theme of the next pages.
+
+The two features of this signal that stand out in the evidence are small size and short life. What would count against the picture is a coefficient that did not differ from zero once its sampling error is considered, or that stayed the same at all horizons. Studies of reversal at short horizons go back to Jegadeesh (1990) and Lehmann (1990), and the same signal has weakened in recent decades as more capital has been devoted to it, which is an instance of the calendar-time decay above.
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **A high IC is not necessarily good news.** A large coefficient in a backtest is more often an error, such as using information that was not available at the time, than a discovery. See [backtesting and its pathologies](/markets-first-principles/tracks/how-quant-research-is-done/backtesting-and-its-pathologies/).
+- **A small IC is not a weak strategy.** What counts is the IC multiplied by the square root of the number of independent bets, less the costs of trading.
+- **A signal is not a position.** It says what should be bought relative to what, and the portfolio construction, risk limits and costs determine what is held.
+- **Decay with the horizon is not decay over time.** The first says how quickly the forecast goes stale after it is made. The second says that the forecast has become less accurate for all horizons because the pattern is now traded.
+- **A signal that works on paper may have no capacity.** Short-horizon signals are often the most profitable per unit of capital and the least able to absorb it.
+- **More features are not better.** Each additional feature tried on the same history raises the chance of finding a spurious one.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Grinold and Kahn, *Active Portfolio Management* (2nd ed., 2000), the chapters on forecasting and on the fundamental law, for the relation between IC, breadth and the information ratio.
+- Lopez de Prado, *Advances in Financial Machine Learning* (2018), the early chapters on financial data and labelling, for how features and targets are defined without leaking the future.
+- Paper: Jegadeesh, "Evidence of predictable behavior of security returns", *Journal of Finance* 45 (1990), for the short-term reversal effect.
+- Paper: McLean and Pontiff, "Does academic research destroy stock return predictability?", *Journal of Finance* 71 (2016).

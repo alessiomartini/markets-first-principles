@@ -2,7 +2,7 @@
 title: "Bachelier and Black-Scholes"
 track: 4
 order: 2
-status: stub
+status: written
 summary: "A hedging argument, not a forecast: if you can trade continuously, the option's risk cancels and only volatility survives."
 terms:
   - "Black-Scholes formula"
@@ -19,35 +19,128 @@ figure:
   series: "one index option, hedged daily to expiry"
   period: "rolling, trailing 5 years"
   script: "pipeline/fetch_delta_hedge.py"
+  notice: "Over a single option's life the hedged profit and loss is not zero and not smooth: it is a noisy sum of daily gains and losses whose average sign depends on whether the volatility that was realised ended above or below the volatility paid for. The scatter around that average is the part the formula does not remove."
+  falsifiedBy: "The reading fails if hedged P&L does not line up with the gap between realised and implied volatility once discrete rebalancing and transaction costs are allowed for, since the whole argument is that this gap, times the gamma, is what is left over."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+An option can be copied by trading the underlying continuously, so its price is the cost of that copy, and the only
+thing about the future that the cost depends on is how much the price will wiggle.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+The previous page showed that if a payoff can be replicated, its price is the cost of the replication. For a stock
+option that left a practical gap: how many shares, held when, and what does the answer depend on? Earlier attempts
+priced options by guessing the stock's expected growth and a risk premium, and the guesses were part of the answer.
+
+The contribution of Bachelier (1900) and of Black, Scholes and Merton (1973) was to give the copy explicitly. In
+their setting the expected growth of the stock drops out, and what remains is one number describing the size of the
+random moves, the volatility. That is why the formula became the common language of option markets: traders do not
+agree on where the stock is going, but they can agree on a volatility, and quote prices in that unit.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+An option's value changes when the underlying moves, when time passes and when the market's view of volatility
+changes. The standard sensitivities, called the Greeks, separate these.
+
+**Delta** is the change in the option's value per unit change in the underlying. A call has a delta between 0 and
+1, close to 0 far out of the money and close to 1 deep in the money. **Gamma** is the change in delta per unit move
+of the underlying, so it measures how quickly a hedge goes stale. **Vega** is the change in value per unit change
+in volatility. **Theta** is the change in value as time passes with nothing else moving, and for a bought option it
+is usually negative: the option loses time value each day.
+
+**Delta hedging** means holding the opposite of the option's delta in the underlying, so that small moves in the
+underlying cancel to first order. It has to be repeated as delta changes, and what it leaves behind is mostly gamma:
+a hedger who is long gamma profits from large moves in either direction and pays for it through theta, and a hedger
+who is short gamma does the reverse.
+
+The **Black-Scholes formula** is the price of a European option that follows from continuous delta hedging when the
+underlying has constant volatility and the riskless rate is known. Of its inputs, every one is observed except
+volatility. Turning the formula around, the volatility that reproduces a quoted option price is the **implied
+volatility**. It is a way of expressing a price, not a measurement of the future: a quote of 20% means that the
+option costs what the formula gives at 20%.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Let the underlying follow geometric Brownian motion, $dS = \mu S\,dt + \sigma S\,dW$, and let cash earn the
+constant rate $r$. For an option worth $V(S,t)$, hold $-\partial V/\partial S$ shares against one option. Over a
+short time the random term cancels, the portfolio is riskless, and it must earn $r$. This gives the
+Black-Scholes equation
+
+$$
+\frac{\partial V}{\partial t} + \tfrac12 \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} + r S \frac{\partial V}{\partial S} - rV = 0 ,
+$$
+
+in which $\mu$ does not appear. In terms of the Greeks, with $\Theta=\partial V/\partial t$, $\Delta=\partial V/\partial S$ and
+$\Gamma=\partial^2 V/\partial S^2$, this reads $\Theta + \tfrac12\sigma^2 S^2\Gamma + rS\Delta - rV = 0$. For a call with strike $K$
+and expiry $T$ the solution is
+
+$$
+C = S\,N(d_1) - K e^{-rT} N(d_2), \qquad
+d_1 = \frac{\ln(S/K) + (r + \sigma^2/2)T}{\sigma\sqrt{T}}, \quad d_2 = d_1 - \sigma\sqrt{T},
+$$
+
+where $N$ is the standard normal distribution function. The delta of the call is $N(d_1)$.
+
+Bachelier's earlier model has the underlying move by additive rather than proportional steps, $dF = \sigma_n\,dW$,
+for a forward price $F$. With $d = (F-K)/(\sigma_n\sqrt{T})$ the undiscounted call value is
+
+$$
+(F-K)\,N(d) + \sigma_n \sqrt{T}\,\varphi(d),
+$$
+
+with $\varphi$ the standard normal density. Here $\sigma_n$ is in price units rather than percent. The model allows
+negative prices, which was a defect for stocks and became a convenience for interest rates and for commodities at
+times when prices went below zero, and many rate options are now quoted in this normal volatility.
+
+What is left after discrete hedging can be read from the same relation. Hedge at the volatility $\sigma_i$ used for
+the price, and let the underlying move with realised volatility $\sigma_r$. Over a small interval the hedged
+portfolio gains approximately
+
+$$
+\tfrac12 \Gamma S^2 \left( \sigma_r^2 - \sigma_i^2 \right) dt ,
+$$
+
+so the total is the sum of this over the option's life, weighted by where the gamma was. If realised variance
+exceeds implied variance, a long option position wins, and conversely. The bet is on volatility, not on direction.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="The diffusion equation and the heat kernel">
+With a change of variables, the Black-Scholes equation becomes the heat equation, $\partial_\tau u = \tfrac12\sigma^2
+\partial_x^2 u$, and the formula is the heat kernel, the Gaussian solution of a diffusion started from a point, applied
+to the payoff. Bachelier's model is that diffusion directly, written five years before Einstein's paper on Brownian
+motion. Volatility plays the role of a diffusion constant, and time to expiry is the time over which the spreading
+happens.
+
+The analogy fails where it matters in markets. A diffusion constant is a property of the medium and does not change
+with the observer, whereas volatility is not constant: it clusters, jumps, and differs by strike, and the price of
+risk in the real world is what the formula was constructed to avoid, not to explain.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **The formula does not forecast.** It converts a volatility into a price, and a price back into a volatility. The
+  expected return of the stock is absent because the hedge removes it, not because it is zero.
+- **Implied volatility is not expected volatility.** It includes the price of the protection, so on average it sits
+  above what is later realised in many markets; reading it as a forecast confuses a quote with an expectation.
+- **A delta hedge is not a perfect hedge.** It is exact only for infinitesimal moves, continuous trading, no costs
+  and known volatility. Real hedges are rebalanced at intervals, leave gamma risk, and pay the spread each time.
+- **Constant volatility is the weakest assumption.** The market quotes different implied volatilities for
+  different strikes and maturities, which the next page takes up. The formula is kept as a quoting convention
+  after its assumptions have been dropped.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Hull, *Options, Futures, and Other Derivatives*, the chapters on the Black-Scholes-Merton model and on the Greek
+  letters, for the derivation and the hedging practice.
+- Shreve, *Stochastic Calculus for Finance II: Continuous-Time Models*, chapter 4, for the derivation through
+  replication and the risk-neutral measure.
+- Wilmott, *Paul Wilmott on Quantitative Finance*, the chapters on the Black-Scholes equation and on hedging, for
+  the discrete-hedging error and its dependence on gamma.
+- Paper: Black and Scholes, "The Pricing of Options and Corporate Liabilities" (1973, *Journal of Political
+  Economy*); for the origin, Bachelier, *Théorie de la spéculation* (1900).

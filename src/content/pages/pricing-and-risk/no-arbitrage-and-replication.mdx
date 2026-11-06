@@ -2,7 +2,7 @@
 title: "No-arbitrage and replication"
 track: 4
 order: 1
-status: stub
+status: written
 summary: "If two portfolios pay the same in every state of the world, they cost the same today. Almost all of pricing is that sentence applied carefully."
 terms:
   - "law of one price"
@@ -18,35 +18,144 @@ figure:
   series: "one index option chain, matched call and put strikes"
   period: "latest available snapshot"
   script: "pipeline/fetch_parity.py"
+  notice: "The gap between call minus put and the forward-implied value is small next to the option prices themselves, but it is not zero: it is of the order of the bid-ask spreads, and it widens for strikes far from the money where quotes are wide and stale."
+  falsifiedBy: "The reading fails if the gap is large and persistent at liquid, near-the-money strikes after allowing for spreads, dividends and borrowing costs, since that would mean either that a riskless profit was sitting in the quotes or, far more likely, that the inputs to the parity formula are wrong."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+If two portfolios pay exactly the same amount in every possible future, they must cost the same today, and nearly all
+of derivative pricing is that sentence applied with care.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Before the 1970s an option was priced by estimating how likely it was to finish in the money and discounting the
+expected payoff at a rate that reflected the risk. Every step needed a view, and two analysts with different views
+quoted different prices with no way to say which was wrong.
+
+The replication argument removes the view. It does not ask what the stock will do. It asks what *else* could be
+bought that pays the same thing, and if that exists, the price of the second thing is the price of the first. A
+dealer who quotes a different price can be traded against without risk, so the quote does not survive. This is why
+the idea matters in practice: it gives a price that two people can check against each other, and it tells a dealer
+what to buy to be safe after selling.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+The **law of one price** says that two assets with identical payoffs in every state of the world must have the same
+price. If they did not, one could buy the cheap one, sell the dear one and keep the difference with nothing left to
+pay later. A market with no such opportunity is said to be free of arbitrage (see the glossary entry on
+no-arbitrage). The law holds only as far as the two payoffs are really identical, and costs, financing and
+counterparty risk are part of what makes them so or not.
+
+Using it needs a way to build one payoff out of others. There are two.
+
+**Static replication** builds the target payoff once, from instruments held until the end. Nothing is traded in
+between. The standard example is **put-call parity**: a long call and a short put with the same strike and expiry
+pay, at expiry, the underlying price minus the strike, whatever the underlying did. That is the payoff of a forward
+agreed at that strike, so the combination must be worth what that forward is worth today. Static replication is
+robust because it needs no model of how the price moves.
+
+**Dynamic replication** builds the target by trading, adjusting the holdings as the price and the time to expiry
+change. A call can be copied by holding some of the underlying and borrowing, with the amount held changing as the
+market moves. Its price is the cost of the copy, plus nothing for a view. It rests on being able to trade as often
+as the model assumes, at the prices the model assumes, which is where real markets part from it: the copy is
+imperfect and the difference is a risk the seller keeps (this is the subject of the next page).
+
+The third idea is a change of bookkeeping. If a price can be written as an expectation of a payoff, the expectation
+has to be taken with weights that make the arbitrage-free prices come out right. Those weights form the
+**risk-neutral measure**. They are not forecasts of what is likely to happen; they are the set of weights that
+reproduces today's prices of the traded instruments, so that the price of anything new, built from those, follows.
+Every price is also quoted in some unit, and the choice of unit, the **numéraire**, changes the weights that are
+needed. The usual choice is cash growing at the riskless rate, but a bond or another asset can serve, and some
+problems become easier with a different one.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Take one period. A stock is worth $S_0$ today and $S_u$ or $S_d$ at the end, with $S_d < S_0 e^{rT} < S_u$, and
+cash earns the riskless rate $r$ over a period of length $T$. A claim pays $X_u$ or $X_d$. Hold $\Delta$ shares and
+an amount $B$ of cash such that
+
+$$
+\Delta S_u + B e^{rT} = X_u, \qquad \Delta S_d + B e^{rT} = X_d ,
+$$
+
+two equations in two unknowns, solved by $\Delta = (X_u - X_d)/(S_u - S_d)$. The price of the claim is the cost of
+the copy, $V_0 = \Delta S_0 + B$. Substituting and collecting terms gives
+
+$$
+V_0 = e^{-rT}\left[ q\,X_u + (1-q)\,X_d \right], \qquad q = \frac{S_0 e^{rT} - S_d}{S_u - S_d} .
+$$
+
+The number $q$ lies strictly between 0 and 1 exactly when the no-arbitrage condition above holds, so it behaves
+like a probability, but the real-world probability of an up move appears nowhere. Under these weights, denoted
+$\mathbb{Q}$, the stock's expected growth is the riskless rate. Equivalently, the price discounted by the
+numéraire is a martingale:
+
+$$
+\frac{V_0}{N_0} = \mathbb{E}^{\mathbb{Q}}\!\left[ \frac{V_T}{N_T} \right],
+$$
+
+with $N_t = e^{rt}$ for the cash numéraire. Choosing another positive traded asset as $N$ changes $\mathbb{Q}$ and
+leaves $V_0$ unchanged.
+
+A small numerical case, with $r=0$ for simplicity: $S_0 = 100$, $S_u = 120$, $S_d = 80$ and a call struck at 100
+paying 20 or 0. Then $\Delta = 0.5$, $B = -40$ and $V_0 = 50 - 40 = 10$; also $q = 0.5$ and $V_0 = 0.5 \times 20 = 10$.
+Changing the real-world chance of an up move from 30% to 70% changes the expected payoff and does not change the
+price.
+
+The general statement is the fundamental theorem of asset pricing: in a market model with suitable technical
+conditions there is no arbitrage if and only if at least one such $\mathbb{Q}$ exists, and the market is complete,
+meaning every payoff can be replicated, if and only if it is unique.
+
+Put-call parity for European options on a stock paying no dividends is
+
+$$
+C - P = S_0 - K e^{-rT} ,
+$$
+
+and in terms of the forward price $F$ for the same expiry, $C - P = e^{-rT}(F - K)$, which also covers dividends,
+borrowing costs and index options. For American options parity holds only as an inequality, because early exercise
+is worth something.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Choosing a frame in which the drift vanishes">
+Changing from real-world probabilities to the risk-neutral ones changes the drift of the price process and leaves
+its volatility alone, in the way a change to a freely falling frame removes a uniform force without altering the
+relative motion of what is inside it. The pricing problem becomes simpler in the new frame, and the answer, being
+about differences of traded assets, does not depend on which frame was used. The choice of numéraire is a further
+choice of units.
+
+The analogy stops at interpretation. The risk-neutral weights are a computational device fixed by prices, not a
+description of how the world behaves, and a price calculated with them says nothing about the true chance of an
+outcome. The frame is also available only if the instruments needed to replicate really trade.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Risk-neutral probabilities are not forecasts.** They are the weights that make today's prices consistent, and
+  they put more weight on bad outcomes than the real-world chance when investors pay extra for protection. Reading
+  them as predictions mixes up the price of risk with the amount of it.
+- **No arbitrage does not mean prices are right.** It says that related prices are consistent with each other. A
+  stock can be wildly mispriced and the options on it still satisfy parity with the stock exactly.
+- **Replication is not free of risk when it is dynamic.** The copy needs continuous trading, known volatility and no
+  costs. In practice there is a residual, and a price from a replication argument is a cost of hedging, not a
+  guarantee of a profit.
+- **Parity violations are rarely arbitrages.** Apparent gaps usually come from dividends not accounted for, the
+  cost of borrowing the stock, early exercise on American options, stale quotes or the bid-ask spread. These are
+  the first things to check before concluding anything.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Hull, *Options, Futures, and Other Derivatives*, the chapters on the properties of stock options (put-call parity
+  and its American-option bounds) and on the binomial model (no-arbitrage pricing and risk-neutral valuation).
+- Shreve, *Stochastic Calculus for Finance I: The Binomial Asset Pricing Model*, chapters 1 and 2, for replication
+  and the risk-neutral measure in the setting above, with the proofs.
+- Björk, *Arbitrage Theory in Continuous Time*, the chapters on the martingale approach and on change of
+  numéraire, for the general statements.
+- Paper: Harrison and Pliska, *Martingales and Stochastic Integrals in the Theory of Continuous Trading* (1981,
+  *Stochastic Processes and their Applications*), which connects absence of arbitrage, equivalent martingale
+  measures and completeness.

@@ -2,7 +2,7 @@
 title: "Derivatives: what the word actually means"
 track: 1
 order: 7
-status: stub
+status: written
 summary: "A contract whose value is a function of something else's price. That is the whole definition, and it is why the scary headline numbers are misread."
 terms:
   - "underlying"
@@ -17,35 +17,111 @@ figure:
   series: "notional amounts outstanding; gross market values"
   period: "1998-present, semi-annual"
   script: "pipeline/fetch_bis_derivatives.py"
+  notice: "The notional amount outstanding is many times larger than the gross market value, and the two do not move together: notional grows steadily with the size of the market, while gross market value jumps when rates or prices move sharply."
+  falsifiedBy: "The reading fails if gross market value tracks notional closely over time, which would mean the headline notional is a fair measure of what is actually owed."
 ---
+
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+A derivative is a contract whose value is entirely a function of the price of something else, so it creates no new
+asset and can only move risk between the people who sign it.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Some risks are attached to things that are awkward to trade. A baker is exposed to the price of wheat but has no
+use for a warehouse of it; a company with loans at a floating rate is exposed to interest rates, which cannot be
+bought at all. A derivative lets the exposure be separated from the object: you take the price risk without taking
+the thing, and someone who wants the opposite risk takes the other side.
+
+Two further reasons follow from this. Taking the exposure usually costs far less than buying the **underlying**,
+which is what makes derivatives cheap for hedgers and tempting for speculators. And because the contract is only an
+agreement between two parties, it can be shaped to fit almost any exposure, which is why so many different kinds
+exist.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+A derivative is a contract between two parties whose payments depend on the price of a reference quantity, the
+**underlying**: a share, an index, a commodity, an exchange rate, an interest rate, or even another derivative.
+The contract is not the underlying and need not ever involve it.
+
+The most useful way to sort derivatives is by the shape of their **payoff**. A **linear payoff** changes
+one-for-one with the underlying: forwards, futures and swaps. A **non-linear payoff** bends: the contract gains
+more than it loses, or the reverse, depending on where the underlying ends up, which is the defining property of
+options. Linear contracts have a **notional** that sets the size of the payments; options have a strike and an
+expiry that set where the bend sits.
+
+Two numbers are constantly confused. The **exposure** of a position is how much it gains or loses per unit move in
+the underlying; it is what you actually risk. The **notional** is just the reference amount used to compute the
+payments. **Leverage** is the ratio between the exposure you control and the capital you committed: a derivative
+usually needs little or no money up front, so a given amount of capital can carry a much larger exposure than
+buying the underlying outright.
+
+Every derivative has two sides, and what one party gains the other loses. Summed over all participants, the
+derivative itself creates no wealth and no net exposure; what it does is redistribute exposure toward those who
+are willing to hold it. The identity of the other side matters whenever there is no clearing house, because the
+**counterparty** might not pay.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Write the underlying price at the contract's end as $S_T$. A derivative is defined by a payoff function
+
+$$
+V_T = f(S_T)
+$$
+
+fixed by the contract. For a long forward struck at $K$ the payoff is $f(S_T) = S_T - K$, which is linear in $S_T$.
+For a call option struck at $K$ it is $f(S_T) = \max(S_T - K,\, 0)$, which has a kink at $K$.
+
+Exposure is the slope of the value with respect to the underlying,
+
+$$
+\Delta = \frac{\partial V}{\partial S},
+$$
+
+and it is constant for a linear payoff and varies with $S$ for a non-linear one. Leverage can then be written as
+the exposure in money terms divided by the capital committed,
+
+$$
+\lambda = \frac{\Delta \, S}{\text{capital posted}} .
+$$
+
+Nothing in these formulas says that notional appears in the risk. A swap with a huge notional can have a tiny
+$\Delta$ if its two legs nearly offset, and that is exactly the case the headline numbers hide.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A response function, not a source">
+A derivative behaves like a response function: it does not generate anything of its own, it transforms an input,
+the underlying price path, into an output, the payoff. The linear case is a linear response, where doubling the
+input doubles the output and a measurement taken at one operating point holds everywhere. The non-linear case is
+the regime where the response depends on the operating point, and where superposition fails.
+
+The accounting is also conservation-like. Every derivative has a long and a short side whose payoffs sum to zero,
+the way internal forces in a closed system sum to zero. Derivatives therefore move risk around inside the market
+without adding any, and the questions worth asking are where it ends up and whether the holders can bear it.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **A very large notional is not a very large risk.** Notional is only the reference amount for computing
+  payments, and offsetting positions can reduce the net exposure to a small fraction of it. The scary
+  "hundreds of trillions" headlines add up notionals, which is not the same as adding up what could be lost.
+- **A derivative is not a bet on the underlying going up.** The same contract is a hedge for one holder and a
+  speculation for another; the contract does not know which, and the difference is what else the holder owns.
+- **Derivatives do not create money or assets.** For every gain there is an equal loss on the other side, which
+  is why the risk to watch is whether the loser can pay, not the size of the contract.
+- **Little money up front does not mean little risk.** Low cost of entry is **leverage**, and leverage widens the
+  range of outcomes in both directions.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Hull, *Options, Futures, and Other Derivatives*, chapter 1. The standard introduction to the instruments and to
+  the three uses of hedging, speculation and arbitrage.
+- Bank for International Settlements, *OTC derivatives statistics*, and its explanatory notes on the difference
+  between notional amounts and gross market values.
+- Paper: Black and Scholes, *The Pricing of Options and Corporate Liabilities* (1973), for the point at which
+  non-linear payoffs became priceable by replication.

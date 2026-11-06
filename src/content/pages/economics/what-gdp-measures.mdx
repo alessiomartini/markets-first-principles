@@ -2,7 +2,7 @@
 title: "What GDP actually measures"
 track: 5
 order: 1
-status: stub
+status: written
 summary: "An accounting identity for produced output over a period, not a measure of wealth, welfare, or anything anyone directly observes."
 terms:
   - "nominal GDP"
@@ -18,35 +18,78 @@ figure:
   series: "GDPC1 and expenditure components"
   period: "1960-present, quarterly"
   script: "pipeline/fetch_gdp.py"
+  notice: "Consumption is the largest component of output and contributes steadily to growth. Investment is a much smaller share of the total, yet in the quarters around recessions its contribution swings by about as much as, or more than, that of consumption, so most of the cyclical movement in output comes from the smaller, more volatile pieces. Government purchases and net exports add smaller and more irregular contributions."
+  falsifiedBy: "The reading fails if the contribution of investment is no more variable than that of consumption, or if the large falls in output coincide with falls in consumption and not with falls in investment and trade; either would mean the cycle is a story about the biggest component and not about the volatile ones."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Gross domestic product is the value of what an economy produces in a period, counted so that it equals what is spent on that production and what is earned from it.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Before the 1930s there was no agreed figure for the size of an economy or for whether it was growing. Governments had data on tax receipts, trade and some prices, and policymakers in the Depression had to act with no common measure of how far output had fallen. Simon Kuznets built the first systematic national income accounts for the United States in the early 1930s, and the framework was extended and standardised during the Second World War, when governments needed to know how much of total output could be diverted to the war effort without the civilian economy collapsing.
+
+The result is a bookkeeping system, not a physical measurement. Every sale is also a purchase, and every purchase is someone's income, so the same total can be counted three ways: as output, as spending, or as income. GDP is the number the accounts agree on, and nearly all macroeconomic discussion, from central bank decisions to debt ratios, is expressed relative to it.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+**Nominal GDP** is the market value of all final goods and services produced within a country in a period, at the prices of that period. "Final" means that goods used up in making other goods are not counted again; only the value added at each stage enters.
+
+**Real GDP** is the same quantity valued at the prices of a fixed base period, so that it changes only when quantities change. The ratio of the two is the **GDP deflator**, a price index for everything produced. If nominal GDP grows by 5% in a year and the deflator rises by 2%, real GDP has grown by about 3%. Growth, in the ordinary sense, means real growth.
+
+The **expenditure identity** says that output equals the spending on it: consumption by households, investment by firms (including new housing and changes in inventories), government purchases of goods and services, and exports minus imports. It is an identity, true by construction. Its use is to decompose a change in output into the categories that drove it and to see the accounting links between sectors.
+
+GDP is a **flow**: it is output per unit of time, quoted per quarter or per year. It is not a **stock**. The capital of a country, its debts and its wealth are stocks, built up by past flows. A country with a large GDP can be poor in wealth and one with small output can hold large assets, and comparing a stock with a flow without a time period attached is a category error.
+
+Several things that matter to people are outside the count by construction. Unpaid household work, leisure, the depletion of natural resources and the distribution of income between people do not enter, and neither does the purchase of an existing asset: buying a house built last year, or a share of a company, is a transfer, while the fee paid to the agent is output.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Let $Y$ be output, $C$ consumption, $I$ investment, $G$ government purchases, $X$ exports and $M$ imports. Then
+
+$$
+Y = C + I + G + (X - M).
+$$
+
+With nominal GDP $Y_t$, real GDP $y_t$ and deflator $P_t$ normalised to $1$ in the base period,
+
+$$
+P_t = \frac{Y_t}{y_t}, \qquad g_{Y} \approx g_{y} + \pi,
+$$
+
+where $g_Y$ and $g_y$ are the growth rates of nominal and real GDP and $\pi$ is the growth of the deflator; the approximation is accurate when the rates are small. The contribution of a component to growth is its growth rate weighted by its share of the total,
+
+$$
+g_y \approx \frac{C}{Y}\,g_C + \frac{I}{Y}\,g_I + \frac{G}{Y}\,g_G + \frac{X-M}{Y}\,g_{X-M},
+$$
+
+which is why a small component can dominate a recession: a share of one fifth falling by a tenth subtracts as much from growth as a share of two thirds falling by a thirtieth.
+
+Rearranging the identity in terms of saving shows the link between sectors: the balance on trade, $X - M$, equals private saving minus investment plus the government surplus. A country that spends more than it produces must be financed by someone, which is where capital flows and exchange rates enter.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Flows and stocks, and conservation as bookkeeping">
+The distinction between a flow and a stock is the one between a current and a charge, or between a rate and the quantity it accumulates into: the stock is the integral of the net flow, and a balance sheet at a date is a sum over history. The expenditure identity is a conservation statement of an accounting kind, in that every unit counted as output appears once as spending and once as income.
+
+The analogy breaks at what is being conserved. Charge is a physical quantity with a definition independent of the observer. Real GDP depends on the choice of base-period prices and of how quality change is valued, so it is a constructed index whose revisions and conventions are part of the measurement, closer to a coarse-grained observable defined by a procedure than to a conserved density.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **GDP is not wealth.** It is a flow of output per period, and wealth is a stock. A country can have high GDP and heavy debts, or low GDP and large reserves.
+- **GDP is not welfare.** It counts the value of what is produced at market prices and so leaves out unpaid work, leisure, environmental damage and how income is shared. A disaster followed by repairs raises it.
+- **Nominal growth is not real growth.** A rise in nominal GDP can be entirely a rise in prices. Real GDP removes this, but only as well as the deflator measures prices.
+- **The identity is not a causal model.** $Y = C + I + G + (X-M)$ holds always, and so it cannot say that raising $G$ raises $Y$. Whether it does depends on what happens to the other terms, and that is a question for a model and for data.
+- **The figure is an estimate that is revised.** The first release of quarterly GDP is based on incomplete data and is revised, sometimes substantially, over the following years, so the number a market reacts to is not the number the history books end up with.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Coyle, *GDP: A Brief but Affectionate History*, for how the measure was built and what it was designed to answer.
+- Mankiw, *Macroeconomics*, the opening chapter on measuring national income, for the accounting and the deflator.
+- Stiglitz, Sen and Fitoussi, *Mismeasuring Our Lives: Why GDP Doesn't Add Up* (2010), for the case that GDP is used for questions it was not built to answer.
+- Paper: Kuznets, "National Income, 1929-1932" (1934), the report to the US Senate that founded the national accounts.

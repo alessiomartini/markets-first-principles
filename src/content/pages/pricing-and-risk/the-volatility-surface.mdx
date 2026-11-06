@@ -2,7 +2,7 @@
 title: "The volatility surface"
 track: 4
 order: 3
-status: stub
+status: written
 summary: "One number per option, plotted against strike and maturity, and it is emphatically not flat. That shape is the market's correction to the model."
 terms:
   - "volatility smile"
@@ -18,35 +18,136 @@ figure:
   series: "index option implied vols; VIX history"
   period: "latest snapshot; VIX 2004-present"
   script: "pipeline/fetch_vol_surface.py"
+  notice: "Implied volatility is not flat across strike: for an equity index it is highest for low strikes and falls as the strike rises, and it also differs from one maturity to the next. The VIX, which is a summary of that surface at one maturity, sits above the volatility subsequently realised in most periods and jumps well above it in crises."
+  falsifiedBy: "The reading fails if the snapshot shows a flat or symmetric profile across strikes for an equity index, or if the VIX is not on average above subsequent realised volatility; either would mean the skew and its premium are weaker than the story says."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+If the Black-Scholes formula were true, every option on the same underlying would imply the same volatility; they do not,
+and the way they differ is what the market actually prices.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+The previous page ended with a formula that has one free parameter, the volatility, and a convention of quoting
+option prices in that unit. If the assumptions behind the formula held, inverting it would give the same number
+for every strike and every maturity of the same underlying, because there is only one volatility to find.
+
+Option markets never behaved like that for long. The standard account is that the pattern changed in a lasting way
+after the stock market crash of October 1987: before it, implied volatilities for index options were roughly flat
+across strikes, and afterwards low-strike puts were consistently more expensive in volatility terms than high-strike
+calls. Whatever the exact date, the practical problem is permanent. A trader who must price an option that is not
+quoted, or hedge a book of options at many strikes, cannot use one volatility. The volatility surface is the table
+the market uses instead, and the models on this page are ways of making that table consistent.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+Fix an underlying and a day. For every listed strike and expiry, take the option's price and invert the
+Black-Scholes formula for the implied volatility. Plotted against strike and maturity, these numbers form a
+surface, the **volatility surface**. Two slices of it have names.
+
+The **volatility smile** is the profile of implied volatility across strike at one maturity. For currencies it is
+often roughly U-shaped, which gives it the name. The **volatility skew** is the tilt of that profile. For equity
+indices the dominant feature is a skew, with implied volatility highest at low strikes and falling as the strike
+rises, which means that protection against falls is priced at a premium.
+
+The **term structure of volatility** is the profile of implied volatility across maturity, typically read at the
+money. It is usually upward-sloping when markets are calm and inverts, with short maturities above long ones, in a
+crisis, when the market expects the present turbulence to fade.
+
+Two families of models reproduce a given surface. A **local volatility** model keeps one source of randomness but
+lets volatility depend on the price level and on time, $\sigma(S,t)$, chosen so that the model returns exactly the
+quoted prices. A **stochastic volatility** model makes volatility a second random process, correlated with the
+price, so that the surface comes out of the dynamics instead of being fitted to it.
+
+The **VIX** is the Cboe's index of expected 30-day volatility of the S&P 500, computed from a strip of
+out-of-the-money index options of the two nearest maturities around thirty days. Since its 2003 redefinition it is
+read off the option prices directly, without inverting the Black-Scholes formula, and it is quoted in annualised
+percentage points.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Write $C(K,T)$ for the price of a European call with strike $K$ and expiry $T$. Taking the second derivative with
+respect to strike recovers the risk-neutral density of the underlying at expiry (Breeden and Litzenberger, 1978):
+
+$$
+q_T(K) = e^{rT}\,\frac{\partial^2 C}{\partial K^2}.
+$$
+
+A whole surface of call prices is therefore the same information as a family of risk-neutral distributions, one per
+maturity. A flat implied volatility gives a lognormal density; a skew gives a density with a heavier left tail than
+lognormal, which is the statement about priced crash risk in a different form.
+
+For a local volatility model $dS = rS\,dt + \sigma(S,t)S\,dW$ there is exactly one function $\sigma(S,t)$ that
+reproduces a given arbitrage-free surface (Dupire, 1994). With zero rates and dividends it is
+
+$$
+\sigma^2(K,T) = \frac{2\,\partial C/\partial T}{K^2\,\partial^2 C/\partial K^2},
+$$
+
+and with a positive rate the numerator gains the term $rK\,\partial C/\partial K$. The formula makes plain what the model
+is: a re-expression of the surface in the language of dynamics, not an explanation of it. It also has a known flaw,
+which is that the future smiles it implies are flatter than those seen in practice.
+
+A stochastic volatility model, of which Heston (1993) is the standard example, adds a second equation,
+
+$$
+dS = rS\,dt + \sqrt{v}\,S\,dW^{S}, \qquad dv = \kappa(\theta - v)\,dt + \xi\sqrt{v}\,dW^{v}, \qquad d\langle W^{S},W^{v}\rangle=\rho\,dt .
+$$
+
+A negative correlation $\rho$ produces a skew, because falls in the price come with rises in volatility, and the
+volatility of volatility $\xi$ controls how curved the smile is.
+
+For the VIX, with $T$ the time to expiry, $F$ the forward price, $K_0$ the first strike below $F$ and $Q(K)$ the
+mid-price of the out-of-the-money option at strike $K$, the squared index is
+
+$$
+\mathrm{VIX}^2 = \frac{2}{T}\sum_i \frac{\Delta K_i}{K_i^2}\,e^{rT} Q(K_i) \;-\; \frac{1}{T}\left(\frac{F}{K_0}-1\right)^2 ,
+$$
+
+multiplied by $100^2$ after interpolating to a constant 30 days. The first term is a discretisation of the fair
+strike of a variance swap, a contract that pays realised variance, and it holds whatever the volatility process is,
+provided the price has no jumps.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Inverse problems and an effective description">
+Going from option prices to a local volatility is an inverse problem: a function of two variables is inferred from
+observations of its second derivatives, and that is why raw quotes must be smoothed before the formula is applied,
+since taking two derivatives of noisy data amplifies the noise. The implied volatility itself is an effective
+parameter, like an effective temperature or an effective coupling: a single number chosen so that an
+over-simple model matches a more complicated reality at one point.
+
+The analogy stops at the question of what the parameter means. An effective coupling can be derived from a
+microscopic theory, whereas the surface is set by supply and demand for protection from people who are paid to
+take the other side. The skew is partly a statement about the distribution of returns and partly a price paid for
+insurance, and the two cannot be separated from option prices alone.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **A smile is not a mistake in the market.** The formula's constant-volatility assumption is wrong, and the smile is
+  how the market corrects for it. Nobody is arbitraging a smile away, because a smile is not an arbitrage.
+- **The VIX is not a forecast of the S&P 500's direction.** It measures the price of 30-day variance and so
+  includes the premium paid for protection, which is why it tends to sit above subsequently realised volatility.
+  It rises when the index falls because investors buy protection, not because it predicts further falls.
+- **Local volatility and stochastic volatility are not rival descriptions of the same fact.** Both can fit
+  today's surface exactly or nearly so. They disagree about how the surface moves tomorrow and about the price
+  of options whose payoff depends on the path, and that disagreement is where the models are tested.
+- **Skew is a feature of the risk-neutral distribution, not necessarily of the real one.** A fat left tail in the
+  risk-neutral density can come from the real probability of crashes, from the price of bearing that risk, or from
+  both.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Gatheral, *The Volatility Surface: A Practitioner's Guide*, the opening chapters on stochastic volatility and
+  local volatility and on the Heston model, for the models and the fitting of a surface.
+- Hull, *Options, Futures, and Other Derivatives*, the chapter on volatility smiles, for the empirical shapes by
+  asset class and the link to the risk-neutral density.
+- Cboe, *VIX White Paper*, for the exact construction of the index.
+- Paper: Dupire, "Pricing with a Smile" (1994, *Risk*); for the stochastic volatility alternative, Heston, "A
+  Closed-Form Solution for Options with Stochastic Volatility with Applications to Bond and Currency Options"
+  (1993, *Review of Financial Studies*).

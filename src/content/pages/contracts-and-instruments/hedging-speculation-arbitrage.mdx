@@ -2,7 +2,7 @@
 title: "Hedging vs speculation vs arbitrage"
 track: 1
 order: 8
-status: stub
+status: written
 summary: "Three reasons to put on the same trade, distinguished entirely by what you already own."
 terms:
   - "hedge"
@@ -19,35 +19,120 @@ figure:
   series: "jet fuel spot; heating oil / crude futures"
   period: "2005-present, monthly"
   script: "pipeline/fetch_fuel_hedge.py"
+  notice: "The hedged cost is far steadier than the unhedged one, but it is not flat: the gap between jet fuel and the futures used against it opens and closes, and it opens most in the episodes where fuel moves hardest."
+  falsifiedBy: "The reading fails if the hedged and unhedged costs are equally volatile, which would mean the futures carried no information about the exposure and the hedge ratio was effectively zero."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+The same trade is a hedge, a speculation or an arbitrage depending on what the trader already owns and on what the
+trade is compared with.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Every earlier page on this track described an instrument, and none of them said who should hold it. The answer is
+not in the contract. A forward, a future, an option and a swap are only payoffs, and a payoff has no motive.
+
+The motive comes from the rest of the balance sheet. An airline must buy fuel next year at a price it does not
+know; a fuel producer must sell it at a price it does not know. Neither chose that risk: it came with the
+business. A market in which such firms can pass the risk to one another, or to someone paid to carry it, is what
+the derivatives market is for, and the three words in the title name the three kinds of participant that make it
+work.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+A **hedge** is a position taken to offset a risk that is already there. The risk comes from doing business, and is
+called a **natural exposure**: the airline is naturally short fuel, since a rise in its price hurts, and the
+producer is naturally long. The hedge is the trade that cancels the part of the exposure the firm does not want.
+It is chosen for what it removes, not for what it earns.
+
+A speculation is the opposite: a position with no underlying exposure to offset, taken because the trader
+expects to be paid for bearing the risk. If the airline buys fuel futures it is hedging. If a fund with no use for
+fuel buys the same contract it is speculating. The two trades are identical on the exchange and different in
+purpose, which is why the purpose cannot be read from the trade.
+
+An **arbitrage** is neither. It is a set of positions that costs nothing, cannot lose and sometimes gains, so
+that it does not depend on a view about the future. Arbitrage is what holds the prices of related instruments
+together: the forward price is bound to spot plus the **carry cost**, a call cannot be worth more than the
+underlying, and every such limit is an **arbitrage bound**. The speculator takes risk to earn a return; the
+arbitrageur takes none, and for that reason ends up enforcing the prices on which the hedger relies.
+
+The three need each other. Hedgers bring a risk they want to shed, speculators accept it for a price, and
+arbitrageurs keep the prices of the instruments they use consistent. Without the second group the first has no
+counterparty at a fair price; without the third, the contract the hedger buys may not be worth what it appears.
+
+Hedging does not remove risk. It replaces the large risk of the exposure with a smaller one, the **basis risk**:
+the contract in use is almost never identical to the thing being protected. An airline hedges jet fuel with crude
+or heating oil futures because those contracts are liquid, and is left holding the difference between the two
+prices. How much of the contract to use is the **hedge ratio**.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Let $\Delta S$ be the change in the price of the exposure over the hedging horizon and $\Delta F$ the change in
+the price of the hedging instrument. A position of $h$ units of the instrument against one unit of the exposure
+changes in value by
+
+$$
+\Delta P = \Delta S - h \, \Delta F .
+$$
+
+Choosing $h$ to minimise the variance of $\Delta P$ gives the minimum-variance hedge ratio
+
+$$
+h^{*} = \rho \, \frac{\sigma_S}{\sigma_F},
+$$
+
+where $\rho$ is the correlation of $\Delta S$ and $\Delta F$ and $\sigma_S$, $\sigma_F$ are their standard
+deviations. This is the slope of a regression of $\Delta S$ on $\Delta F$. The variance that remains is
+
+$$
+\operatorname{Var}(\Delta P) = \sigma_S^{2}\left(1 - \rho^{2}\right),
+$$
+
+so a fraction $\rho^{2}$ of the variance is removed and $1-\rho^{2}$ is the basis risk. A perfect hedge needs
+$|\rho| = 1$, which requires the instrument to be the exposure.
+
+Two consequences. First, $h^{*}$ is an estimate: $\rho$, $\sigma_S$ and $\sigma_F$ are measured on past data and
+they move, often most in the period in which the hedge matters. Second, the arbitrageur's case is the limit in
+which the two legs are the same payoff, so that $\rho = 1$ and the residual variance is zero by construction. A
+convergence trade between two merely similar instruments has $\rho < 1$ and belongs to the first case, not the
+second.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Cancelling a fluctuation, not a field">
+A hedge is a compensation: a second term chosen so that the fluctuating part of the first is cancelled, in the way
+a common-mode signal is removed by differencing two channels. The cancellation is only as good as the correlation
+between the channels. The residual noise is $\sigma_S\sqrt{1-\rho^{2}}$, and no choice of $h$ can reduce it
+below that.
+
+What the analogy does not give is a free lunch. Cancelling noise costs something here: the hedger pays the
+speculator to carry the risk, and pays again when the ratio drifts. Nor is the arbitrageur a damping term in the
+physical sense, since arbitrage works only while the arbitrageur has capital, and capital runs out.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **A derivative is not a hedge or a speculation by nature.** The label belongs to the holder's whole position.
+  The same short position in crude futures is a hedge for a producer and a bet for a fund.
+- **A hedge is not free, and not automatic.** It costs spread, margin and the gains forgone when prices move
+  favourably. A firm that hedges and then watches the price move its way has not made a mistake; it has bought
+  insurance and not needed it.
+- **A hedge is not a guarantee.** Basis risk and a drifting hedge ratio remain. A hedge that looked perfect on
+  historical data can fail in the stress episode for which it was bought.
+- **"Arbitrage" is used loosely.** A trade that is only likely to converge, such as two related stocks or a bond
+  against its swap, can move against the holder for longer than the holder can finance it. It is a speculation
+  with a favourable bias, and it can lose.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Hull, *Options, Futures, and Other Derivatives*, the chapter on hedging strategies using futures. Basis risk,
+  the minimum-variance hedge ratio and hedge effectiveness.
+- Harris, *Trading and Exchanges*, the chapters on the uses of derivatives and on who trades for what reason.
+- Shleifer and Vishny, *The Limits of Arbitrage* (1997, *Journal of Finance*), for why convergence trades can
+  fail when financing is withdrawn.
+- Paper: Ederington, *The Hedging Performance of the New Futures Markets* (1979, *Journal of Finance*), which
+  introduced the regression estimate of the hedge ratio and the measure of effectiveness used above.

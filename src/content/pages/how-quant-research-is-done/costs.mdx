@@ -2,7 +2,7 @@
 title: "Costs"
 track: 7
 order: 3
-status: stub
+status: written
 summary: "Gross Sharpe is a physics problem. Net Sharpe is an engineering problem, and it is the only one that pays."
 terms:
   - "spread cost"
@@ -17,35 +17,74 @@ figure:
   series: "one signal at several holding periods"
   period: "2010-present, daily"
   script: "pipeline/fetch_costs.py"
+  notice: "Before costs, the version of the signal that trades fastest earns the most. After costs, the ordering reverses: the fast version loses its return to spreads and market impact, and the slower versions, which give up some gross return, keep more of it. The gap between the gross and the net curve widens as the holding period shortens, and it widens faster than the gross return rises, which is why the best strategy on paper is rarely the best to run."
+  falsifiedBy: "The reading fails if the net curves keep the same ordering as the gross ones, so that faster trading remains better after costs, or if the gap between gross and net does not grow with turnover. It also fails if the cost model is so far from realised costs that the net ordering would change with a more accurate one, which is the main uncertainty in any such figure."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+A strategy's return is what it earns on paper minus what it pays to trade, and because the second grows with how often and how much it trades, the best-looking fast strategy is often the worst one to run.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+On paper, a trade costs nothing: the signal says buy, and the position appears at the price on the screen. In practice every trade crosses a spread, moves the price against itself, and sometimes requires borrowing something, and the bill is paid every time the portfolio changes. For a long-term investor who trades rarely, this is a small correction. For a strategy built on a signal that fades in days, as in the case of [signals and alpha](/markets-first-principles/tracks/how-quant-research-is-done/signals-and-alpha/), it can be the whole story.
+
+The reason it deserves a page of its own is that it is the main point at which a profitable idea ends. Gross performance is a question about whether the market has a pattern; net performance is a question about whether the pattern is larger than the toll for collecting it. The first is closer to science, the second to engineering, and only the second determines whether anything is earned. The mechanics of why trades cost money are covered on the [order book](/markets-first-principles/tracks/market-microstructure/the-order-book/) and [price formation and impact](/markets-first-principles/tracks/market-microstructure/price-formation-and-impact/) pages; here the question is how to account for them.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+**Spread cost** is the cost of crossing the bid-ask spread. A market order to buy pays the ask, which is above the midpoint by half the spread, and a later sale receives the bid, below the midpoint by the same amount, so a round trip costs the full spread. For large, liquid stocks the half-spread is a few basis points. For small stocks and less liquid instruments it can be tens of basis points or more. A strategy that posts passive orders can earn part of the spread, but it then takes the risk of not being filled and of being filled just before the price moves against it.
+
+**Impact cost** is the cost of moving the price by trading. A large order consumes the available quantity at the best prices and moves on to worse ones, and the price may stay displaced for some time after the order is complete. For orders that are not tiny, a good approximation is the square-root law: the price displacement is proportional to the volatility times the square root of the order size as a fraction of daily volume. Impact is what limits the size of a strategy, and it is the reason the capacity of a signal is finite.
+
+**Borrow cost** is the cost of selling short. To sell a share one does not own, one must borrow it from a holder, and the lender charges a fee, which for stocks that are plentiful is small, but for scarce ones can be many per cent a year and can change suddenly. The lender can also recall the shares, forcing the short seller to close the position at a time not of their choosing. Short-selling strategies, including the short leg of a market-neutral portfolio, pay it, and its effect is concentrated in exactly the stocks where the short signal looks strongest, since those are often the ones many others also want to short. D'Avolio (2002) documents that borrowing is cheap for the large majority of stocks and expensive for a small group.
+
+Other charges also apply: commissions and exchange fees, the financing cost of any leverage as discussed on the [margin and leverage](/markets-first-principles/tracks/plumbing-and-institutions/margin-and-leverage/) page, and taxes. They are small beside the first three for most professional strategies.
+
+**Turnover** is how much of the portfolio is traded per year, expressed as a multiple of capital. It is the quantity that multiplies the per-trade costs, and it is set by the signal: a signal that decays in a day must be traded daily.
+
+The **net Sharpe ratio** is the Sharpe ratio of returns after all these costs have been deducted. It is the only number on which the decision to run a strategy should be based, and the one that gross results most overstate.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Let the gross annual return be $\mu$, the annual volatility $\sigma$, and the annual one-way turnover $\theta$, measured as the value traded divided by capital. If the average cost per unit value traded is $c$ (spread, impact and fees together, as a fraction of the traded value), then
+
+$$
+\mu_{\text{net}} = \mu - \theta\, c, \qquad SR_{\text{net}} = \frac{\mu - \theta\, c}{\sigma} .
+$$
+
+The breakeven turnover, at which the net return is zero, is $\theta^{*} = \mu/c$. Take a strategy with a gross return of 8 per cent and a volatility of 6 per cent, so a gross Sharpe ratio of about 1.3. With a cost of 10 basis points per unit traded, a turnover of 20 times capital a year costs 2 per cent and leaves a net Sharpe ratio of 1.0. At a turnover of 100 times, the cost is 10 per cent, the net return is negative, and the strategy loses money while its gross record is identical.
+
+The cost is not constant. With square-root impact, the cost per unit traded rises with the size of the trade, so $c$ itself depends on capital $K$ and on how finely the trades are divided. Almgren and Chriss (2000) formalised the choice of how fast to execute a given order: trading quickly costs more in impact, and trading slowly leaves the position exposed to price risk meanwhile, so there is an optimal speed that depends on the trader's risk aversion. Garleanu and Pedersen (2013) extended it to the portfolio level: when a signal is predictable and costs are present, the best portfolio moves only part of the way towards the position it would hold without costs, and it moves more slowly the more costly the trading and the slower the signal decays.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Dissipation that grows with the speed of operation, and a finite-time optimum">
+Every trade is irreversible: the price paid on the way in is not recovered on the way out, and the difference is lost, like heat in a friction process. Operating a strategy faster dissipates more per unit of time. In thermodynamics this is the trade-off of finite-time engines, which can be efficient only if they run slowly and powerful only if they run fast, and which have an optimal rate in between. The square-root impact law makes the analogy sharper, since the loss per trade rises with the rate at which the position is changed.
+
+The optimum of Almgren and Chriss is of this kind: the cost of impact falls with slower execution and the cost of risk rises with it, and the best schedule balances them. The comparison goes only as far as the structure. The market's friction is not a fixed property of the medium, as it is in a machine. It depends on who else is trading, which means that it is highest when many participants are trying to do the same thing, such as in a crowded exit.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
+
+The figure applies the same signal at several holding periods, and shows each equity curve before and after costs. Before costs, the shortest holding period gives the highest return, because the signal is strongest at the short horizon. After costs, the order is reversed: the fast version pays more in spreads and impact than it earns, and the slower versions, which give up part of the gross return in exchange for far less trading, come out ahead.
+
+This pattern recurs across research. Novy-Marx and Velikov (2016) examined a large set of published anomalies and found that those with high turnover are mostly not profitable after costs, while those with low turnover are, and that only some strategies survive. What would count against the account is a cost estimate so different from what a trading desk pays that the ordering changed once costs were measured properly. This is the main uncertainty in any such figure, since costs depend on size, on the execution method and on market conditions, and are best estimated from a firm's own trade records.
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Costs are not a fixed number of basis points.** They rise with size, with volatility and with the urgency of the trade, and they are highest when most others want the same thing.
+- **A backtest at the closing price is not a backtest with costs.** It assumes trading at a price that no one can trade at in size without moving it.
+- **Turnover is a choice made by the signal.** Slowing a portfolio down to save costs gives up some of the forecast, and the right amount of slowing is a trade-off, not a free improvement.
+- **Passive orders are not free.** Posting a limit order to earn the spread exposes the trader to adverse selection, because the orders that fill are disproportionately those that precede a move against the position; see [market makers and adverse selection](/markets-first-principles/tracks/market-microstructure/market-makers-and-adverse-selection/).
+- **Short selling is not symmetric with buying.** It needs borrowed shares, which can be costly or recalled, and its cost is largest where the signal looks best.
+- **Net Sharpe is not gross Sharpe minus a constant.** The deduction scales with turnover and capital, so two strategies with the same gross Sharpe ratio can have very different net ones.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Kissell, *The Science of Algorithmic Trading and Portfolio Management* (2013), the chapters on transaction cost analysis and market impact models, for how costs are measured and forecast.
+- Grinold and Kahn, *Active Portfolio Management* (2nd ed., 2000), the chapter on transactions costs, turnover and trading, for how costs enter portfolio optimisation.
+- Paper: Almgren and Chriss, "Optimal execution of portfolio transactions", *Journal of Risk* 3 (2000).
+- Paper: Garleanu and Pedersen, "Dynamic trading with predictable returns and transaction costs", *Journal of Finance* 68 (2013).
+- Paper: Novy-Marx and Velikov, "A taxonomy of anomalies and their trading costs", *Review of Financial Studies* 29 (2016).

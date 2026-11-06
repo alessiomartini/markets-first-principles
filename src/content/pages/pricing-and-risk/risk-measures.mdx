@@ -2,7 +2,7 @@
 title: "Risk measures"
 track: 4
 order: 5
-status: stub
+status: written
 summary: "Summarising a distribution by one number, and the specific ways each summary lies to you."
 terms:
   - "value at risk"
@@ -18,35 +18,75 @@ figure:
   series: "one equity index, daily returns"
   period: "2000-present"
   script: "pipeline/fetch_var.py"
+  notice: "The days on which the loss exceeds the one-day 99% value at risk do not arrive evenly, about two or three a year, as an independent model would imply. They bunch into a few stretches, 2008 and March 2020 among them, in which several breaches fall within days of each other and the size of the breaches is far larger than the threshold."
+  falsifiedBy: "The reading fails if the breaches are spread roughly evenly through time with no clustering, or if the counts in 2008 and March 2020 are in line with the nominal rate; either would mean the model tracks changes in volatility well enough that the number is not misleading."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+A risk measure compresses the whole distribution of possible losses into one number, and each such number hides a different part of the distribution.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+A trading firm holds many positions in different markets, and the person responsible for the whole needs a single figure to compare desks, set limits and decide how much capital to keep. Position sizes alone do not do it: a million in a short-dated government bond and a million in an equity option are not the same exposure. The older tools were notional amounts and sensitivities to individual risk factors, which are exact for small moves and say little about how the pieces add up.
+
+In the early 1990s banks began to summarise this with a loss quantile estimated from recent return history. The figure was easy to report, comparable across desks, and it was adopted by supervisors as the basis of capital rules for trading books. Its weaknesses became clear in crises, and the later history of the subject is a list of corrections: look at the average size of the tail, not only where it starts; replay specific scenarios rather than trusting a fitted distribution; and ask what happens when the assets that were supposed to offset each other fall together.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+**Value at risk** (VaR) is a quantile of the loss distribution: the loss that, over a stated horizon, is expected to be exceeded with a given small probability. "One-day 99% VaR of 10 million" means that on about one day in a hundred the loss should be larger than 10 million. It says where the bad region begins and nothing about how bad it is inside. A day on which the loss does exceed the figure is a breach, and counting breaches against the nominal rate is the standard test of the model.
+
+**Expected shortfall** is the average loss on the days when the loss exceeds the VaR threshold. It answers the question VaR leaves open, so it responds to the shape of the tail, and it is the measure that supervisors have moved toward for that reason. It is harder to estimate because it rests on the few most extreme observations.
+
+A **stress test** is different in kind. It takes a specified scenario, such as a historical episode replayed on today's positions or a hypothetical shock to prices, rates and volatility, and computes the loss, with no claim about how likely the scenario is. It is the tool for the case in which the statistical model has stopped applying.
+
+One of the main reasons the model stops applying is **tail correlation**: assets that move almost independently on ordinary days often fall together in extreme ones, so the diversification that the VaR calculation credited disappears when it is needed.
+
+Two further terms turn a loss on paper into a forced action. **Leverage** is exposure larger than the capital committed to it. A **margin call** is the demand to post more collateral when losses have reduced an account below its required level. Together they mean a position can be right in the long run and still be closed out because the loss arrived before the funding did.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Let $L$ be the loss over the horizon, with distribution function $F_L$. For a confidence level $\alpha$, for example $0.99$,
+
+$$
+\mathrm{VaR}_\alpha = \inf\{\, \ell : F_L(\ell) \ge \alpha \,\}, \qquad
+\mathrm{ES}_\alpha = \mathbb{E}\left[\, L \mid L \ge \mathrm{VaR}_\alpha \,\right].
+$$
+
+Under a normal distribution with standard deviation $\sigma$ and zero mean, $\mathrm{VaR}_\alpha = z_\alpha\,\sigma$, where $z_{0.99} \approx 2.33$. Expected shortfall is then a fixed multiple of $\sigma$ as well, about $2.67\,\sigma$ at the same level, so under normality the two carry the same information. They separate when the tail is heavy: if losses fall off as a power law with exponent $\xi$, expected shortfall exceeds VaR by a factor that tends to $\xi/(\xi-1)$ in the far tail, which is large when $\xi$ is close to one.
+
+A risk measure $\rho$ is called coherent if it is monotone, translation invariant, positively homogeneous and subadditive, that is,
+
+$$
+\rho(X+Y) \le \rho(X) + \rho(Y).
+$$
+
+Expected shortfall satisfies this. VaR does not in general: there are portfolios whose VaR is larger than the sum of the VaRs of the parts, so diversifying can appear to increase risk.
+
+The usual backtest counts breaches. If the model is correct, the number in $T$ days is binomial with parameters $T$ and $1-\alpha$, and the breach indicators are independent. The second property is the one that fails in practice. Volatility clusters, so a breach today raises the chance of one tomorrow, and a model with the right average count can still be wrong in every period that matters. A related practical point is that a VaR estimated from a trailing window of returns reacts to a volatility jump only after the window has absorbed it.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Reading a distribution through a few moments, and large deviations">
+Value at risk is a quantile and expected shortfall is a conditional mean over the tail, so both are properties of the far end of a distribution, which is where a physicist is most likely to be misled by a fit to the bulk. A Gaussian that matches the variance of the central region gives the wrong tail by orders of magnitude when the true tail is a power law, in the same way that a Gaussian approximation to a sum of heavy-tailed variables works in the centre and fails in the large-deviation regime.
+
+The scenario approach has a counterpart in perturbation theory: a stress test is not an expansion about the typical state but an evaluation at a chosen distant point. The analogy stops at the data. A physical system is stationary enough that the tail can be sampled by waiting, while a financial series changes regime and the extreme events of interest are by definition rare and few.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **VaR is not the worst case.** It is the loss that is exceeded with the stated probability. The loss on a breach day can be many times the figure.
+- **A low breach count does not show the model is good.** A model that is too conservative has few breaches too. What the count tests is calibration against the nominal rate, together with whether the breaches are independent.
+- **Diversification in the calculation is an assumption.** The benefit credited depends on correlations estimated mostly from ordinary days, and those are the ones that fail in a crisis.
+- **A stress test is not a forecast.** It has no probability attached, and the scenario that does the damage is often the one nobody chose.
+- **Leverage is a constraint, not only a multiplier.** It sets a level at which positions must be sold whatever the view, which is why the same loss is survivable for an unlevered holder and fatal for a levered one.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Bouchaud and Potters, *Theory of Financial Risk and Derivative Pricing*, the chapters on extreme risks and on value at risk and its limits.
+- Hull, *Risk Management and Financial Institutions*, the chapters on value at risk and expected shortfall and on stress testing, for the practitioner and regulatory treatment.
+- Taleb, *The Black Swan*, for the argument against estimating tails from short samples, read alongside the more careful treatments above.
+- Paper: Artzner, Delbaen, Eber and Heath, "Coherent Measures of Risk" (1999, *Mathematical Finance*); for the breach tests, Christoffersen, "Evaluating Interval Forecasts" (1998, *International Economic Review*).

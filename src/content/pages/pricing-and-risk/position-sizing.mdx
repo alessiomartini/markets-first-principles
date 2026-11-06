@@ -2,7 +2,7 @@
 title: "Position sizing"
 track: 4
 order: 6
-status: stub
+status: written
 summary: "Given an edge, how much to bet is a separate and harder question than whether you have one."
 terms:
   - "Kelly criterion"
@@ -16,35 +16,96 @@ figure:
   series: "one equity index, daily returns"
   period: "1990-present"
   script: "pipeline/fetch_kelly.py"
+  notice: "The long-run growth rate of a position in the index, plotted against the fraction of capital held in it, rises from zero, reaches a single maximum and then falls, crossing zero at roughly twice the maximising fraction. The curve is flat near its peak, so holding half of the maximising fraction gives up only a quarter of the growth, and the maximising fraction itself differs a great deal between sub-periods."
+  falsifiedBy: "The reading fails if the curve has no interior maximum, if growth keeps rising as the fraction increases without a fall, or if the maximising fraction is about the same in every sub-period; any of these would mean the optimal size can be read off history reliably and the case for betting a fraction of it weakens."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Having an edge tells you which way to bet, and the size of the bet decides whether the edge compounds into wealth or the path ends before it can.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+A trader with a positive expected return on every trade still has to choose how much capital to put behind each one. Betting too little wastes the edge. Betting too much is worse, because losses and gains compound multiplicatively: a 50% loss needs a 100% gain to recover, so large swings cost more than the same swings in the other direction repay. At some size the cost of volatility outweighs the edge and the expected growth of capital turns negative even though every single bet has positive expected value.
+
+Before the 1950s the answer was rules of thumb. In 1956 John Kelly, working on the information content of a noisy communication channel at Bell Labs, showed that a gambler who is told the outcome of a bet through a noisy channel should stake a fraction of capital set by the rate of information received. The same result follows without information theory by asking which fraction maximises the long-run growth of wealth. Edward Thorp later applied it to blackjack and to markets. The principle has been argued over since, mainly about how aggressive it is and how well the inputs can be known, and the practical outcome is a family of more cautious rules: bet a fraction of the maximum, target a fixed volatility, and divide risk between positions explicitly.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+**Position sizing** is the choice of how much capital or risk to put in each position, given a view on expected return and a limit on how bad the path may get.
+
+The **Kelly criterion** is the sizing rule that maximises the long-run **growth rate** of capital, which is the average logarithm of the period-to-period wealth ratio. For a bet that wins with probability $p$ at net odds $b$ it stakes $f^* = (bp-(1-p))/b$ of capital: the larger the edge relative to the odds, the larger the stake, and no edge means no bet. For a position in a risky asset it holds a fraction of capital equal to the expected excess return divided by the variance of returns.
+
+The criterion has two features that matter more than the formula. Growth is flat near the maximum and falls steeply beyond it: betting more than $f^*$ lowers the growth rate, and betting twice $f^*$ gives no growth at all. And the inputs are estimates, so a user who sizes to the estimated edge is sized too large whenever the estimate is too high, which is the normal state of someone who has chosen the strategy because its history looked good. The common response is **fractional Kelly**, usually half, which keeps most of the growth for a much smaller exposure to error.
+
+A **drawdown** is the decline from the running peak of capital. It is the practical constraint on sizing, because investors, risk limits and margin agreements react to drawdowns, not to long-run growth. **Risk of ruin** is the probability that capital reaches a level from which the strategy cannot continue. Ruin is absorbing, so it cannot be averaged away: a strategy with a high expected return and a small chance of ruin is worse than the average suggests.
+
+Two ways of putting sizing into practice are common. **Volatility targeting** scales the position so that its expected volatility is a chosen number: hold less when the asset is volatile and more when it is calm. **Risk budgeting** sets the size of each position so that its contribution to the total risk of the portfolio is a chosen share of the whole, and not its share of the capital.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Take a bet that returns a fraction $f$ of capital times a random gross outcome. With $W_t$ the capital after $t$ bets, the long-run growth rate is
+
+$$
+g(f) = \lim_{t\to\infty} \frac{1}{t}\ln\frac{W_t}{W_0} = \mathbb{E}\left[\ln\left(1 + f\,R\right)\right],
+$$
+
+where $R$ is the return per unit staked. By the law of large numbers the average of the logarithms converges, so the fraction that maximises $g$ is the one that maximises the typical long-run outcome. For the simple bet, $R=b$ with probability $p$ and $R=-1$ with probability $1-p$, setting $g'(f)=0$ gives
+
+$$
+f^* = \frac{bp-(1-p)}{b}.
+$$
+
+For a risky asset with excess return rate $\mu$ and volatility $\sigma$ in continuous time, holding a fraction $f$ of capital in it gives
+
+$$
+g(f) = f\mu - \tfrac12 f^2\sigma^2, \qquad f^* = \frac{\mu}{\sigma^2}, \qquad g(f^*) = \frac{\mu^2}{2\sigma^2} = \tfrac12 S^2,
+$$
+
+where $S=\mu/\sigma$ is the Sharpe ratio. Since $g$ is a parabola, it is symmetric about $f^*$ and equals zero at $f=2f^*$. For a fraction $c f^*$ of the optimal stake, $g(cf^*) = (2c - c^2)\,g(f^*)$: half Kelly gives $3/4$ of the growth, and $1.5$ times Kelly gives the same $3/4$ with more risk of ruin.
+
+If the edge is estimated with error, $\hat\mu = \mu + \varepsilon$, the realised growth at the stake $\hat\mu/\sigma^2$ is lower on average than at $\mu/\sigma^2$, and the loss is larger when the stake is too big than when it is too small by the same amount. This asymmetry is the reason for a fraction below one.
+
+Drawdown arithmetic is asymmetric in the same way. After a fall of $d$, the gain needed to return to the peak is
+
+$$
+\frac{d}{1-d}: \quad 10\% \to 11.1\%, \quad 30\% \to 42.9\%, \quad 50\% \to 100\%.
+$$
+
+With leverage $\lambda$, a one-period fall of $1/\lambda$ in the asset removes all the capital, so a position at $\lambda=5$ is wiped out by a 20% fall. Even without such a jump, a leveraged position loses $\tfrac12\lambda^2\sigma^2$ per unit of time to compounding, which is the second term of $g$.
+
+Volatility targeting sets the exposure to $w_t = \sigma^*/\hat\sigma_t$, where $\sigma^*$ is the chosen volatility and $\hat\sigma_t$ the current estimate. Risk budgeting for a portfolio with weights $w$ and covariance matrix $\Sigma$ uses the contribution of position $i$ to portfolio volatility $\sigma_p=\sqrt{w^\top\Sigma w}$,
+
+$$
+\mathrm{RC}_i = \frac{w_i\,(\Sigma w)_i}{\sigma_p}, \qquad \sum_i \mathrm{RC}_i = \sigma_p,
+$$
+
+and chooses $w$ so that each $\mathrm{RC}_i$ is a stated share of $\sigma_p$. Equal shares give an equal-risk-contribution portfolio.
+
+Finally, for a gambler with a fixed stake of one unit, win probability $p>\tfrac12$ and $n$ units of capital, the probability of ever being ruined is $((1-p)/p)^n$, which falls exponentially in $n$. When the stake is a fixed fraction of current capital, capital never reaches exactly zero, and ruin has to be defined as a threshold, for instance a loss of half the capital, which is why practitioners set limits on drawdown directly.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Multiplicative noise and the difference between ensemble and time averages">
+Capital under repeated proportional bets is a multiplicative random process, and its long-run behaviour is set by the time average of the logarithm, not by the ensemble average of the wealth. The expected wealth of the ensemble can grow while the typical trajectory shrinks, in the way that the mean of a log-normal variable is dominated by rare large values that almost no single path sees. The Kelly fraction is the choice for which the typical path grows fastest, which is the quantity a single investor, who lives on one trajectory, experiences.
+
+The parabola $g(f)=f\mu-\tfrac12 f^2\sigma^2$ is the same Itô correction that distinguishes the median from the mean of a geometric Brownian motion. The analogy is limited by the inputs. A physicist knows the noise strength of a system and can measure it for as long as needed. A market has no fixed $\mu$ to estimate, and the edge is small compared with the noise, so the error in the estimate is often as large as the quantity itself.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Kelly is not a forecast of return.** It is a rule that links an assumed edge to a size. If the edge is overstated the rule inherits the error, and the result is a position that is too large.
+- **Maximising growth is not minimising risk.** Full Kelly accepts deep drawdowns as a normal part of the path, and the chance of at least halving the capital before it doubles is substantial. This is why most users hold a fraction of it.
+- **A positive expected value does not make a bet worth taking at any size.** Past the point $2f^*$ the long-run growth is negative even though every bet is favourable.
+- **Volatility targeting does not remove risk.** It controls the size of a typical day's move, but volatility rises after a shock, so the position is cut after the loss and not before, and a sudden jump is not scaled at all.
+- **Risk is not capital.** A portfolio split equally by capital between a calm asset and a volatile one takes almost all of its risk from the volatile one, which is the observation risk budgeting is built on.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Thorp, "The Kelly Criterion in Blackjack, Sports Betting, and the Stock Market" (in Zenios and Ziemba, eds., *Handbook of Asset and Liability Management*, 2006), for the derivations, the fractional rule and the effect of estimation error.
+- Bouchaud and Potters, *Theory of Financial Risk and Derivative Pricing*, the chapters on portfolio optimisation and on the effect of noisy estimates of returns and correlations.
+- MacLean, Thorp and Ziemba, eds., *The Kelly Capital Growth Investment Criterion* (2011), for the history and the arguments for and against.
+- Paper: Kelly, "A New Interpretation of Information Rate" (1956, *Bell System Technical Journal*); for the case against full Kelly, Samuelson, "Why We Should Not Make Mean Log of Wealth Big Though Years to Act Are Long" (1979, *Journal of Banking and Finance*).

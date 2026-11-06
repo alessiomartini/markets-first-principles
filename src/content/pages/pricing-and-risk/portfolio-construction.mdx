@@ -2,7 +2,7 @@
 title: "Portfolio construction"
 track: 4
 order: 4
-status: stub
+status: written
 summary: "Mean-variance optimisation is an inverse problem with a badly conditioned operator, and it fails in exactly the way that predicts."
 terms:
   - "Markowitz optimisation"
@@ -18,35 +18,129 @@ figure:
   series: "S&P constituent returns, split sample"
   period: "2005-present, daily"
   script: "pipeline/fetch_frontier.py"
+  notice: "The efficient frontier computed from one half of the sample lies up and to the left of the portfolios it actually delivers in the other half: for the same risk the realised return is lower, and the optimiser's chosen portfolio is typically beaten out of sample by far simpler weightings such as equal weights."
+  falsifiedBy: "The reading fails if the out-of-sample portfolios sit on or near the in-sample frontier, or if the optimised portfolio consistently beats equal weights out of sample; either would mean estimation error is not the dominant problem."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Portfolio construction is choosing how much of each asset to hold, and the classical recipe for it amplifies exactly
+the part of the data that is noise.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Before 1952 the standard advice was to pick the assets with the best prospects and spread the money around for
+safety. Nobody had said what "spread around" was worth. If two assets move together, holding both buys little
+protection; if they move apart, holding both can make the portfolio calmer than either. The quantity that matters
+is therefore not the risk of each asset but how the risks add up, which depends on the correlations between them.
+
+Harry Markowitz turned that observation into an optimisation problem: given expectations and covariances, find
+the weights that give the least risk for a chosen expected return. It became the foundation of the field and
+earned him a share of the 1990 Nobel prize in economics. It also posed a problem that practitioners met as soon as
+they tried to use it. The inputs are not known, they are estimated, and the output is very sensitive to them.
+Most of the later history of the subject is about what to do with that sensitivity.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+**Markowitz optimisation**, also called mean-variance optimisation, chooses portfolio weights to maximise
+expected return for a given variance, or to minimise variance for a given expected return, using a vector of
+expected returns and a covariance matrix as inputs. The set of portfolios that cannot be improved on in this sense
+is the **efficient frontier**: for each level of risk, the highest expected return available, drawn as a curve in
+the plane of volatility and expected return.
+
+The usual yardstick for a position on that plane is the **Sharpe ratio**, expected excess return divided by
+volatility. The portfolio with the highest Sharpe ratio, the tangency portfolio, is the one that, combined with
+borrowing or lending at the risk-free rate, dominates every other choice in the mean-variance framework.
+
+Practitioners split a portfolio's return into pieces that can be bought separately. **Beta** is the exposure to
+the market, the slope of the portfolio's return on the market's return. A **factor** is a broader version of the
+same idea: a common source of return, such as the market, company size, value or momentum, to which many assets
+are exposed and for which a premium is paid or at least claimed. **Alpha** is what remains: the return not
+explained by the exposures to those factors. Building a portfolio then means choosing how much of each exposure to
+hold, and what is left over is the bet that the manager is paid for.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Let $w$ be the vector of weights, $\mu$ the vector of expected returns, $\Sigma$ the covariance matrix and $\lambda$
+a risk-aversion parameter. The problem
+
+$$
+\max_{w}\; w^\top \mu \;-\; \frac{\lambda}{2}\, w^\top \Sigma\, w \qquad \text{subject to } \mathbf{1}^\top w = 1
+$$
+
+has, ignoring further constraints, the solution
+
+$$
+w^\star = \frac{1}{\lambda}\,\Sigma^{-1}\left(\mu - \gamma\,\mathbf{1}\right),
+$$
+
+where $\gamma$ is the multiplier that enforces the budget constraint. The covariance matrix enters through its
+inverse. Write $\Sigma = \sum_i \lambda_i v_i v_i^\top$ in its eigenbasis. Then
+
+$$
+\Sigma^{-1} = \sum_i \frac{1}{\lambda_i}\, v_i v_i^\top ,
+$$
+
+so the directions in which the matrix is smallest receive the largest weight. The condition number
+$\lambda_{\max}/\lambda_{\min}$ measures how badly an error in the inputs is magnified in the weights.
+
+With $N$ assets and $T$ observations, the smallest eigenvalues of the sample covariance matrix are biased
+downwards and the largest upwards, and the bias grows as $N/T$ approaches one. The optimiser is then asked to
+exploit low-variance directions that exist in the sample and not in the world. The expected returns are worse
+still: the error of a sample mean is of order $\sigma/\sqrt{T}$, which for equity returns over a few years is large
+compared with the differences in true expected returns that the optimiser is trying to rank.
+
+A factor model reduces the number of parameters. Writing the return of asset $i$ as
+
+$$
+r_i = \alpha_i + \sum_{k=1}^{K} \beta_{ik}\, f_k + \varepsilon_i ,
+$$
+
+with $K \ll N$ factors $f_k$ and uncorrelated residuals $\varepsilon_i$, the covariance matrix becomes
+$\Sigma = B\,\Sigma_f\,B^\top + D$ with $D$ diagonal. That has on the order of $NK$ parameters instead of $N^2/2$,
+which is the reason such models are used to build the inputs.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Inverting an ill-conditioned operator">
+Mean-variance optimisation is an inverse problem. The covariance matrix is an operator, the expected returns are
+the data, and the weights are the solution of a linear system. When the operator has eigenvalues spread over a
+wide range, the inverse amplifies noise along the weakest directions, which is the standard behaviour of an
+ill-conditioned problem, and the standard remedy is regularisation: shrink the small eigenvalues up, cut off the
+modes that cannot be told from noise, or add a penalty on the size of the weights. A factor model is the same
+remedy seen from the other side, because it imposes a low-rank structure and so removes the weak directions by
+construction.
+
+The analogy does not stretch to the data. In an inverse problem in physics the operator is usually known and the
+noise is in the measurement. Here the operator itself is estimated from the same finite sample, and the series
+are not stationary, so the weak directions of next year's matrix are not the weak directions of last year's.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **The efficient frontier is not a property of the market.** It is a property of an estimate. The curve computed
+  from one sample is not the curve that holds in the next, and the gap between them is the object of study.
+- **Diversification is not the same as holding many assets.** What reduces risk is holding assets whose returns are
+  not driven by the same factor. A hundred stocks that all load on the market have the risk of the market.
+- **A high Sharpe ratio in a backtest is not an expected Sharpe ratio.** The Sharpe ratio of the optimised weights
+  computed in the same sample that chose them is biased upwards, because the weights were chosen to make it high.
+- **Alpha is relative to a model.** Return called alpha under one set of factors may be a factor premium under a
+  broader set. Calling something alpha is a statement about what the model leaves out, not a finding that it is
+  skill.
+- **Equal weights are not naive in a technical sense.** They ignore the inputs entirely, so they carry no
+  estimation error from them, which is the reason they are a hard benchmark to beat when the sample is short.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Bouchaud and Potters, *Theory of Financial Risk and Derivative Pricing*, the chapters on portfolio theory and on
+  the statistics of covariance matrices, for the random-matrix treatment of the estimation problem.
+- Grinold and Kahn, *Active Portfolio Management*, the chapters on the fundamental law and on forecasting alpha, for
+  how practitioners separate exposures from bets.
+- Bailey and López de Prado, *Advances in Financial Machine Learning*, the chapter on portfolio construction, for
+  hierarchical alternatives to inverting the matrix.
+- Paper: Markowitz, "Portfolio Selection" (1952, *Journal of Finance*); for the out-of-sample comparison with
+  equal weights, DeMiguel, Garlappi and Uppal, "Optimal Versus Naive Diversification: How Inefficient is the 1/N
+  Portfolio Strategy?" (2009, *Review of Financial Studies*).

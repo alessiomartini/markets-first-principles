@@ -2,7 +2,7 @@
 title: "Clearing and settlement"
 track: 6
 order: 1
-status: stub
+status: written
 summary: "The days between agreeing a trade and owning the asset, and the institution that stands in the middle so you never learn your counterparty's name."
 terms:
   - "CCP"
@@ -19,35 +19,96 @@ figure:
   series: "primary dealer fails to deliver and receive"
   period: "1990-present, weekly"
   script: "pipeline/fetch_fails.py"
+  notice: "Fails are small in most weeks and then rise in short, sharp episodes: after the attacks of September 2001, around the scarcity of a particular ten-year note in 2003, and in the autumn of 2008, when they reached some of the highest levels in the series. The 2008 episode came with interest rates close to zero, and fails fell back after the market's best-practice group introduced a charge on fails in 2009. The series is a measure of how often the delivery side of the plumbing breaks, and it is concentrated in stress, not spread evenly through time."
+  falsifiedBy: "The account of fails as a function of the interest rate fails if fails stayed equally high in the years when rates were well above zero and the cost of failing was large, or if they did not respond to the 2009 charge. The wider reading, that fails are a stress indicator, fails if they were as frequent in calm markets as in disorderly ones."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+A trade is only a promise until the asset and the money have both changed hands, and clearing and settlement are the machinery that turns the promise into ownership without either side having to trust the other.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+When two people agree a price on an exchange, nothing has yet moved. The buyer still holds cash and the seller still holds the shares. In the interval, the price keeps changing, and if it moves against one side that side has a reason to walk away. Whoever is left holding the other half of the trade must replace it at the new price. This is **counterparty risk**, and it grows with the number of days between agreement and delivery and with the volatility of the asset.
+
+Markets have met this problem repeatedly. Before electronic records, settlement meant moving paper certificates, and in the late 1960s the volume of trading in the United States outran the back offices that handled it, to the point that exchanges shortened trading hours and closed on Wednesdays to catch up. The cure was to take the paper out, by immobilising certificates with a depository and recording ownership as entries in a ledger, and to put an institution at the centre of the process that guarantees performance. The modern arrangement, with a central counterparty, netting, and electronic delivery against payment, is the accumulated answer.
+
+The same question reappears in every market in this track, and it is worth keeping in mind when reading the pages on [margin and leverage](/markets-first-principles/tracks/plumbing-and-institutions/margin-and-leverage/), [funding](/markets-first-principles/tracks/plumbing-and-institutions/funding/) and [crypto plumbing](/markets-first-principles/tracks/plumbing-and-institutions/crypto-plumbing/): who holds the asset, who holds the cash, and what happens in between?
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+The two words name different stages, and they are often run together.
+
+**Clearing** is everything that happens between the match of a trade and the moment the asset and the cash are exchanged. It includes confirming that both sides agree on the terms, calculating what each party owes, **netting**, collecting margin, and, in a cleared market, **novation**. **Settlement** is the final exchange itself: the transfer of the asset to the buyer and of the money to the seller, after which the obligation is discharged. The point at which settlement is irrevocable and unconditional is called settlement finality, and the legal definition of that point matters a great deal when one party is insolvent.
+
+A **CCP**, or central counterparty, is the institution at the centre of a cleared market. Through **novation**, the original contract between buyer and seller is cancelled and replaced by two new contracts, one between the CCP and the buyer and one between the CCP and the seller. Each side now faces the CCP, whatever the creditworthiness of the original counterparty. This is why one trades on an exchange with strangers. The CCP in turn controls its own risk by requiring initial margin and daily variation margin from its members, by contributing to a default fund shared by them, and by setting membership standards. If a member defaults, a conventional order of loss absorption, called the default waterfall, is applied: first the defaulter's own margin, then its contribution to the default fund, then a portion of the CCP's own capital, and then the contributions of the surviving members, with further steps set out in each CCP's rulebook.
+
+**Netting** replaces many gross obligations with a few net ones. If a firm buys 1,000 shares of a stock and sells 800 of the same stock for the same settlement date, it only needs to receive 200. Bilateral netting does this between two parties, and multilateral netting, which a CCP makes possible, does it across all of them. The reduction in the amount that has to move is very large: the US depository DTCC has reported that netting reduces the value to be settled by a large majority, in the neighbourhood of 98 per cent on its figures. Netting reduces both the liquidity needed to settle and the exposure to a failure.
+
+**Delivery versus payment** (DvP) is a settlement rule that links the two legs, so that the asset is delivered if and only if the payment is made. Without such a link, one party can pay and not receive. The standard example is the failure of Bankhaus Herstatt in June 1974: German regulators withdrew its licence during the working day, after counterparties had paid Deutsche marks to the bank in Frankfurt but before the bank's dollar payments in New York had been made, and they were left with nothing. The same principle applied to foreign exchange is called payment versus payment, and has been provided since 2002 for the main currencies by CLS Bank. The international standards on this topic are the Principles for Financial Market Infrastructures, published by the BIS's committee on payments and market infrastructures and IOSCO in 2012.
+
+The **settlement cycle** is the number of business days between the trade date, written T, and settlement. It is written T+n. The US equity market moved from T+5 to T+3 in 1993, to T+2 in September 2017, and to **T+1** on 28 May 2024, together with Canada and Mexico. India had adopted T+1 for equities in 2023. The European Union and the United Kingdom have announced a move to T+1 in October 2027, which would put the main equity markets back on the same cycle. The case for shortening the cycle is the one made above: less time, less exposure, and less margin to hold. The case against it is that the time between trade and settlement is also the time during which errors are corrected, foreign investors fund their currency conversion, and securities are lent and recalled, so a shorter cycle puts more pressure on the operational steps.
+
+A **settlement fail** occurs when the seller does not deliver on the settlement date, or, less often, the buyer does not pay. It does not mean that anyone has defaulted. The seller may be short of a particular security, its own purchase may have failed, or an instruction may have been mismatched. The trade remains valid and is generally settled days later. What changes is the cost, since the buyer has the money tied up with no asset against it, and the market therefore sets a price on failing, as described below.
+
+Finally, **custody** is the holding of the asset. Investors rarely hold securities directly with the issuer. They hold them through a chain of intermediaries, in which a depository (in the US, DTC, a subsidiary of DTCC; in Europe, Euroclear and Clearstream) holds the securities, and banks and brokers hold claims on the depository on behalf of their clients. At the end of the chain, the investor has a claim on its broker. The legal rules about whether an investor's assets are kept apart from the custodian's own are among the most important in practice.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Three simple calculations capture most of the economics.
+
+First, netting. Let the members of a clearing system be $i = 1,\dots,n$, and let $b_i$ and $s_i$ be the value that member $i$ buys and sells in a given security for a given date. Its net position is $x_i = b_i - s_i$, and because every purchase is somebody's sale,
+
+$$
+\sum_{i=1}^{n} x_i = 0 .
+$$
+
+The value that must actually be delivered is at most $\tfrac12 \sum_i |x_i|$, while the gross value of the trades is $\sum_i b_i$. The ratio of the two is the netting efficiency, and it is high when members both buy and sell the same securities, as market makers do.
+
+Second, the exposure created by the settlement lag. If the price of the asset changes with daily volatility $\sigma$ and the lag is $T$ days, then, to a first approximation and with independent daily changes, the standard deviation of the price change over the interval, which is the scale of the replacement cost if one side fails, is
+
+$$
+\sigma \sqrt{T} .
+$$
+
+Moving from $T=2$ to $T=1$ lowers it by a factor of $1/\sqrt{2}$, about 29 per cent, which is the basic reason that margin for unsettled trades falls when the cycle is shortened. This is a back-of-the-envelope result: it ignores weekends, jumps, and the correlation among members' positions.
+
+Third, the cost of failing. If a seller fails to deliver securities worth $V$ for $d$ days at an annual cash interest rate $r$, the buyer's loss of interest is roughly
+
+$$
+\text{cost of fail} \approx V \, r \, \frac{d}{360} ,
+$$
+
+using the money-market convention of 360 days. When $r$ is close to zero the cost is close to zero, and failing is cheap. In 2009 the Treasury Market Practices Group recommended a charge on fails equal to the greater of zero and 3 percentage points minus the federal funds target rate, which sets a floor under the cost of failing when rates are low.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Network topology, and a hub that trades many fragile links for one concentrated one">
+Without a CCP, the participants in a market are linked pairwise, and each of $n$ firms may have an exposure to each of the other $n-1$, so that the number of links is of order $n^2/2$. A CCP replaces them with $n$ links to a single node, a star in place of a dense graph. Netting then acts like cancelling opposing fluxes on the edges of the graph, which shrinks what has to flow.
+
+The price of this is the usual one for a hub: a failure in a densely connected network can propagate along many paths, but a star is very robust to the failure of a leaf and catastrophically fragile to the failure of its centre. Duffie and Zhu (2011) show that, if the CCP clears only one class of contracts, the gain in netting within the class can be smaller than the loss from netting being no longer possible across classes. The question is not whether risk disappears but where it is held and who bears it. The mathematics of cascades on networks is suggestive, but the analogy has limits, because the participants adjust their behaviour in response to the rules.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
+
+Settlement is silent when it works, and the best visible trace of it is the record of the times when it did not. Fails in the market for US Treasuries are modest in most weeks and rise in bursts, which is consistent with the account that they are a symptom of stress and scarcity. The rise in 2008, when interest rates had been brought close to zero, fits the cost-of-failing calculation above, and the decline after the 2009 charge fits the same story. What would count against it is a series in which fails stayed high when rates were well above zero, or one that did not move when the charge was introduced.
+
+A caution on how to read this: fails are not defaults, and a spike in fails does not show that the clearing system is about to break. CCPs themselves have rarely failed. They have, however, used their default funds, as when a Nordic power trader defaulted at Nasdaq Clearing in 2018 and the loss exceeded his own margin, so that part of the fund contributed by other members was consumed. The test of the design is the rare event, and the evidence from a few cases is thin.
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **A CCP does not remove risk.** It transforms bilateral counterparty risk into risk concentrated in one institution, which is robust only if its margin models, default fund and rules are. The post-2009 requirement to clear standardised over-the-counter derivatives, agreed by the G20 leaders at Pittsburgh in 2009, made these institutions more important.
+- **Clearing and settlement are not the same thing.** A trade can be cleared on day one and settle on day two, and between those two points the obligation exists but the asset has not moved.
+- **A settlement fail is not a default.** The trade stays valid, and the cost to the failing party is a financing cost or a penalty, not the loss of the position.
+- **Faster is not free.** A shorter cycle reduces exposure and margin, and it increases the operational burden on firms that rely on time zones, securities lending, and currency conversion.
+- **Owning a share does not mean the share is registered in your name.** For most investors the legal owner on the issuer's register is a nominee of the depository, and the investor's rights run through the chain of custodians.
+- **Crypto is not exempt.** A blockchain transfer settles in minutes and is final, which removes the lag, but it moves the problem to custody, since whoever holds the keys or the exchange account holds the asset.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Hull, *Options, Futures, and Other Derivatives*, the chapter on the mechanics of futures markets, for how a clearing house and margin accounts work in practice, and the chapters on over-the-counter markets for bilateral and central clearing of derivatives.
+- Norman, *The Risk Controllers: Central Counterparty Clearing in Globalised Financial Markets* (2011), for the history and mechanics of CCPs and their default management.
+- Committee on Payments and Market Infrastructures and IOSCO, *Principles for Financial Market Infrastructures* (2012), the international standard covering CCPs, depositories and settlement systems.
+- Paper: Duffie and Zhu, "Does a central clearing counterparty reduce counterparty risk?", *Review of Asset Pricing Studies* 1 (2011).
+- Paper: Pirrong, "The economics of central clearing: theory and practice", ISDA Discussion Paper Series (2011), for a critical view of what a CCP does and does not achieve.

@@ -2,7 +2,7 @@
 title: "Funding"
 track: 6
 order: 3
-status: stub
+status: written
 summary: "Where the cash actually comes from overnight, and what happens on the days it doesn't."
 terms:
   - "repo"
@@ -19,35 +19,88 @@ figure:
   series: "SOFR, IORB, EFFR"
   period: "2018-present, daily"
   script: "pipeline/fetch_funding.py"
+  notice: "The secured overnight rate stays within a few basis points of the central bank's administered rates for long stretches, and then departs from them abruptly. The largest departure is in September 2019, when the rate rose above 5 per cent while the policy range was 2.00 to 2.25 per cent, and smaller jumps recur around month-ends, quarter-ends and tax dates. The pattern is that of a market that is anchored by the central bank when cash is plentiful and loses the anchor when cash is scarce relative to the demand for it."
+  falsifiedBy: "The reading fails if spikes were as common and as large in the years when reserves were abundant as in the years when they were scarce, or if the rate stayed far above the policy range after the central bank supplied cash through its own operations. It also fails if the spikes showed up only in the reported rate and not in the volumes and prices at which dealers actually borrowed."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Funding is how a market participant gets the cash to hold a position from one day to the next, and it is normally so cheap and automatic that nobody notices it until the day it is not.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+Almost every financial institution holds assets that last longer than the money that pays for them. A dealer holds bonds that mature in years and pays for them with loans that mature tomorrow. A bank lends for decades and takes deposits that can be withdrawn on demand. A hedge fund holds a position for months and borrows against it each night. The short maturity is cheap, because lenders who can get their cash back at once will accept a low rate, and it is dangerous, because the borrower must find the money again every day.
+
+So there is a market whose job is to move cash from those who have it for a short time to those who need it for a short time, and to do so in sizes that are large relative to the rest of the financial system. Its prices are the short-term interest rates on which everything else is built, and its failures are the mechanism by which a problem in one asset becomes a problem for the whole system, as the page on [margin and leverage](/markets-first-principles/tracks/plumbing-and-institutions/margin-and-leverage/) described from the side of the borrower. This page looks at it from the side of the lender and the central bank.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+The first distinction is whether the lender holds something against the loan.
+
+**Secured funding** is a loan backed by **collateral**: an asset, usually a government bond, that the lender may keep or sell if the borrower does not repay. The standard form is the **repo**, in which the borrower sells a security and agrees to buy it back at a higher price, and the difference is the interest. Because the lender has the collateral, the rate depends little on who the borrower is and mostly on supply and demand for cash and on the collateral. Collateral is the central object of this market, and the lender cares about its quality, its liquidity, and its price volatility, which is why the loan is for less than its value (the haircut). When a particular security is scarce, borrowing it can cost so much that the rate on cash lent against it falls well below the general rate, and the security is said to trade "special". Scarcity of this kind is a cause of the settlement fails described on the [clearing and settlement](/markets-first-principles/tracks/plumbing-and-institutions/clearing-and-settlement/) page.
+
+**Unsecured funding** is a loan with only the borrower's promise behind it: bank deposits, interbank loans, commercial paper, certificates of deposit. The lender is exposed to the borrower's credit, so the rate includes a premium for the risk and depends on who is borrowing. When doubts about banks arise, the premium of unsecured over secured rates rises, and in the crisis of 2007 to 2009 the gap was the clearest public measure of distrust.
+
+Most of the cash comes from a few kinds of lender. Banks and other institutions with surplus cash lend it. Central banks provide reserves and sometimes lend directly. And a large part comes from **money market funds**: pooled investment funds that hold short-term, high-quality debt, such as Treasury bills, repo and commercial paper, and aim to give investors a stable value per share. They hold trillions of dollars, and in effect convert the savings of households and companies, which can be withdrawn on demand, into the short-term lending that dealers use. Their stability depends on investors believing that a share is always worth a dollar, which makes them subject to runs. The Reserve Primary Fund "broke the buck", with its share value falling below a dollar, in September 2008 after the failure of Lehman Brothers, and the resulting withdrawals from prime funds led the US government to guarantee money fund balances temporarily. A similar flight from prime funds in March 2020 was met by a Federal Reserve facility. Regulation has since changed how some funds value their shares and how they manage liquidity.
+
+The reference rates are the benchmarks that summarise the market. **SOFR**, the Secured Overnight Financing Rate, is published by the Federal Reserve Bank of New York since April 2018, and is computed from transactions in overnight repo backed by Treasury securities. It was chosen by a committee of market participants to replace USD LIBOR. Libor was an estimate submitted by a panel of banks of what they would pay to borrow, instead of the rate on actual transactions, and it was undermined by the manipulation uncovered in 2012 and by thin underlying trading. The main Libor settings ceased at the end of June 2023. The **€STR**, the euro short-term rate, is published by the European Central Bank since October 2019, and reflects overnight unsecured borrowing by banks in the euro area. It replaced the older EONIA benchmark. The sterling counterpart is SONIA. All three describe what overnight money actually costs and are the starting point for pricing floating-rate loans, swaps, and futures.
+
+Central banks tie the market to their policy rates through administered rates. In the US system with ample reserves, the interest paid on reserve balances at the Fed (IORB) acts as a ceiling on how little a bank will accept to lend, and the overnight reverse repo facility, which lets money funds and others lend to the Fed at a fixed rate, sets a floor under the market rate. This is the floor system in the glossary, and it is why SOFR normally sits within a narrow range of the policy rate. The standing repo facility, created in 2021, allows eligible firms to borrow cash from the Fed against Treasuries at a set rate, and is meant to put a ceiling on spikes. The [interest rates and central banks](/markets-first-principles/tracks/economics/interest-rates-and-central-banks/) page explains why the central bank wants this control.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+A repo with cash lent $C$ for $d$ days at repo rate $r$, on the money-market convention of a 360-day year, requires a repurchase price of
+
+$$
+C\left(1 + r\,\frac{d}{360}\right) ,
+$$
+
+and if the collateral has market value $V$ and haircut $h$, then $C = (1-h)\,V$.
+
+The carry of a financed position, say a bond with yield $y$ held with repo funding at rate $r$ and haircut $h$, is earned on the whole position and paid on the borrowed part only. Per unit of position value,
+
+$$
+\text{carry} = y - (1-h)\,r ,
+$$
+
+which is the return on the equity $hV$ once the funding cost is deducted, and divided by $h$ it gives a return on equity of order $\left(y - (1-h) r\right)/h$. A small change in $r$ or in $h$ therefore has a large effect on the return of a levered position, and an overnight funding rate that jumps by $\Delta r$ for $n$ days costs about $(1-h)\,\Delta r\, n/360$ of the position's value.
+
+Third, the relation to the administered rates, in an ample-reserves regime, is a bound by arbitrage: a bank with access to the Fed has no reason to lend to the market below the rate it earns on reserves, and a lender with access to the reverse repo facility has none to accept less than that rate. In that regime the market rate satisfies approximately
+
+$$
+r_{\text{RRP}} \;\lesssim\; \text{SOFR} \;\lesssim\; r_{\text{IORB}} + \varepsilon ,
+$$
+
+where $\varepsilon$ is small when balance sheets are loose. The bound loses force when reserves become scarce relative to the demand for cash, which is when spikes arise.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Bistability and coordination: a system with two stable states and an abrupt jump between them">
+A short-term lender can act in two ways: to roll the loan, or to withdraw. If others roll, the borrower is solvent and rolling is safe. If others withdraw, the borrower is forced to sell, its assets fall, and withdrawing is the right choice. Diamond and Dybvig (1983) set out this structure for bank deposits, and it has the form of a system with two stable equilibria and a threshold between them, as in a ferromagnet below its transition temperature, where both magnetised states are stable and a fluctuation can tip the system from one to the other.
+
+Overnight funding makes the threshold close, because the decision is taken every day. The central bank's facilities are in effect a way of removing the second state by guaranteeing that cash is available at a known price. As usual the analogy is only a picture: in the markets, the participants watch each other, change their rules in response, and the parameters of the model are not constant.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
+
+For most of the period the overnight secured rate follows the administered rates of the Federal Reserve closely, which is the floor system working as designed. The episodes in which it does not are informative. On 17 September 2019, SOFR rose to about 5.25 per cent when the policy range was 2.00 to 2.25 per cent. Corporate tax payments and the settlement of Treasury auctions had drawn cash out of the banking system on the same day at a time when reserves had been reduced by the Fed's balance sheet reduction, so that there were fewer lenders than borrowers. The Fed responded with overnight repo operations that day and, within weeks, began buying Treasury bills to raise reserves. Smaller jumps at quarter-ends and year-ends are linked to banks reducing their balance sheets around reporting dates, and they also appear in the cost of borrowing dollars through the currency swap market, as discussed on the [exchange rates](/markets-first-principles/tracks/economics/exchange-rates/) page.
+
+What would count against this account is a market in which spikes were as large when reserves were plentiful, or in which they persisted after the Fed supplied cash. A caution about the data is that SOFR is a median of reported transactions, so a few unusual trades can move the headline rate.
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **A repo is a loan, not a sale.** The legal form is a sale and repurchase, but the economics, and in most regimes the accounting, are those of a secured loan, and the lender's exposure is to the collateral's price.
+- **Secured does not mean safe.** The loan is protected by the collateral only while the collateral holds its value and can be sold. In 2008 the haircuts on weaker collateral rose to levels that made borrowing impossible, which was a run without any depositor.
+- **Money funds are not bank deposits.** Their shares are not guaranteed, and the stable value rests on the quality of what the fund holds and on investors not leaving all at once.
+- **SOFR is not Libor under another name.** It is based on observed transactions in a secured market and has little credit component, while Libor was a survey of unsecured bank borrowing costs and contained a bank credit premium. Loans that moved from one to the other needed an adjustment.
+- **The policy rate does not fix the market rate.** The central bank sets administered rates and the market rate follows them only as long as the conditions for the bound hold.
+- **Funding liquidity and market liquidity are linked.** A trader who cannot fund a position must sell it, and the sale lowers the price and tightens the next lender's terms.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Mishkin, *The Economics of Money, Banking, and Financial Markets*, the chapters on the money market and on financial crises, for the instruments and the history of runs.
+- Gorton, *Slapped by the Invisible Hand: The Panic of 2007* (2010), on repo and the run on short-term wholesale funding.
+- Federal Reserve Bank of New York, the documentation of the Secured Overnight Financing Rate, for how it is computed and what it covers.
+- Paper: Diamond and Dybvig, "Bank runs, deposit insurance, and liquidity", *Journal of Political Economy* 91 (1983).
+- Paper: Gorton and Metrick, "Securitized banking and the run on repo", *Journal of Financial Economics* 104 (2012).

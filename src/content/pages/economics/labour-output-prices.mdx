@@ -2,13 +2,14 @@
 title: "Labour, output, prices"
 track: 5
 order: 5
-status: stub
+status: written
 summary: "The supposed trade-off between unemployment and inflation, and what its instability tells you about macro modelling."
 terms:
   - "unemployment rate"
   - "output gap"
   - "Phillips curve"
   - "NAIRU"
+  - "inflation expectations"
 figure:
   id: "phillips-by-decade"
   title: "The Phillips curve, coloured by decade"
@@ -16,35 +17,67 @@ figure:
   series: "UNRATE, CPIAUCSL"
   period: "1960-present, quarterly"
   script: "pipeline/fetch_phillips.py"
+  notice: "Plotting inflation against unemployment, quarter by quarter, does not give one downward-sloping curve. Within some decades the points do lean downwards, as in the 1960s, but the cloud for the 1970s sits far above that of the 1960s at the same unemployment, and the 1990s and 2010s are close to a flat band. The relation exists as a local pattern whose position and slope move from one decade to the next."
+  falsifiedBy: "The reading fails if, once expected inflation and supply shocks are allowed for, inflation does not respond to unemployment in any decade; the Phillips curve would then be a statistical accident of a few episodes. It also fails in the opposite direction if a single fixed curve fitted all the decades equally well, because then expectations would not matter."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+When labour and capacity are scarce, firms bid up wages and prices; the Phillips curve is the attempt to turn that into a stable rule linking unemployment to inflation, and the lesson of the last sixty years is how unstable the rule is.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+The earlier pages described the pieces separately: [what GDP measures](/markets-first-principles/tracks/economics/what-gdp-measures/) as output, [money and inflation](/markets-first-principles/tracks/economics/money-and-inflation/) as the price level, and [interest rates and central banks](/markets-first-principles/tracks/economics/interest-rates-and-central-banks/) as the tool that the central bank uses to push the economy one way or the other. What was missing is the link between the real economy and prices. A central bank that raises rates cools demand, and what it wants to know is how much of that cooling shows up as lower inflation and how much as lost jobs.
+
+If the link were stable, policy would be a choice from a menu: a little more inflation for a little less unemployment. That hope is why the relation was taken up so quickly, and why its failure in the 1970s reshaped macroeconomics.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+The **unemployment rate** is the share of the labour force that is jobless and looking for work. The **output gap** is the distance between actual output and the output the economy could sustain without pressure on prices, and it is the broader measure of slack: it includes idle machines and hours not worked by people who have jobs, not only people without jobs. The two are linked, since output below potential goes with unemployment above its normal level, but they are measured differently and can disagree.
+
+The **Phillips curve** is the relation between inflation and that slack. Phillips (1958) found, in nearly a century of British data, that wage growth was high when unemployment was low and the reverse. Samuelson and Solow (1960) restated it for the United States in terms of price inflation and described it as a menu of policy choices. A decade later it stopped working: in the 1970s, inflation and unemployment rose together, a combination that the simple curve could not produce.
+
+Friedman (1968) and Phelps (1967) had already argued why. Workers and firms care about real wages, so what matters is wage growth relative to the price growth they *expect*. If the central bank holds unemployment below its normal level, inflation rises above what was expected, then expectations catch up, and the same unemployment now needs ever higher inflation. The trade-off holds only while expectations are wrong. The **NAIRU**, the unemployment rate at which inflation does not accelerate, is the practitioner's version of this normal level. At any unemployment below it, the claim goes, inflation keeps climbing, and above it, falling. It cannot be read off a table: it is inferred from the behaviour of inflation itself.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+The expectations-augmented Phillips curve is usually written
+
+$$
+\pi_t = \mathbb{E}_t\,\pi_{t+1} - \kappa\,(u_t - u^*) + \varepsilon_t ,
+$$
+
+where $\pi_t$ is inflation, $u_t$ is the unemployment rate, $u^*$ is the NAIRU, $\kappa > 0$ is the slope and $\varepsilon_t$ collects supply shocks such as oil prices. With the output gap $x_t$ in place of unemployment gap, the same equation reads $\pi_t = \mathbb{E}_t\,\pi_{t+1} + \kappa'\, x_t + \varepsilon_t$, which is how it enters the standard New Keynesian model. Okun's law links the two forms: roughly, an extra percentage point of unemployment goes with a loss of a few percentage points of output.
+
+If expectations are adaptive, $\mathbb{E}_t\,\pi_{t+1} = \pi_{t-1}$, the equation becomes $\pi_t - \pi_{t-1} = -\kappa\,(u_t - u^*) + \varepsilon_t$: unemployment below $u^*$ makes inflation *accelerate*, which is the origin of the name. If expectations are anchored at the central bank's target $\bar\pi$, the equation becomes $\pi_t = \bar\pi - \kappa\,(u_t - u^*) + \varepsilon_t$, and there is again a curve in the $(u, \pi)$ plane, flat or sloped depending on $\kappa$. Which of the two applies is an empirical question about how expectations are formed, and the answer has itself changed across decades.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A response function whose coefficients drift with the state of the medium">
+The Phillips curve is a linear response: a small displacement of the economy from its balance point (the slack) produces a proportional change in the rate of price increases. The slope $\kappa$ plays the part of a susceptibility. It is a fair way to think of the equation as a first-order expansion around the point where slack is zero.
+
+The trouble is that the susceptibility is not a property of the medium alone. The expectations term means that the coefficients depend on how people, and the central bank, have been behaving, so that a policy which exploits the measured slope changes it. In physics this would be a nonlinearity or a medium that the probe disturbs. Economists know this as the Lucas critique: a relation estimated in one policy regime is not a safe guide to what happens in another.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
+
+The decades tell different stories. The 1960s look like Phillips's curve: low unemployment and moderately rising inflation. The 1970s lie above and to the right, with high inflation and high unemployment together, because expectations had moved up and supply shocks had hit. From the 1990s on, inflation stayed low and stable over wide swings in unemployment, which can be read as flatter slope, as better anchored expectations, or both, and the two readings are hard to separate with a few decades of data. The surge in prices after 2021 raised the question again: how much of it came from tight labour markets, and how much from supply bottlenecks and energy that a labour-market curve would not capture.
+
+What would count against the framework is a long period in which inflation moves with neither slack, nor expectations, nor identified supply shocks. The strongest present objection is not that the relation is absent but that the estimates of $\kappa$ and $u^*$ are so imprecise that policy cannot rely on them.
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **The Phillips curve is not a menu.** Pushing unemployment below the NAIRU does not buy a lasting rate of inflation; it buys accelerating inflation until expectations adjust. The trade-off is a short-run one.
+- **The NAIRU is not a constant of nature.** It is an estimate, it moves with demographics, bargaining institutions and how well jobs match workers, and the confidence interval is wide enough that it is often unclear whether the labour market is above or below it.
+- **The unemployment rate is not the whole of slack.** People who have stopped looking, involuntary part-time work and idle capacity do not appear in it, and the output gap, which would include them, depends on an unobservable potential output that is revised after the fact.
+- **A flat curve does not mean inflation is unrelated to the economy.** It can mean that expectations are anchored by credible policy, in which case the curve would steepen if that credibility were lost. The slope is a result of policy as much as a feature of firms.
+- **Supply shocks are not on the curve.** Oil, shipping and food prices move inflation without any change in slack, and a model that reads them as demand will draw the wrong policy conclusion.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Mankiw, *Macroeconomics*, the chapter on the short-run trade-off between inflation and unemployment, for the expectations-augmented curve and the sacrifice ratio.
+- Romer, *Advanced Macroeconomics*, the chapter on nominal rigidity, for the microfoundations of the slope, from Calvo pricing to the New Keynesian Phillips curve.
+- Paper: Phillips, "The relation between unemployment and the rate of change of money wage rates in the United Kingdom, 1861-1957", *Economica* 25 (1958), for the original observation.
+- Paper: Friedman, "The role of monetary policy", *American Economic Review* 58 (1968), for the natural rate and the argument that the trade-off cannot be exploited permanently.
+- Paper: Staiger, Stock and Watson, "The NAIRU, unemployment and monetary policy", *Journal of Economic Perspectives* 11 (1997), for how imprecisely the NAIRU can be estimated.

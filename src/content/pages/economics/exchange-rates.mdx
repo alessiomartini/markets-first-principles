@@ -2,7 +2,7 @@
 title: "Exchange rates"
 track: 5
 order: 6
-status: stub
+status: written
 summary: "The one price where two countries' entire monetary conditions meet, and where the textbook parities fail most visibly."
 terms:
   - "spot FX"
@@ -18,35 +18,91 @@ figure:
   series: "FX spot and forward points, policy rate differentials"
   period: "1999-present, monthly"
   script: "pipeline/fetch_fx.py"
+  notice: "Borrowing in low-yield currencies and lending in high-yield ones has earned a positive return on average, which is the opposite of what uncovered interest parity predicts, but the return arrives in small steady amounts and is wiped out in sudden reversals, usually in the same weeks as a fall in global risk appetite. The covered basis, which should be zero by arbitrage, was close to zero before 2008 and has been persistently non-zero since, and it widens at quarter-ends and in funding stress."
+  falsifiedBy: "The carry reading fails if, over long samples, the high-yield currency depreciated by the amount of the interest differential, so that the average return was zero; it also fails if the losses were spread evenly rather than concentrated in a few episodes. The basis reading fails if the post-2008 gap disappeared once transaction costs and the cost of balance sheet are counted at the dealer's own prices."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+An exchange rate is the price of one country's money in terms of another's, and because both sides have interest rates, inflation and central banks, it is the place where the theories about all of them are tested at once.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+People who earn in one currency and spend or owe in another need to convert, and the conversion has a price that moves every second. An importer paying in dollars in three months, a pension fund holding foreign shares, a company with a subsidiary abroad: each has a position in a foreign currency, whether it chose one or not. The foreign exchange market is where those positions are traded and hedged, and it is by turnover the largest financial market there is.
+
+The price links economies. The [interest rate](/markets-first-principles/tracks/economics/interest-rates-and-central-banks/) a central bank sets, the [inflation](/markets-first-principles/tracks/economics/money-and-inflation/) its currency suffers and the output it produces all feed into what its money is worth to someone outside, and the exchange rate in turn changes the price of imports and the competitiveness of exports. Understanding it means holding all of these together, which is why it is also where most simple stories fail.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+The **spot FX** rate is the price for exchange of two currencies at the usual settlement date, normally two business days after the trade. It is quoted as the number of units of the *quote* currency per unit of the *base* currency, so that EUR/USD of 1.10 means one euro costs 1.10 dollars. Most trading is between banks and dealers over the counter, in a market that is open around the clock on weekdays, as set out in the earlier discussion of [exchange versus OTC](/markets-first-principles/tracks/the-map-of-the-territory/exchange-vs-otc/) markets.
+
+A **forward FX** contract fixes today the rate for an exchange at a later date. The forward rate is not a forecast. It is set by the interest rates in the two currencies, because anyone can borrow one currency, convert at spot, lend the other and sell the proceeds forward; the same no-arbitrage argument that fixes a [forward price](/markets-first-principles/tracks/contracts-and-instruments/forwards-and-futures/) for any asset fixes this one. The currency with the higher interest rate trades at a forward discount.
+
+Three relations are the textbook account of what ties exchange rates to the rest of the economy.
+
+**Covered interest parity** says that the forward premium on a currency equals the interest differential: borrowing in one currency and lending in the other with the exchange rate hedged forward earns nothing beyond what the domestic rate pays. It rests on arbitrage with no view about the future and, until 2008, held to within a few basis points for the major currencies.
+
+**Uncovered interest parity** says that the same holds without the hedge, in expectation: the currency with the higher interest rate is expected to depreciate by the size of the differential, so that on average nothing is gained by borrowing the cheap currency and lending the dear one. It is a statement about expectations and not about arbitrage, since the position carries exchange rate risk, and it is the version that fails.
+
+**Purchasing power parity** says that the same basket of goods should cost the same in two countries once converted at the exchange rate, so that the rate moves with relative price levels. The idea is that otherwise goods would be shipped from the cheap place to the dear one. It holds as a long-run tendency, with deviations lasting years, because many goods are not traded, transport and tariffs matter, and the baskets differ.
+
+A **carry trade** borrows in a low-interest currency and lends in a high-interest one and keeps the difference. If uncovered interest parity held, it would earn zero on average. It has instead earned a positive return over long periods, with occasional large losses.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+Let $S_t$ be the spot rate in units of domestic currency per unit of foreign, $F_{t,T}$ the forward rate for time $T$, and $i$ and $i^*$ the domestic and foreign interest rates over the horizon $\tau = T - t$. Covered interest parity is
+
+$$
+\frac{F_{t,T}}{S_t} = \frac{1 + i\,\tau}{1 + i^*\,\tau} ,
+$$
+
+or approximately $f - s \approx (i - i^*)\,\tau$ in logarithms. The **basis** is the deviation from this,
+
+$$
+b_t = (i - i^*)\,\tau - (f_{t,T} - s_t) ,
+$$
+
+and it should be zero by arbitrage. Uncovered interest parity replaces the forward rate by the expected future spot rate,
+
+$$
+\mathbb{E}_t[s_{t+\tau}] - s_t = (i - i^*)\,\tau .
+$$
+
+The return to the carry trade over a period is the interest differential minus the depreciation of the high-yielding currency, $(i^* - i)\tau - (s_{t+\tau} - s_t)$ when it borrows domestic and lends foreign, and its expectation under uncovered parity is zero. Empirically, regressing the change in the spot rate on the forward premium (the Fama regression) gives a coefficient that is typically below one and often negative, where the theory predicts one: high-yield currencies have not depreciated as much as parity implies, and sometimes have appreciated. Relative purchasing power parity is
+
+$$
+s_t - s_{t-1} \approx \pi_t - \pi_t^* ,
+$$
+
+the rate of depreciation equal to the inflation differential.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A conservation law that holds exactly, and one that holds only on average">
+Covered interest parity is like a constraint that cannot be broken without a free source of energy: the arbitrageur enforces it, and violations are small and short-lived unless something obstructs the flow. Uncovered parity is an equilibrium condition on averages, with no mechanism that enforces it on any given day. The difference between the two is the difference between a conservation law and a relaxation toward a mean.
+
+The analogy fails because the post-2008 covered basis shows that even the "law" depends on a medium. When balance sheet is costly, as bank regulation made it, the arbitrage that closes the gap is no longer free, and the constraint softens. It is a law of the market structure and not of nature.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
+
+The carry return is the standard example of a premium that is paid for bearing a particular kind of risk. Lending in high-yield currencies earns more on average than uncovered parity allows, and the extra return is small and regular until sudden stops, when funding currencies appreciate sharply and the positions are closed together. Brunnermeier, Nagel and Pedersen (2009) link the crash risk to funding liquidity. Whether the average return is compensation for that crash risk, or a persistent error in expectations, is not settled.
+
+The covered basis is a separate matter. After 2008 it opened up for several major pairs, notably against the dollar, and has persisted, pointing to the cost of balance sheet and to a structural demand for dollars. Du, Tepper and Verdelhan (2018) document it.
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **The forward rate is not a forecast of the spot rate.** It is the spot rate adjusted for the interest differential and nothing else. Empirically it has been a poor predictor of future spot rates, and the currency at a forward discount has not on average fallen by that amount.
+- **Covered and uncovered parity are different claims.** The first rests on arbitrage and can only be violated if arbitrage is costly; the second is about expectations and is violated routinely.
+- **Purchasing power parity is not a short-run price.** Deviations from it last for years, and a currency being "cheap" by this measure is no guide to the next month.
+- **A high interest rate does not make a currency strong.** It is common for the currency of a country with high rates to be weak, because high rates often reflect high inflation or risk; the carry trade profits when the relation goes the other way.
+- **Quote conventions invite sign errors.** "The dollar fell against the euro" means EUR/USD rose; check which currency is the base before reading the sign of any formula.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Krugman, Obstfeld and Melitz, *International Economics: Theory and Policy*, the chapters on exchange rates and interest rates and on price levels and the exchange rate in the long run, for parity conditions.
+- Rogoff, "The purchasing power parity puzzle", *Journal of Economic Literature* 34 (1996), for why deviations from parity are large and slow to close.
+- Paper: Fama, "Forward and spot exchange rates", *Journal of Monetary Economics* 14 (1984), for the finding that forward premia predict the wrong direction of exchange rate changes.
+- Paper: Du, Tepper and Verdelhan, "Deviations from covered interest rate parity", *Journal of Finance* 73 (2018), for the post-2008 basis.
+- Paper: Brunnermeier, Nagel and Pedersen, "Carry trades and currency crashes", *NBER Macroeconomics Annual* 23 (2008), for the crash risk of carry.

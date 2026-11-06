@@ -2,7 +2,7 @@
 title: "From research to P&L"
 track: 7
 order: 4
-status: stub
+status: written
 summary: "The distance between a signal that predicts and a book that makes money, measured in risk model and neutralisation."
 terms:
   - "P&L attribution"
@@ -16,35 +16,92 @@ figure:
   series: "one signal, before and after neutralisation"
   period: "2010-present, daily"
   script: "pipeline/fetch_neutralisation.py"
+  notice: "The raw long-short return of the signal moves with the market and with a few style factors, so it is more volatile and has deeper drawdowns than the neutralised version, which removes those exposures and keeps the part that belongs to the signal itself. The neutralised curve earns less in the periods in which the hidden exposure happened to pay, and loses less when it did not. What is left after neutralisation is the evidence about the signal, and the difference between the two curves is the part of the apparent result that was a bet on something else."
+  falsifiedBy: "The reading fails if the raw and the neutralised curves are indistinguishable, because then the signal carried no hidden exposure to the factors that were removed. It also fails if the neutralised version has the same volatility as the raw one, which would suggest that the risk model used to remove the exposures does not describe the risks that the portfolio actually runs."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Turning a signal into money means building a portfolio in which only the intended bet is left, measuring what it earns and from where, and limiting the damage when it goes wrong.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+A signal that predicts returns is not yet a strategy. If it is applied naively, buying the stocks it likes and selling those it dislikes, the portfolio ends up holding many other bets too: the stocks the signal favours may be mostly in one industry, mostly small, mostly high-beta, or all exposed to the same interest-rate move. Part of the return will come from those bets, not from the signal, and in the wrong market they can overwhelm it. The researcher then has a profit that cannot be explained, a risk that was not chosen, and no way of telling whether the idea or the exposure was responsible.
+
+The remedy is a sequence of steps: model the sources of risk, remove the ones that are not wanted, explain the result, and bound the loss. These steps are what separates the research described on the earlier pages, [signals and alpha](/markets-first-principles/tracks/how-quant-research-is-done/signals-and-alpha/), [backtesting](/markets-first-principles/tracks/how-quant-research-is-done/backtesting-and-its-pathologies/) and [costs](/markets-first-principles/tracks/how-quant-research-is-done/costs/), from a book that makes money in a way its owner understands.
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+A **risk model** describes how the returns of the assets move together, in a form simple enough to estimate. Instead of a full covariance matrix, which has far too many entries to estimate reliably for thousands of securities, the usual choice is a factor model: each asset's return is a combination of its exposures to a small number of common factors (the market, industries, and styles such as size, value, momentum and volatility) plus a part specific to the asset. The model gives a prediction of the risk of any portfolio and divides it into the part due to factors and the part due to specific risk. Commercial providers such as MSCI Barra and Axioma sell such models, and many firms build their own. A risk model is an estimate and a simplification, and it is wrong in exactly the periods when correlations change.
+
+**Neutralisation** is the removal of exposure to chosen factors from the portfolio. A market-neutral portfolio has no net exposure to the market, an industry-neutral one has none to any industry, and a fully neutral one has none to the factors in the model. It is done either by adjusting the signal before building the portfolio, subtracting the part of it that is explained by the factors, or by imposing the zero-exposure conditions as constraints when the weights are chosen. What is left is meant to be the signal's own contribution. The cost is some loss of gross return and some extra trading, in exchange for a risk that is easier to understand and to size.
+
+**P&L attribution** is the decomposition of the profit and loss of a period into its sources. A typical breakdown separates the contribution of each factor, which is the exposure at the start of the period times the factor's return, the contribution of the specific returns, which is the residual and is the closest thing to the alpha of the strategy, and the costs. It answers the question that a total number cannot: whether the money was made by the idea, by an exposure the manager did not mean to take, or by luck. It is also the check on neutralisation, since a "neutral" book that earns most of its profit from a factor is not neutral.
+
+**Drawdown control** is the set of rules that limit how much the portfolio can lose from its peak. They include risk limits on size and concentration, reductions in position size when the strategy's volatility rises, as in volatility targeting, and cuts in exposure when a loss threshold is reached. Their purpose is partly to protect capital and partly to keep the investors, who tend to redeem after large losses, from forcing a sale at the worst moment. They are a choice and not a free good: cutting after a loss locks in the loss and misses the recovery if the strategy is one that mean-reverts, so the rules need to be tested like any other part of the strategy and included in the backtest.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+In a factor model the return vector of $n$ assets is
+
+$$
+\mathbf r = B\,\mathbf f + \boldsymbol\varepsilon, \qquad \Sigma = B\,F\,B^{\top} + D ,
+$$
+
+with $B$ the $n\times k$ matrix of exposures, $\mathbf f$ the factor returns with covariance $F$, and $D$ the diagonal covariance of the specific returns. A portfolio with weights $\mathbf w$ has risk $\mathbf w^{\top}\Sigma\,\mathbf w$, and its factor exposure is $B^{\top}\mathbf w$.
+
+Neutralisation sets that exposure to zero. For a raw signal $\mathbf s$ one way is to project out the factors,
+
+$$
+\mathbf s_{\perp} = \mathbf s - B\,(B^{\top}B)^{-1}B^{\top}\mathbf s ,
+$$
+
+after which $B^{\top}\mathbf s_{\perp} = 0$, so that any weights proportional to $\mathbf s_{\perp}$ have no exposure to the factors.
+
+The attribution of the profit over a period is then
+
+$$
+\text{P\&L} = \underbrace{\left(B^{\top}\mathbf w\right)^{\top}\mathbf f}_{\text{factors}} + \underbrace{\mathbf w^{\top}\boldsymbol\varepsilon}_{\text{specific}} - \text{costs},
+$$
+
+where $\mathbf w$ is the weight at the start of the period. The first term is zero by construction for a neutral portfolio, so that its profit is in the second.
+
+For drawdowns, a Brownian motion with drift $\mu>0$ and volatility $\sigma$ has a maximum drawdown that grows only logarithmically with the length of time $T$, roughly as
+
+$$
+\mathbb E\!\left[\mathrm{MDD}\right] \sim \frac{\sigma^{2}}{2\mu}\,\ln T ,
+$$
+
+as shown by Magdon-Ismail, Atiya, Pratap and Abu-Mostafa (2004). The drawdown scales with the ratio of variance to drift, so doubling the volatility at fixed Sharpe ratio doubles the depth of the typical worst loss, and a strategy with a low Sharpe ratio should expect long and deep drawdowns even when its edge is real. Real returns have autocorrelation and fat tails, and make the worst case worse than this.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="Subtracting a collective mode, and looking at fluctuations about a mean field">
+Neutralisation is the removal of collective modes. The returns of many assets move together along a few directions, the market and the main industry and style factors, which account for most of the variance, as the principal-component structure on the [correlations](/markets-first-principles/tracks/statistical-anatomy-of-prices/correlations/) page shows. Projecting them out is like subtracting the centre-of-mass motion of a system, or the mean field, to look at the fluctuations about it. What remains is smaller and closer to independent from one asset to the next, which also means that more independent bets are available, as in the formula for the information ratio.
+
+The difference from a physical system is that the modes are estimated and unstable. The factors that matter in a crisis are not necessarily those that mattered in the sample, and correlations that were small become large, so the removal is never perfect. The attribution is the experimental check: it measures how much of the result was in the modes after all.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
+
+The figure shows the same signal in two forms, the raw long-short portfolio and the version with exposures to the market and the common factors removed. The raw version carries the movements of those factors in its return, and the neutralised one does not. The comparison is the point: a lot of what looks like the signal's performance is the return on the market and the styles.
+
+An instructive case is momentum. The strategy that buys recent winners and sells recent losers has earned a premium over long periods, but Daniel and Moskowitz (2016) showed that it suffers severe crashes after market declines, when the losers it is short rebound sharply, and the hidden exposure of the strategy to the market changes sign at precisely that time. A static neutralisation based on average exposures would not have prevented it. What would count against the account is a signal whose raw and neutralised performance are the same, which would suggest there was nothing hidden to remove, and a neutralised book that continues to lose heavily when the factors move together, which would show that the risk model missed what mattered.
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **Neutral to the model is not neutral to the world.** A portfolio is neutral to the factors in the risk model, estimated on past data. Exposures to factors outside the model, or to ones whose loadings have shifted, remain.
+- **Dollar neutral is not market neutral.** Equal long and short amounts do not give zero beta if the long and short stocks have different betas.
+- **Alpha in an attribution is a residual.** It is whatever the factors in the model fail to explain, including luck, a missing factor and a real edge, and cannot be told apart in one period.
+- **A drawdown rule is part of the strategy.** Testing a signal without the stop that will be used in practice tests something that will not be run.
+- **Lower volatility is not lower risk of ruin.** Neutralising reduces the variance of the book and also lets it be run at higher leverage, which brings back the margin and funding risks of the earlier track.
+- **A long drawdown is not proof that the edge is gone.** For a strategy with a modest Sharpe ratio, drawdowns lasting years are expected, and distinguishing them from a real failure is a statistical problem of the same kind as in backtesting.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Grinold and Kahn, *Active Portfolio Management* (2nd ed., 2000), the chapters on risk models, on portfolio construction and on performance attribution, for factor risk models and the separation of factor and specific return.
+- Lopez de Prado, *Advances in Financial Machine Learning* (2018), for the later steps that connect a signal to a sized, tested portfolio.
+- Paper: Daniel and Moskowitz, "Momentum crashes", *Journal of Financial Economics* 122 (2016).
+- Paper: Magdon-Ismail, Atiya, Pratap and Abu-Mostafa, "On the maximum drawdown of a Brownian motion", *Journal of Applied Probability* 41 (2004).
+- Paper: Grossman and Zhou, "Optimal investment strategies for controlling drawdowns", *Mathematical Finance* 3 (1993).

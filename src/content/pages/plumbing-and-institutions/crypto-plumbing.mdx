@@ -2,7 +2,7 @@
 title: "Crypto plumbing"
 track: 6
 order: 6
-status: stub
+status: written
 summary: "The same functions — matching, clearing, custody, funding — rebuilt from scratch with different trust assumptions and mostly worse guarantees."
 terms:
   - "on-chain settlement"
@@ -19,35 +19,93 @@ figure:
   series: "BTCUSDT funding rate, mark and index price"
   period: "trailing 2 years, 8-hourly"
   script: "pipeline/fetch_perp_funding.py"
+  notice: "The funding rate of the bitcoin perpetual sits near a small positive baseline for long stretches, rises in strong rallies, when the perpetual trades at a premium to the spot index because more traders want to be long, and turns negative in sharp sell-offs. Its sign follows the premium of the perpetual over the index, which is the way the mechanism is designed to work. The series shows one contract on one exchange, so it says nothing about how stable the arrangement is across venues or in an extreme move."
+  falsifiedBy: "The account fails if the perpetual price stayed far from the index for long periods with no response in the funding rate, or if the funding rate's sign was unrelated to the premium. The claim that funding pulls the price back towards the index fails if the premium was no smaller in the periods after high funding than in those after low funding."
 ---
 ## IN ONE SENTENCE
 
-{/* The concept, no jargon, no maths. One sentence. */}
+Crypto markets have rebuilt the same functions as traditional ones, matching, clearing, custody and funding, with the settlement done by code on a shared ledger or by a single company, and with a different set of things that can go wrong.
 
 ## WHY IT EXISTS
 
-{/* The economic problem the concept solves. What went wrong before it existed? */}
+The earlier pages of this track described how a traditional market gets from an agreed trade to ownership: a [clearing house](/markets-first-principles/tracks/plumbing-and-institutions/clearing-and-settlement/) takes on the counterparty risk, a depository records who owns what, [margin](/markets-first-principles/tracks/plumbing-and-institutions/margin-and-leverage/) limits the leverage, and [funding](/markets-first-principles/tracks/plumbing-and-institutions/funding/) markets provide the cash. Each of these is an institution that must be trusted and regulated, and each adds delay and cost.
+
+The bitcoin design, published in 2008 and running from 2009, proposed a different answer to the same problem: a ledger kept by many parties, in which a transfer is valid because the rules of the network say so and not because an institution confirms it. Later systems extended the idea to programs stored on the ledger, which can hold assets and carry out trades under fixed rules. The consequence is that some of the functions of the old plumbing are performed by code, some are performed by new companies that combine several roles under one roof, and some are missing. Which of the three applies explains most of what has gone right and wrong in the sector. For the asset itself and how it compares with equity, see [equity vs crypto](/markets-first-principles/tracks/the-map-of-the-territory/equity-vs-crypto/).
 
 ## DEFINITION
 
-{/* The practitioner's definition. Bold every term that belongs in the glossary — bold IS the glossary link. */}
+**On-chain settlement** means that the transfer of the asset is recorded directly on the shared ledger, and the transfer is the settlement: there is no later stage in which the legal ownership is updated. A transaction is broadcast, included in a block, and becomes harder to reverse as more blocks follow it. Finality is therefore a matter of probability and time: on Bitcoin, about ten minutes per block and a convention of waiting for several; on Ethereum, since it moved to proof of stake in 2022, a transaction is considered final after roughly thirteen minutes. Within a single transaction a program can exchange two assets together, so that either both legs happen or neither does, which gives the delivery-versus-payment property of the earlier page without an intermediary. The costs are paid as fees to those who process transactions, and the order of transactions inside a block can be chosen by the block builder, which creates room for others to trade ahead of a pending order.
+
+The trading venues are of two kinds. A centralised exchange, the **CEX** of the glossary, is a company with an order book, a matching engine and a ledger of its own. A trade between two of its customers moves a number in its database and does not touch the blockchain, and the customer's assets are held by the exchange. It is exchange, broker, clearer and custodian in one, which is the combination that traditional rules separate. The collapse of Mt. Gox in 2014, in which a large quantity of customers' bitcoin disappeared, and that of FTX in November 2022, where customer deposits had been lent to an affiliated trading firm, are failures of exactly this concentration.
+
+A decentralised exchange, or **DEX**, runs on the ledger and is operated by a program. Most use an **automated market maker** (AMM) instead of an order book. Depositors, called liquidity providers, put a pair of assets into a pool, and the program quotes a price from the pool's contents. The simplest rule, introduced by Uniswap in 2018, is the **constant product formula**: the product of the two quantities in the pool stays constant, so that buying one asset raises its price and the price moves along a curve. A trader who buys a lot relative to the size of the pool pays a worse price, which is the slippage. Arbitrageurs bring the pool's price into line with the price elsewhere, and their profit comes from the liquidity providers. This loss, relative to simply holding the two assets, is called **impermanent loss**. It is "impermanent" in the sense that it vanishes if the price returns to its starting value, and in practice it is realised when the provider withdraws. Fees paid by traders are the compensation.
+
+A **perpetual future** is a derivative that, unlike the futures contracts on the [forwards and futures](/markets-first-principles/tracks/contracts-and-instruments/forwards-and-futures/) page, has no expiry. It was proposed by Robert Shiller in 1993 and first made popular in crypto by BitMEX from 2016. Without expiry the price is not tied to the spot price by delivery, so a payment called the **funding rate** is made between longs and shorts at regular intervals, commonly every eight hours. When the perpetual trades above the index price, the rate is positive and longs pay shorts, which makes holding the long less attractive and invites arbitrageurs to short it and buy the spot; when it trades below, shorts pay longs. The exchange acts as counterparty and clearer: it takes margin, marks positions to market, liquidates accounts that fall below the maintenance level and keeps an insurance fund to cover losses beyond the margin. If that fund is exhausted, the exchange may reduce the positions of profitable traders. A large share of the trading volume in the main coins on centralised exchanges is in perpetuals and not in spot.
+
+A **stablecoin** is a token designed to hold a fixed value, usually one US dollar. Most are backed by reserves held by the issuer, in cash, bank deposits and Treasury bills, and the holder's claim is the right to redeem. Others are backed by crypto-assets in excess of their value, or by an algorithm that adjusts supply. They serve as the cash of the crypto world: collateral, a unit of account for trading pairs, and a way to move dollars between venues. They are also the part most like a money market fund, with the same weakness. The algorithmic TerraUSD collapsed in May 2022, and in March 2023 the fiat-backed stablecoin USDC briefly traded well below one dollar when part of its reserves was held at Silicon Valley Bank. In the EU, the MiCA regulation, whose stablecoin rules apply from June 2024, sets requirements for reserves and redemption.
 
 ## FORMALLY
 
-{/* Maths, KaTeX. Short. The reader does not need it padded. */}
+For a constant product pool with quantities $x$ of asset X and $y$ of asset Y,
+
+$$
+x\,y = k, \qquad p = \frac{y}{x} ,
+$$
+
+with $p$ the price of X in units of Y. A trader who adds $\Delta x$ of X receives
+
+$$
+\Delta y = y - \frac{k}{x + \Delta x} = \frac{y\,\Delta x}{x + \Delta x} ,
+$$
+
+so the average price is $\Delta y/\Delta x = y/(x+\Delta x)$, below the initial price $p$ by the fraction $\Delta x/(x+\Delta x)$, which for small trades is $\Delta x/x$. The size of the pool relative to the trade is therefore the depth of the market.
+
+If the external price of X changes by a factor $r$, arbitrage rebalances the pool to the new price, and the value of the liquidity provider's share relative to holding the original quantities is
+
+$$
+\frac{V_{\text{pool}}}{V_{\text{hold}}} = \frac{2\sqrt{r}}{1+r} ,
+$$
+
+so the impermanent loss is $\frac{2\sqrt r}{1+r} - 1$, which equals about $-5.7$ per cent for $r=2$ and $-20$ per cent for $r=4$, before fees. In continuous time, Milionis, Moallemi, Roughgarden and Zhang (2022) show that for this pool the provider loses to arbitrageurs at a rate of $\sigma^2 V/8$ per unit of time, with $\sigma$ the volatility of the price and $V$ the value of the pool, which sets how much fee income is needed to break even.
+
+For the perpetual, a funding rate $F$ per interval on a position of notional $N$ is paid by longs and received by shorts when $F > 0$. A rate of 0.01 per cent per eight hours, a common baseline, amounts to
+
+$$
+3 \times 365 \times 0.0001 \approx 11 \text{ per cent per year} ,
+$$
+
+and a trader who is long the spot and short the perpetual receives it as carry, apart from costs and the margin that must be posted.
 
 ## PHYSICS BRIDGE
 
-{/* Use the <PhysicsBridge> component. Name the physics idea; never let it replace the practitioner definition. */}
+<PhysicsBridge idea="A conserved quantity as a constraint surface, and a feedback controller that holds a variable to a set point">
+The constant product rule is a conservation law. The pool is only allowed to move along the curve $xy = k$, as a particle constrained to a surface, and a trade is a displacement along it. Arbitrage is the dissipative element: it relaxes the pool towards the price set outside, and the energy it extracts is paid by the liquidity provider. The loss rate $\sigma^2 V/8$ is the familiar form of a cost that grows with the square of the volatility.
+
+The funding rate is a feedback controller. The deviation of the contract price from the index is the error, the funding payment is the corrective signal, proportional to the error, and arbitrageurs are the actuators. It is the same structure as a thermostat. Controllers fail when the actuators saturate, here when the arbitrageurs cannot raise margin or the exchange itself is in trouble, and the picture says nothing about those failure modes: the participants are institutions with limited balance sheets, not an idealised plant.
+</PhysicsBridge>
 
 ## IN THE DATA
 
-{/* Use the <Figure> component with the frontmatter figure id. Then two sentences: what to notice, and what would falsify the story. */}
+<Figure figure={frontmatter.figure} />
+
+The funding rate of the bitcoin perpetual is a direct reading of positioning. It stays near its baseline for long periods, rises when the market is rallying and traders want leverage on the long side, and goes negative in sharp sell-offs. Its sign follows the premium of the contract over the index, so the mechanism does what it is meant to do in ordinary conditions. This is a statement about one contract on one exchange. The data say little about extreme moves, when many accounts are liquidated together, the price on the exchange can diverge from the index, and the insurance fund or the reduction of winning positions comes into play.
+
+What would count against the account is a perpetual that traded persistently away from the index with no response in funding, or a premium that did not shrink after periods of high funding. A caution on reading the series is that the exchange computes the rate by its own formula, and the formulas, intervals and caps differ between venues.
 
 ## COMMON CONFUSIONS
 
-{/* 2-4 bullets. Things a smart reader will otherwise get wrong. */}
+- **On-chain does not mean final at once.** A transaction becomes harder to reverse as more blocks accumulate, and on some systems the order of transactions is chosen by a few parties who can profit from it.
+- **A decentralised exchange is not riskless.** It removes the custodian and adds the risk of errors in the code, the loss to arbitrageurs, and the visibility of pending orders. It is also a different kind of market maker, which quotes from a formula and not from a view.
+- **Impermanent loss is not a fee or a bug.** It is the cost of offering a fixed rule for quoting, and whether it is repaid depends on whether the fees exceed $\sigma^2 V/8$.
+- **A perpetual is not a futures contract with a long expiry.** It has no delivery, so the link to spot is maintained by payments and by the willingness of arbitrageurs to hold the position.
+- **Funding is not a fee paid to the exchange.** It is paid between traders; the exchange earns its trading fees separately.
+- **A stablecoin is not a bank deposit.** Its value depends on the reserves and the redemption terms, there is typically no deposit insurance, and a doubt about the reserves produces a run in the same way as for a money market fund.
+- **Self-custody does not remove risk.** It replaces counterparty risk with operational risk: a lost key cannot be recovered, and there is no one to appeal to.
 
 ## GO DEEPER
 
-{/* 2-3 references with page/chapter numbers, plus one paper. */}
+- Narayanan, Bonneau, Felten, Miller and Goldfeder, *Bitcoin and Cryptocurrency Technologies* (2016), the chapters on how the ledger works and on exchanges and wallets, for the mechanism behind on-chain settlement.
+- Harris, *Trading and Exchanges*, the chapters on exchange structure and clearing, for the traditional functions against which the crypto versions can be compared.
+- Paper: Angeris, Kao, Chiang, Noyes and Chitra, "An analysis of Uniswap markets", *Cryptoeconomic Systems* (2021).
+- Paper: Milionis, Moallemi, Roughgarden and Zhang, "Automated market making and loss-versus-rebalancing" (2022), for the continuous-time loss of liquidity providers.
+- Paper: Shiller, "Measuring asset values for cash settlement in derivative markets: hedonic repeated measures indices and perpetual futures", *Journal of Finance* 48 (1993).
