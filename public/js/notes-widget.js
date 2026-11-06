@@ -1,9 +1,9 @@
 /**
- * site-notes widget v2 — the one feedback/notes box used by every site of Alessio.
+ * site-notes widget v2 - the one feedback/notes box used by every site of Alessio.
  * Vanilla JS, no dependencies, injects its own HTML + CSS. See README.md in this folder.
  *
  * Fixed button bottom right -> panel with a textarea + "Invia" and, below, the notes written
- * from this browser (localStorage). Each note shows only its state: "2713 inviata" or
+ * from this browser (localStorage). Each note shows only its state: "inviata" (check mark) or
  * "non ancora inviata" (resent at page load, when the network is back, and when the panel opens).
  * No delete button, no "done" checkbox. Write-only: nothing is ever read back from the server.
  *
@@ -51,7 +51,7 @@
 
   // Old per-site storage (queues, lists, local-only copies) -> the single list. Each item is copied
   // once, then the old key is removed, so nothing is lost and nothing is duplicated.
-  // Items flagged as already sent (sent:true, pending:false) stay "2713 inviata"; the others are resent.
+  // Items flagged as already sent (sent:true, pending:false) stay "inviata" (check mark); the others are resent.
   function migrate() {
     var keys = ['site-notes.pending.' + SITE].concat((cfg.legacy || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean));
     var list = read(), changed = false;
