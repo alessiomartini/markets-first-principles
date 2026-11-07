@@ -14,8 +14,8 @@ figure:
   id: "gross-vs-net"
   title: "Equity curve as turnover rises"
   source: "Simulation (illustrative model; see pipeline/fetch_costs.py). Real data it would ideally use: Stooq; impact model calibrated in Track 2"
-  series: "one signal at several holding periods"
-  period: "2010-present, daily"
+  series: "one simulated signal at several holding periods"
+  period: "simulated, no calendar dates"
   script: "pipeline/fetch_costs.py"
   notice: "Before costs, the version of the signal that trades fastest earns the most. After costs, the ordering reverses: the fast version loses its return to spreads and market impact, and the slower versions, which give up some gross return, keep more of it. The gap between the gross and the net curve widens as the holding period shortens, and it widens faster than the gross return rises, which is why the best strategy on paper is rarely the best to run."
   falsifiedBy: "The reading fails if the net curves keep the same ordering as the gross ones, so that faster trading remains better after costs, or if the gap between gross and net does not grow with turnover. It also fails if the cost model is so far from realised costs that the net ordering would change with a more accurate one, which is the main uncertainty in any such figure."
@@ -68,7 +68,7 @@ The optimum of Almgren and Chriss is of this kind: the cost of impact falls with
 
 <Figure figure={frontmatter.figure} />
 
-The figure applies the same signal at several holding periods, and shows each equity curve before and after costs. Before costs, the shortest holding period gives the highest return, because the signal is strongest at the short horizon. After costs, the order is reversed: the fast version pays more in spreads and impact than it earns, and the slower versions, which give up part of the gross return in exchange for far less trading, come out ahead.
+The figure applies a simulated signal, with illustrative costs, at several holding periods, and shows each equity curve before and after costs. Before costs, the shortest holding period gives the highest return, because the signal is strongest at the short horizon. After costs, the order is reversed: the fast version pays more in spreads and impact than it earns, and the slower versions, which give up part of the gross return in exchange for far less trading, come out ahead.
 
 This pattern recurs across research. Novy-Marx and Velikov (2016) examined a large set of published anomalies and found that those with high turnover are mostly not profitable after costs, while those with low turnover are, and that only some strategies survive. What would count against the account is a cost estimate so different from what a trading desk pays that the ordering changed once costs were measured properly. This is the main uncertainty in any such figure, since costs depend on size, on the execution method and on market conditions, and are best estimated from a firm's own trade records.
 

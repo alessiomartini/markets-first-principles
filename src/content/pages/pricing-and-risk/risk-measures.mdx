@@ -13,12 +13,12 @@ terms:
   - "margin call"
 figure:
   id: "var-exceedances"
-  title: "VaR exceedances through 2008 and March 2020"
+  title: "VaR exceedances through two simulated stress windows"
   source: "Simulation (illustrative model; see pipeline/fetch_var.py). Real data it would ideally use: Stooq"
-  series: "one equity index, daily returns"
-  period: "2000-present"
+  series: "simulated daily returns"
+  period: "simulated 25 years"
   script: "pipeline/fetch_var.py"
-  notice: "The days on which the loss exceeds the one-day 99% value at risk do not arrive evenly, about two or three a year, as an independent model would imply. They bunch into a few stretches, 2008 and March 2020 among them, in which several breaches fall within days of each other and the size of the breaches is far larger than the threshold."
+  notice: "The days on which the loss exceeds the one-day 99% value at risk do not arrive evenly, about two or three a year, as an independent model would imply. They bunch into a few stretches, here two simulated stress windows, in which several breaches fall within days of each other and the size of the breaches is far larger than the threshold."
   falsifiedBy: "The reading fails if the breaches are spread roughly evenly through time with no clustering, or if the counts in 2008 and March 2020 are in line with the nominal rate; either would mean the model tracks changes in volatility well enough that the number is not misleading."
 ---
 ## IN ONE SENTENCE

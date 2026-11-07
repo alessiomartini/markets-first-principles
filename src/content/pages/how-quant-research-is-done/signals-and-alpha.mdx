@@ -15,8 +15,8 @@ figure:
   id: "ic-decay"
   title: "Information coefficient decay for short-term reversal"
   source: "Simulation (illustrative model; see pipeline/fetch_ic_decay.py). Real data it would ideally use: Stooq"
-  series: "cross-sectional returns of index constituents"
-  period: "2010-present, daily"
+  series: "simulated cross-sectional stock returns"
+  period: "simulated, no calendar dates"
   script: "pipeline/fetch_ic_decay.py"
   notice: "The rank correlation between a short-term reversal signal and the returns that follow is small, a few hundredths at most, and it is largest at the shortest horizon and falls towards zero within days. The small size is typical of signals that are real and usable, since a faint but persistent relation applied across many stocks and many days can still produce a worthwhile return. The decay with horizon is the property that decides how often the portfolio must trade, and so what it costs."
   falsifiedBy: "The reading fails if the information coefficient is indistinguishable from zero at all horizons once its sampling error is taken into account, or if it does not decline with the horizon but stays flat, because then the signal would not be a short-lived forecast. The claim that such signals fade as they become known fails if the coefficient in recent years is as large as in the early part of the sample."
@@ -91,7 +91,7 @@ The decay of the IC with horizon is a correlation function relaxing with lag, an
 
 <Figure figure={frontmatter.figure} />
 
-The figure shows the information coefficient of a short-term reversal signal, which ranks stocks by their recent return and expects the recent losers to outperform the recent winners, at horizons from one day onward. Two things should be noticed. The coefficient is small, at the scale of hundredths, and it is largest at the shortest horizon and fades within days. A signal like this must trade almost every day to collect its return, and the cost of doing so is the main obstacle to using it, which is the theme of the next pages.
+The figure shows the information coefficient of a short-term reversal signal in a simulation, which ranks stocks by their recent return and expects the recent losers to outperform the recent winners, at horizons from one day onward. Two things should be noticed. The coefficient is small, at the scale of hundredths, and it is largest at the shortest horizon and fades within days. A signal like this must trade almost every day to collect its return, and the cost of doing so is the main obstacle to using it, which is the theme of the next pages.
 
 The two features of this signal that stand out in the evidence are small size and short life. What would count against the picture is a coefficient that did not differ from zero once its sampling error is considered, or that stayed the same at all horizons. Studies of reversal at short horizons go back to Jegadeesh (1990) and Lehmann (1990), and the same signal has weakened in recent decades as more capital has been devoted to it, which is an instance of the calendar-time decay above.
 

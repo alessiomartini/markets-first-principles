@@ -11,10 +11,10 @@ terms:
   - "risk of ruin"
 figure:
   id: "kelly-curve"
-  title: "Growth rate against betting fraction on a real series"
+  title: "Growth rate against betting fraction on a simulated series"
   source: "Simulation (illustrative model; see pipeline/fetch_kelly.py). Real data it would ideally use: Stooq"
-  series: "one equity index, daily returns"
-  period: "1990-present"
+  series: "simulated daily returns"
+  period: "simulated, no calendar dates"
   script: "pipeline/fetch_kelly.py"
   notice: "The long-run growth rate of a position in the index, plotted against the fraction of capital held in it, rises from zero, reaches a single maximum and then falls, crossing zero at roughly twice the maximising fraction. The curve is flat near its peak, so holding half of the maximising fraction gives up only a quarter of the growth, and the maximising fraction itself differs a great deal between sub-periods."
   falsifiedBy: "The reading fails if the curve has no interior maximum, if growth keeps rising as the fraction increases without a fall, or if the maximising fraction is about the same in every sub-period; any of these would mean the optimal size can be read off history reliably and the case for betting a fraction of it weakens."

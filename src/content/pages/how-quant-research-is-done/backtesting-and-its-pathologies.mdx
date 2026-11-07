@@ -14,8 +14,8 @@ figure:
   id: "in-vs-out-of-sample"
   title: "The same strategy in sample and out of sample"
   source: "Simulation (illustrative model; see pipeline/fetch_backtest.py). Real data it would ideally use: Stooq"
-  series: "one signal, split sample"
-  period: "2005-present, daily"
+  series: "simulated zero-skill rules, split sample"
+  period: "simulated, no calendar dates"
   script: "pipeline/fetch_backtest.py"
   notice: "The same rule, tuned on the first part of the sample, looks much better there than in the later part that was held back, and the equity curve visibly flattens at the boundary. The drop is what one expects when the rule was chosen as the best of many variants on the first part: its apparent skill there includes luck that does not carry over. The size of the drop, not the existence of a profit in the first period, is the evidence about how much of the result was selection."
   falsifiedBy: "The reading fails if the out-of-sample Sharpe ratio is equal to the in-sample one within its sampling error, because then selection has not inflated the result. It also fails if the held-back period was used more than once to adjust the rule, since the split is then no longer out of sample and the comparison proves nothing either way."
@@ -72,7 +72,7 @@ A backtest has exactly this structure, with the added difficulty that the number
 
 <Figure figure={frontmatter.figure} />
 
-The figure shows one rule applied to a single history, divided at a date. The rule's parameters were chosen on the first part, where it looks good, and then it was run, unchanged, on the second. The performance in the second part is lower, and that gap is the amount by which selection flattered the first. This is the ordinary outcome, and it is what the numbers above would lead one to expect.
+The figure shows one simulated rule, the best of many with no true edge, applied to a single history, divided at a date. The rule's parameters were chosen on the first part, where it looks good, and then it was run, unchanged, on the second. The performance in the second part is lower, and that gap is the amount by which selection flattered the first. This is the ordinary outcome, and it is what the numbers above would lead one to expect.
 
 The test is informative only if the second part was kept out of the search. A researcher who sees the out-of-sample result, adjusts the rule, and tests again has turned the held-out data into more training data. Practical protocols follow from that: reserve a final period that is touched once; use walk-forward testing, in which the rule is repeatedly fitted on a past window and tested on the next one; and, when labels overlap in time, as with returns measured over several days, remove observations from the training set near the test boundary (purging and an embargo, in the vocabulary of Lopez de Prado) so that information does not cross it. What would count against the account is a set of rules for which the out-of-sample performance was as good as the in-sample, or better, across many independent tries.
 

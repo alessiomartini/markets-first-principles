@@ -13,8 +13,8 @@ figure:
   id: "neutralised-vs-raw"
   title: "Factor-neutral against raw returns of one signal"
   source: "Simulation (illustrative model; see pipeline/fetch_neutralisation.py). Real data it would ideally use: Stooq"
-  series: "one signal, before and after neutralisation"
-  period: "2010-present, daily"
+  series: "one simulated signal, before and after neutralisation"
+  period: "simulated, no calendar dates"
   script: "pipeline/fetch_neutralisation.py"
   notice: "The raw long-short return of the signal moves with the market and with a few style factors, so it is more volatile and has deeper drawdowns than the neutralised version, which removes those exposures and keeps the part that belongs to the signal itself. The neutralised curve earns less in the periods in which the hidden exposure happened to pay, and loses less when it did not. What is left after neutralisation is the evidence about the signal, and the difference between the two curves is the part of the apparent result that was a bet on something else."
   falsifiedBy: "The reading fails if the raw and the neutralised curves are indistinguishable, because then the signal carried no hidden exposure to the factors that were removed. It also fails if the neutralised version has the same volatility as the raw one, which would suggest that the risk model used to remove the exposures does not describe the risks that the portfolio actually runs."
@@ -85,7 +85,7 @@ The difference from a physical system is that the modes are estimated and unstab
 
 <Figure figure={frontmatter.figure} />
 
-The figure shows the same signal in two forms, the raw long-short portfolio and the version with exposures to the market and the common factors removed. The raw version carries the movements of those factors in its return, and the neutralised one does not. The comparison is the point: a lot of what looks like the signal's performance is the return on the market and the styles.
+The figure shows a simulated signal in two forms, the raw long-short portfolio and the version with exposures to the market and the common factors removed. The raw version carries the movements of those factors in its return, and the neutralised one does not. The comparison is the point: a lot of what looks like the signal's performance is the return on the market and the styles.
 
 An instructive case is momentum. The strategy that buys recent winners and sells recent losers has earned a premium over long periods, but Daniel and Moskowitz (2016) showed that it suffers severe crashes after market declines, when the losers it is short rebound sharply, and the hidden exposure of the strategy to the market changes sign at precisely that time. A static neutralisation based on average exposures would not have prevented it. What would count against the account is a signal whose raw and neutralised performance are the same, which would suggest there was nothing hidden to remove, and a neutralised book that continues to lose heavily when the factors move together, which would show that the risk model missed what mattered.
 
