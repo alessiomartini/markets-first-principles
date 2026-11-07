@@ -1,0 +1,272 @@
+{
+ "id": "var-exceedances",
+ "generatedAt": "2026-11-07T22:54:24+00:00",
+ "synthetic": true,
+ "chart": "line",
+ "source": "Simulation (GJR-GARCH with two stress windows, seed 20261031)",
+ "series_note": "25 years of daily returns; 1-day 99% historical-simulation VaR on a trailing 250-day window; stress windows are exogenous and illustrative",
+ "x": {
+  "label": "simulated year"
+ },
+ "y": {
+  "label": "VaR breaches in the year"
+ },
+ "series": [
+  {
+   "key": "breaches",
+   "label": "Breaches"
+  },
+  {
+   "key": "nominal",
+   "label": "Nominal (1% of days)"
+  }
+ ],
+ "meta": {
+  "seed": 20261031,
+  "total": 110,
+  "maxYear": 28,
+  "worstBreachOverVar": 402.763
+ },
+ "data": [
+  {
+   "series": "breaches",
+   "x": 2,
+   "y": 0
+  },
+  {
+   "series": "nominal",
+   "x": 2,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 3,
+   "y": 7
+  },
+  {
+   "series": "nominal",
+   "x": 3,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 4,
+   "y": 8
+  },
+  {
+   "series": "nominal",
+   "x": 4,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 5,
+   "y": 2
+  },
+  {
+   "series": "nominal",
+   "x": 5,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 6,
+   "y": 5
+  },
+  {
+   "series": "nominal",
+   "x": 6,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 7,
+   "y": 3
+  },
+  {
+   "series": "nominal",
+   "x": 7,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 8,
+   "y": 3
+  },
+  {
+   "series": "nominal",
+   "x": 8,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 9,
+   "y": 16
+  },
+  {
+   "series": "nominal",
+   "x": 9,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 10,
+   "y": 0
+  },
+  {
+   "series": "nominal",
+   "x": 10,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 11,
+   "y": 0
+  },
+  {
+   "series": "nominal",
+   "x": 11,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 12,
+   "y": 0
+  },
+  {
+   "series": "nominal",
+   "x": 12,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 13,
+   "y": 0
+  },
+  {
+   "series": "nominal",
+   "x": 13,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 14,
+   "y": 2
+  },
+  {
+   "series": "nominal",
+   "x": 14,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 15,
+   "y": 7
+  },
+  {
+   "series": "nominal",
+   "x": 15,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 16,
+   "y": 16
+  },
+  {
+   "series": "nominal",
+   "x": 16,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 17,
+   "y": 0
+  },
+  {
+   "series": "nominal",
+   "x": 17,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 18,
+   "y": 5
+  },
+  {
+   "series": "nominal",
+   "x": 18,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 19,
+   "y": 2
+  },
+  {
+   "series": "nominal",
+   "x": 19,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 20,
+   "y": 6
+  },
+  {
+   "series": "nominal",
+   "x": 20,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 21,
+   "y": 28
+  },
+  {
+   "series": "nominal",
+   "x": 21,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 22,
+   "y": 0
+  },
+  {
+   "series": "nominal",
+   "x": 22,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 23,
+   "y": 0
+  },
+  {
+   "series": "nominal",
+   "x": 23,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 24,
+   "y": 0
+  },
+  {
+   "series": "nominal",
+   "x": 24,
+   "y": 2.5
+  },
+  {
+   "series": "breaches",
+   "x": 25,
+   "y": 0
+  },
+  {
+   "series": "nominal",
+   "x": 25,
+   "y": 2.5
+  }
+ ]
+}

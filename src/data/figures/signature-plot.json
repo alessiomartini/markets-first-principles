@@ -1,0 +1,193 @@
+{
+ "id": "signature-plot",
+ "generatedAt": "2026-11-07T22:54:54+00:00",
+ "synthetic": true,
+ "chart": "line",
+ "source": "Simulation (random-walk mid price with bid-ask bounce, seed 20261031)",
+ "series_note": "400000 ticks; trade price = mid ± 2 bp half-spread with random sign; variance per tick normalised by its value at 500 ticks",
+ "x": {
+  "label": "lag k (ticks)",
+  "type": "log"
+ },
+ "y": {
+  "label": "variance per tick, relative to k = 500"
+ },
+ "series": [
+  {
+   "key": "trade",
+   "label": "Trade prices"
+  },
+  {
+   "key": "mid",
+   "label": "Mid prices"
+  }
+ ],
+ "meta": {
+  "seed": 20261031,
+  "ticks": 400000,
+  "signature": {
+   "trade": {
+    "1": 8.99518,
+    "2": 5.0019,
+    "3": 3.66858,
+    "5": 2.60039,
+    "8": 1.99727,
+    "12": 1.67204,
+    "20": 1.41518,
+    "35": 1.23806,
+    "60": 1.14047,
+    "100": 1.07359,
+    "170": 1.07108,
+    "300": 1.00358,
+    "500": 1.0
+   },
+   "mid": {
+    "1": 1.01343,
+    "2": 1.01349,
+    "3": 1.01354,
+    "5": 1.0154,
+    "8": 1.0177,
+    "12": 1.01858,
+    "20": 1.00409,
+    "35": 1.01598,
+    "60": 1.02746,
+    "100": 1.00357,
+    "170": 1.03766,
+    "300": 1.00057,
+    "500": 1.0
+   }
+  }
+ },
+ "data": [
+  {
+   "series": "trade",
+   "x": 1,
+   "y": 8.99518
+  },
+  {
+   "series": "trade",
+   "x": 2,
+   "y": 5.0019
+  },
+  {
+   "series": "trade",
+   "x": 3,
+   "y": 3.66858
+  },
+  {
+   "series": "trade",
+   "x": 5,
+   "y": 2.60039
+  },
+  {
+   "series": "trade",
+   "x": 8,
+   "y": 1.99727
+  },
+  {
+   "series": "trade",
+   "x": 12,
+   "y": 1.67204
+  },
+  {
+   "series": "trade",
+   "x": 20,
+   "y": 1.41518
+  },
+  {
+   "series": "trade",
+   "x": 35,
+   "y": 1.23806
+  },
+  {
+   "series": "trade",
+   "x": 60,
+   "y": 1.14047
+  },
+  {
+   "series": "trade",
+   "x": 100,
+   "y": 1.07359
+  },
+  {
+   "series": "trade",
+   "x": 170,
+   "y": 1.07108
+  },
+  {
+   "series": "trade",
+   "x": 300,
+   "y": 1.00358
+  },
+  {
+   "series": "trade",
+   "x": 500,
+   "y": 1.0
+  },
+  {
+   "series": "mid",
+   "x": 1,
+   "y": 1.01343
+  },
+  {
+   "series": "mid",
+   "x": 2,
+   "y": 1.01349
+  },
+  {
+   "series": "mid",
+   "x": 3,
+   "y": 1.01354
+  },
+  {
+   "series": "mid",
+   "x": 5,
+   "y": 1.0154
+  },
+  {
+   "series": "mid",
+   "x": 8,
+   "y": 1.0177
+  },
+  {
+   "series": "mid",
+   "x": 12,
+   "y": 1.01858
+  },
+  {
+   "series": "mid",
+   "x": 20,
+   "y": 1.00409
+  },
+  {
+   "series": "mid",
+   "x": 35,
+   "y": 1.01598
+  },
+  {
+   "series": "mid",
+   "x": 60,
+   "y": 1.02746
+  },
+  {
+   "series": "mid",
+   "x": 100,
+   "y": 1.00357
+  },
+  {
+   "series": "mid",
+   "x": 170,
+   "y": 1.03766
+  },
+  {
+   "series": "mid",
+   "x": 300,
+   "y": 1.00057
+  },
+  {
+   "series": "mid",
+   "x": 500,
+   "y": 1.0
+  }
+ ]
+}

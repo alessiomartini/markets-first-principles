@@ -1,0 +1,220 @@
+{
+ "id": "leverage-correlation",
+ "generatedAt": "2026-11-07T22:54:27+00:00",
+ "synthetic": true,
+ "chart": "line",
+ "source": "Simulation (GJR-GARCH, seed 20261031)",
+ "series_note": "200000 days each; asymmetric case alpha=0.02, gamma=0.12; symmetric case alpha=0.08, gamma=0; same persistence 0.98; the asymmetry is an input",
+ "x": {
+  "label": "lag tau (days; positive = volatility after the return)"
+ },
+ "y": {
+  "label": "corr(r_t, r²_{t+tau})"
+ },
+ "series": [
+  {
+   "key": "asym",
+   "label": "Asymmetric (equity-like)"
+  },
+  {
+   "key": "sym",
+   "label": "Symmetric (no leverage)"
+  }
+ ],
+ "meta": {
+  "seed": 20261031,
+  "n": 200000,
+  "asym": {
+   "corrAtLag1": -0.0588231,
+   "corrAtLagMinus1": 0.00237202,
+   "corrAtLag10": -0.0487645
+  },
+  "sym": {
+   "corrAtLag1": -0.00102376,
+   "corrAtLagMinus1": 0.00299943,
+   "corrAtLag10": 0.00571022
+  }
+ },
+ "data": [
+  {
+   "series": "asym",
+   "x": -20,
+   "y": 0.000318203
+  },
+  {
+   "series": "asym",
+   "x": -15,
+   "y": 0.00199835
+  },
+  {
+   "series": "asym",
+   "x": -10,
+   "y": 0.010318
+  },
+  {
+   "series": "asym",
+   "x": -7,
+   "y": 0.00710741
+  },
+  {
+   "series": "asym",
+   "x": -5,
+   "y": -0.00292385
+  },
+  {
+   "series": "asym",
+   "x": -3,
+   "y": -0.0035441
+  },
+  {
+   "series": "asym",
+   "x": -2,
+   "y": -0.00129526
+  },
+  {
+   "series": "asym",
+   "x": -1,
+   "y": 0.00237202
+  },
+  {
+   "series": "asym",
+   "x": 1,
+   "y": -0.0588231
+  },
+  {
+   "series": "asym",
+   "x": 2,
+   "y": -0.0500365
+  },
+  {
+   "series": "asym",
+   "x": 3,
+   "y": -0.046614
+  },
+  {
+   "series": "asym",
+   "x": 5,
+   "y": -0.0507339
+  },
+  {
+   "series": "asym",
+   "x": 7,
+   "y": -0.0634786
+  },
+  {
+   "series": "asym",
+   "x": 10,
+   "y": -0.0487645
+  },
+  {
+   "series": "asym",
+   "x": 15,
+   "y": -0.0401117
+  },
+  {
+   "series": "asym",
+   "x": 20,
+   "y": -0.0387161
+  },
+  {
+   "series": "asym",
+   "x": 30,
+   "y": -0.0295658
+  },
+  {
+   "series": "asym",
+   "x": 40,
+   "y": -0.0215046
+  },
+  {
+   "series": "sym",
+   "x": -20,
+   "y": 0.00105181
+  },
+  {
+   "series": "sym",
+   "x": -15,
+   "y": 0.00203539
+  },
+  {
+   "series": "sym",
+   "x": -10,
+   "y": 0.00823931
+  },
+  {
+   "series": "sym",
+   "x": -7,
+   "y": 0.00576454
+  },
+  {
+   "series": "sym",
+   "x": -5,
+   "y": 0.00239392
+  },
+  {
+   "series": "sym",
+   "x": -3,
+   "y": -0.000907721
+  },
+  {
+   "series": "sym",
+   "x": -2,
+   "y": -0.000233105
+  },
+  {
+   "series": "sym",
+   "x": -1,
+   "y": 0.00299943
+  },
+  {
+   "series": "sym",
+   "x": 1,
+   "y": -0.00102376
+  },
+  {
+   "series": "sym",
+   "x": 2,
+   "y": 0.00111365
+  },
+  {
+   "series": "sym",
+   "x": 3,
+   "y": 0.00282391
+  },
+  {
+   "series": "sym",
+   "x": 5,
+   "y": 0.00276837
+  },
+  {
+   "series": "sym",
+   "x": 7,
+   "y": -0.0043068
+  },
+  {
+   "series": "sym",
+   "x": 10,
+   "y": 0.00571022
+  },
+  {
+   "series": "sym",
+   "x": 15,
+   "y": -0.00422677
+  },
+  {
+   "series": "sym",
+   "x": 20,
+   "y": -0.00187955
+  },
+  {
+   "series": "sym",
+   "x": 30,
+   "y": 3.18867e-05
+  },
+  {
+   "series": "sym",
+   "x": 40,
+   "y": 0.00526282
+  }
+ ]
+}

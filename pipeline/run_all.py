@@ -35,6 +35,13 @@ SCRIPTS = [
     "fetch_ic_decay.py",
     "fetch_costs.py",
     "fetch_neutralisation.py",
+    "fetch_var.py",
+    "fetch_acf.py",
+    "fetch_scaling.py",
+    "fetch_leverage_effect.py",
+    "fetch_correlations.py",
+    "fetch_signature_plot.py",
+    "fetch_spread_decomposition.py",
 ]
 
 
