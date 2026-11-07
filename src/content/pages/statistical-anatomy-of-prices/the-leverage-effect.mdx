@@ -11,7 +11,7 @@ terms:
 figure:
   id: "leverage-correlation"
   title: "Correlation between returns and future volatility"
-  source: "Stooq, Binance public REST, Dukascopy"
+  source: "Simulation (illustrative model; see pipeline/fetch_leverage_effect.py). Real data it would ideally use: Stooq, Binance public REST, Dukascopy"
   series: "equity index, FX pair, BTCUSDT"
   period: "longest available common history"
   script: "pipeline/fetch_leverage_effect.py"
