@@ -1,0 +1,439 @@
+{
+ "id": "eigenvalue-spectrum",
+ "generatedAt": "2026-11-07T22:54:54+00:00",
+ "synthetic": true,
+ "chart": "line",
+ "source": "Simulation (market + 3 sector factors + noise, seed 20261031)",
+ "series_note": "N=100 assets, T=1000 days (q=0.10); correlation matrix of simulated returns; factor loadings are inputs",
+ "x": {
+  "label": "eigenvalue λ (values above 4 not shown)"
+ },
+ "y": {
+  "label": "density"
+ },
+ "series": [
+  {
+   "key": "empirical",
+   "label": "Simulated correlation matrix"
+  },
+  {
+   "key": "mp",
+   "label": "Marchenko-Pastur (pure noise)"
+  }
+ ],
+ "meta": {
+  "seed": 20261031,
+  "q": 0.1,
+  "mpEdges": [
+   0.467544,
+   1.73246
+  ],
+  "eigenvaluesAboveUpperEdge": [
+   29.3166,
+   6.18491,
+   5.49067
+  ]
+ },
+ "data": [
+  {
+   "series": "empirical",
+   "x": 0.05,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 0.05,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 0.15,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 0.15,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 0.25,
+   "y": 0.2
+  },
+  {
+   "series": "mp",
+   "x": 0.25,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 0.35,
+   "y": 1.5
+  },
+  {
+   "series": "mp",
+   "x": 0.35,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 0.45,
+   "y": 1.6
+  },
+  {
+   "series": "mp",
+   "x": 0.45,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 0.55,
+   "y": 1.7
+  },
+  {
+   "series": "mp",
+   "x": 0.55,
+   "y": 0.903566
+  },
+  {
+   "series": "empirical",
+   "x": 0.65,
+   "y": 1.6
+  },
+  {
+   "series": "mp",
+   "x": 0.65,
+   "y": 1.08815
+  },
+  {
+   "series": "empirical",
+   "x": 0.75,
+   "y": 1.3
+  },
+  {
+   "series": "mp",
+   "x": 0.75,
+   "y": 1.11787
+  },
+  {
+   "series": "empirical",
+   "x": 0.85,
+   "y": 0.8
+  },
+  {
+   "series": "mp",
+   "x": 0.85,
+   "y": 1.08777
+  },
+  {
+   "series": "empirical",
+   "x": 0.95,
+   "y": 0.8
+  },
+  {
+   "series": "mp",
+   "x": 0.95,
+   "y": 1.02933
+  },
+  {
+   "series": "empirical",
+   "x": 1.05,
+   "y": 0.2
+  },
+  {
+   "series": "mp",
+   "x": 1.05,
+   "y": 0.955651
+  },
+  {
+   "series": "empirical",
+   "x": 1.15,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 1.15,
+   "y": 0.872551
+  },
+  {
+   "series": "empirical",
+   "x": 1.25,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 1.25,
+   "y": 0.782291
+  },
+  {
+   "series": "empirical",
+   "x": 1.35,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 1.35,
+   "y": 0.684894
+  },
+  {
+   "series": "empirical",
+   "x": 1.45,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 1.45,
+   "y": 0.578207
+  },
+  {
+   "series": "empirical",
+   "x": 1.55,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 1.55,
+   "y": 0.456323
+  },
+  {
+   "series": "empirical",
+   "x": 1.65,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 1.65,
+   "y": 0.301189
+  },
+  {
+   "series": "empirical",
+   "x": 1.75,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 1.75,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 1.85,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 1.85,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 1.95,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 1.95,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 2.05,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 2.05,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 2.15,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 2.15,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 2.25,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 2.25,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 2.35,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 2.35,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 2.45,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 2.45,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 2.55,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 2.55,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 2.65,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 2.65,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 2.75,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 2.75,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 2.85,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 2.85,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 2.95,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 2.95,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 3.05,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 3.05,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 3.15,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 3.15,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 3.25,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 3.25,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 3.35,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 3.35,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 3.45,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 3.45,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 3.55,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 3.55,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 3.65,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 3.65,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 3.75,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 3.75,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 3.85,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 3.85,
+   "y": 0.0
+  },
+  {
+   "series": "empirical",
+   "x": 3.95,
+   "y": 0.0
+  },
+  {
+   "series": "mp",
+   "x": 3.95,
+   "y": 0.0
+  }
+ ]
+}
