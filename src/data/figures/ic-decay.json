@@ -1,0 +1,226 @@
+{
+ "id": "ic-decay",
+ "generatedAt": "2026-11-07T11:54:41+00:00",
+ "synthetic": true,
+ "chart": "line",
+ "source": "Simulation (transient price-pressure model, seed 20261031)",
+ "series_note": "200 stocks, 1260 days; return = noise + change in an AR(1) transient (phi=0.6); signal = minus yesterday's return; Spearman rank IC",
+ "x": {
+  "label": "forecast horizon (days after the signal)"
+ },
+ "y": {
+  "label": "mean rank information coefficient"
+ },
+ "series": [
+  {
+   "key": "ic",
+   "label": "Mean IC"
+  },
+  {
+   "key": "upper",
+   "label": "+2 s.e."
+  },
+  {
+   "key": "lower",
+   "label": "-2 s.e."
+  }
+ ],
+ "meta": {
+  "seed": 20261031,
+  "phi": 0.6,
+  "byHorizon": {
+   "1": {
+    "ic": 0.0208274,
+    "se": 0.00201587
+   },
+   "2": {
+    "ic": 0.0121314,
+    "se": 0.0019152
+   },
+   "3": {
+    "ic": 0.00754271,
+    "se": 0.00198235
+   },
+   "4": {
+    "ic": 0.00116803,
+    "se": 0.0019301
+   },
+   "5": {
+    "ic": 0.00316819,
+    "se": 0.00199705
+   },
+   "6": {
+    "ic": 0.00229376,
+    "se": 0.00199085
+   },
+   "7": {
+    "ic": -0.000628968,
+    "se": 0.00193748
+   },
+   "8": {
+    "ic": 0.000551513,
+    "se": 0.00202729
+   },
+   "9": {
+    "ic": -0.000268512,
+    "se": 0.00200619
+   },
+   "10": {
+    "ic": 0.00151815,
+    "se": 0.00199794
+   }
+  }
+ },
+ "data": [
+  {
+   "series": "ic",
+   "x": 1,
+   "y": 0.0208274
+  },
+  {
+   "series": "upper",
+   "x": 1,
+   "y": 0.0248592
+  },
+  {
+   "series": "lower",
+   "x": 1,
+   "y": 0.0167957
+  },
+  {
+   "series": "ic",
+   "x": 2,
+   "y": 0.0121314
+  },
+  {
+   "series": "upper",
+   "x": 2,
+   "y": 0.0159618
+  },
+  {
+   "series": "lower",
+   "x": 2,
+   "y": 0.00830103
+  },
+  {
+   "series": "ic",
+   "x": 3,
+   "y": 0.00754271
+  },
+  {
+   "series": "upper",
+   "x": 3,
+   "y": 0.0115074
+  },
+  {
+   "series": "lower",
+   "x": 3,
+   "y": 0.00357801
+  },
+  {
+   "series": "ic",
+   "x": 4,
+   "y": 0.00116803
+  },
+  {
+   "series": "upper",
+   "x": 4,
+   "y": 0.00502822
+  },
+  {
+   "series": "lower",
+   "x": 4,
+   "y": -0.00269216
+  },
+  {
+   "series": "ic",
+   "x": 5,
+   "y": 0.00316819
+  },
+  {
+   "series": "upper",
+   "x": 5,
+   "y": 0.00716229
+  },
+  {
+   "series": "lower",
+   "x": 5,
+   "y": -0.000825919
+  },
+  {
+   "series": "ic",
+   "x": 6,
+   "y": 0.00229376
+  },
+  {
+   "series": "upper",
+   "x": 6,
+   "y": 0.00627546
+  },
+  {
+   "series": "lower",
+   "x": 6,
+   "y": -0.00168793
+  },
+  {
+   "series": "ic",
+   "x": 7,
+   "y": -0.000628968
+  },
+  {
+   "series": "upper",
+   "x": 7,
+   "y": 0.003246
+  },
+  {
+   "series": "lower",
+   "x": 7,
+   "y": -0.00450393
+  },
+  {
+   "series": "ic",
+   "x": 8,
+   "y": 0.000551513
+  },
+  {
+   "series": "upper",
+   "x": 8,
+   "y": 0.0046061
+  },
+  {
+   "series": "lower",
+   "x": 8,
+   "y": -0.00350307
+  },
+  {
+   "series": "ic",
+   "x": 9,
+   "y": -0.000268512
+  },
+  {
+   "series": "upper",
+   "x": 9,
+   "y": 0.00374387
+  },
+  {
+   "series": "lower",
+   "x": 9,
+   "y": -0.00428089
+  },
+  {
+   "series": "ic",
+   "x": 10,
+   "y": 0.00151815
+  },
+  {
+   "series": "upper",
+   "x": 10,
+   "y": 0.00551403
+  },
+  {
+   "series": "lower",
+   "x": 10,
+   "y": -0.00247773
+  }
+ ]
+}
