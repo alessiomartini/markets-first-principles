@@ -1,6 +1,6 @@
 {
  "id": "neutralised-vs-raw",
- "generatedAt": "2026-11-07T11:55:15+00:00",
+ "generatedAt": "2026-11-07T13:09:59+00:00",
  "synthetic": true,
  "chart": "line",
  "source": "Simulation (two-factor model with a disguised signal, seed 20261031)",
@@ -24,14 +24,14 @@
  "meta": {
   "seed": 20261031,
   "exposuresRaw": {
-   "net": 2.68882e-17,
+   "net": 1.20389e-17,
    "beta": 0.248214,
    "style": 0.730527
   },
   "exposuresNeutral": {
-   "net": 3.47281e-15,
-   "beta": -4.11525e-15,
-   "style": -2.2031e-16
+   "net": 2.4929e-15,
+   "beta": 2.23807e-15,
+   "style": -2.90605e-16
   },
   "stats": {
    "raw": {

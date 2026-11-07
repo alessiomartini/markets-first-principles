@@ -1,6 +1,6 @@
 {
  "id": "gross-vs-net",
- "generatedAt": "2026-11-07T11:54:28+00:00",
+ "generatedAt": "2026-11-07T13:09:58+00:00",
  "synthetic": true,
  "chart": "line",
  "source": "Simulation (AR(1) forecast, toy cost model, seed 20261031)",

@@ -1,10 +1,10 @@
 {
  "id": "curve-inversions",
- "generatedAt": "2026-11-06T14:21:22+00:00",
+ "generatedAt": "2026-11-07T13:09:53+00:00",
  "synthetic": false,
  "chart": "line",
  "source": "FRED (St. Louis Fed; US Treasury, NBER)",
- "series_note": "T10Y2Y weekly, 1976-06-04 to 2026-11-05; USREC shaded",
+ "series_note": "T10Y2Y weekly, 1976-06-04 to 2026-11-06; USREC shaded",
  "x": {
   "label": "year"
  },
@@ -50,7 +50,7 @@
   }
  ],
  "meta": {
-  "dailyObservations": 12605,
+  "dailyObservations": 12606,
   "invertedDays": 2049
  },
  "data": [
@@ -13211,8 +13211,8 @@
   },
   {
    "series": "spread",
-   "x": 2026.84,
-   "y": 0.38
+   "x": 2026.85,
+   "y": 0.35
   }
  ]
 }
