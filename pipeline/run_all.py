@@ -25,10 +25,16 @@ SCRIPTS = [
     "fetch_phillips.py",
     "fetch_gdp.py",
     "fetch_funding.py",
+    "fetch_treasury_curve.py",
+    "fetch_bond_price_yield.py",
     # Simulated figures (synthetic=true, fixed seeds): offline and deterministic.
     "fetch_kelly.py",
     "fetch_backtest.py",
     "fetch_delta_hedge.py",
+    "fetch_frontier.py",
+    "fetch_ic_decay.py",
+    "fetch_costs.py",
+    "fetch_neutralisation.py",
 ]
 
 

@@ -1,0 +1,420 @@
+{
+ "id": "frontier-out-of-sample",
+ "generatedAt": "2026-11-07T11:55:35+00:00",
+ "synthetic": true,
+ "chart": "scatter",
+ "source": "Simulation (one-factor model, seed 20261031)",
+ "series_note": "40 assets, two consecutive 5-year samples; unconstrained frontier from sample 1, same weights evaluated in sample 2",
+ "x": {
+  "label": "annualised volatility (%)"
+ },
+ "y": {
+  "label": "annualised mean return (%)"
+ },
+ "series": [
+  {
+   "key": "insample",
+   "label": "In-sample frontier"
+  },
+  {
+   "key": "realised",
+   "label": "Same weights, next period"
+  },
+  {
+   "key": "true",
+   "label": "True-parameter frontier"
+  }
+ ],
+ "meta": {
+  "seed": 20261031,
+  "assets": 40,
+  "equalWeight": {
+   "sample1": {
+    "returnPct": 5.44566,
+    "volPct": 15.7036
+   },
+   "sample2": {
+    "returnPct": 18.1854,
+    "volPct": 15.6372
+   }
+  },
+  "meanRealisedToPredictedVol": 1.02873
+ },
+ "data": [
+  {
+   "series": "insample",
+   "x": 13.0338,
+   "y": 5.44566
+  },
+  {
+   "series": "insample",
+   "x": 13.0403,
+   "y": 6.09857
+  },
+  {
+   "series": "insample",
+   "x": 13.0502,
+   "y": 6.75148
+  },
+  {
+   "series": "insample",
+   "x": 13.0635,
+   "y": 7.4044
+  },
+  {
+   "series": "insample",
+   "x": 13.0802,
+   "y": 8.05731
+  },
+  {
+   "series": "insample",
+   "x": 13.1003,
+   "y": 8.71022
+  },
+  {
+   "series": "insample",
+   "x": 13.1238,
+   "y": 9.36314
+  },
+  {
+   "series": "insample",
+   "x": 13.1507,
+   "y": 10.016
+  },
+  {
+   "series": "insample",
+   "x": 13.1809,
+   "y": 10.669
+  },
+  {
+   "series": "insample",
+   "x": 13.2144,
+   "y": 11.3219
+  },
+  {
+   "series": "insample",
+   "x": 13.2512,
+   "y": 11.9748
+  },
+  {
+   "series": "insample",
+   "x": 13.2913,
+   "y": 12.6277
+  },
+  {
+   "series": "insample",
+   "x": 13.3346,
+   "y": 13.2806
+  },
+  {
+   "series": "insample",
+   "x": 13.3811,
+   "y": 13.9335
+  },
+  {
+   "series": "insample",
+   "x": 13.4308,
+   "y": 14.5864
+  },
+  {
+   "series": "insample",
+   "x": 13.4836,
+   "y": 15.2394
+  },
+  {
+   "series": "insample",
+   "x": 13.5395,
+   "y": 15.8923
+  },
+  {
+   "series": "insample",
+   "x": 13.5985,
+   "y": 16.5452
+  },
+  {
+   "series": "insample",
+   "x": 13.6606,
+   "y": 17.1981
+  },
+  {
+   "series": "insample",
+   "x": 13.7256,
+   "y": 17.851
+  },
+  {
+   "series": "insample",
+   "x": 13.7935,
+   "y": 18.5039
+  },
+  {
+   "series": "insample",
+   "x": 13.8643,
+   "y": 19.1568
+  },
+  {
+   "series": "insample",
+   "x": 13.938,
+   "y": 19.8097
+  },
+  {
+   "series": "insample",
+   "x": 14.0145,
+   "y": 20.4627
+  },
+  {
+   "series": "insample",
+   "x": 14.0938,
+   "y": 21.1156
+  },
+  {
+   "series": "realised",
+   "x": 13.2578,
+   "y": 12.6878
+  },
+  {
+   "series": "realised",
+   "x": 13.2778,
+   "y": 12.573
+  },
+  {
+   "series": "realised",
+   "x": 13.3013,
+   "y": 12.4582
+  },
+  {
+   "series": "realised",
+   "x": 13.3283,
+   "y": 12.3434
+  },
+  {
+   "series": "realised",
+   "x": 13.3587,
+   "y": 12.2287
+  },
+  {
+   "series": "realised",
+   "x": 13.3926,
+   "y": 12.1139
+  },
+  {
+   "series": "realised",
+   "x": 13.4299,
+   "y": 11.9991
+  },
+  {
+   "series": "realised",
+   "x": 13.4705,
+   "y": 11.8843
+  },
+  {
+   "series": "realised",
+   "x": 13.5145,
+   "y": 11.7695
+  },
+  {
+   "series": "realised",
+   "x": 13.5618,
+   "y": 11.6547
+  },
+  {
+   "series": "realised",
+   "x": 13.6124,
+   "y": 11.5399
+  },
+  {
+   "series": "realised",
+   "x": 13.6662,
+   "y": 11.4252
+  },
+  {
+   "series": "realised",
+   "x": 13.7232,
+   "y": 11.3104
+  },
+  {
+   "series": "realised",
+   "x": 13.7834,
+   "y": 11.1956
+  },
+  {
+   "series": "realised",
+   "x": 13.8467,
+   "y": 11.0808
+  },
+  {
+   "series": "realised",
+   "x": 13.9131,
+   "y": 10.966
+  },
+  {
+   "series": "realised",
+   "x": 13.9825,
+   "y": 10.8512
+  },
+  {
+   "series": "realised",
+   "x": 14.0549,
+   "y": 10.7364
+  },
+  {
+   "series": "realised",
+   "x": 14.1302,
+   "y": 10.6216
+  },
+  {
+   "series": "realised",
+   "x": 14.2085,
+   "y": 10.5069
+  },
+  {
+   "series": "realised",
+   "x": 14.2895,
+   "y": 10.3921
+  },
+  {
+   "series": "realised",
+   "x": 14.3734,
+   "y": 10.2773
+  },
+  {
+   "series": "realised",
+   "x": 14.4601,
+   "y": 10.1625
+  },
+  {
+   "series": "realised",
+   "x": 14.5494,
+   "y": 10.0477
+  },
+  {
+   "series": "realised",
+   "x": 14.6414,
+   "y": 9.93293
+  },
+  {
+   "series": "true",
+   "x": 15.3062,
+   "y": 5.44566
+  },
+  {
+   "series": "true",
+   "x": 14.9081,
+   "y": 5.87043
+  },
+  {
+   "series": "true",
+   "x": 14.5426,
+   "y": 6.29519
+  },
+  {
+   "series": "true",
+   "x": 14.2122,
+   "y": 6.71996
+  },
+  {
+   "series": "true",
+   "x": 13.9194,
+   "y": 7.14473
+  },
+  {
+   "series": "true",
+   "x": 13.6665,
+   "y": 7.5695
+  },
+  {
+   "series": "true",
+   "x": 13.4559,
+   "y": 7.99427
+  },
+  {
+   "series": "true",
+   "x": 13.2896,
+   "y": 8.41903
+  },
+  {
+   "series": "true",
+   "x": 13.1692,
+   "y": 8.8438
+  },
+  {
+   "series": "true",
+   "x": 13.096,
+   "y": 9.26857
+  },
+  {
+   "series": "true",
+   "x": 13.0708,
+   "y": 9.69334
+  },
+  {
+   "series": "true",
+   "x": 13.0939,
+   "y": 10.1181
+  },
+  {
+   "series": "true",
+   "x": 13.165,
+   "y": 10.5429
+  },
+  {
+   "series": "true",
+   "x": 13.2833,
+   "y": 10.9676
+  },
+  {
+   "series": "true",
+   "x": 13.4477,
+   "y": 11.3924
+  },
+  {
+   "series": "true",
+   "x": 13.6563,
+   "y": 11.8172
+  },
+  {
+   "series": "true",
+   "x": 13.9074,
+   "y": 12.2419
+  },
+  {
+   "series": "true",
+   "x": 14.1985,
+   "y": 12.6667
+  },
+  {
+   "series": "true",
+   "x": 14.5273,
+   "y": 13.0915
+  },
+  {
+   "series": "true",
+   "x": 14.8913,
+   "y": 13.5163
+  },
+  {
+   "series": "true",
+   "x": 15.288,
+   "y": 13.941
+  },
+  {
+   "series": "true",
+   "x": 15.7149,
+   "y": 14.3658
+  },
+  {
+   "series": "true",
+   "x": 16.1696,
+   "y": 14.7906
+  },
+  {
+   "series": "true",
+   "x": 16.6498,
+   "y": 15.2153
+  },
+  {
+   "series": "true",
+   "x": 17.1534,
+   "y": 15.6401
+  }
+ ]
+}
