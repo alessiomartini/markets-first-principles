@@ -284,8 +284,8 @@
             "id": "spread-decomposition",
             "title": "Effective spread against realised spread",
             "source": "Simulation (illustrative model; see pipeline/fetch_spread_decomposition.py). Real data it would ideally use: Binance public REST",
-            "series": "BTCUSDT trades and quotes",
-            "period": "trailing 30 days",
+            "series": "simulated trades and quotes",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_spread_decomposition.py"
           }
         },
@@ -348,8 +348,8 @@
             "id": "acf-returns-vs-absreturns",
             "title": "Autocorrelation of returns against autocorrelation of absolute returns",
             "source": "Simulation (illustrative model; see pipeline/fetch_acf.py). Real data it would ideally use: Stooq, Binance public REST",
-            "series": "one equity index, BTCUSDT",
-            "period": "longest available history, daily",
+            "series": "simulated daily returns",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_acf.py"
           }
         },
@@ -362,8 +362,8 @@
             "id": "kurtosis-vs-scale",
             "title": "Kurtosis as a function of aggregation scale",
             "source": "Simulation (illustrative model; see pipeline/fetch_scaling.py). Real data it would ideally use: Stooq, Binance public REST",
-            "series": "returns aggregated from 1 minute to 1 month",
-            "period": "longest available history",
+            "series": "simulated returns aggregated over increasing windows",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_scaling.py"
           }
         },
@@ -376,8 +376,8 @@
             "id": "leverage-correlation",
             "title": "Correlation between returns and future volatility",
             "source": "Simulation (illustrative model; see pipeline/fetch_leverage_effect.py). Real data it would ideally use: Stooq, Binance public REST",
-            "series": "equity index, FX pair, BTCUSDT",
-            "period": "longest available common history",
+            "series": "two simulated markets, asymmetric and symmetric",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_leverage_effect.py"
           }
         },
@@ -388,10 +388,10 @@
           "terms": ["correlation matrix", "eigenvalue spectrum", "covariance cleaning", "sector structure"],
           "figure": {
             "id": "eigenvalue-spectrum",
-            "title": "Empirical eigenvalue spectrum against Marchenko-Pastur",
+            "title": "Eigenvalue spectrum of a simulated correlation matrix against Marchenko-Pastur",
             "source": "Simulation (illustrative model; see pipeline/fetch_correlations.py). Real data it would ideally use: Stooq",
-            "series": "S&P constituent daily returns",
-            "period": "trailing 5 years",
+            "series": "simulated returns of 100 assets",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_correlations.py"
           }
         },
@@ -404,8 +404,8 @@
             "id": "signature-plot",
             "title": "Variance ratio against lag: the signature plot",
             "source": "Simulation (illustrative model; see pipeline/fetch_signature_plot.py). Real data it would ideally use: Binance public REST, Stooq",
-            "series": "BTCUSDT and one equity index",
-            "period": "trailing 2 years",
+            "series": "simulated tick data",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_signature_plot.py"
           }
         }
@@ -440,8 +440,8 @@
             "id": "delta-hedge-pnl",
             "title": "Residual P&L of a delta-hedged option",
             "source": "Simulation (illustrative model; see pipeline/fetch_delta_hedge.py). Real data it would ideally use: CBOE, Stooq",
-            "series": "one index option, hedged daily to expiry",
-            "period": "rolling, trailing 5 years",
+            "series": "simulated at-the-money option, hedged daily to expiry",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_delta_hedge.py"
           }
         },
@@ -468,8 +468,8 @@
             "id": "frontier-out-of-sample",
             "title": "The efficient frontier, in sample and out",
             "source": "Simulation (illustrative model; see pipeline/fetch_frontier.py). Real data it would ideally use: Stooq",
-            "series": "S&P constituent returns, split sample",
-            "period": "2005-present, daily",
+            "series": "simulated asset returns, split sample",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_frontier.py"
           }
         },
@@ -480,10 +480,10 @@
           "terms": ["value at risk", "expected shortfall", "stress test", "tail correlation", "leverage", "margin call"],
           "figure": {
             "id": "var-exceedances",
-            "title": "VaR exceedances through 2008 and March 2020",
+            "title": "VaR exceedances through two simulated stress windows",
             "source": "Simulation (illustrative model; see pipeline/fetch_var.py). Real data it would ideally use: Stooq",
-            "series": "one equity index, daily returns",
-            "period": "2000-present",
+            "series": "simulated daily returns",
+            "period": "simulated 25 years",
             "script": "pipeline/fetch_var.py"
           }
         },
@@ -494,10 +494,10 @@
           "terms": ["Kelly criterion", "growth rate", "drawdown", "risk of ruin"],
           "figure": {
             "id": "kelly-curve",
-            "title": "Growth rate against betting fraction on a real series",
+            "title": "Growth rate against betting fraction on a simulated series",
             "source": "Simulation (illustrative model; see pipeline/fetch_kelly.py). Real data it would ideally use: Stooq",
-            "series": "one equity index, daily returns",
-            "period": "1990-present",
+            "series": "simulated daily returns",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_kelly.py"
           }
         }
@@ -730,8 +730,8 @@
             "id": "ic-decay",
             "title": "Information coefficient decay for short-term reversal",
             "source": "Simulation (illustrative model; see pipeline/fetch_ic_decay.py). Real data it would ideally use: Stooq",
-            "series": "cross-sectional returns of index constituents",
-            "period": "2010-present, daily",
+            "series": "simulated cross-sectional stock returns",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_ic_decay.py"
           }
         },
@@ -744,8 +744,8 @@
             "id": "in-vs-out-of-sample",
             "title": "The same strategy in sample and out of sample",
             "source": "Simulation (illustrative model; see pipeline/fetch_backtest.py). Real data it would ideally use: Stooq",
-            "series": "one signal, split sample",
-            "period": "2005-present, daily",
+            "series": "simulated zero-skill rules, split sample",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_backtest.py"
           }
         },
@@ -758,8 +758,8 @@
             "id": "gross-vs-net",
             "title": "Equity curve as turnover rises",
             "source": "Simulation (illustrative model; see pipeline/fetch_costs.py). Real data it would ideally use: Stooq; impact model calibrated in Track 2",
-            "series": "one signal at several holding periods",
-            "period": "2010-present, daily",
+            "series": "one simulated signal at several holding periods",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_costs.py"
           }
         },
@@ -772,8 +772,8 @@
             "id": "neutralised-vs-raw",
             "title": "Factor-neutral against raw returns of one signal",
             "source": "Simulation (illustrative model; see pipeline/fetch_neutralisation.py). Real data it would ideally use: Stooq",
-            "series": "one signal, before and after neutralisation",
-            "period": "2010-present, daily",
+            "series": "one simulated signal, before and after neutralisation",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_neutralisation.py"
           }
         }

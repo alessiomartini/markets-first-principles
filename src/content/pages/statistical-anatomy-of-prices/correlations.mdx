@@ -11,12 +11,12 @@ terms:
   - "sector structure"
 figure:
   id: "eigenvalue-spectrum"
-  title: "Empirical eigenvalue spectrum against Marchenko-Pastur"
+  title: "Eigenvalue spectrum of a simulated correlation matrix against Marchenko-Pastur"
   source: "Simulation (illustrative model; see pipeline/fetch_correlations.py). Real data it would ideally use: Stooq"
-  series: "S&P constituent daily returns"
-  period: "trailing 5 years"
+  series: "simulated returns of 100 assets"
+  period: "simulated, no calendar dates"
   script: "pipeline/fetch_correlations.py"
-  notice: "The bulk of the empirical spectrum sits almost exactly on the Marchenko-Pastur prediction for pure noise, with one enormous eigenvalue far outside the plot and a handful of smaller ones just above the upper edge."
+  notice: "The bulk of the simulated spectrum sits almost exactly on the Marchenko-Pastur prediction for pure noise, with one enormous eigenvalue far outside the plot and a handful of smaller ones just above the upper edge."
   falsifiedBy: "The reading fails if the bulk departs systematically from the noise prediction, which would mean genuine structure is spread across many modes rather than concentrated in a few."
 ---
 
