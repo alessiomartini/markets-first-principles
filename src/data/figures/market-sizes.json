@@ -1,7 +1,7 @@
 {
  "id": "market-sizes",
- "generatedAt": "2026-11-06T14:21:25+00:00",
- "synthetic": true,
+ "generatedAt": "2026-11-07T11:58:13+00:00",
+ "synthetic": false,
  "chart": "bar",
  "x": {
   "label": "USD trillions (log scale) — note the mix of stocks and flows",
@@ -9,28 +9,44 @@
  },
  "data": [
   {
-   "label": "Bonds (outstanding)",
-   "value": 140.0,
+   "label": "OTC derivatives (notional)",
+   "value": 846.0,
    "unit": "stock",
-   "display": "~$140tn (synthetic)"
+   "asOf": "2025-06",
+   "source": "https://www.bis.org/publ/otc_hy2512.pdf",
+   "display": "$846.0tn"
   },
   {
-   "label": "Equities (market cap)",
-   "value": 110.0,
+   "label": "Global fixed income outstanding",
+   "value": 160.7,
    "unit": "stock",
-   "display": "~$110tn (synthetic)"
+   "asOf": "2025",
+   "source": "https://www.sifma.org/news/blog/2026-capital-markets-fact-book-key-findings",
+   "display": "$160.7tn"
   },
   {
-   "label": "FX (turnover)",
-   "value": 7.5,
+   "label": "Global equity market cap",
+   "value": 157.8,
+   "unit": "stock",
+   "asOf": "2025",
+   "source": "https://www.sifma.org/news/blog/2026-capital-markets-fact-book-key-findings",
+   "display": "$157.8tn"
+  },
+  {
+   "label": "FX turnover (OTC)",
+   "value": 9.6,
    "unit": "flow",
-   "display": "~$8tn/day (synthetic)"
+   "asOf": "2025-04",
+   "source": "https://www.bis.org/statistics/rpfx25_fx.htm",
+   "display": "$9.6tn/day"
   },
   {
    "label": "Crypto (market cap)",
-   "value": 3.0,
+   "value": 2.54443,
    "unit": "stock",
-   "display": "~$3tn (synthetic)"
+   "asOf": "live",
+   "source": "https://www.coingecko.com/",
+   "display": "$2.5tn"
   }
  ]
 }
