@@ -13,3 +13,7 @@
 # common error this figure exists to prevent.
 #
 # label,value_usd_trillions,unit,as_of,source_url
+Global equity market cap,157.8,stock,2025,https://www.sifma.org/news/blog/2026-capital-markets-fact-book-key-findings
+Global fixed income outstanding,160.7,stock,2025,https://www.sifma.org/news/blog/2026-capital-markets-fact-book-key-findings
+FX turnover (OTC),9.6,flow,2025-04,https://www.bis.org/statistics/rpfx25_fx.htm
+OTC derivatives (notional),846,stock,2025-06,https://www.bis.org/publ/otc_hy2512.pdf
