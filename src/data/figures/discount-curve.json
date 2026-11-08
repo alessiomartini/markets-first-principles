@@ -1,6 +1,6 @@
 {
  "id": "discount-curve",
- "generatedAt": "2026-11-07T13:09:55+00:00",
+ "generatedAt": "2026-11-08T13:31:38+00:00",
  "synthetic": false,
  "chart": "line",
  "source": "FRED (US Treasury constant-maturity par yields, Federal Reserve Board H.15)",

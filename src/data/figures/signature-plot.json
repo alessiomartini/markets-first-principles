@@ -1,6 +1,6 @@
 {
  "id": "signature-plot",
- "generatedAt": "2026-11-07T22:54:54+00:00",
+ "generatedAt": "2026-11-08T13:31:48+00:00",
  "synthetic": true,
  "chart": "line",
  "source": "Simulation (random-walk mid price with bid-ask bounce, seed 20261031)",

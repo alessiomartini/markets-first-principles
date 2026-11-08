@@ -1,6 +1,6 @@
 {
  "id": "return-ccdf",
- "generatedAt": "2026-11-07T13:09:52+00:00",
+ "generatedAt": "2026-11-08T13:31:33+00:00",
  "synthetic": false,
  "chart": "loglog",
  "source": "FRED, ECB, Kraken",
@@ -198,7 +198,7 @@
   "btc": {
    "venue": "Kraken",
    "observations": 720,
-   "dailySigma": 0.0226784
+   "dailySigma": 0.0226769
   }
  },
  "data": [
@@ -645,7 +645,7 @@
   {
    "series": "btc",
    "x": 0.574442,
-   "y": 0.45
+   "y": 0.451389
   },
   {
    "series": "btc",
