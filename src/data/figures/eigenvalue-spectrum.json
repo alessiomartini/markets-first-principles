@@ -1,6 +1,6 @@
 {
  "id": "eigenvalue-spectrum",
- "generatedAt": "2026-11-08T13:31:47+00:00",
+ "generatedAt": "2026-11-09T16:30:03+00:00",
  "synthetic": true,
  "chart": "line",
  "source": "Simulation (market + 3 sector factors + noise, seed 20261031)",
