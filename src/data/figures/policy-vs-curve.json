@@ -1,6 +1,6 @@
 {
  "id": "policy-vs-curve",
- "generatedAt": "2026-11-09T16:29:52+00:00",
+ "generatedAt": "2026-11-10T14:58:20+00:00",
  "synthetic": false,
  "chart": "line",
  "source": "FRED (Federal Reserve Board; US Treasury)",
@@ -4454,7 +4454,7 @@
   {
    "series": "DGS2",
    "x": 2026.83,
-   "y": 4.56
+   "y": 4.55
   },
   {
    "series": "DGS10",
@@ -6669,7 +6669,7 @@
   {
    "series": "DGS10",
    "x": 2026.83,
-   "y": 4.9
+   "y": 4.892
   }
  ]
 }

@@ -1,6 +1,6 @@
 {
  "id": "market-sizes",
- "generatedAt": "2026-11-09T16:29:51+00:00",
+ "generatedAt": "2026-11-10T14:58:20+00:00",
  "synthetic": false,
  "chart": "bar",
  "x": {
@@ -42,7 +42,7 @@
   },
   {
    "label": "Crypto (market cap)",
-   "value": 2.52483,
+   "value": 2.4919,
    "unit": "stock",
    "asOf": "live",
    "source": "https://www.coingecko.com/",
