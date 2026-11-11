@@ -1,10 +1,10 @@
 {
  "id": "price-yield-curve",
- "generatedAt": "2026-11-10T14:58:24+00:00",
+ "generatedAt": "2026-11-11T14:28:55+00:00",
  "synthetic": false,
  "chart": "line",
  "source": "FRED (US Treasury constant-maturity 10-year yield, DGS10)",
- "series_note": "stylised 10-year note, semiannual 4.875% coupon (DGS10 of 2026-11-06 rounded to 1/8), priced at yields 0.5% to 12%; not a specific issue",
+ "series_note": "stylised 10-year note, semiannual 4.875% coupon (DGS10 of 2026-11-09 rounded to 1/8), priced at yields 0.5% to 12%; not a specific issue",
  "x": {
   "label": "yield to maturity (%)"
  },
@@ -22,12 +22,12 @@
   }
  ],
  "meta": {
-  "date": "2026-11-06",
-  "yield": 4.86,
+  "date": "2026-11-09",
+  "yield": 4.88,
   "coupon": 4.875,
-  "price": 100.118,
-  "modifiedDuration": 7.84271,
-  "convexity": 74.2915
+  "price": 99.9608,
+  "modifiedDuration": 7.84016,
+  "convexity": 74.2547
  },
  "data": [
   {
@@ -38,7 +38,7 @@
   {
    "series": "tangent",
    "x": 0.5,
-   "y": 134.352
+   "y": 134.287
   },
   {
    "series": "price",
@@ -48,7 +48,7 @@
   {
    "series": "tangent",
    "x": 0.6,
-   "y": 133.567
+   "y": 133.504
   },
   {
    "series": "price",
@@ -58,7 +58,7 @@
   {
    "series": "tangent",
    "x": 0.7,
-   "y": 132.782
+   "y": 132.72
   },
   {
    "series": "price",
@@ -68,7 +68,7 @@
   {
    "series": "tangent",
    "x": 0.8,
-   "y": 131.997
+   "y": 131.936
   },
   {
    "series": "price",
@@ -78,7 +78,7 @@
   {
    "series": "tangent",
    "x": 0.9,
-   "y": 131.211
+   "y": 131.152
   },
   {
    "series": "price",
@@ -88,7 +88,7 @@
   {
    "series": "tangent",
    "x": 1.0,
-   "y": 130.426
+   "y": 130.369
   },
   {
    "series": "price",
@@ -98,7 +98,7 @@
   {
    "series": "tangent",
    "x": 1.1,
-   "y": 129.641
+   "y": 129.585
   },
   {
    "series": "price",
@@ -108,7 +108,7 @@
   {
    "series": "tangent",
    "x": 1.2,
-   "y": 128.856
+   "y": 128.801
   },
   {
    "series": "price",
@@ -118,7 +118,7 @@
   {
    "series": "tangent",
    "x": 1.3,
-   "y": 128.071
+   "y": 128.018
   },
   {
    "series": "price",
@@ -128,7 +128,7 @@
   {
    "series": "tangent",
    "x": 1.4,
-   "y": 127.285
+   "y": 127.234
   },
   {
    "series": "price",
@@ -138,7 +138,7 @@
   {
    "series": "tangent",
    "x": 1.5,
-   "y": 126.5
+   "y": 126.45
   },
   {
    "series": "price",
@@ -148,7 +148,7 @@
   {
    "series": "tangent",
    "x": 1.6,
-   "y": 125.715
+   "y": 125.666
   },
   {
    "series": "price",
@@ -158,7 +158,7 @@
   {
    "series": "tangent",
    "x": 1.7,
-   "y": 124.93
+   "y": 124.883
   },
   {
    "series": "price",
@@ -168,7 +168,7 @@
   {
    "series": "tangent",
    "x": 1.8,
-   "y": 124.145
+   "y": 124.099
   },
   {
    "series": "price",
@@ -178,7 +178,7 @@
   {
    "series": "tangent",
    "x": 1.9,
-   "y": 123.359
+   "y": 123.315
   },
   {
    "series": "price",
@@ -188,7 +188,7 @@
   {
    "series": "tangent",
    "x": 2.0,
-   "y": 122.574
+   "y": 122.532
   },
   {
    "series": "price",
@@ -198,7 +198,7 @@
   {
    "series": "tangent",
    "x": 2.1,
-   "y": 121.789
+   "y": 121.748
   },
   {
    "series": "price",
@@ -208,7 +208,7 @@
   {
    "series": "tangent",
    "x": 2.2,
-   "y": 121.004
+   "y": 120.964
   },
   {
    "series": "price",
@@ -218,7 +218,7 @@
   {
    "series": "tangent",
    "x": 2.3,
-   "y": 120.219
+   "y": 120.18
   },
   {
    "series": "price",
@@ -228,7 +228,7 @@
   {
    "series": "tangent",
    "x": 2.4,
-   "y": 119.433
+   "y": 119.397
   },
   {
    "series": "price",
@@ -238,7 +238,7 @@
   {
    "series": "tangent",
    "x": 2.5,
-   "y": 118.648
+   "y": 118.613
   },
   {
    "series": "price",
@@ -248,7 +248,7 @@
   {
    "series": "tangent",
    "x": 2.6,
-   "y": 117.863
+   "y": 117.829
   },
   {
    "series": "price",
@@ -258,7 +258,7 @@
   {
    "series": "tangent",
    "x": 2.7,
-   "y": 117.078
+   "y": 117.046
   },
   {
    "series": "price",
@@ -268,7 +268,7 @@
   {
    "series": "tangent",
    "x": 2.8,
-   "y": 116.293
+   "y": 116.262
   },
   {
    "series": "price",
@@ -278,7 +278,7 @@
   {
    "series": "tangent",
    "x": 2.9,
-   "y": 115.508
+   "y": 115.478
   },
   {
    "series": "price",
@@ -288,7 +288,7 @@
   {
    "series": "tangent",
    "x": 3.0,
-   "y": 114.722
+   "y": 114.695
   },
   {
    "series": "price",
@@ -298,7 +298,7 @@
   {
    "series": "tangent",
    "x": 3.1,
-   "y": 113.937
+   "y": 113.911
   },
   {
    "series": "price",
@@ -308,7 +308,7 @@
   {
    "series": "tangent",
    "x": 3.2,
-   "y": 113.152
+   "y": 113.127
   },
   {
    "series": "price",
@@ -318,7 +318,7 @@
   {
    "series": "tangent",
    "x": 3.3,
-   "y": 112.367
+   "y": 112.343
   },
   {
    "series": "price",
@@ -328,7 +328,7 @@
   {
    "series": "tangent",
    "x": 3.4,
-   "y": 111.582
+   "y": 111.56
   },
   {
    "series": "price",
@@ -338,7 +338,7 @@
   {
    "series": "tangent",
    "x": 3.5,
-   "y": 110.796
+   "y": 110.776
   },
   {
    "series": "price",
@@ -348,7 +348,7 @@
   {
    "series": "tangent",
    "x": 3.6,
-   "y": 110.011
+   "y": 109.992
   },
   {
    "series": "price",
@@ -358,7 +358,7 @@
   {
    "series": "tangent",
    "x": 3.7,
-   "y": 109.226
+   "y": 109.209
   },
   {
    "series": "price",
@@ -368,7 +368,7 @@
   {
    "series": "tangent",
    "x": 3.8,
-   "y": 108.441
+   "y": 108.425
   },
   {
    "series": "price",
@@ -378,7 +378,7 @@
   {
    "series": "tangent",
    "x": 3.9,
-   "y": 107.656
+   "y": 107.641
   },
   {
    "series": "price",
@@ -388,7 +388,7 @@
   {
    "series": "tangent",
    "x": 4.0,
-   "y": 106.87
+   "y": 106.857
   },
   {
    "series": "price",
@@ -398,7 +398,7 @@
   {
    "series": "tangent",
    "x": 4.1,
-   "y": 106.085
+   "y": 106.074
   },
   {
    "series": "price",
@@ -408,7 +408,7 @@
   {
    "series": "tangent",
    "x": 4.2,
-   "y": 105.3
+   "y": 105.29
   },
   {
    "series": "price",
@@ -418,7 +418,7 @@
   {
    "series": "tangent",
    "x": 4.3,
-   "y": 104.515
+   "y": 104.506
   },
   {
    "series": "price",
@@ -428,7 +428,7 @@
   {
    "series": "tangent",
    "x": 4.4,
-   "y": 103.73
+   "y": 103.723
   },
   {
    "series": "price",
@@ -438,7 +438,7 @@
   {
    "series": "tangent",
    "x": 4.5,
-   "y": 102.944
+   "y": 102.939
   },
   {
    "series": "price",
@@ -448,7 +448,7 @@
   {
    "series": "tangent",
    "x": 4.6,
-   "y": 102.159
+   "y": 102.155
   },
   {
    "series": "price",
@@ -458,7 +458,7 @@
   {
    "series": "tangent",
    "x": 4.7,
-   "y": 101.374
+   "y": 101.371
   },
   {
    "series": "price",
@@ -468,7 +468,7 @@
   {
    "series": "tangent",
    "x": 4.8,
-   "y": 100.589
+   "y": 100.588
   },
   {
    "series": "price",
@@ -478,7 +478,7 @@
   {
    "series": "tangent",
    "x": 4.9,
-   "y": 99.8036
+   "y": 99.8041
   },
   {
    "series": "price",
@@ -488,7 +488,7 @@
   {
    "series": "tangent",
    "x": 5.0,
-   "y": 99.0184
+   "y": 99.0204
   },
   {
    "series": "price",
@@ -498,7 +498,7 @@
   {
    "series": "tangent",
    "x": 5.1,
-   "y": 98.2332
+   "y": 98.2366
   },
   {
    "series": "price",
@@ -508,7 +508,7 @@
   {
    "series": "tangent",
    "x": 5.2,
-   "y": 97.448
+   "y": 97.4529
   },
   {
    "series": "price",
@@ -518,7 +518,7 @@
   {
    "series": "tangent",
    "x": 5.3,
-   "y": 96.6628
+   "y": 96.6692
   },
   {
    "series": "price",
@@ -528,7 +528,7 @@
   {
    "series": "tangent",
    "x": 5.4,
-   "y": 95.8776
+   "y": 95.8855
   },
   {
    "series": "price",
@@ -538,7 +538,7 @@
   {
    "series": "tangent",
    "x": 5.5,
-   "y": 95.0925
+   "y": 95.1018
   },
   {
    "series": "price",
@@ -548,7 +548,7 @@
   {
    "series": "tangent",
    "x": 5.6,
-   "y": 94.3073
+   "y": 94.3181
   },
   {
    "series": "price",
@@ -558,7 +558,7 @@
   {
    "series": "tangent",
    "x": 5.7,
-   "y": 93.5221
+   "y": 93.5344
   },
   {
    "series": "price",
@@ -568,7 +568,7 @@
   {
    "series": "tangent",
    "x": 5.8,
-   "y": 92.7369
+   "y": 92.7507
   },
   {
    "series": "price",
@@ -578,7 +578,7 @@
   {
    "series": "tangent",
    "x": 5.9,
-   "y": 91.9517
+   "y": 91.967
   },
   {
    "series": "price",
@@ -588,7 +588,7 @@
   {
    "series": "tangent",
    "x": 6.0,
-   "y": 91.1665
+   "y": 91.1833
   },
   {
    "series": "price",
@@ -598,7 +598,7 @@
   {
    "series": "tangent",
    "x": 6.1,
-   "y": 90.3813
+   "y": 90.3996
   },
   {
    "series": "price",
@@ -608,7 +608,7 @@
   {
    "series": "tangent",
    "x": 6.2,
-   "y": 89.5961
+   "y": 89.6159
   },
   {
    "series": "price",
@@ -618,7 +618,7 @@
   {
    "series": "tangent",
    "x": 6.3,
-   "y": 88.8109
+   "y": 88.8321
   },
   {
    "series": "price",
@@ -628,7 +628,7 @@
   {
    "series": "tangent",
    "x": 6.4,
-   "y": 88.0257
+   "y": 88.0484
   },
   {
    "series": "price",
@@ -638,7 +638,7 @@
   {
    "series": "tangent",
    "x": 6.5,
-   "y": 87.2405
+   "y": 87.2647
   },
   {
    "series": "price",
@@ -648,7 +648,7 @@
   {
    "series": "tangent",
    "x": 6.6,
-   "y": 86.4553
+   "y": 86.481
   },
   {
    "series": "price",
@@ -658,7 +658,7 @@
   {
    "series": "tangent",
    "x": 6.7,
-   "y": 85.6701
+   "y": 85.6973
   },
   {
    "series": "price",
@@ -668,7 +668,7 @@
   {
    "series": "tangent",
    "x": 6.8,
-   "y": 84.8849
+   "y": 84.9136
   },
   {
    "series": "price",
@@ -678,7 +678,7 @@
   {
    "series": "tangent",
    "x": 6.9,
-   "y": 84.0997
+   "y": 84.1299
   },
   {
    "series": "price",
@@ -688,7 +688,7 @@
   {
    "series": "tangent",
    "x": 7.0,
-   "y": 83.3145
+   "y": 83.3462
   },
   {
    "series": "price",
@@ -698,7 +698,7 @@
   {
    "series": "tangent",
    "x": 7.1,
-   "y": 82.5293
+   "y": 82.5625
   },
   {
    "series": "price",
@@ -708,7 +708,7 @@
   {
    "series": "tangent",
    "x": 7.2,
-   "y": 81.7441
+   "y": 81.7788
   },
   {
    "series": "price",
@@ -718,7 +718,7 @@
   {
    "series": "tangent",
    "x": 7.3,
-   "y": 80.9589
+   "y": 80.9951
   },
   {
    "series": "price",
@@ -728,7 +728,7 @@
   {
    "series": "tangent",
    "x": 7.4,
-   "y": 80.1738
+   "y": 80.2114
   },
   {
    "series": "price",
@@ -738,7 +738,7 @@
   {
    "series": "tangent",
    "x": 7.5,
-   "y": 79.3886
+   "y": 79.4276
   },
   {
    "series": "price",
@@ -748,7 +748,7 @@
   {
    "series": "tangent",
    "x": 7.6,
-   "y": 78.6034
+   "y": 78.6439
   },
   {
    "series": "price",
@@ -758,7 +758,7 @@
   {
    "series": "tangent",
    "x": 7.7,
-   "y": 77.8182
+   "y": 77.8602
   },
   {
    "series": "price",
@@ -768,7 +768,7 @@
   {
    "series": "tangent",
    "x": 7.8,
-   "y": 77.033
+   "y": 77.0765
   },
   {
    "series": "price",
@@ -778,7 +778,7 @@
   {
    "series": "tangent",
    "x": 7.9,
-   "y": 76.2478
+   "y": 76.2928
   },
   {
    "series": "price",
@@ -788,7 +788,7 @@
   {
    "series": "tangent",
    "x": 8.0,
-   "y": 75.4626
+   "y": 75.5091
   },
   {
    "series": "price",
@@ -798,7 +798,7 @@
   {
    "series": "tangent",
    "x": 8.1,
-   "y": 74.6774
+   "y": 74.7254
   },
   {
    "series": "price",
@@ -808,7 +808,7 @@
   {
    "series": "tangent",
    "x": 8.2,
-   "y": 73.8922
+   "y": 73.9417
   },
   {
    "series": "price",
@@ -818,7 +818,7 @@
   {
    "series": "tangent",
    "x": 8.3,
-   "y": 73.107
+   "y": 73.158
   },
   {
    "series": "price",
@@ -828,7 +828,7 @@
   {
    "series": "tangent",
    "x": 8.4,
-   "y": 72.3218
+   "y": 72.3743
   },
   {
    "series": "price",
@@ -838,7 +838,7 @@
   {
    "series": "tangent",
    "x": 8.5,
-   "y": 71.5366
+   "y": 71.5906
   },
   {
    "series": "price",
@@ -848,7 +848,7 @@
   {
    "series": "tangent",
    "x": 8.6,
-   "y": 70.7514
+   "y": 70.8068
   },
   {
    "series": "price",
@@ -858,7 +858,7 @@
   {
    "series": "tangent",
    "x": 8.7,
-   "y": 69.9662
+   "y": 70.0231
   },
   {
    "series": "price",
@@ -868,7 +868,7 @@
   {
    "series": "tangent",
    "x": 8.8,
-   "y": 69.181
+   "y": 69.2394
   },
   {
    "series": "price",
@@ -878,7 +878,7 @@
   {
    "series": "tangent",
    "x": 8.9,
-   "y": 68.3958
+   "y": 68.4557
   },
   {
    "series": "price",
@@ -888,7 +888,7 @@
   {
    "series": "tangent",
    "x": 9.0,
-   "y": 67.6106
+   "y": 67.672
   },
   {
    "series": "price",
@@ -898,7 +898,7 @@
   {
    "series": "tangent",
    "x": 9.1,
-   "y": 66.8254
+   "y": 66.8883
   },
   {
    "series": "price",
@@ -908,7 +908,7 @@
   {
    "series": "tangent",
    "x": 9.2,
-   "y": 66.0403
+   "y": 66.1046
   },
   {
    "series": "price",
@@ -918,7 +918,7 @@
   {
    "series": "tangent",
    "x": 9.3,
-   "y": 65.2551
+   "y": 65.3209
   },
   {
    "series": "price",
@@ -928,7 +928,7 @@
   {
    "series": "tangent",
    "x": 9.4,
-   "y": 64.4699
+   "y": 64.5372
   },
   {
    "series": "price",
@@ -938,7 +938,7 @@
   {
    "series": "tangent",
    "x": 9.5,
-   "y": 63.6847
+   "y": 63.7535
   },
   {
    "series": "price",
@@ -948,7 +948,7 @@
   {
    "series": "tangent",
    "x": 9.6,
-   "y": 62.8995
+   "y": 62.9698
   },
   {
    "series": "price",
@@ -958,7 +958,7 @@
   {
    "series": "tangent",
    "x": 9.7,
-   "y": 62.1143
+   "y": 62.1861
   },
   {
    "series": "price",
@@ -968,7 +968,7 @@
   {
    "series": "tangent",
    "x": 9.8,
-   "y": 61.3291
+   "y": 61.4023
   },
   {
    "series": "price",
@@ -978,7 +978,7 @@
   {
    "series": "tangent",
    "x": 9.9,
-   "y": 60.5439
+   "y": 60.6186
   },
   {
    "series": "price",
@@ -988,7 +988,7 @@
   {
    "series": "tangent",
    "x": 10.0,
-   "y": 59.7587
+   "y": 59.8349
   },
   {
    "series": "price",
@@ -998,7 +998,7 @@
   {
    "series": "tangent",
    "x": 10.1,
-   "y": 58.9735
+   "y": 59.0512
   },
   {
    "series": "price",
@@ -1008,7 +1008,7 @@
   {
    "series": "tangent",
    "x": 10.2,
-   "y": 58.1883
+   "y": 58.2675
   },
   {
    "series": "price",
@@ -1018,7 +1018,7 @@
   {
    "series": "tangent",
    "x": 10.3,
-   "y": 57.4031
+   "y": 57.4838
   },
   {
    "series": "price",
@@ -1028,7 +1028,7 @@
   {
    "series": "tangent",
    "x": 10.4,
-   "y": 56.6179
+   "y": 56.7001
   },
   {
    "series": "price",
@@ -1038,7 +1038,7 @@
   {
    "series": "tangent",
    "x": 10.5,
-   "y": 55.8327
+   "y": 55.9164
   },
   {
    "series": "price",
@@ -1048,7 +1048,7 @@
   {
    "series": "tangent",
    "x": 10.6,
-   "y": 55.0475
+   "y": 55.1327
   },
   {
    "series": "price",
@@ -1058,7 +1058,7 @@
   {
    "series": "tangent",
    "x": 10.7,
-   "y": 54.2623
+   "y": 54.349
   },
   {
    "series": "price",
@@ -1068,7 +1068,7 @@
   {
    "series": "tangent",
    "x": 10.8,
-   "y": 53.4771
+   "y": 53.5653
   },
   {
    "series": "price",
@@ -1078,7 +1078,7 @@
   {
    "series": "tangent",
    "x": 10.9,
-   "y": 52.6919
+   "y": 52.7816
   },
   {
    "series": "price",
@@ -1088,7 +1088,7 @@
   {
    "series": "tangent",
    "x": 11.0,
-   "y": 51.9068
+   "y": 51.9978
   },
   {
    "series": "price",
@@ -1098,7 +1098,7 @@
   {
    "series": "tangent",
    "x": 11.1,
-   "y": 51.1216
+   "y": 51.2141
   },
   {
    "series": "price",
@@ -1108,7 +1108,7 @@
   {
    "series": "tangent",
    "x": 11.2,
-   "y": 50.3364
+   "y": 50.4304
   },
   {
    "series": "price",
@@ -1118,7 +1118,7 @@
   {
    "series": "tangent",
    "x": 11.3,
-   "y": 49.5512
+   "y": 49.6467
   },
   {
    "series": "price",
@@ -1128,7 +1128,7 @@
   {
    "series": "tangent",
    "x": 11.4,
-   "y": 48.766
+   "y": 48.863
   },
   {
    "series": "price",
@@ -1138,7 +1138,7 @@
   {
    "series": "tangent",
    "x": 11.5,
-   "y": 47.9808
+   "y": 48.0793
   },
   {
    "series": "price",
@@ -1148,7 +1148,7 @@
   {
    "series": "tangent",
    "x": 11.6,
-   "y": 47.1956
+   "y": 47.2956
   },
   {
    "series": "price",
@@ -1158,7 +1158,7 @@
   {
    "series": "tangent",
    "x": 11.7,
-   "y": 46.4104
+   "y": 46.5119
   },
   {
    "series": "price",
@@ -1168,7 +1168,7 @@
   {
    "series": "tangent",
    "x": 11.8,
-   "y": 45.6252
+   "y": 45.7282
   },
   {
    "series": "price",
@@ -1178,7 +1178,7 @@
   {
    "series": "tangent",
    "x": 11.9,
-   "y": 44.84
+   "y": 44.9445
   },
   {
    "series": "price",
@@ -1188,7 +1188,7 @@
   {
    "series": "tangent",
    "x": 12.0,
-   "y": 44.0548
+   "y": 44.1608
   }
  ]
 }

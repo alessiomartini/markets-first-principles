@@ -1,6 +1,6 @@
 {
  "id": "ic-decay",
- "generatedAt": "2026-11-10T14:58:27+00:00",
+ "generatedAt": "2026-11-11T14:28:57+00:00",
  "synthetic": true,
  "chart": "line",
  "source": "Simulation (transient price-pressure model, seed 20261031)",

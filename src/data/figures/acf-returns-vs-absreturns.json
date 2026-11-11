@@ -1,6 +1,6 @@
 {
  "id": "acf-returns-vs-absreturns",
- "generatedAt": "2026-11-10T14:58:29+00:00",
+ "generatedAt": "2026-11-11T14:28:58+00:00",
  "synthetic": true,
  "chart": "line",
  "source": "Simulation (multi-scale stochastic volatility, seed 20261031)",
