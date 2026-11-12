@@ -1,13 +1,13 @@
 {
  "id": "order-book-depth",
- "generatedAt": "2026-11-11T14:28:38+00:00",
+ "generatedAt": "2026-11-12T15:20:56+00:00",
  "synthetic": false,
  "chart": "depth",
- "mid": 73482.4,
+ "mid": 71335.4,
  "source": "Kraken public REST",
  "series_note": "XBT/USD L2 book snapshot",
  "x": {
-  "label": "price (USD) · mid 73,482.45 · spread 0.10"
+  "label": "price (USD) · mid 71,335.35 · spread 0.10"
  },
  "y": {
   "label": "cumulative size (BTC)"
@@ -15,1721 +15,1896 @@
  "meta": {
   "venue": "Kraken",
   "instrument": "XBT/USD",
-  "bestBid": 73482.4,
-  "bestAsk": 73482.5,
-  "spreadBps": 0.0136087,
+  "bestBid": 71335.3,
+  "bestAsk": 71335.4,
+  "spreadBps": 0.0140183,
   "bandPct": 0.4
  },
  "data": [
   {
    "side": "bid",
-   "price": 73482.4,
-   "cumulative": 0.327
+   "price": 71335.3,
+   "cumulative": 0.001
   },
   {
    "side": "bid",
-   "price": 73482.3,
-   "cumulative": 0.6
+   "price": 71333.2,
+   "cumulative": 0.212
   },
   {
    "side": "bid",
-   "price": 73482.2,
-   "cumulative": 2.429
+   "price": 71332.7,
+   "cumulative": 0.213
   },
   {
    "side": "bid",
-   "price": 73482.1,
-   "cumulative": 2.634
+   "price": 71332.4,
+   "cumulative": 0.215
   },
   {
    "side": "bid",
-   "price": 73481.5,
-   "cumulative": 2.635
+   "price": 71330.9,
+   "cumulative": 3.72
   },
   {
    "side": "bid",
-   "price": 73481.0,
-   "cumulative": 6.038
+   "price": 71329.5,
+   "cumulative": 3.979
   },
   {
    "side": "bid",
-   "price": 73480.3,
-   "cumulative": 6.039
+   "price": 71329.4,
+   "cumulative": 7.484
   },
   {
    "side": "bid",
-   "price": 73480.0,
-   "cumulative": 6.069
+   "price": 71323.7,
+   "cumulative": 10.99
   },
   {
    "side": "bid",
-   "price": 73479.3,
-   "cumulative": 6.091
+   "price": 71321.3,
+   "cumulative": 11.019
   },
   {
    "side": "bid",
-   "price": 73477.9,
-   "cumulative": 9.494
+   "price": 71320.5,
+   "cumulative": 11.02
   },
   {
    "side": "bid",
-   "price": 73477.8,
-   "cumulative": 9.495
+   "price": 71315.0,
+   "cumulative": 11.021
   },
   {
    "side": "bid",
-   "price": 73477.0,
-   "cumulative": 9.496
+   "price": 71314.5,
+   "cumulative": 12.068
   },
   {
    "side": "bid",
-   "price": 73474.1,
-   "cumulative": 9.497
+   "price": 71314.4,
+   "cumulative": 15.574
   },
   {
    "side": "bid",
-   "price": 73474.0,
-   "cumulative": 9.498
+   "price": 71314.3,
+   "cumulative": 15.575
   },
   {
    "side": "bid",
-   "price": 73473.6,
-   "cumulative": 9.542
+   "price": 71312.2,
+   "cumulative": 15.603
   },
   {
    "side": "bid",
-   "price": 73473.5,
-   "cumulative": 9.563
+   "price": 71312.1,
+   "cumulative": 15.66
   },
   {
    "side": "bid",
-   "price": 73473.3,
-   "cumulative": 9.573
+   "price": 71310.9,
+   "cumulative": 15.662
   },
   {
    "side": "bid",
-   "price": 73473.2,
-   "cumulative": 9.574
+   "price": 71310.0,
+   "cumulative": 15.663
   },
   {
    "side": "bid",
-   "price": 73472.1,
-   "cumulative": 9.575
+   "price": 71308.6,
+   "cumulative": 15.776
   },
   {
    "side": "bid",
-   "price": 73472.0,
-   "cumulative": 9.605
+   "price": 71308.3,
+   "cumulative": 15.805
   },
   {
    "side": "bid",
-   "price": 73471.8,
-   "cumulative": 9.611
+   "price": 71308.2,
+   "cumulative": 15.806
   },
   {
    "side": "bid",
-   "price": 73471.2,
-   "cumulative": 9.612
+   "price": 71306.3,
+   "cumulative": 15.973
   },
   {
    "side": "bid",
-   "price": 73471.0,
-   "cumulative": 9.614
+   "price": 71306.2,
+   "cumulative": 16.531
   },
   {
    "side": "bid",
-   "price": 73470.4,
-   "cumulative": 9.615
+   "price": 71305.3,
+   "cumulative": 16.532
   },
   {
    "side": "bid",
-   "price": 73469.3,
-   "cumulative": 9.729
+   "price": 71305.0,
+   "cumulative": 16.533
   },
   {
    "side": "bid",
-   "price": 73467.8,
-   "cumulative": 9.73
+   "price": 71304.8,
+   "cumulative": 19.08
   },
   {
    "side": "bid",
-   "price": 73467.4,
-   "cumulative": 9.731
+   "price": 71304.7,
+   "cumulative": 26.093
   },
   {
    "side": "bid",
-   "price": 73467.2,
-   "cumulative": 9.788
+   "price": 71303.4,
+   "cumulative": 26.207
   },
   {
    "side": "bid",
-   "price": 73465.7,
-   "cumulative": 13.191
+   "price": 71302.9,
+   "cumulative": 26.445
   },
   {
    "side": "bid",
-   "price": 73464.7,
-   "cumulative": 13.212
+   "price": 71302.2,
+   "cumulative": 26.446
   },
   {
    "side": "bid",
-   "price": 73464.4,
-   "cumulative": 13.215
+   "price": 71300.1,
+   "cumulative": 26.49
   },
   {
    "side": "bid",
-   "price": 73464.0,
-   "cumulative": 13.245
+   "price": 71300.0,
+   "cumulative": 26.603
   },
   {
    "side": "bid",
-   "price": 73461.8,
-   "cumulative": 13.273
+   "price": 71299.9,
+   "cumulative": 26.637
   },
   {
    "side": "bid",
-   "price": 73461.5,
-   "cumulative": 13.275
+   "price": 71298.9,
+   "cumulative": 27.234
   },
   {
    "side": "bid",
-   "price": 73461.1,
-   "cumulative": 13.303
+   "price": 71298.4,
+   "cumulative": 27.235
   },
   {
    "side": "bid",
-   "price": 73460.9,
-   "cumulative": 13.304
+   "price": 71298.2,
+   "cumulative": 27.25
   },
   {
    "side": "bid",
-   "price": 73460.4,
-   "cumulative": 13.373
+   "price": 71298.1,
+   "cumulative": 27.265
   },
   {
    "side": "bid",
-   "price": 73459.9,
-   "cumulative": 13.486
+   "price": 71297.6,
+   "cumulative": 27.471
   },
   {
    "side": "bid",
-   "price": 73458.5,
-   "cumulative": 14.041
+   "price": 71297.1,
+   "cumulative": 27.492
   },
   {
    "side": "bid",
-   "price": 73458.0,
-   "cumulative": 15.87
+   "price": 71296.2,
+   "cumulative": 27.493
   },
   {
    "side": "bid",
-   "price": 73457.5,
-   "cumulative": 15.899
+   "price": 71295.5,
+   "cumulative": 29.588
   },
   {
    "side": "bid",
-   "price": 73456.9,
-   "cumulative": 15.9
+   "price": 71295.4,
+   "cumulative": 36.602
   },
   {
    "side": "bid",
-   "price": 73456.6,
-   "cumulative": 15.901
+   "price": 71295.0,
+   "cumulative": 36.605
   },
   {
    "side": "bid",
-   "price": 73456.5,
-   "cumulative": 15.902
+   "price": 71293.4,
+   "cumulative": 36.655
   },
   {
    "side": "bid",
-   "price": 73456.0,
-   "cumulative": 15.931
+   "price": 71293.1,
+   "cumulative": 37.165
   },
   {
    "side": "bid",
-   "price": 73455.9,
-   "cumulative": 16.203
+   "price": 71292.9,
+   "cumulative": 38.806
   },
   {
    "side": "bid",
-   "price": 73455.8,
-   "cumulative": 23.01
+   "price": 71290.3,
+   "cumulative": 38.808
   },
   {
    "side": "bid",
-   "price": 73455.3,
-   "cumulative": 23.011
+   "price": 71290.2,
+   "cumulative": 38.809
   },
   {
    "side": "bid",
-   "price": 73455.2,
-   "cumulative": 23.118
+   "price": 71290.0,
+   "cumulative": 38.81
   },
   {
    "side": "bid",
-   "price": 73455.0,
-   "cumulative": 23.119
+   "price": 71287.9,
+   "cumulative": 39.017
   },
   {
    "side": "bid",
-   "price": 73453.9,
-   "cumulative": 23.121
+   "price": 71287.8,
+   "cumulative": 39.709
   },
   {
    "side": "bid",
-   "price": 73453.6,
-   "cumulative": 23.122
+   "price": 71286.8,
+   "cumulative": 39.71
   },
   {
    "side": "bid",
-   "price": 73453.2,
-   "cumulative": 23.143
+   "price": 71286.1,
+   "cumulative": 41.984
   },
   {
    "side": "bid",
-   "price": 73452.7,
-   "cumulative": 23.144
+   "price": 71286.0,
+   "cumulative": 48.998
   },
   {
    "side": "bid",
-   "price": 73452.5,
-   "cumulative": 23.194
+   "price": 71285.7,
+   "cumulative": 49.023
   },
   {
    "side": "bid",
-   "price": 73452.0,
-   "cumulative": 23.195
+   "price": 71285.0,
+   "cumulative": 49.024
   },
   {
    "side": "bid",
-   "price": 73451.7,
-   "cumulative": 23.196
+   "price": 71284.1,
+   "cumulative": 49.025
   },
   {
    "side": "bid",
-   "price": 73451.0,
-   "cumulative": 23.218
+   "price": 71281.9,
+   "cumulative": 49.07
   },
   {
    "side": "bid",
-   "price": 73450.7,
-   "cumulative": 23.79
+   "price": 71281.8,
+   "cumulative": 49.113
   },
   {
    "side": "bid",
-   "price": 73449.0,
-   "cumulative": 23.791
+   "price": 71280.0,
+   "cumulative": 49.222
   },
   {
    "side": "bid",
-   "price": 73448.8,
-   "cumulative": 24.506
+   "price": 71279.9,
+   "cumulative": 49.224
   },
   {
    "side": "bid",
-   "price": 73448.4,
-   "cumulative": 24.547
+   "price": 71278.1,
+   "cumulative": 49.225
   },
   {
    "side": "bid",
-   "price": 73448.2,
-   "cumulative": 25.193
+   "price": 71276.8,
+   "cumulative": 49.412
   },
   {
    "side": "bid",
-   "price": 73447.1,
-   "cumulative": 25.214
+   "price": 71276.7,
+   "cumulative": 50.037
   },
   {
    "side": "bid",
-   "price": 73445.6,
-   "cumulative": 32.022
+   "price": 71276.0,
+   "cumulative": 52.131
   },
   {
    "side": "bid",
-   "price": 73444.6,
-   "cumulative": 32.023
+   "price": 71275.9,
+   "cumulative": 59.146
   },
   {
    "side": "bid",
-   "price": 73444.5,
-   "cumulative": 32.024
+   "price": 71275.0,
+   "cumulative": 59.147
   },
   {
    "side": "bid",
-   "price": 73442.9,
-   "cumulative": 32.025
+   "price": 71272.1,
+   "cumulative": 59.155
   },
   {
    "side": "bid",
-   "price": 73441.5,
-   "cumulative": 32.028
+   "price": 71269.9,
+   "cumulative": 59.187
   },
   {
    "side": "bid",
-   "price": 73441.4,
-   "cumulative": 32.029
+   "price": 71269.8,
+   "cumulative": 59.294
   },
   {
    "side": "bid",
-   "price": 73438.8,
-   "cumulative": 32.037
+   "price": 71268.6,
+   "cumulative": 61.513
   },
   {
    "side": "bid",
-   "price": 73438.3,
-   "cumulative": 32.058
+   "price": 71268.5,
+   "cumulative": 68.529
   },
   {
    "side": "bid",
-   "price": 73437.9,
-   "cumulative": 32.66
+   "price": 71268.0,
+   "cumulative": 68.535
   },
   {
    "side": "bid",
-   "price": 73437.4,
-   "cumulative": 32.661
+   "price": 71267.8,
+   "cumulative": 68.676
   },
   {
    "side": "bid",
-   "price": 73437.2,
-   "cumulative": 32.669
+   "price": 71267.3,
+   "cumulative": 68.949
   },
   {
    "side": "bid",
-   "price": 73437.1,
-   "cumulative": 32.67
+   "price": 71266.0,
+   "cumulative": 68.95
   },
   {
    "side": "bid",
-   "price": 73437.0,
-   "cumulative": 32.671
+   "price": 71262.7,
+   "cumulative": 85.019
   },
   {
    "side": "bid",
-   "price": 73436.9,
-   "cumulative": 32.672
+   "price": 71260.0,
+   "cumulative": 85.02
   },
   {
    "side": "bid",
-   "price": 73436.8,
-   "cumulative": 32.673
+   "price": 71259.9,
+   "cumulative": 85.046
   },
   {
    "side": "bid",
-   "price": 73436.1,
-   "cumulative": 39.482
+   "price": 71256.9,
+   "cumulative": 85.103
   },
   {
    "side": "bid",
-   "price": 73436.0,
-   "cumulative": 43.14
+   "price": 71255.8,
+   "cumulative": 85.644
   },
   {
    "side": "bid",
-   "price": 73434.0,
-   "cumulative": 43.276
+   "price": 71254.3,
+   "cumulative": 85.645
   },
   {
    "side": "bid",
-   "price": 73433.2,
-   "cumulative": 43.277
+   "price": 71252.6,
+   "cumulative": 87.287
   },
   {
    "side": "bid",
-   "price": 73432.2,
-   "cumulative": 43.278
+   "price": 71252.5,
+   "cumulative": 92.2
   },
   {
    "side": "bid",
-   "price": 73429.9,
-   "cumulative": 43.279
+   "price": 71250.1,
+   "cumulative": 92.238
   },
   {
    "side": "bid",
-   "price": 73429.5,
-   "cumulative": 43.3
+   "price": 71250.0,
+   "cumulative": 92.365
   },
   {
    "side": "bid",
-   "price": 73429.1,
-   "cumulative": 50.11
+   "price": 71243.7,
+   "cumulative": 92.576
   },
   {
    "side": "bid",
-   "price": 73427.7,
-   "cumulative": 50.362
+   "price": 71241.1,
+   "cumulative": 93.312
   },
   {
    "side": "bid",
-   "price": 73426.6,
-   "cumulative": 65.362
+   "price": 71241.0,
+   "cumulative": 93.32
   },
   {
    "side": "bid",
-   "price": 73425.6,
-   "cumulative": 72.172
+   "price": 71236.3,
+   "cumulative": 95.003
   },
   {
    "side": "bid",
-   "price": 73425.0,
-   "cumulative": 72.173
+   "price": 71236.2,
+   "cumulative": 99.917
   },
   {
    "side": "bid",
-   "price": 73421.9,
-   "cumulative": 72.174
+   "price": 71231.9,
+   "cumulative": 99.939
   },
   {
    "side": "bid",
-   "price": 73420.7,
-   "cumulative": 72.195
+   "price": 71231.2,
+   "cumulative": 100.528
   },
   {
    "side": "bid",
-   "price": 73417.9,
-   "cumulative": 72.196
+   "price": 71230.1,
+   "cumulative": 100.823
   },
   {
    "side": "bid",
-   "price": 73417.6,
-   "cumulative": 72.251
+   "price": 71228.2,
+   "cumulative": 100.836
   },
   {
    "side": "bid",
-   "price": 73416.7,
-   "cumulative": 72.252
+   "price": 71227.2,
+   "cumulative": 102.136
   },
   {
    "side": "bid",
-   "price": 73415.5,
-   "cumulative": 72.359
+   "price": 71226.9,
+   "cumulative": 102.186
   },
   {
    "side": "bid",
-   "price": 73415.2,
-   "cumulative": 72.36
+   "price": 71225.5,
+   "cumulative": 102.187
   },
   {
    "side": "bid",
-   "price": 73413.7,
-   "cumulative": 72.361
+   "price": 71225.4,
+   "cumulative": 102.212
   },
   {
    "side": "bid",
-   "price": 73412.7,
-   "cumulative": 72.362
+   "price": 71222.8,
+   "cumulative": 102.25
   },
   {
    "side": "bid",
-   "price": 73411.8,
-   "cumulative": 72.383
+   "price": 71220.2,
+   "cumulative": 104.804
   },
   {
    "side": "bid",
-   "price": 73409.9,
-   "cumulative": 72.751
+   "price": 71216.8,
+   "cumulative": 109.719
   },
   {
    "side": "bid",
-   "price": 73408.0,
-   "cumulative": 77.519
+   "price": 71214.9,
+   "cumulative": 109.776
   },
   {
    "side": "bid",
-   "price": 73406.7,
-   "cumulative": 77.52
+   "price": 71212.1,
+   "cumulative": 109.794
   },
   {
    "side": "bid",
-   "price": 73405.5,
-   "cumulative": 77.521
+   "price": 71209.8,
+   "cumulative": 109.831
   },
   {
    "side": "bid",
-   "price": 73403.0,
-   "cumulative": 77.542
+   "price": 71208.8,
+   "cumulative": 110.104
   },
   {
    "side": "bid",
-   "price": 73402.9,
-   "cumulative": 78.038
+   "price": 71208.4,
+   "cumulative": 110.106
   },
   {
    "side": "bid",
-   "price": 73401.8,
-   "cumulative": 78.043
+   "price": 71206.3,
+   "cumulative": 110.973
   },
   {
    "side": "bid",
-   "price": 73401.7,
-   "cumulative": 79.234
+   "price": 71205.5,
+   "cumulative": 111.102
   },
   {
    "side": "bid",
-   "price": 73400.0,
-   "cumulative": 80.213
+   "price": 71205.4,
+   "cumulative": 116.018
   },
   {
    "side": "bid",
-   "price": 73398.6,
-   "cumulative": 80.263
+   "price": 71204.5,
+   "cumulative": 116.229
   },
   {
    "side": "bid",
-   "price": 73398.1,
-   "cumulative": 80.264
+   "price": 71200.1,
+   "cumulative": 116.256
   },
   {
    "side": "bid",
-   "price": 73396.3,
-   "cumulative": 85.033
+   "price": 71200.0,
+   "cumulative": 116.903
   },
   {
    "side": "bid",
-   "price": 73394.4,
-   "cumulative": 85.04
+   "price": 71199.0,
+   "cumulative": 116.905
   },
   {
    "side": "bid",
-   "price": 73394.2,
-   "cumulative": 85.061
+   "price": 71196.9,
+   "cumulative": 117.189
   },
   {
    "side": "bid",
-   "price": 73394.0,
-   "cumulative": 85.062
+   "price": 71195.3,
+   "cumulative": 117.296
   },
   {
    "side": "bid",
-   "price": 73393.2,
-   "cumulative": 85.063
+   "price": 71194.9,
+   "cumulative": 122.083
   },
   {
    "side": "bid",
-   "price": 73391.7,
-   "cumulative": 85.108
+   "price": 71193.5,
+   "cumulative": 127.105
   },
   {
    "side": "bid",
-   "price": 73390.3,
-   "cumulative": 85.18
+   "price": 71192.4,
+   "cumulative": 127.484
   },
   {
    "side": "bid",
-   "price": 73388.0,
-   "cumulative": 85.181
+   "price": 71190.8,
+   "cumulative": 132.149
   },
   {
    "side": "bid",
-   "price": 73386.0,
-   "cumulative": 85.182
+   "price": 71182.0,
+   "cumulative": 132.177
   },
   {
    "side": "bid",
-   "price": 73385.6,
-   "cumulative": 85.204
+   "price": 71180.0,
+   "cumulative": 132.321
   },
   {
    "side": "bid",
-   "price": 73385.4,
-   "cumulative": 85.225
+   "price": 71179.2,
+   "cumulative": 137.239
   },
   {
    "side": "bid",
-   "price": 73385.3,
-   "cumulative": 87.64
+   "price": 71178.0,
+   "cumulative": 137.512
   },
   {
    "side": "bid",
-   "price": 73383.5,
-   "cumulative": 87.662
+   "price": 71177.2,
+   "cumulative": 137.513
   },
   {
    "side": "bid",
-   "price": 73383.1,
-   "cumulative": 92.432
+   "price": 71176.8,
+   "cumulative": 137.829
   },
   {
    "side": "bid",
-   "price": 73381.3,
-   "cumulative": 92.434
+   "price": 71171.8,
+   "cumulative": 137.886
   },
   {
    "side": "bid",
-   "price": 73381.1,
-   "cumulative": 92.436
+   "price": 71169.0,
+   "cumulative": 137.906
   },
   {
    "side": "bid",
-   "price": 73378.6,
-   "cumulative": 92.437
+   "price": 71166.1,
+   "cumulative": 157.512
   },
   {
    "side": "bid",
-   "price": 73376.6,
-   "cumulative": 92.458
+   "price": 71160.9,
+   "cumulative": 162.431
   },
   {
    "side": "bid",
-   "price": 73373.7,
-   "cumulative": 92.459
+   "price": 71155.1,
+   "cumulative": 162.432
   },
   {
    "side": "bid",
-   "price": 73373.2,
-   "cumulative": 92.46
+   "price": 71150.1,
+   "cumulative": 162.472
   },
   {
    "side": "bid",
-   "price": 73372.3,
-   "cumulative": 92.767
+   "price": 71150.0,
+   "cumulative": 162.563
   },
   {
    "side": "bid",
-   "price": 73370.0,
-   "cumulative": 92.769
+   "price": 71148.2,
+   "cumulative": 162.605
   },
   {
    "side": "bid",
-   "price": 73367.8,
-   "cumulative": 92.79
+   "price": 71145.9,
+   "cumulative": 162.647
   },
   {
    "side": "bid",
-   "price": 73366.9,
-   "cumulative": 92.845
+   "price": 71142.1,
+   "cumulative": 162.648
   },
   {
    "side": "bid",
-   "price": 73363.9,
-   "cumulative": 97.112
+   "price": 71137.5,
+   "cumulative": 162.65
   },
   {
    "side": "bid",
-   "price": 73361.5,
-   "cumulative": 101.883
+   "price": 71132.2,
+   "cumulative": 162.655
   },
   {
    "side": "bid",
-   "price": 73360.5,
-   "cumulative": 102.73
+   "price": 71131.3,
+   "cumulative": 162.676
   },
   {
    "side": "bid",
-   "price": 73359.1,
-   "cumulative": 102.731
+   "price": 71125.0,
+   "cumulative": 162.677
   },
   {
    "side": "bid",
-   "price": 73357.3,
-   "cumulative": 112.955
+   "price": 71122.7,
+   "cumulative": 162.698
   },
   {
    "side": "bid",
-   "price": 73354.3,
-   "cumulative": 112.956
+   "price": 71120.2,
+   "cumulative": 162.7
   },
   {
    "side": "bid",
-   "price": 73352.3,
-   "cumulative": 112.957
+   "price": 71114.6,
+   "cumulative": 162.713
   },
   {
    "side": "bid",
-   "price": 73351.7,
-   "cumulative": 114.873
+   "price": 71114.2,
+   "cumulative": 162.734
   },
   {
    "side": "bid",
-   "price": 73351.1,
-   "cumulative": 119.645
+   "price": 71113.0,
+   "cumulative": 162.834
   },
   {
    "side": "bid",
-   "price": 73349.9,
-   "cumulative": 120.666
+   "price": 71111.1,
+   "cumulative": 163.07
   },
   {
    "side": "bid",
-   "price": 73348.1,
-   "cumulative": 120.9
+   "price": 71111.0,
+   "cumulative": 163.122
   },
   {
    "side": "bid",
-   "price": 73341.6,
-   "cumulative": 120.901
+   "price": 71110.8,
+   "cumulative": 163.123
   },
   {
    "side": "bid",
-   "price": 73339.6,
-   "cumulative": 120.902
+   "price": 71109.4,
+   "cumulative": 163.155
   },
   {
    "side": "bid",
-   "price": 73337.7,
-   "cumulative": 125.368
+   "price": 71108.7,
+   "cumulative": 163.16
   },
   {
    "side": "bid",
-   "price": 73337.2,
-   "cumulative": 125.423
+   "price": 71108.4,
+   "cumulative": 163.21
   },
   {
    "side": "bid",
-   "price": 73336.7,
-   "cumulative": 130.196
+   "price": 71105.7,
+   "cumulative": 163.231
   },
   {
    "side": "bid",
-   "price": 73333.0,
-   "cumulative": 130.197
+   "price": 71103.6,
+   "cumulative": 168.315
   },
   {
    "side": "bid",
-   "price": 73331.5,
-   "cumulative": 130.538
+   "price": 71101.0,
+   "cumulative": 168.316
   },
   {
    "side": "bid",
-   "price": 73330.9,
-   "cumulative": 130.539
+   "price": 71100.9,
+   "cumulative": 168.321
   },
   {
    "side": "bid",
-   "price": 73330.2,
-   "cumulative": 157.813
+   "price": 71100.2,
+   "cumulative": 168.322
   },
   {
    "side": "bid",
-   "price": 73327.3,
-   "cumulative": 157.814
+   "price": 71100.1,
+   "cumulative": 168.422
   },
   {
    "side": "bid",
-   "price": 73323.2,
-   "cumulative": 158.188
+   "price": 71100.0,
+   "cumulative": 178.796
   },
   {
    "side": "bid",
-   "price": 73320.2,
-   "cumulative": 158.189
+   "price": 71099.0,
+   "cumulative": 178.798
   },
   {
    "side": "bid",
-   "price": 73320.0,
-   "cumulative": 158.199
+   "price": 71098.4,
+   "cumulative": 179.009
   },
   {
    "side": "bid",
-   "price": 73319.9,
-   "cumulative": 158.226
+   "price": 71097.1,
+   "cumulative": 179.03
   },
   {
    "side": "bid",
-   "price": 73319.3,
-   "cumulative": 163.0
+   "price": 71093.8,
+   "cumulative": 179.314
   },
   {
    "side": "bid",
-   "price": 73311.0,
-   "cumulative": 163.031
+   "price": 71091.8,
+   "cumulative": 179.315
   },
   {
    "side": "bid",
-   "price": 73308.0,
-   "cumulative": 163.032
+   "price": 71091.7,
+   "cumulative": 179.325
   },
   {
    "side": "bid",
-   "price": 73307.7,
-   "cumulative": 163.034
+   "price": 71089.7,
+   "cumulative": 179.342
   },
   {
    "side": "bid",
-   "price": 73307.1,
-   "cumulative": 163.035
+   "price": 71088.6,
+   "cumulative": 179.363
   },
   {
    "side": "bid",
-   "price": 73300.0,
-   "cumulative": 163.259
+   "price": 71085.4,
+   "cumulative": 179.368
   },
   {
    "side": "bid",
-   "price": 73297.1,
-   "cumulative": 163.299
+   "price": 71083.2,
+   "cumulative": 179.37
   },
   {
    "side": "bid",
-   "price": 73296.8,
-   "cumulative": 183.496
+   "price": 71083.0,
+   "cumulative": 180.934
   },
   {
    "side": "bid",
-   "price": 73296.1,
-   "cumulative": 183.553
+   "price": 71082.9,
+   "cumulative": 180.935
   },
   {
    "side": "bid",
-   "price": 73292.0,
-   "cumulative": 183.554
+   "price": 71080.5,
+   "cumulative": 182.361
   },
   {
    "side": "bid",
-   "price": 73289.0,
-   "cumulative": 183.555
+   "price": 71080.1,
+   "cumulative": 182.382
   },
   {
    "side": "bid",
-   "price": 73279.4,
-   "cumulative": 188.479
+   "price": 71080.0,
+   "cumulative": 182.403
   },
   {
    "side": "bid",
-   "price": 73266.6,
-   "cumulative": 188.48
+   "price": 71078.2,
+   "cumulative": 182.404
   },
   {
    "side": "bid",
-   "price": 73265.9,
-   "cumulative": 188.481
+   "price": 71077.0,
+   "cumulative": 182.415
   },
   {
    "side": "bid",
-   "price": 73257.0,
-   "cumulative": 188.715
+   "price": 71076.7,
+   "cumulative": 182.486
   },
   {
    "side": "bid",
-   "price": 73256.0,
-   "cumulative": 189.216
+   "price": 71075.2,
+   "cumulative": 182.488
   },
   {
    "side": "bid",
-   "price": 73250.2,
-   "cumulative": 189.59
+   "price": 71071.6,
+   "cumulative": 182.509
   },
   {
    "side": "bid",
-   "price": 73250.0,
-   "cumulative": 189.591
+   "price": 71071.4,
+   "cumulative": 182.524
   },
   {
    "side": "bid",
-   "price": 73245.2,
-   "cumulative": 189.593
+   "price": 71070.7,
+   "cumulative": 182.525
   },
   {
    "side": "bid",
-   "price": 73243.9,
-   "cumulative": 189.603
+   "price": 71068.0,
+   "cumulative": 182.527
   },
   {
    "side": "bid",
-   "price": 73234.6,
-   "cumulative": 189.606
+   "price": 71066.7,
+   "cumulative": 182.529
   },
   {
    "side": "bid",
-   "price": 73234.4,
-   "cumulative": 189.608
+   "price": 71064.6,
+   "cumulative": 182.53
   },
   {
    "side": "bid",
-   "price": 73232.6,
-   "cumulative": 189.609
+   "price": 71063.7,
+   "cumulative": 182.98
   },
   {
    "side": "bid",
-   "price": 73231.9,
-   "cumulative": 191.002
+   "price": 71063.0,
+   "cumulative": 183.001
   },
   {
    "side": "bid",
-   "price": 73230.4,
-   "cumulative": 191.003
+   "price": 71060.9,
+   "cumulative": 183.501
   },
   {
    "side": "bid",
-   "price": 73230.0,
-   "cumulative": 191.009
+   "price": 71060.8,
+   "cumulative": 183.506
   },
   {
    "side": "bid",
-   "price": 73227.1,
-   "cumulative": 191.012
+   "price": 71058.9,
+   "cumulative": 190.258
   },
   {
    "side": "bid",
-   "price": 73227.0,
-   "cumulative": 191.386
+   "price": 71056.7,
+   "cumulative": 190.259
   },
   {
    "side": "bid",
-   "price": 73217.6,
-   "cumulative": 191.868
+   "price": 71055.4,
+   "cumulative": 190.263
   },
   {
    "side": "bid",
-   "price": 73216.1,
-   "cumulative": 191.902
+   "price": 71055.3,
+   "cumulative": 190.283
   },
   {
    "side": "bid",
-   "price": 73212.5,
-   "cumulative": 192.276
-  },
-  {
-   "side": "bid",
-   "price": 73212.2,
-   "cumulative": 192.277
-  },
-  {
-   "side": "bid",
-   "price": 73211.0,
-   "cumulative": 192.279
-  },
-  {
-   "side": "bid",
-   "price": 73208.0,
-   "cumulative": 192.28
-  },
-  {
-   "side": "bid",
-   "price": 73206.0,
-   "cumulative": 192.281
-  },
-  {
-   "side": "bid",
-   "price": 73205.0,
-   "cumulative": 192.282
-  },
-  {
-   "side": "bid",
-   "price": 73203.6,
-   "cumulative": 192.391
-  },
-  {
-   "side": "bid",
-   "price": 73200.4,
-   "cumulative": 192.419
-  },
-  {
-   "side": "bid",
-   "price": 73200.0,
-   "cumulative": 192.527
-  },
-  {
-   "side": "bid",
-   "price": 73195.3,
-   "cumulative": 192.528
-  },
-  {
-   "side": "bid",
-   "price": 73191.7,
-   "cumulative": 192.529
-  },
-  {
-   "side": "bid",
-   "price": 73189.9,
-   "cumulative": 192.957
+   "price": 71054.5,
+   "cumulative": 190.304
   },
   {
    "side": "ask",
-   "price": 73482.5,
-   "cumulative": 0.205
+   "price": 71335.4,
+   "cumulative": 0.658
   },
   {
    "side": "ask",
-   "price": 73484.8,
-   "cumulative": 0.457
+   "price": 71335.5,
+   "cumulative": 0.801
   },
   {
    "side": "ask",
-   "price": 73484.9,
-   "cumulative": 3.86
+   "price": 71336.2,
+   "cumulative": 1.012
   },
   {
    "side": "ask",
-   "price": 73486.8,
-   "cumulative": 7.262
+   "price": 71337.4,
+   "cumulative": 2.059
   },
   {
    "side": "ask",
-   "price": 73487.6,
-   "cumulative": 9.091
+   "price": 71337.5,
+   "cumulative": 5.564
   },
   {
    "side": "ask",
-   "price": 73492.2,
-   "cumulative": 10.044
+   "price": 71339.0,
+   "cumulative": 6.611
   },
   {
    "side": "ask",
-   "price": 73493.2,
-   "cumulative": 10.05
+   "price": 71339.1,
+   "cumulative": 10.116
   },
   {
    "side": "ask",
-   "price": 73493.7,
-   "cumulative": 13.465
+   "price": 71339.2,
+   "cumulative": 10.117
   },
   {
    "side": "ask",
-   "price": 73496.0,
-   "cumulative": 13.495
+   "price": 71339.3,
+   "cumulative": 10.127
   },
   {
    "side": "ask",
-   "price": 73496.4,
-   "cumulative": 13.498
+   "price": 71339.8,
+   "cumulative": 10.128
   },
   {
    "side": "ask",
-   "price": 73498.3,
-   "cumulative": 13.5
+   "price": 71341.7,
+   "cumulative": 10.378
   },
   {
    "side": "ask",
-   "price": 73498.5,
-   "cumulative": 13.501
+   "price": 71342.4,
+   "cumulative": 12.694
   },
   {
    "side": "ask",
-   "price": 73501.7,
-   "cumulative": 15.121
+   "price": 71342.5,
+   "cumulative": 16.199
   },
   {
    "side": "ask",
-   "price": 73501.8,
-   "cumulative": 15.373
+   "price": 71342.6,
+   "cumulative": 16.256
   },
   {
    "side": "ask",
-   "price": 73502.0,
-   "cumulative": 17.202
+   "price": 71343.4,
+   "cumulative": 16.257
   },
   {
    "side": "ask",
-   "price": 73502.5,
-   "cumulative": 20.604
+   "price": 71344.1,
+   "cumulative": 16.516
   },
   {
    "side": "ask",
-   "price": 73502.6,
-   "cumulative": 20.605
+   "price": 71344.2,
+   "cumulative": 18.157
   },
   {
    "side": "ask",
-   "price": 73503.6,
+   "price": 71344.7,
+   "cumulative": 19.826
+  },
+  {
+   "side": "ask",
+   "price": 71344.8,
+   "cumulative": 20.456
+  },
+  {
+   "side": "ask",
+   "price": 71345.4,
+   "cumulative": 20.494
+  },
+  {
+   "side": "ask",
+   "price": 71346.7,
+   "cumulative": 20.495
+  },
+  {
+   "side": "ask",
+   "price": 71347.8,
+   "cumulative": 20.622
+  },
+  {
+   "side": "ask",
+   "price": 71348.7,
    "cumulative": 20.625
   },
   {
    "side": "ask",
-   "price": 73504.0,
-   "cumulative": 20.655
+   "price": 71348.9,
+   "cumulative": 21.717
   },
   {
    "side": "ask",
-   "price": 73504.2,
-   "cumulative": 21.204
+   "price": 71349.0,
+   "cumulative": 25.222
   },
   {
    "side": "ask",
-   "price": 73504.9,
-   "cumulative": 21.232
+   "price": 71349.5,
+   "cumulative": 25.263
   },
   {
    "side": "ask",
-   "price": 73506.5,
-   "cumulative": 21.282
+   "price": 71349.7,
+   "cumulative": 25.376
   },
   {
    "side": "ask",
-   "price": 73509.3,
-   "cumulative": 21.339
+   "price": 71352.1,
+   "cumulative": 25.397
   },
   {
    "side": "ask",
-   "price": 73513.4,
-   "cumulative": 21.685
+   "price": 71352.6,
+   "cumulative": 25.591
   },
   {
    "side": "ask",
-   "price": 73513.5,
-   "cumulative": 21.799
+   "price": 71352.9,
+   "cumulative": 25.592
   },
   {
    "side": "ask",
-   "price": 73514.4,
-   "cumulative": 23.636
+   "price": 71353.1,
+   "cumulative": 25.706
   },
   {
    "side": "ask",
-   "price": 73514.5,
-   "cumulative": 24.177
+   "price": 71354.2,
+   "cumulative": 25.707
   },
   {
    "side": "ask",
-   "price": 73515.0,
-   "cumulative": 30.979
+   "price": 71355.4,
+   "cumulative": 25.713
   },
   {
    "side": "ask",
-   "price": 73515.7,
-   "cumulative": 31.45
+   "price": 71355.5,
+   "cumulative": 26.064
   },
   {
    "side": "ask",
-   "price": 73516.7,
-   "cumulative": 31.563
+   "price": 71355.6,
+   "cumulative": 26.347
   },
   {
    "side": "ask",
-   "price": 73517.0,
-   "cumulative": 31.801
+   "price": 71355.8,
+   "cumulative": 29.852
   },
   {
    "side": "ask",
-   "price": 73518.3,
-   "cumulative": 31.802
+   "price": 71355.9,
+   "cumulative": 30.543
   },
   {
    "side": "ask",
-   "price": 73524.0,
-   "cumulative": 35.46
+   "price": 71356.3,
+   "cumulative": 30.781
   },
   {
    "side": "ask",
-   "price": 73524.2,
-   "cumulative": 42.261
+   "price": 71356.5,
+   "cumulative": 30.796
   },
   {
    "side": "ask",
-   "price": 73524.7,
-   "cumulative": 42.282
+   "price": 71356.6,
+   "cumulative": 31.385
   },
   {
    "side": "ask",
-   "price": 73524.8,
-   "cumulative": 42.908
+   "price": 71356.7,
+   "cumulative": 31.422
   },
   {
    "side": "ask",
-   "price": 73529.7,
-   "cumulative": 42.909
+   "price": 71357.0,
+   "cumulative": 31.463
   },
   {
    "side": "ask",
-   "price": 73533.0,
-   "cumulative": 42.91
+   "price": 71358.4,
+   "cumulative": 31.466
   },
   {
    "side": "ask",
-   "price": 73533.4,
-   "cumulative": 43.162
+   "price": 71359.6,
+   "cumulative": 33.718
   },
   {
    "side": "ask",
-   "price": 73533.5,
-   "cumulative": 49.962
+   "price": 71359.7,
+   "cumulative": 33.719
   },
   {
    "side": "ask",
-   "price": 73534.0,
-   "cumulative": 50.003
+   "price": 71360.3,
+   "cumulative": 33.72
   },
   {
    "side": "ask",
-   "price": 73539.8,
-   "cumulative": 50.004
+   "price": 71360.4,
+   "cumulative": 40.727
   },
   {
    "side": "ask",
-   "price": 73540.1,
-   "cumulative": 50.005
+   "price": 71360.7,
+   "cumulative": 40.728
   },
   {
    "side": "ask",
-   "price": 73542.5,
-   "cumulative": 50.011
+   "price": 71362.5,
+   "cumulative": 41.262
   },
   {
    "side": "ask",
-   "price": 73543.0,
-   "cumulative": 56.81
+   "price": 71365.8,
+   "cumulative": 41.286
   },
   {
    "side": "ask",
-   "price": 73543.4,
-   "cumulative": 56.899
+   "price": 71366.2,
+   "cumulative": 41.327
   },
   {
    "side": "ask",
-   "price": 73543.5,
-   "cumulative": 63.698
+   "price": 71366.4,
+   "cumulative": 41.328
   },
   {
    "side": "ask",
-   "price": 73544.1,
-   "cumulative": 78.698
+   "price": 71366.9,
+   "cumulative": 41.386
   },
   {
    "side": "ask",
-   "price": 73547.0,
-   "cumulative": 79.413
+   "price": 71368.5,
+   "cumulative": 41.414
   },
   {
    "side": "ask",
-   "price": 73547.7,
-   "cumulative": 79.414
+   "price": 71369.6,
+   "cumulative": 41.422
   },
   {
    "side": "ask",
-   "price": 73548.0,
-   "cumulative": 79.8
+   "price": 71370.0,
+   "cumulative": 41.515
   },
   {
    "side": "ask",
-   "price": 73549.0,
-   "cumulative": 80.371
+   "price": 71370.7,
+   "cumulative": 41.543
   },
   {
    "side": "ask",
-   "price": 73549.6,
-   "cumulative": 80.388
+   "price": 71371.9,
+   "cumulative": 42.279
   },
   {
    "side": "ask",
-   "price": 73550.1,
-   "cumulative": 80.389
+   "price": 71372.6,
+   "cumulative": 42.28
   },
   {
    "side": "ask",
-   "price": 73550.4,
-   "cumulative": 80.39
+   "price": 71372.8,
+   "cumulative": 42.281
   },
   {
    "side": "ask",
-   "price": 73551.0,
-   "cumulative": 80.391
+   "price": 71373.9,
+   "cumulative": 44.377
   },
   {
    "side": "ask",
-   "price": 73555.0,
-   "cumulative": 80.397
+   "price": 71374.0,
+   "cumulative": 51.425
   },
   {
    "side": "ask",
-   "price": 73555.1,
-   "cumulative": 85.156
+   "price": 71375.3,
+   "cumulative": 51.453
   },
   {
    "side": "ask",
-   "price": 73555.4,
-   "cumulative": 85.157
+   "price": 71376.0,
+   "cumulative": 58.459
   },
   {
    "side": "ask",
-   "price": 73556.0,
-   "cumulative": 85.158
+   "price": 71377.0,
+   "cumulative": 58.46
   },
   {
    "side": "ask",
-   "price": 73559.6,
-   "cumulative": 86.349
+   "price": 71378.9,
+   "cumulative": 58.461
   },
   {
    "side": "ask",
-   "price": 73560.1,
-   "cumulative": 86.35
+   "price": 71380.8,
+   "cumulative": 58.588
   },
   {
    "side": "ask",
-   "price": 73561.0,
-   "cumulative": 86.351
+   "price": 71381.1,
+   "cumulative": 58.616
   },
   {
    "side": "ask",
-   "price": 73561.7,
-   "cumulative": 86.406
+   "price": 71384.8,
+   "cumulative": 58.673
   },
   {
    "side": "ask",
-   "price": 73561.9,
-   "cumulative": 86.745
+   "price": 71385.9,
+   "cumulative": 62.855
   },
   {
    "side": "ask",
-   "price": 73562.4,
-   "cumulative": 86.746
+   "price": 71386.0,
+   "cumulative": 69.86
   },
   {
    "side": "ask",
-   "price": 73563.3,
-   "cumulative": 91.504
+   "price": 71386.7,
+   "cumulative": 76.865
   },
   {
    "side": "ask",
-   "price": 73565.3,
-   "cumulative": 92.014
+   "price": 71387.1,
+   "cumulative": 76.866
   },
   {
    "side": "ask",
-   "price": 73565.4,
-   "cumulative": 92.015
+   "price": 71389.6,
+   "cumulative": 91.866
   },
   {
    "side": "ask",
-   "price": 73566.0,
-   "cumulative": 92.016
+   "price": 71390.6,
+   "cumulative": 91.873
   },
   {
    "side": "ask",
-   "price": 73567.5,
-   "cumulative": 96.774
-  },
-  {
-   "side": "ask",
-   "price": 73568.1,
-   "cumulative": 96.775
-  },
-  {
-   "side": "ask",
-   "price": 73571.0,
+   "price": 71390.7,
    "cumulative": 96.776
   },
   {
    "side": "ask",
-   "price": 73574.1,
+   "price": 71391.4,
    "cumulative": 96.777
   },
   {
    "side": "ask",
-   "price": 73575.4,
-   "cumulative": 96.778
+   "price": 71394.0,
+   "cumulative": 97.186
   },
   {
    "side": "ask",
-   "price": 73576.0,
-   "cumulative": 96.779
+   "price": 71397.6,
+   "cumulative": 97.187
   },
   {
    "side": "ask",
-   "price": 73577.8,
-   "cumulative": 96.787
+   "price": 71399.9,
+   "cumulative": 97.22
   },
   {
    "side": "ask",
-   "price": 73580.4,
-   "cumulative": 96.788
+   "price": 71400.0,
+   "cumulative": 97.328
   },
   {
    "side": "ask",
-   "price": 73580.7,
-   "cumulative": 96.79
+   "price": 71401.3,
+   "cumulative": 97.335
   },
   {
    "side": "ask",
-   "price": 73581.0,
-   "cumulative": 96.791
+   "price": 71401.4,
+   "cumulative": 97.336
   },
   {
    "side": "ask",
-   "price": 73586.0,
-   "cumulative": 96.792
+   "price": 71403.9,
+   "cumulative": 97.337
   },
   {
    "side": "ask",
-   "price": 73586.2,
-   "cumulative": 96.819
+   "price": 71405.1,
+   "cumulative": 97.338
   },
   {
    "side": "ask",
-   "price": 73587.0,
-   "cumulative": 96.86
+   "price": 71406.2,
+   "cumulative": 97.765
   },
   {
    "side": "ask",
-   "price": 73589.1,
-   "cumulative": 96.901
+   "price": 71409.7,
+   "cumulative": 98.161
   },
   {
    "side": "ask",
-   "price": 73589.9,
-   "cumulative": 96.928
+   "price": 71410.1,
+   "cumulative": 98.162
   },
   {
    "side": "ask",
-   "price": 73590.4,
-   "cumulative": 96.929
+   "price": 71416.0,
+   "cumulative": 99.389
   },
   {
    "side": "ask",
-   "price": 73591.0,
-   "cumulative": 96.93
+   "price": 71417.6,
+   "cumulative": 99.39
   },
   {
    "side": "ask",
-   "price": 73592.1,
-   "cumulative": 96.957
+   "price": 71418.0,
+   "cumulative": 99.398
   },
   {
    "side": "ask",
-   "price": 73592.8,
-   "cumulative": 96.965
+   "price": 71418.8,
+   "cumulative": 99.448
   },
   {
    "side": "ask",
-   "price": 73597.2,
-   "cumulative": 101.721
+   "price": 71420.5,
+   "cumulative": 101.345
   },
   {
    "side": "ask",
-   "price": 73597.3,
-   "cumulative": 101.991
+   "price": 71422.1,
+   "cumulative": 101.604
   },
   {
    "side": "ask",
-   "price": 73597.9,
-   "cumulative": 102.261
+   "price": 71422.2,
+   "cumulative": 106.505
   },
   {
    "side": "ask",
-   "price": 73598.4,
-   "cumulative": 102.262
+   "price": 71423.9,
+   "cumulative": 106.506
   },
   {
    "side": "ask",
-   "price": 73599.6,
-   "cumulative": 103.109
+   "price": 71424.1,
+   "cumulative": 106.885
   },
   {
    "side": "ask",
-   "price": 73601.8,
-   "cumulative": 105.337
+   "price": 71426.3,
+   "cumulative": 107.435
   },
   {
    "side": "ask",
-   "price": 73603.3,
-   "cumulative": 105.359
+   "price": 71430.0,
+   "cumulative": 107.536
   },
   {
    "side": "ask",
-   "price": 73604.5,
-   "cumulative": 105.36
+   "price": 71430.3,
+   "cumulative": 109.258
   },
   {
    "side": "ask",
-   "price": 73604.9,
-   "cumulative": 110.116
+   "price": 71430.4,
+   "cumulative": 114.158
   },
   {
    "side": "ask",
-   "price": 73606.6,
-   "cumulative": 110.205
+   "price": 71433.1,
+   "cumulative": 114.431
   },
   {
    "side": "ask",
-   "price": 73606.7,
-   "cumulative": 110.255
+   "price": 71433.9,
+   "cumulative": 115.894
   },
   {
    "side": "ask",
-   "price": 73606.8,
-   "cumulative": 110.305
+   "price": 71434.0,
+   "cumulative": 120.794
   },
   {
    "side": "ask",
-   "price": 73606.9,
-   "cumulative": 110.327
+   "price": 71436.4,
+   "cumulative": 120.795
   },
   {
    "side": "ask",
-   "price": 73608.6,
-   "cumulative": 110.695
+   "price": 71440.0,
+   "cumulative": 122.095
   },
   {
    "side": "ask",
-   "price": 73608.7,
-   "cumulative": 115.45
+   "price": 71442.6,
+   "cumulative": 124.464
   },
   {
    "side": "ask",
-   "price": 73610.5,
-   "cumulative": 115.451
+   "price": 71444.5,
+   "cumulative": 134.962
   },
   {
    "side": "ask",
-   "price": 73616.6,
-   "cumulative": 115.452
+   "price": 71448.9,
+   "cumulative": 134.963
   },
   {
    "side": "ask",
-   "price": 73616.7,
-   "cumulative": 115.858
+   "price": 71451.0,
+   "cumulative": 135.058
   },
   {
    "side": "ask",
-   "price": 73619.2,
-   "cumulative": 115.883
+   "price": 71451.1,
+   "cumulative": 135.374
   },
   {
    "side": "ask",
-   "price": 73622.7,
-   "cumulative": 115.884
+   "price": 71454.8,
+   "cumulative": 136.426
   },
   {
    "side": "ask",
-   "price": 73628.7,
-   "cumulative": 115.885
+   "price": 71456.2,
+   "cumulative": 136.448
   },
   {
    "side": "ask",
-   "price": 73631.7,
-   "cumulative": 115.935
+   "price": 71456.5,
+   "cumulative": 136.485
   },
   {
    "side": "ask",
-   "price": 73634.8,
-   "cumulative": 115.936
+   "price": 71457.3,
+   "cumulative": 136.836
   },
   {
    "side": "ask",
-   "price": 73636.3,
-   "cumulative": 126.122
+   "price": 71460.9,
+   "cumulative": 136.892
   },
   {
    "side": "ask",
-   "price": 73636.6,
-   "cumulative": 130.521
+   "price": 71464.4,
+   "cumulative": 141.79
   },
   {
    "side": "ask",
-   "price": 73638.9,
-   "cumulative": 131.341
+   "price": 71467.9,
+   "cumulative": 141.815
   },
   {
    "side": "ask",
-   "price": 73639.3,
-   "cumulative": 131.347
+   "price": 71471.7,
+   "cumulative": 142.088
   },
   {
    "side": "ask",
-   "price": 73639.5,
-   "cumulative": 136.1
+   "price": 71474.8,
+   "cumulative": 146.985
   },
   {
    "side": "ask",
-   "price": 73640.9,
-   "cumulative": 136.101
+   "price": 71475.4,
+   "cumulative": 147.258
   },
   {
    "side": "ask",
-   "price": 73644.2,
-   "cumulative": 136.126
+   "price": 71479.1,
+   "cumulative": 148.305
   },
   {
    "side": "ask",
-   "price": 73644.6,
-   "cumulative": 136.181
+   "price": 71479.2,
+   "cumulative": 152.76
   },
   {
    "side": "ask",
-   "price": 73647.6,
-   "cumulative": 136.433
+   "price": 71480.6,
+   "cumulative": 152.761
   },
   {
    "side": "ask",
-   "price": 73651.2,
-   "cumulative": 140.731
+   "price": 71482.8,
+   "cumulative": 153.145
   },
   {
    "side": "ask",
-   "price": 73652.5,
-   "cumulative": 140.746
+   "price": 71482.9,
+   "cumulative": 153.146
   },
   {
    "side": "ask",
-   "price": 73654.8,
-   "cumulative": 141.053
+   "price": 71485.4,
+   "cumulative": 153.174
   },
   {
    "side": "ask",
-   "price": 73664.4,
-   "cumulative": 141.094
+   "price": 71487.3,
+   "cumulative": 158.121
   },
   {
    "side": "ask",
-   "price": 73668.2,
-   "cumulative": 141.121
+   "price": 71491.9,
+   "cumulative": 158.122
   },
   {
    "side": "ask",
-   "price": 73673.0,
-   "cumulative": 168.268
+   "price": 71492.1,
+   "cumulative": 190.993
   },
   {
    "side": "ask",
-   "price": 73673.7,
-   "cumulative": 168.27
+   "price": 71492.9,
+   "cumulative": 191.018
   },
   {
    "side": "ask",
-   "price": 73680.6,
-   "cumulative": 170.244
+   "price": 71493.2,
+   "cumulative": 191.045
   },
   {
    "side": "ask",
-   "price": 73704.7,
-   "cumulative": 170.288
+   "price": 71493.8,
+   "cumulative": 191.047
   },
   {
    "side": "ask",
-   "price": 73706.9,
-   "cumulative": 170.304
+   "price": 71495.4,
+   "cumulative": 191.048
   },
   {
    "side": "ask",
-   "price": 73729.2,
-   "cumulative": 170.574
+   "price": 71495.7,
+   "cumulative": 191.255
   },
   {
    "side": "ask",
-   "price": 73741.6,
-   "cumulative": 170.596
+   "price": 71496.7,
+   "cumulative": 191.385
   },
   {
    "side": "ask",
-   "price": 73747.2,
-   "cumulative": 170.598
+   "price": 71496.8,
+   "cumulative": 191.592
   },
   {
    "side": "ask",
-   "price": 73747.3,
-   "cumulative": 170.653
+   "price": 71499.4,
+   "cumulative": 191.593
   },
   {
    "side": "ask",
-   "price": 73758.0,
-   "cumulative": 171.026
+   "price": 71499.8,
+   "cumulative": 192.437
   },
   {
    "side": "ask",
-   "price": 73758.2,
-   "cumulative": 176.22
+   "price": 71500.7,
+   "cumulative": 192.643
   },
   {
    "side": "ask",
-   "price": 73759.7,
-   "cumulative": 176.251
+   "price": 71506.1,
+   "cumulative": 192.916
   },
   {
    "side": "ask",
-   "price": 73768.5,
-   "cumulative": 177.614
+   "price": 71507.9,
+   "cumulative": 192.917
+  },
+  {
+   "side": "ask",
+   "price": 71511.0,
+   "cumulative": 192.918
+  },
+  {
+   "side": "ask",
+   "price": 71514.2,
+   "cumulative": 192.919
+  },
+  {
+   "side": "ask",
+   "price": 71517.1,
+   "cumulative": 192.92
+  },
+  {
+   "side": "ask",
+   "price": 71517.9,
+   "cumulative": 192.921
+  },
+  {
+   "side": "ask",
+   "price": 71520.4,
+   "cumulative": 192.922
+  },
+  {
+   "side": "ask",
+   "price": 71521.3,
+   "cumulative": 192.954
+  },
+  {
+   "side": "ask",
+   "price": 71523.1,
+   "cumulative": 192.955
+  },
+  {
+   "side": "ask",
+   "price": 71524.2,
+   "cumulative": 192.956
+  },
+  {
+   "side": "ask",
+   "price": 71526.7,
+   "cumulative": 192.957
+  },
+  {
+   "side": "ask",
+   "price": 71529.1,
+   "cumulative": 192.958
+  },
+  {
+   "side": "ask",
+   "price": 71532.9,
+   "cumulative": 192.959
+  },
+  {
+   "side": "ask",
+   "price": 71535.2,
+   "cumulative": 192.96
+  },
+  {
+   "side": "ask",
+   "price": 71536.7,
+   "cumulative": 192.961
+  },
+  {
+   "side": "ask",
+   "price": 71538.9,
+   "cumulative": 192.962
+  },
+  {
+   "side": "ask",
+   "price": 71541.2,
+   "cumulative": 192.963
+  },
+  {
+   "side": "ask",
+   "price": 71541.8,
+   "cumulative": 192.998
+  },
+  {
+   "side": "ask",
+   "price": 71547.2,
+   "cumulative": 192.999
+  },
+  {
+   "side": "ask",
+   "price": 71548.7,
+   "cumulative": 195.008
+  },
+  {
+   "side": "ask",
+   "price": 71549.2,
+   "cumulative": 195.009
+  },
+  {
+   "side": "ask",
+   "price": 71553.3,
+   "cumulative": 195.01
+  },
+  {
+   "side": "ask",
+   "price": 71555.4,
+   "cumulative": 195.011
+  },
+  {
+   "side": "ask",
+   "price": 71558.0,
+   "cumulative": 195.42
+  },
+  {
+   "side": "ask",
+   "price": 71559.3,
+   "cumulative": 195.421
+  },
+  {
+   "side": "ask",
+   "price": 71560.0,
+   "cumulative": 195.422
+  },
+  {
+   "side": "ask",
+   "price": 71561.7,
+   "cumulative": 195.423
+  },
+  {
+   "side": "ask",
+   "price": 71565.2,
+   "cumulative": 195.426
+  },
+  {
+   "side": "ask",
+   "price": 71565.3,
+   "cumulative": 195.429
+  },
+  {
+   "side": "ask",
+   "price": 71567.9,
+   "cumulative": 196.445
+  },
+  {
+   "side": "ask",
+   "price": 71572.5,
+   "cumulative": 201.771
+  },
+  {
+   "side": "ask",
+   "price": 71576.5,
+   "cumulative": 201.792
+  },
+  {
+   "side": "ask",
+   "price": 71578.4,
+   "cumulative": 201.814
+  },
+  {
+   "side": "ask",
+   "price": 71583.4,
+   "cumulative": 201.87
+  },
+  {
+   "side": "ask",
+   "price": 71585.1,
+   "cumulative": 201.891
+  },
+  {
+   "side": "ask",
+   "price": 71590.4,
+   "cumulative": 201.902
+  },
+  {
+   "side": "ask",
+   "price": 71593.7,
+   "cumulative": 201.923
+  },
+  {
+   "side": "ask",
+   "price": 71599.7,
+   "cumulative": 202.523
+  },
+  {
+   "side": "ask",
+   "price": 71600.0,
+   "cumulative": 202.532
+  },
+  {
+   "side": "ask",
+   "price": 71602.3,
+   "cumulative": 202.553
+  },
+  {
+   "side": "ask",
+   "price": 71607.5,
+   "cumulative": 202.607
+  },
+  {
+   "side": "ask",
+   "price": 71610.9,
+   "cumulative": 202.628
+  },
+  {
+   "side": "ask",
+   "price": 71611.0,
+   "cumulative": 202.688
+  },
+  {
+   "side": "ask",
+   "price": 71619.5,
+   "cumulative": 202.709
+  },
+  {
+   "side": "ask",
+   "price": 71620.0,
+   "cumulative": 203.118
   }
  ]
 }

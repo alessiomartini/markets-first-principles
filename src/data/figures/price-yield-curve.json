@@ -1,6 +1,6 @@
 {
  "id": "price-yield-curve",
- "generatedAt": "2026-11-11T14:28:55+00:00",
+ "generatedAt": "2026-11-12T15:21:23+00:00",
  "synthetic": false,
  "chart": "line",
  "source": "FRED (US Treasury constant-maturity 10-year yield, DGS10)",
