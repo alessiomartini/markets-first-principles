@@ -1,6 +1,6 @@
 {
  "id": "kurtosis-vs-scale",
- "generatedAt": "2026-11-12T15:21:28+00:00",
+ "generatedAt": "2026-11-13T14:40:06+00:00",
  "synthetic": true,
  "chart": "line",
  "source": "Simulation (multi-scale stochastic volatility, seed 20261031)",

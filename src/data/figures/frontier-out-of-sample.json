@@ -1,6 +1,6 @@
 {
  "id": "frontier-out-of-sample",
- "generatedAt": "2026-11-12T15:21:24+00:00",
+ "generatedAt": "2026-11-13T14:40:02+00:00",
  "synthetic": true,
  "chart": "scatter",
  "source": "Simulation (one-factor model, seed 20261031)",
