@@ -1,0 +1,271 @@
+{
+ "id": "intraday-liquidity",
+ "generatedAt": "2026-11-14T15:54:10+00:00",
+ "synthetic": true,
+ "chart": "line",
+ "source": "Simulation (daily activity cycle, seed 20261031)",
+ "series_note": "60 simulated days; spread ~ a^-0.8, depth ~ a^0.7 with a = 1+0.6cos(2pi(h-14)/24), lognormal daily shocks; each series divided by its 24-hour mean",
+ "x": {
+  "label": "hour of day (UTC)"
+ },
+ "y": {
+  "label": "relative to 24-hour mean"
+ },
+ "series": [
+  {
+   "key": "spread",
+   "label": "Quoted spread"
+  },
+  {
+   "key": "depth",
+   "label": "Top-of-book depth"
+  }
+ ],
+ "meta": {
+  "seed": 20261031,
+  "days": 60,
+  "correlation": -0.967739
+ },
+ "data": [
+  {
+   "series": "spread",
+   "x": 0,
+   "y": 1.51224
+  },
+  {
+   "series": "depth",
+   "x": 0,
+   "y": 0.629538
+  },
+  {
+   "series": "spread",
+   "x": 1,
+   "y": 1.72903
+  },
+  {
+   "series": "depth",
+   "x": 1,
+   "y": 0.543688
+  },
+  {
+   "series": "spread",
+   "x": 2,
+   "y": 1.78468
+  },
+  {
+   "series": "depth",
+   "x": 2,
+   "y": 0.53036
+  },
+  {
+   "series": "spread",
+   "x": 3,
+   "y": 1.60205
+  },
+  {
+   "series": "depth",
+   "x": 3,
+   "y": 0.559129
+  },
+  {
+   "series": "spread",
+   "x": 4,
+   "y": 1.51235
+  },
+  {
+   "series": "depth",
+   "x": 4,
+   "y": 0.60277
+  },
+  {
+   "series": "spread",
+   "x": 5,
+   "y": 1.37035
+  },
+  {
+   "series": "depth",
+   "x": 5,
+   "y": 0.698666
+  },
+  {
+   "series": "spread",
+   "x": 6,
+   "y": 1.12666
+  },
+  {
+   "series": "depth",
+   "x": 6,
+   "y": 0.780345
+  },
+  {
+   "series": "spread",
+   "x": 7,
+   "y": 0.999622
+  },
+  {
+   "series": "depth",
+   "x": 7,
+   "y": 0.904071
+  },
+  {
+   "series": "spread",
+   "x": 8,
+   "y": 0.880695
+  },
+  {
+   "series": "depth",
+   "x": 8,
+   "y": 0.998812
+  },
+  {
+   "series": "spread",
+   "x": 9,
+   "y": 0.753823
+  },
+  {
+   "series": "depth",
+   "x": 9,
+   "y": 1.16859
+  },
+  {
+   "series": "spread",
+   "x": 10,
+   "y": 0.709573
+  },
+  {
+   "series": "depth",
+   "x": 10,
+   "y": 1.26352
+  },
+  {
+   "series": "spread",
+   "x": 11,
+   "y": 0.616404
+  },
+  {
+   "series": "depth",
+   "x": 11,
+   "y": 1.32178
+  },
+  {
+   "series": "spread",
+   "x": 12,
+   "y": 0.58926
+  },
+  {
+   "series": "depth",
+   "x": 12,
+   "y": 1.40793
+  },
+  {
+   "series": "spread",
+   "x": 13,
+   "y": 0.588833
+  },
+  {
+   "series": "depth",
+   "x": 13,
+   "y": 1.37633
+  },
+  {
+   "series": "spread",
+   "x": 14,
+   "y": 0.586064
+  },
+  {
+   "series": "depth",
+   "x": 14,
+   "y": 1.4353
+  },
+  {
+   "series": "spread",
+   "x": 15,
+   "y": 0.615123
+  },
+  {
+   "series": "depth",
+   "x": 15,
+   "y": 1.4175
+  },
+  {
+   "series": "spread",
+   "x": 16,
+   "y": 0.600448
+  },
+  {
+   "series": "depth",
+   "x": 16,
+   "y": 1.34941
+  },
+  {
+   "series": "spread",
+   "x": 17,
+   "y": 0.643218
+  },
+  {
+   "series": "depth",
+   "x": 17,
+   "y": 1.25522
+  },
+  {
+   "series": "spread",
+   "x": 18,
+   "y": 0.721945
+  },
+  {
+   "series": "depth",
+   "x": 18,
+   "y": 1.23522
+  },
+  {
+   "series": "spread",
+   "x": 19,
+   "y": 0.76493
+  },
+  {
+   "series": "depth",
+   "x": 19,
+   "y": 1.1202
+  },
+  {
+   "series": "spread",
+   "x": 20,
+   "y": 0.887823
+  },
+  {
+   "series": "depth",
+   "x": 20,
+   "y": 1.03334
+  },
+  {
+   "series": "spread",
+   "x": 21,
+   "y": 0.97537
+  },
+  {
+   "series": "depth",
+   "x": 21,
+   "y": 0.914013
+  },
+  {
+   "series": "spread",
+   "x": 22,
+   "y": 1.1606
+  },
+  {
+   "series": "depth",
+   "x": 22,
+   "y": 0.760376
+  },
+  {
+   "series": "spread",
+   "x": 23,
+   "y": 1.26891
+  },
+  {
+   "series": "depth",
+   "x": 23,
+   "y": 0.693896
+  }
+ ]
+}

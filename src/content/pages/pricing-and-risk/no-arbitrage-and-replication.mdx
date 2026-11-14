@@ -14,9 +14,9 @@ terms:
 figure:
   id: "put-call-parity"
   title: "How tightly does put-call parity actually hold"
-  source: "CBOE delayed option data"
-  series: "one index option chain, matched call and put strikes"
-  period: "latest available snapshot"
+  source: "Simulation (illustrative model; see pipeline/fetch_parity.py). Real data it would ideally use: CBOE delayed option data"
+  series: "simulated option chain, matched call and put strikes"
+  period: "simulated, no calendar dates"
   script: "pipeline/fetch_parity.py"
   notice: "The gap between call minus put and the forward-implied value is small next to the option prices themselves, but it is not zero: it is of the order of the bid-ask spreads, and it widens for strikes far from the money where quotes are wide and stale."
   falsifiedBy: "The reading fails if the gap is large and persistent at liquid, near-the-money strikes after allowing for spreads, dividends and borrowing costs, since that would mean either that a riskless profit was sitting in the quotes or, far more likely, that the inputs to the parity formula are wrong."

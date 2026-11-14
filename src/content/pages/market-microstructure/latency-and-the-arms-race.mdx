@@ -13,9 +13,9 @@ terms:
 figure:
   id: "update-intervals"
   title: "Time between consecutive book updates"
-  source: "Binance WebSocket capture"
-  series: "BTCUSDT depth stream inter-arrival times"
-  period: "one capture session"
+  source: "Simulation (illustrative model; see pipeline/fetch_update_intervals.py). Real data it would ideally use: Binance WebSocket capture"
+  series: "simulated inter-arrival gaps"
+  period: "simulated, no calendar dates"
   script: "pipeline/fetch_update_intervals.py"
   notice: "The distribution of gaps spans several orders of magnitude with no characteristic scale, so there is no natural time step at which to sample this market."
   falsifiedBy: "The reading fails if the distribution is exponential, which would mean updates arrive as a Poisson process and a well-defined mean rate exists."

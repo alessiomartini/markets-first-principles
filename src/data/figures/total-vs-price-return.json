@@ -1,0 +1,1242 @@
+{
+ "id": "total-vs-price-return",
+ "generatedAt": "2026-11-14T15:54:10+00:00",
+ "synthetic": true,
+ "chart": "line",
+ "source": "Simulation (lognormal index with mean-reverting dividend yield, seed 20261031)",
+ "series_note": "360 monthly returns (shown quarterly); drift 0.6%/month, vol 4.3%/month, yield AR(1) around 2.0%; both indices start at 100",
+ "x": {
+  "label": "years"
+ },
+ "y": {
+  "label": "index level (start = 100, log scale)",
+  "type": "log"
+ },
+ "series": [
+  {
+   "key": "total",
+   "label": "Total return"
+  },
+  {
+   "key": "price",
+   "label": "Price return"
+  }
+ ],
+ "meta": {
+  "seed": 20261031,
+  "months": 360,
+  "dividendShareOfLogGrowth": 0.215678
+ },
+ "data": [
+  {
+   "series": "price",
+   "x": 0.0,
+   "y": 100.0
+  },
+  {
+   "series": "total",
+   "x": 0.0,
+   "y": 100.0
+  },
+  {
+   "series": "price",
+   "x": 0.25,
+   "y": 118.221
+  },
+  {
+   "series": "total",
+   "x": 0.25,
+   "y": 118.769
+  },
+  {
+   "series": "price",
+   "x": 0.5,
+   "y": 102.49
+  },
+  {
+   "series": "total",
+   "x": 0.5,
+   "y": 103.495
+  },
+  {
+   "series": "price",
+   "x": 0.75,
+   "y": 102.524
+  },
+  {
+   "series": "total",
+   "x": 0.75,
+   "y": 104.042
+  },
+  {
+   "series": "price",
+   "x": 1.0,
+   "y": 107.994
+  },
+  {
+   "series": "total",
+   "x": 1.0,
+   "y": 110.133
+  },
+  {
+   "series": "price",
+   "x": 1.25,
+   "y": 117.554
+  },
+  {
+   "series": "total",
+   "x": 1.25,
+   "y": 120.439
+  },
+  {
+   "series": "price",
+   "x": 1.5,
+   "y": 125.855
+  },
+  {
+   "series": "total",
+   "x": 1.5,
+   "y": 129.547
+  },
+  {
+   "series": "price",
+   "x": 1.75,
+   "y": 125.312
+  },
+  {
+   "series": "total",
+   "x": 1.75,
+   "y": 129.61
+  },
+  {
+   "series": "price",
+   "x": 2.0,
+   "y": 125.557
+  },
+  {
+   "series": "total",
+   "x": 2.0,
+   "y": 130.529
+  },
+  {
+   "series": "price",
+   "x": 2.25,
+   "y": 131.816
+  },
+  {
+   "series": "total",
+   "x": 2.25,
+   "y": 137.715
+  },
+  {
+   "series": "price",
+   "x": 2.5,
+   "y": 132.675
+  },
+  {
+   "series": "total",
+   "x": 2.5,
+   "y": 139.262
+  },
+  {
+   "series": "price",
+   "x": 2.75,
+   "y": 139.42
+  },
+  {
+   "series": "total",
+   "x": 2.75,
+   "y": 147.005
+  },
+  {
+   "series": "price",
+   "x": 3.0,
+   "y": 156.001
+  },
+  {
+   "series": "total",
+   "x": 3.0,
+   "y": 165.24
+  },
+  {
+   "series": "price",
+   "x": 3.25,
+   "y": 161.05
+  },
+  {
+   "series": "total",
+   "x": 3.25,
+   "y": 171.367
+  },
+  {
+   "series": "price",
+   "x": 3.5,
+   "y": 156.71
+  },
+  {
+   "series": "total",
+   "x": 3.5,
+   "y": 167.498
+  },
+  {
+   "series": "price",
+   "x": 3.75,
+   "y": 151.417
+  },
+  {
+   "series": "total",
+   "x": 3.75,
+   "y": 162.609
+  },
+  {
+   "series": "price",
+   "x": 4.0,
+   "y": 154.994
+  },
+  {
+   "series": "total",
+   "x": 4.0,
+   "y": 167.253
+  },
+  {
+   "series": "price",
+   "x": 4.25,
+   "y": 145.908
+  },
+  {
+   "series": "total",
+   "x": 4.25,
+   "y": 158.239
+  },
+  {
+   "series": "price",
+   "x": 4.5,
+   "y": 135.119
+  },
+  {
+   "series": "total",
+   "x": 4.5,
+   "y": 147.253
+  },
+  {
+   "series": "price",
+   "x": 4.75,
+   "y": 151.221
+  },
+  {
+   "series": "total",
+   "x": 4.75,
+   "y": 165.543
+  },
+  {
+   "series": "price",
+   "x": 5.0,
+   "y": 145.694
+  },
+  {
+   "series": "total",
+   "x": 5.0,
+   "y": 160.25
+  },
+  {
+   "series": "price",
+   "x": 5.25,
+   "y": 140.506
+  },
+  {
+   "series": "total",
+   "x": 5.25,
+   "y": 155.246
+  },
+  {
+   "series": "price",
+   "x": 5.5,
+   "y": 145.499
+  },
+  {
+   "series": "total",
+   "x": 5.5,
+   "y": 161.437
+  },
+  {
+   "series": "price",
+   "x": 5.75,
+   "y": 152.069
+  },
+  {
+   "series": "total",
+   "x": 5.75,
+   "y": 169.448
+  },
+  {
+   "series": "price",
+   "x": 6.0,
+   "y": 130.79
+  },
+  {
+   "series": "total",
+   "x": 6.0,
+   "y": 146.399
+  },
+  {
+   "series": "price",
+   "x": 6.25,
+   "y": 137.642
+  },
+  {
+   "series": "total",
+   "x": 6.25,
+   "y": 154.722
+  },
+  {
+   "series": "price",
+   "x": 6.5,
+   "y": 153.026
+  },
+  {
+   "series": "total",
+   "x": 6.5,
+   "y": 172.694
+  },
+  {
+   "series": "price",
+   "x": 6.75,
+   "y": 159.866
+  },
+  {
+   "series": "total",
+   "x": 6.75,
+   "y": 181.213
+  },
+  {
+   "series": "price",
+   "x": 7.0,
+   "y": 189.624
+  },
+  {
+   "series": "total",
+   "x": 7.0,
+   "y": 215.873
+  },
+  {
+   "series": "price",
+   "x": 7.25,
+   "y": 196.819
+  },
+  {
+   "series": "total",
+   "x": 7.25,
+   "y": 225.087
+  },
+  {
+   "series": "price",
+   "x": 7.5,
+   "y": 204.45
+  },
+  {
+   "series": "total",
+   "x": 7.5,
+   "y": 234.913
+  },
+  {
+   "series": "price",
+   "x": 7.75,
+   "y": 202.665
+  },
+  {
+   "series": "total",
+   "x": 7.75,
+   "y": 233.934
+  },
+  {
+   "series": "price",
+   "x": 8.0,
+   "y": 186.875
+  },
+  {
+   "series": "total",
+   "x": 8.0,
+   "y": 216.721
+  },
+  {
+   "series": "price",
+   "x": 8.25,
+   "y": 196.453
+  },
+  {
+   "series": "total",
+   "x": 8.25,
+   "y": 228.871
+  },
+  {
+   "series": "price",
+   "x": 8.5,
+   "y": 193.068
+  },
+  {
+   "series": "total",
+   "x": 8.5,
+   "y": 225.984
+  },
+  {
+   "series": "price",
+   "x": 8.75,
+   "y": 190.726
+  },
+  {
+   "series": "total",
+   "x": 8.75,
+   "y": 224.334
+  },
+  {
+   "series": "price",
+   "x": 9.0,
+   "y": 226.828
+  },
+  {
+   "series": "total",
+   "x": 9.0,
+   "y": 268.06
+  },
+  {
+   "series": "price",
+   "x": 9.25,
+   "y": 290.023
+  },
+  {
+   "series": "total",
+   "x": 9.25,
+   "y": 344.324
+  },
+  {
+   "series": "price",
+   "x": 9.5,
+   "y": 312.597
+  },
+  {
+   "series": "total",
+   "x": 9.5,
+   "y": 372.879
+  },
+  {
+   "series": "price",
+   "x": 9.75,
+   "y": 339.085
+  },
+  {
+   "series": "total",
+   "x": 9.75,
+   "y": 406.475
+  },
+  {
+   "series": "price",
+   "x": 10.0,
+   "y": 315.172
+  },
+  {
+   "series": "total",
+   "x": 10.0,
+   "y": 379.798
+  },
+  {
+   "series": "price",
+   "x": 10.25,
+   "y": 347.813
+  },
+  {
+   "series": "total",
+   "x": 10.25,
+   "y": 421.177
+  },
+  {
+   "series": "price",
+   "x": 10.5,
+   "y": 373.909
+  },
+  {
+   "series": "total",
+   "x": 10.5,
+   "y": 455.008
+  },
+  {
+   "series": "price",
+   "x": 10.75,
+   "y": 331.599
+  },
+  {
+   "series": "total",
+   "x": 10.75,
+   "y": 405.67
+  },
+  {
+   "series": "price",
+   "x": 11.0,
+   "y": 355.855
+  },
+  {
+   "series": "total",
+   "x": 11.0,
+   "y": 437.616
+  },
+  {
+   "series": "price",
+   "x": 11.25,
+   "y": 422.711
+  },
+  {
+   "series": "total",
+   "x": 11.25,
+   "y": 522.461
+  },
+  {
+   "series": "price",
+   "x": 11.5,
+   "y": 422.117
+  },
+  {
+   "series": "total",
+   "x": 11.5,
+   "y": 524.517
+  },
+  {
+   "series": "price",
+   "x": 11.75,
+   "y": 409.076
+  },
+  {
+   "series": "total",
+   "x": 11.75,
+   "y": 511.03
+  },
+  {
+   "series": "price",
+   "x": 12.0,
+   "y": 407.679
+  },
+  {
+   "series": "total",
+   "x": 12.0,
+   "y": 512.004
+  },
+  {
+   "series": "price",
+   "x": 12.25,
+   "y": 379.016
+  },
+  {
+   "series": "total",
+   "x": 12.25,
+   "y": 478.57
+  },
+  {
+   "series": "price",
+   "x": 12.5,
+   "y": 354.243
+  },
+  {
+   "series": "total",
+   "x": 12.5,
+   "y": 449.666
+  },
+  {
+   "series": "price",
+   "x": 12.75,
+   "y": 355.413
+  },
+  {
+   "series": "total",
+   "x": 12.75,
+   "y": 453.491
+  },
+  {
+   "series": "price",
+   "x": 13.0,
+   "y": 360.143
+  },
+  {
+   "series": "total",
+   "x": 13.0,
+   "y": 461.86
+  },
+  {
+   "series": "price",
+   "x": 13.25,
+   "y": 357.58
+  },
+  {
+   "series": "total",
+   "x": 13.25,
+   "y": 460.926
+  },
+  {
+   "series": "price",
+   "x": 13.5,
+   "y": 345.328
+  },
+  {
+   "series": "total",
+   "x": 13.5,
+   "y": 447.458
+  },
+  {
+   "series": "price",
+   "x": 13.75,
+   "y": 364.27
+  },
+  {
+   "series": "total",
+   "x": 13.75,
+   "y": 474.413
+  },
+  {
+   "series": "price",
+   "x": 14.0,
+   "y": 376.733
+  },
+  {
+   "series": "total",
+   "x": 14.0,
+   "y": 493.125
+  },
+  {
+   "series": "price",
+   "x": 14.25,
+   "y": 414.46
+  },
+  {
+   "series": "total",
+   "x": 14.25,
+   "y": 545.225
+  },
+  {
+   "series": "price",
+   "x": 14.5,
+   "y": 437.143
+  },
+  {
+   "series": "total",
+   "x": 14.5,
+   "y": 577.871
+  },
+  {
+   "series": "price",
+   "x": 14.75,
+   "y": 418.955
+  },
+  {
+   "series": "total",
+   "x": 14.75,
+   "y": 556.687
+  },
+  {
+   "series": "price",
+   "x": 15.0,
+   "y": 379.017
+  },
+  {
+   "series": "total",
+   "x": 15.0,
+   "y": 506.384
+  },
+  {
+   "series": "price",
+   "x": 15.25,
+   "y": 386.367
+  },
+  {
+   "series": "total",
+   "x": 15.25,
+   "y": 518.847
+  },
+  {
+   "series": "price",
+   "x": 15.5,
+   "y": 413.483
+  },
+  {
+   "series": "total",
+   "x": 15.5,
+   "y": 557.957
+  },
+  {
+   "series": "price",
+   "x": 15.75,
+   "y": 493.921
+  },
+  {
+   "series": "total",
+   "x": 15.75,
+   "y": 669.808
+  },
+  {
+   "series": "price",
+   "x": 16.0,
+   "y": 485.388
+  },
+  {
+   "series": "total",
+   "x": 16.0,
+   "y": 661.693
+  },
+  {
+   "series": "price",
+   "x": 16.25,
+   "y": 485.412
+  },
+  {
+   "series": "total",
+   "x": 16.25,
+   "y": 665.089
+  },
+  {
+   "series": "price",
+   "x": 16.5,
+   "y": 469.349
+  },
+  {
+   "series": "total",
+   "x": 16.5,
+   "y": 646.391
+  },
+  {
+   "series": "price",
+   "x": 16.75,
+   "y": 473.483
+  },
+  {
+   "series": "total",
+   "x": 16.75,
+   "y": 655.436
+  },
+  {
+   "series": "price",
+   "x": 17.0,
+   "y": 534.292
+  },
+  {
+   "series": "total",
+   "x": 17.0,
+   "y": 743.247
+  },
+  {
+   "series": "price",
+   "x": 17.25,
+   "y": 517.813
+  },
+  {
+   "series": "total",
+   "x": 17.25,
+   "y": 723.976
+  },
+  {
+   "series": "price",
+   "x": 17.5,
+   "y": 521.826
+  },
+  {
+   "series": "total",
+   "x": 17.5,
+   "y": 733.238
+  },
+  {
+   "series": "price",
+   "x": 17.75,
+   "y": 486.946
+  },
+  {
+   "series": "total",
+   "x": 17.75,
+   "y": 687.742
+  },
+  {
+   "series": "price",
+   "x": 18.0,
+   "y": 557.205
+  },
+  {
+   "series": "total",
+   "x": 18.0,
+   "y": 790.801
+  },
+  {
+   "series": "price",
+   "x": 18.25,
+   "y": 599.628
+  },
+  {
+   "series": "total",
+   "x": 18.25,
+   "y": 855.227
+  },
+  {
+   "series": "price",
+   "x": 18.5,
+   "y": 583.735
+  },
+  {
+   "series": "total",
+   "x": 18.5,
+   "y": 836.831
+  },
+  {
+   "series": "price",
+   "x": 18.75,
+   "y": 580.069
+  },
+  {
+   "series": "total",
+   "x": 18.75,
+   "y": 835.595
+  },
+  {
+   "series": "price",
+   "x": 19.0,
+   "y": 634.449
+  },
+  {
+   "series": "total",
+   "x": 19.0,
+   "y": 918.157
+  },
+  {
+   "series": "price",
+   "x": 19.25,
+   "y": 602.771
+  },
+  {
+   "series": "total",
+   "x": 19.25,
+   "y": 876.34
+  },
+  {
+   "series": "price",
+   "x": 19.5,
+   "y": 612.805
+  },
+  {
+   "series": "total",
+   "x": 19.5,
+   "y": 895.152
+  },
+  {
+   "series": "price",
+   "x": 19.75,
+   "y": 650.807
+  },
+  {
+   "series": "total",
+   "x": 19.75,
+   "y": 955.324
+  },
+  {
+   "series": "price",
+   "x": 20.0,
+   "y": 699.321
+  },
+  {
+   "series": "total",
+   "x": 20.0,
+   "y": 1031.61
+  },
+  {
+   "series": "price",
+   "x": 20.25,
+   "y": 619.489
+  },
+  {
+   "series": "total",
+   "x": 20.25,
+   "y": 918.75
+  },
+  {
+   "series": "price",
+   "x": 20.5,
+   "y": 626.512
+  },
+  {
+   "series": "total",
+   "x": 20.5,
+   "y": 933.949
+  },
+  {
+   "series": "price",
+   "x": 20.75,
+   "y": 673.669
+  },
+  {
+   "series": "total",
+   "x": 20.75,
+   "y": 1009.28
+  },
+  {
+   "series": "price",
+   "x": 21.0,
+   "y": 801.561
+  },
+  {
+   "series": "total",
+   "x": 21.0,
+   "y": 1206.51
+  },
+  {
+   "series": "price",
+   "x": 21.25,
+   "y": 825.873
+  },
+  {
+   "series": "total",
+   "x": 21.25,
+   "y": 1248.92
+  },
+  {
+   "series": "price",
+   "x": 21.5,
+   "y": 866.598
+  },
+  {
+   "series": "total",
+   "x": 21.5,
+   "y": 1316.51
+  },
+  {
+   "series": "price",
+   "x": 21.75,
+   "y": 878.078
+  },
+  {
+   "series": "total",
+   "x": 21.75,
+   "y": 1339.82
+  },
+  {
+   "series": "price",
+   "x": 22.0,
+   "y": 850.558
+  },
+  {
+   "series": "total",
+   "x": 22.0,
+   "y": 1303.64
+  },
+  {
+   "series": "price",
+   "x": 22.25,
+   "y": 745.204
+  },
+  {
+   "series": "total",
+   "x": 22.25,
+   "y": 1147.63
+  },
+  {
+   "series": "price",
+   "x": 22.5,
+   "y": 677.328
+  },
+  {
+   "series": "total",
+   "x": 22.5,
+   "y": 1047.92
+  },
+  {
+   "series": "price",
+   "x": 22.75,
+   "y": 739.486
+  },
+  {
+   "series": "total",
+   "x": 22.75,
+   "y": 1149.24
+  },
+  {
+   "series": "price",
+   "x": 23.0,
+   "y": 790.468
+  },
+  {
+   "series": "total",
+   "x": 23.0,
+   "y": 1233.83
+  },
+  {
+   "series": "price",
+   "x": 23.25,
+   "y": 791.235
+  },
+  {
+   "series": "total",
+   "x": 23.25,
+   "y": 1240.66
+  },
+  {
+   "series": "price",
+   "x": 23.5,
+   "y": 731.195
+  },
+  {
+   "series": "total",
+   "x": 23.5,
+   "y": 1151.97
+  },
+  {
+   "series": "price",
+   "x": 23.75,
+   "y": 776.659
+  },
+  {
+   "series": "total",
+   "x": 23.75,
+   "y": 1228.86
+  },
+  {
+   "series": "price",
+   "x": 24.0,
+   "y": 795.694
+  },
+  {
+   "series": "total",
+   "x": 24.0,
+   "y": 1264.42
+  },
+  {
+   "series": "price",
+   "x": 24.25,
+   "y": 809.541
+  },
+  {
+   "series": "total",
+   "x": 24.25,
+   "y": 1291.91
+  },
+  {
+   "series": "price",
+   "x": 24.5,
+   "y": 798.101
+  },
+  {
+   "series": "total",
+   "x": 24.5,
+   "y": 1279.36
+  },
+  {
+   "series": "price",
+   "x": 24.75,
+   "y": 786.717
+  },
+  {
+   "series": "total",
+   "x": 24.75,
+   "y": 1266.66
+  },
+  {
+   "series": "price",
+   "x": 25.0,
+   "y": 748.227
+  },
+  {
+   "series": "total",
+   "x": 25.0,
+   "y": 1210.13
+  },
+  {
+   "series": "price",
+   "x": 25.25,
+   "y": 709.154
+  },
+  {
+   "series": "total",
+   "x": 25.25,
+   "y": 1152.04
+  },
+  {
+   "series": "price",
+   "x": 25.5,
+   "y": 739.283
+  },
+  {
+   "series": "total",
+   "x": 25.5,
+   "y": 1206.12
+  },
+  {
+   "series": "price",
+   "x": 25.75,
+   "y": 730.436
+  },
+  {
+   "series": "total",
+   "x": 25.75,
+   "y": 1197.0
+  },
+  {
+   "series": "price",
+   "x": 26.0,
+   "y": 672.771
+  },
+  {
+   "series": "total",
+   "x": 26.0,
+   "y": 1107.69
+  },
+  {
+   "series": "price",
+   "x": 26.25,
+   "y": 727.872
+  },
+  {
+   "series": "total",
+   "x": 26.25,
+   "y": 1204.01
+  },
+  {
+   "series": "price",
+   "x": 26.5,
+   "y": 791.3
+  },
+  {
+   "series": "total",
+   "x": 26.5,
+   "y": 1315.23
+  },
+  {
+   "series": "price",
+   "x": 26.75,
+   "y": 813.595
+  },
+  {
+   "series": "total",
+   "x": 26.75,
+   "y": 1359.02
+  },
+  {
+   "series": "price",
+   "x": 27.0,
+   "y": 714.809
+  },
+  {
+   "series": "total",
+   "x": 27.0,
+   "y": 1200.44
+  },
+  {
+   "series": "price",
+   "x": 27.25,
+   "y": 865.627
+  },
+  {
+   "series": "total",
+   "x": 27.25,
+   "y": 1460.66
+  },
+  {
+   "series": "price",
+   "x": 27.5,
+   "y": 707.263
+  },
+  {
+   "series": "total",
+   "x": 27.5,
+   "y": 1199.8
+  },
+  {
+   "series": "price",
+   "x": 27.75,
+   "y": 703.168
+  },
+  {
+   "series": "total",
+   "x": 27.75,
+   "y": 1198.65
+  },
+  {
+   "series": "price",
+   "x": 28.0,
+   "y": 691.442
+  },
+  {
+   "series": "total",
+   "x": 28.0,
+   "y": 1184.26
+  },
+  {
+   "series": "price",
+   "x": 28.25,
+   "y": 670.574
+  },
+  {
+   "series": "total",
+   "x": 28.25,
+   "y": 1154.0
+  },
+  {
+   "series": "price",
+   "x": 28.5,
+   "y": 715.885
+  },
+  {
+   "series": "total",
+   "x": 28.5,
+   "y": 1237.55
+  },
+  {
+   "series": "price",
+   "x": 28.75,
+   "y": 731.721
+  },
+  {
+   "series": "total",
+   "x": 28.75,
+   "y": 1271.06
+  },
+  {
+   "series": "price",
+   "x": 29.0,
+   "y": 831.778
+  },
+  {
+   "series": "total",
+   "x": 29.0,
+   "y": 1452.02
+  },
+  {
+   "series": "price",
+   "x": 29.25,
+   "y": 869.564
+  },
+  {
+   "series": "total",
+   "x": 29.25,
+   "y": 1525.48
+  },
+  {
+   "series": "price",
+   "x": 29.5,
+   "y": 905.84
+  },
+  {
+   "series": "total",
+   "x": 29.5,
+   "y": 1597.19
+  },
+  {
+   "series": "price",
+   "x": 29.75,
+   "y": 902.245
+  },
+  {
+   "series": "total",
+   "x": 29.75,
+   "y": 1599.42
+  },
+  {
+   "series": "price",
+   "x": 30.0,
+   "y": 818.779
+  },
+  {
+   "series": "total",
+   "x": 30.0,
+   "y": 1459.74
+  }
+ ]
+}

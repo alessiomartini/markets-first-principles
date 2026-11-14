@@ -14,9 +14,9 @@ terms:
 figure:
   id: "intraday-liquidity"
   title: "Spread and top-of-book depth by time of day"
-  source: "Binance public REST"
-  series: "BTCUSDT 1m klines and book snapshots"
-  period: "trailing 60 days"
+  source: "Simulation (illustrative model; see pipeline/fetch_intraday_liquidity.py). Real data it would ideally use: Binance public REST"
+  series: "simulated spread and depth, 60 days"
+  period: "simulated, no calendar dates"
   script: "pipeline/fetch_intraday_liquidity.py"
   notice: "Spread and depth move in opposition through the day and both are worst in the same hours, so the two measures agree about when trading is expensive even though they measure different things."
   falsifiedBy: "The reading fails if spread and depth are uncorrelated across the day, which would mean the U-shape is a property of one measure rather than of liquidity itself."

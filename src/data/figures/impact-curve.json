@@ -1,0 +1,167 @@
+{
+ "id": "impact-curve",
+ "generatedAt": "2026-11-14T15:54:10+00:00",
+ "synthetic": true,
+ "chart": "line",
+ "source": "Simulation (square-root impact law with noise, seed 20261031)",
+ "series_note": "400000 intervals; move = 0.8*30bp*sign(q)*sqrt(|q|/V) + Gaussian noise (sd 45 bp); 24 equal-count bins of signed volume",
+ "x": {
+  "label": "signed volume q (units of typical interval volume)"
+ },
+ "y": {
+  "label": "mean price move (bp)"
+ },
+ "series": [
+  {
+   "key": "impact",
+   "label": "Binned mean response"
+  },
+  {
+   "key": "linear",
+   "label": "Linear benchmark (slope near zero)"
+  }
+ ],
+ "meta": {
+  "seed": 20261031,
+  "n": 400000,
+  "bins": 24,
+  "linearSlope": 47.6869
+ },
+ "data": [
+  {
+   "series": "impact",
+   "x": -2.56215,
+   "y": -37.0939
+  },
+  {
+   "series": "impact",
+   "x": -1.17671,
+   "y": -26.3576
+  },
+  {
+   "series": "impact",
+   "x": -0.832571,
+   "y": -21.7805
+  },
+  {
+   "series": "impact",
+   "x": -0.638758,
+   "y": -18.953
+  },
+  {
+   "series": "impact",
+   "x": -0.506224,
+   "y": -17.0138
+  },
+  {
+   "series": "impact",
+   "x": -0.409234,
+   "y": -15.8569
+  },
+  {
+   "series": "impact",
+   "x": -0.332243,
+   "y": -13.5376
+  },
+  {
+   "series": "impact",
+   "x": -0.268646,
+   "y": -12.2521
+  },
+  {
+   "series": "impact",
+   "x": -0.21384,
+   "y": -10.9198
+  },
+  {
+   "series": "impact",
+   "x": -0.164332,
+   "y": -9.21287
+  },
+  {
+   "series": "impact",
+   "x": -0.117355,
+   "y": -7.83211
+  },
+  {
+   "series": "impact",
+   "x": -0.0638595,
+   "y": -6.25104
+  },
+  {
+   "series": "impact",
+   "x": 0.0610707,
+   "y": 5.18866
+  },
+  {
+   "series": "impact",
+   "x": 0.116217,
+   "y": 8.12869
+  },
+  {
+   "series": "impact",
+   "x": 0.163226,
+   "y": 9.78955
+  },
+  {
+   "series": "impact",
+   "x": 0.213008,
+   "y": 10.6972
+  },
+  {
+   "series": "impact",
+   "x": 0.26837,
+   "y": 12.3545
+  },
+  {
+   "series": "impact",
+   "x": 0.331519,
+   "y": 13.7143
+  },
+  {
+   "series": "impact",
+   "x": 0.408598,
+   "y": 14.8157
+  },
+  {
+   "series": "impact",
+   "x": 0.507825,
+   "y": 16.7409
+  },
+  {
+   "series": "impact",
+   "x": 0.640552,
+   "y": 19.4856
+  },
+  {
+   "series": "impact",
+   "x": 0.837803,
+   "y": 21.8566
+  },
+  {
+   "series": "impact",
+   "x": 1.18232,
+   "y": 25.4899
+  },
+  {
+   "series": "impact",
+   "x": 2.53019,
+   "y": 37.5571
+  },
+  {
+   "series": "linear",
+   "x": -2.56215,
+   "y": -122.181
+  },
+  {
+   "series": "linear",
+   "x": 0.0,
+   "y": 0.0
+  },
+  {
+   "series": "linear",
+   "x": 2.53019,
+   "y": 120.657
+  }
+ ]
+}
