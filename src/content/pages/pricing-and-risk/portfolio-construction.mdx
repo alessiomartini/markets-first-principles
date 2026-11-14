@@ -20,6 +20,16 @@ figure:
   script: "pipeline/fetch_frontier.py"
   notice: "The efficient frontier computed from one half of the sample lies up and to the left of the portfolios it actually delivers in the other half: for the same risk the realised return is lower, and the optimiser's chosen portfolio is typically beaten out of sample by far simpler weightings such as equal weights."
   falsifiedBy: "The reading fails if the out-of-sample portfolios sit on or near the in-sample frontier, or if the optimised portfolio consistently beats equal weights out of sample; either would mean estimation error is not the dominant problem."
+extraFigures:
+  - id: "diversification-vs-n"
+    title: "Portfolio volatility against the number of assets"
+    source: "Schematic (equal-weight volatility formula; no market data)"
+    series: "20% volatility per asset, common correlation 0, 0.3 and 0.6, equal weights"
+    period: "not a time series: volatility as a function of the number of assets"
+    script: "pipeline/fetch_diversification.py"
+    schematic: true
+    notice: "With zero correlation volatility keeps falling like one over the square root of N; with positive correlation it flattens at a floor equal to the asset volatility times the square root of the correlation, which no number of extra assets removes."
+    falsifiedBy: "This is a formula, so no data can falsify it; the illustrative correlations are not estimates, and real correlations rise in stress, which lifts the floor when it matters."
 ---
 ## IN ONE SENTENCE
 
@@ -118,6 +128,8 @@ are not stationary, so the weak directions of next year's matrix are not the wea
 ## IN THE DATA
 
 <Figure figure={frontmatter.figure} />
+
+<Figure figure={frontmatter.extraFigures[0]} />
 
 ## COMMON CONFUSIONS
 

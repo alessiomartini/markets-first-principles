@@ -71,21 +71,35 @@ if (missing.size === 0) {
   }
 }
 
-// Figures whose JSON is absent or still synthetic.
-const figures = pages.filter((entry) => entry.page.figure);
+// Figures whose JSON is absent or still synthetic. A page has one main figure
+// (content-map.json) plus any number of extraFigures declared in its frontmatter.
+function extraFigureIds(file) {
+  if (!fs.existsSync(file)) return [];
+  const match = fs.readFileSync(file, 'utf8').match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (!match) return [];
+  const block = match[1].match(/^extraFigures:\s*\r?\n((?:[ \t]+.*\r?\n?|\r?\n)*)/m);
+  if (!block) return [];
+  return [...block[1].matchAll(/^[ \t]+-\s+id:\s*["']?([^"'\r\n]+?)["']?\s*$/gm)].map((m) => m[1]);
+}
+
+const figureIds = new Set();
+for (const entry of pages) {
+  if (entry.page.figure) figureIds.add(entry.page.figure.id);
+  for (const id of extraFigureIds(entry.file)) figureIds.add(id);
+}
 const states = { real: [], synthetic: [], absent: [] };
 
-for (const entry of figures) {
-  const file = path.join(FIGURES_DIR, `${entry.page.figure.id}.json`);
+for (const id of figureIds) {
+  const file = path.join(FIGURES_DIR, `${id}.json`);
   if (!fs.existsSync(file)) {
-    states.absent.push(entry.page.figure.id);
+    states.absent.push(id);
     continue;
   }
   const payload = JSON.parse(fs.readFileSync(file, 'utf8'));
-  (payload.synthetic ? states.synthetic : states.real).push(entry.page.figure.id);
+  (payload.synthetic ? states.synthetic : states.real).push(id);
 }
 
-console.log(`\nFIGURES  ${figures.length} specified`);
+console.log(`\nFIGURES  ${figureIds.size} specified`);
 console.log(`  real       ${states.real.length}${states.real.length ? `  ${states.real.join(', ')}` : ''}`);
 console.log(`  synthetic  ${states.synthetic.length}${states.synthetic.length ? `  ${states.synthetic.join(', ')}` : ''}`);
 console.log(`  no data    ${states.absent.length}`);

@@ -45,6 +45,9 @@ SCRIPTS = [
     "fetch_option_payoff.py",
     "fetch_compounding.py",
     "fetch_model_smile.py",
+    "fetch_parity_payoff.py",
+    "fetch_leverage_payoff.py",
+    "fetch_diversification.py",
 ]
 
 
