@@ -3,6 +3,7 @@ term: "Order book"
 aliases: ["the book", "limit order book", "LOB"]
 track: 2
 status: written
+figure: "order-book-depth"
 physics: "Two populations of particles approaching a common boundary and annihilating on contact \u2014 a reaction\u2013diffusion system with the mid price as the interface."
 ---
 

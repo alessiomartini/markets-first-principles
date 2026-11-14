@@ -1,0 +1,11 @@
+---
+import Figure from './Figure.astro';
+
+/** Renders every entry of the page's `extraFigures` frontmatter, in order. */
+interface Props {
+  figures?: any[];
+}
+const { figures = [] } = Astro.props;
+---
+
+{figures.map((figure) => <Figure figure={figure} />)}

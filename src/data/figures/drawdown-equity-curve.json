@@ -1,0 +1,2540 @@
+{
+ "id": "drawdown-equity-curve",
+ "generatedAt": "2026-11-14T12:07:54+00:00",
+ "synthetic": true,
+ "chart": "line",
+ "source": "Simulation (illustrative model; see pipeline/fetch_drawdown.py). No market data",
+ "series_note": "one simulated path of 1000 daily returns, normal, mean 0.0004, volatility 0.01, seed 20261031",
+ "x": {
+  "label": "trading day"
+ },
+ "y": {
+  "label": "equity (start = 100)"
+ },
+ "series": [
+  {
+   "key": "equity",
+   "label": "Equity curve"
+  },
+  {
+   "key": "peak",
+   "label": "Running peak"
+  }
+ ],
+ "meta": {
+  "maxDrawdownPct": 19.8119,
+  "seed": 20261031
+ },
+ "data": [
+  {
+   "series": "equity",
+   "x": 0,
+   "y": 100.0
+  },
+  {
+   "series": "peak",
+   "x": 0,
+   "y": 100.0
+  },
+  {
+   "series": "equity",
+   "x": 4,
+   "y": 101.15
+  },
+  {
+   "series": "peak",
+   "x": 4,
+   "y": 101.15
+  },
+  {
+   "series": "equity",
+   "x": 8,
+   "y": 102.031
+  },
+  {
+   "series": "peak",
+   "x": 8,
+   "y": 102.641
+  },
+  {
+   "series": "equity",
+   "x": 12,
+   "y": 99.2895
+  },
+  {
+   "series": "peak",
+   "x": 12,
+   "y": 102.641
+  },
+  {
+   "series": "equity",
+   "x": 16,
+   "y": 98.9685
+  },
+  {
+   "series": "peak",
+   "x": 16,
+   "y": 102.641
+  },
+  {
+   "series": "equity",
+   "x": 20,
+   "y": 100.749
+  },
+  {
+   "series": "peak",
+   "x": 20,
+   "y": 102.641
+  },
+  {
+   "series": "equity",
+   "x": 24,
+   "y": 100.733
+  },
+  {
+   "series": "peak",
+   "x": 24,
+   "y": 102.641
+  },
+  {
+   "series": "equity",
+   "x": 28,
+   "y": 99.3897
+  },
+  {
+   "series": "peak",
+   "x": 28,
+   "y": 102.641
+  },
+  {
+   "series": "equity",
+   "x": 32,
+   "y": 99.915
+  },
+  {
+   "series": "peak",
+   "x": 32,
+   "y": 102.641
+  },
+  {
+   "series": "equity",
+   "x": 36,
+   "y": 102.448
+  },
+  {
+   "series": "peak",
+   "x": 36,
+   "y": 102.641
+  },
+  {
+   "series": "equity",
+   "x": 40,
+   "y": 101.399
+  },
+  {
+   "series": "peak",
+   "x": 40,
+   "y": 102.641
+  },
+  {
+   "series": "equity",
+   "x": 44,
+   "y": 103.549
+  },
+  {
+   "series": "peak",
+   "x": 44,
+   "y": 104.01
+  },
+  {
+   "series": "equity",
+   "x": 48,
+   "y": 104.994
+  },
+  {
+   "series": "peak",
+   "x": 48,
+   "y": 104.994
+  },
+  {
+   "series": "equity",
+   "x": 52,
+   "y": 106.718
+  },
+  {
+   "series": "peak",
+   "x": 52,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 56,
+   "y": 102.53
+  },
+  {
+   "series": "peak",
+   "x": 56,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 60,
+   "y": 100.679
+  },
+  {
+   "series": "peak",
+   "x": 60,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 64,
+   "y": 102.833
+  },
+  {
+   "series": "peak",
+   "x": 64,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 68,
+   "y": 102.262
+  },
+  {
+   "series": "peak",
+   "x": 68,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 72,
+   "y": 104.698
+  },
+  {
+   "series": "peak",
+   "x": 72,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 76,
+   "y": 102.182
+  },
+  {
+   "series": "peak",
+   "x": 76,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 80,
+   "y": 101.12
+  },
+  {
+   "series": "peak",
+   "x": 80,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 84,
+   "y": 100.504
+  },
+  {
+   "series": "peak",
+   "x": 84,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 88,
+   "y": 100.358
+  },
+  {
+   "series": "peak",
+   "x": 88,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 92,
+   "y": 104.71
+  },
+  {
+   "series": "peak",
+   "x": 92,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 96,
+   "y": 103.82
+  },
+  {
+   "series": "peak",
+   "x": 96,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 100,
+   "y": 104.227
+  },
+  {
+   "series": "peak",
+   "x": 100,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 104,
+   "y": 102.25
+  },
+  {
+   "series": "peak",
+   "x": 104,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 108,
+   "y": 97.9855
+  },
+  {
+   "series": "peak",
+   "x": 108,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 112,
+   "y": 98.7671
+  },
+  {
+   "series": "peak",
+   "x": 112,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 116,
+   "y": 98.4112
+  },
+  {
+   "series": "peak",
+   "x": 116,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 120,
+   "y": 99.3218
+  },
+  {
+   "series": "peak",
+   "x": 120,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 124,
+   "y": 97.2187
+  },
+  {
+   "series": "peak",
+   "x": 124,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 128,
+   "y": 95.1789
+  },
+  {
+   "series": "peak",
+   "x": 128,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 132,
+   "y": 93.0439
+  },
+  {
+   "series": "peak",
+   "x": 132,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 136,
+   "y": 95.6035
+  },
+  {
+   "series": "peak",
+   "x": 136,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 140,
+   "y": 92.6806
+  },
+  {
+   "series": "peak",
+   "x": 140,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 144,
+   "y": 90.4531
+  },
+  {
+   "series": "peak",
+   "x": 144,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 148,
+   "y": 90.5381
+  },
+  {
+   "series": "peak",
+   "x": 148,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 152,
+   "y": 90.0744
+  },
+  {
+   "series": "peak",
+   "x": 152,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 156,
+   "y": 90.1354
+  },
+  {
+   "series": "peak",
+   "x": 156,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 160,
+   "y": 93.3055
+  },
+  {
+   "series": "peak",
+   "x": 160,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 164,
+   "y": 95.5119
+  },
+  {
+   "series": "peak",
+   "x": 164,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 168,
+   "y": 97.5861
+  },
+  {
+   "series": "peak",
+   "x": 168,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 172,
+   "y": 99.3623
+  },
+  {
+   "series": "peak",
+   "x": 172,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 176,
+   "y": 100.206
+  },
+  {
+   "series": "peak",
+   "x": 176,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 180,
+   "y": 100.77
+  },
+  {
+   "series": "peak",
+   "x": 180,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 184,
+   "y": 99.4187
+  },
+  {
+   "series": "peak",
+   "x": 184,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 188,
+   "y": 95.6954
+  },
+  {
+   "series": "peak",
+   "x": 188,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 192,
+   "y": 96.5018
+  },
+  {
+   "series": "peak",
+   "x": 192,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 196,
+   "y": 98.2072
+  },
+  {
+   "series": "peak",
+   "x": 196,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 200,
+   "y": 97.3993
+  },
+  {
+   "series": "peak",
+   "x": 200,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 204,
+   "y": 96.9736
+  },
+  {
+   "series": "peak",
+   "x": 204,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 208,
+   "y": 97.8648
+  },
+  {
+   "series": "peak",
+   "x": 208,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 212,
+   "y": 101.877
+  },
+  {
+   "series": "peak",
+   "x": 212,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 216,
+   "y": 103.207
+  },
+  {
+   "series": "peak",
+   "x": 216,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 220,
+   "y": 106.476
+  },
+  {
+   "series": "peak",
+   "x": 220,
+   "y": 106.718
+  },
+  {
+   "series": "equity",
+   "x": 224,
+   "y": 106.579
+  },
+  {
+   "series": "peak",
+   "x": 224,
+   "y": 108.086
+  },
+  {
+   "series": "equity",
+   "x": 228,
+   "y": 109.112
+  },
+  {
+   "series": "peak",
+   "x": 228,
+   "y": 110.389
+  },
+  {
+   "series": "equity",
+   "x": 232,
+   "y": 112.773
+  },
+  {
+   "series": "peak",
+   "x": 232,
+   "y": 112.823
+  },
+  {
+   "series": "equity",
+   "x": 236,
+   "y": 114.981
+  },
+  {
+   "series": "peak",
+   "x": 236,
+   "y": 115.019
+  },
+  {
+   "series": "equity",
+   "x": 240,
+   "y": 111.729
+  },
+  {
+   "series": "peak",
+   "x": 240,
+   "y": 115.019
+  },
+  {
+   "series": "equity",
+   "x": 244,
+   "y": 114.451
+  },
+  {
+   "series": "peak",
+   "x": 244,
+   "y": 115.019
+  },
+  {
+   "series": "equity",
+   "x": 248,
+   "y": 116.656
+  },
+  {
+   "series": "peak",
+   "x": 248,
+   "y": 116.656
+  },
+  {
+   "series": "equity",
+   "x": 252,
+   "y": 114.727
+  },
+  {
+   "series": "peak",
+   "x": 252,
+   "y": 116.656
+  },
+  {
+   "series": "equity",
+   "x": 256,
+   "y": 116.34
+  },
+  {
+   "series": "peak",
+   "x": 256,
+   "y": 116.766
+  },
+  {
+   "series": "equity",
+   "x": 260,
+   "y": 114.473
+  },
+  {
+   "series": "peak",
+   "x": 260,
+   "y": 116.766
+  },
+  {
+   "series": "equity",
+   "x": 264,
+   "y": 119.444
+  },
+  {
+   "series": "peak",
+   "x": 264,
+   "y": 119.444
+  },
+  {
+   "series": "equity",
+   "x": 268,
+   "y": 121.963
+  },
+  {
+   "series": "peak",
+   "x": 268,
+   "y": 121.963
+  },
+  {
+   "series": "equity",
+   "x": 272,
+   "y": 122.564
+  },
+  {
+   "series": "peak",
+   "x": 272,
+   "y": 123.264
+  },
+  {
+   "series": "equity",
+   "x": 276,
+   "y": 122.197
+  },
+  {
+   "series": "peak",
+   "x": 276,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 280,
+   "y": 120.635
+  },
+  {
+   "series": "peak",
+   "x": 280,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 284,
+   "y": 123.49
+  },
+  {
+   "series": "peak",
+   "x": 284,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 288,
+   "y": 120.317
+  },
+  {
+   "series": "peak",
+   "x": 288,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 292,
+   "y": 120.923
+  },
+  {
+   "series": "peak",
+   "x": 292,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 296,
+   "y": 118.835
+  },
+  {
+   "series": "peak",
+   "x": 296,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 300,
+   "y": 116.52
+  },
+  {
+   "series": "peak",
+   "x": 300,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 304,
+   "y": 115.942
+  },
+  {
+   "series": "peak",
+   "x": 304,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 308,
+   "y": 116.013
+  },
+  {
+   "series": "peak",
+   "x": 308,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 312,
+   "y": 115.807
+  },
+  {
+   "series": "peak",
+   "x": 312,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 316,
+   "y": 116.063
+  },
+  {
+   "series": "peak",
+   "x": 316,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 320,
+   "y": 116.999
+  },
+  {
+   "series": "peak",
+   "x": 320,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 324,
+   "y": 115.408
+  },
+  {
+   "series": "peak",
+   "x": 324,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 328,
+   "y": 117.038
+  },
+  {
+   "series": "peak",
+   "x": 328,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 332,
+   "y": 116.51
+  },
+  {
+   "series": "peak",
+   "x": 332,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 336,
+   "y": 117.425
+  },
+  {
+   "series": "peak",
+   "x": 336,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 340,
+   "y": 120.515
+  },
+  {
+   "series": "peak",
+   "x": 340,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 344,
+   "y": 119.293
+  },
+  {
+   "series": "peak",
+   "x": 344,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 348,
+   "y": 119.038
+  },
+  {
+   "series": "peak",
+   "x": 348,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 352,
+   "y": 119.888
+  },
+  {
+   "series": "peak",
+   "x": 352,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 356,
+   "y": 120.152
+  },
+  {
+   "series": "peak",
+   "x": 356,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 360,
+   "y": 119.258
+  },
+  {
+   "series": "peak",
+   "x": 360,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 364,
+   "y": 116.078
+  },
+  {
+   "series": "peak",
+   "x": 364,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 368,
+   "y": 117.452
+  },
+  {
+   "series": "peak",
+   "x": 368,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 372,
+   "y": 117.552
+  },
+  {
+   "series": "peak",
+   "x": 372,
+   "y": 123.704
+  },
+  {
+   "series": "equity",
+   "x": 376,
+   "y": 127.561
+  },
+  {
+   "series": "peak",
+   "x": 376,
+   "y": 127.561
+  },
+  {
+   "series": "equity",
+   "x": 380,
+   "y": 127.076
+  },
+  {
+   "series": "peak",
+   "x": 380,
+   "y": 127.561
+  },
+  {
+   "series": "equity",
+   "x": 384,
+   "y": 124.371
+  },
+  {
+   "series": "peak",
+   "x": 384,
+   "y": 127.561
+  },
+  {
+   "series": "equity",
+   "x": 388,
+   "y": 124.345
+  },
+  {
+   "series": "peak",
+   "x": 388,
+   "y": 127.561
+  },
+  {
+   "series": "equity",
+   "x": 392,
+   "y": 124.742
+  },
+  {
+   "series": "peak",
+   "x": 392,
+   "y": 127.561
+  },
+  {
+   "series": "equity",
+   "x": 396,
+   "y": 122.288
+  },
+  {
+   "series": "peak",
+   "x": 396,
+   "y": 127.561
+  },
+  {
+   "series": "equity",
+   "x": 400,
+   "y": 125.749
+  },
+  {
+   "series": "peak",
+   "x": 400,
+   "y": 127.561
+  },
+  {
+   "series": "equity",
+   "x": 404,
+   "y": 124.083
+  },
+  {
+   "series": "peak",
+   "x": 404,
+   "y": 127.561
+  },
+  {
+   "series": "equity",
+   "x": 408,
+   "y": 127.993
+  },
+  {
+   "series": "peak",
+   "x": 408,
+   "y": 127.993
+  },
+  {
+   "series": "equity",
+   "x": 412,
+   "y": 123.686
+  },
+  {
+   "series": "peak",
+   "x": 412,
+   "y": 127.993
+  },
+  {
+   "series": "equity",
+   "x": 416,
+   "y": 124.603
+  },
+  {
+   "series": "peak",
+   "x": 416,
+   "y": 127.993
+  },
+  {
+   "series": "equity",
+   "x": 420,
+   "y": 124.188
+  },
+  {
+   "series": "peak",
+   "x": 420,
+   "y": 127.993
+  },
+  {
+   "series": "equity",
+   "x": 424,
+   "y": 123.627
+  },
+  {
+   "series": "peak",
+   "x": 424,
+   "y": 127.993
+  },
+  {
+   "series": "equity",
+   "x": 428,
+   "y": 122.209
+  },
+  {
+   "series": "peak",
+   "x": 428,
+   "y": 127.993
+  },
+  {
+   "series": "equity",
+   "x": 432,
+   "y": 126.448
+  },
+  {
+   "series": "peak",
+   "x": 432,
+   "y": 127.993
+  },
+  {
+   "series": "equity",
+   "x": 436,
+   "y": 127.782
+  },
+  {
+   "series": "peak",
+   "x": 436,
+   "y": 128.312
+  },
+  {
+   "series": "equity",
+   "x": 440,
+   "y": 128.542
+  },
+  {
+   "series": "peak",
+   "x": 440,
+   "y": 130.325
+  },
+  {
+   "series": "equity",
+   "x": 444,
+   "y": 127.843
+  },
+  {
+   "series": "peak",
+   "x": 444,
+   "y": 130.325
+  },
+  {
+   "series": "equity",
+   "x": 448,
+   "y": 125.862
+  },
+  {
+   "series": "peak",
+   "x": 448,
+   "y": 130.325
+  },
+  {
+   "series": "equity",
+   "x": 452,
+   "y": 124.2
+  },
+  {
+   "series": "peak",
+   "x": 452,
+   "y": 130.325
+  },
+  {
+   "series": "equity",
+   "x": 456,
+   "y": 124.433
+  },
+  {
+   "series": "peak",
+   "x": 456,
+   "y": 130.325
+  },
+  {
+   "series": "equity",
+   "x": 460,
+   "y": 121.641
+  },
+  {
+   "series": "peak",
+   "x": 460,
+   "y": 130.325
+  },
+  {
+   "series": "equity",
+   "x": 464,
+   "y": 121.119
+  },
+  {
+   "series": "peak",
+   "x": 464,
+   "y": 130.325
+  },
+  {
+   "series": "equity",
+   "x": 468,
+   "y": 125.557
+  },
+  {
+   "series": "peak",
+   "x": 468,
+   "y": 130.325
+  },
+  {
+   "series": "equity",
+   "x": 472,
+   "y": 127.865
+  },
+  {
+   "series": "peak",
+   "x": 472,
+   "y": 130.325
+  },
+  {
+   "series": "equity",
+   "x": 476,
+   "y": 129.02
+  },
+  {
+   "series": "peak",
+   "x": 476,
+   "y": 130.325
+  },
+  {
+   "series": "equity",
+   "x": 480,
+   "y": 131.163
+  },
+  {
+   "series": "peak",
+   "x": 480,
+   "y": 131.236
+  },
+  {
+   "series": "equity",
+   "x": 484,
+   "y": 129.924
+  },
+  {
+   "series": "peak",
+   "x": 484,
+   "y": 131.236
+  },
+  {
+   "series": "equity",
+   "x": 488,
+   "y": 127.594
+  },
+  {
+   "series": "peak",
+   "x": 488,
+   "y": 131.4
+  },
+  {
+   "series": "equity",
+   "x": 492,
+   "y": 128.854
+  },
+  {
+   "series": "peak",
+   "x": 492,
+   "y": 131.4
+  },
+  {
+   "series": "equity",
+   "x": 496,
+   "y": 129.609
+  },
+  {
+   "series": "peak",
+   "x": 496,
+   "y": 131.4
+  },
+  {
+   "series": "equity",
+   "x": 500,
+   "y": 132.452
+  },
+  {
+   "series": "peak",
+   "x": 500,
+   "y": 132.452
+  },
+  {
+   "series": "equity",
+   "x": 504,
+   "y": 132.227
+  },
+  {
+   "series": "peak",
+   "x": 504,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 508,
+   "y": 130.225
+  },
+  {
+   "series": "peak",
+   "x": 508,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 512,
+   "y": 132.489
+  },
+  {
+   "series": "peak",
+   "x": 512,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 516,
+   "y": 129.461
+  },
+  {
+   "series": "peak",
+   "x": 516,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 520,
+   "y": 126.654
+  },
+  {
+   "series": "peak",
+   "x": 520,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 524,
+   "y": 127.159
+  },
+  {
+   "series": "peak",
+   "x": 524,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 528,
+   "y": 126.708
+  },
+  {
+   "series": "peak",
+   "x": 528,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 532,
+   "y": 124.209
+  },
+  {
+   "series": "peak",
+   "x": 532,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 536,
+   "y": 118.315
+  },
+  {
+   "series": "peak",
+   "x": 536,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 540,
+   "y": 119.484
+  },
+  {
+   "series": "peak",
+   "x": 540,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 544,
+   "y": 123.544
+  },
+  {
+   "series": "peak",
+   "x": 544,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 548,
+   "y": 122.548
+  },
+  {
+   "series": "peak",
+   "x": 548,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 552,
+   "y": 119.935
+  },
+  {
+   "series": "peak",
+   "x": 552,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 556,
+   "y": 123.546
+  },
+  {
+   "series": "peak",
+   "x": 556,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 560,
+   "y": 125.2
+  },
+  {
+   "series": "peak",
+   "x": 560,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 564,
+   "y": 118.011
+  },
+  {
+   "series": "peak",
+   "x": 564,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 568,
+   "y": 117.054
+  },
+  {
+   "series": "peak",
+   "x": 568,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 572,
+   "y": 119.361
+  },
+  {
+   "series": "peak",
+   "x": 572,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 576,
+   "y": 116.212
+  },
+  {
+   "series": "peak",
+   "x": 576,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 580,
+   "y": 117.448
+  },
+  {
+   "series": "peak",
+   "x": 580,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 584,
+   "y": 117.087
+  },
+  {
+   "series": "peak",
+   "x": 584,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 588,
+   "y": 116.259
+  },
+  {
+   "series": "peak",
+   "x": 588,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 592,
+   "y": 116.951
+  },
+  {
+   "series": "peak",
+   "x": 592,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 596,
+   "y": 116.011
+  },
+  {
+   "series": "peak",
+   "x": 596,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 600,
+   "y": 112.904
+  },
+  {
+   "series": "peak",
+   "x": 600,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 604,
+   "y": 110.502
+  },
+  {
+   "series": "peak",
+   "x": 604,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 608,
+   "y": 110.203
+  },
+  {
+   "series": "peak",
+   "x": 608,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 612,
+   "y": 110.661
+  },
+  {
+   "series": "peak",
+   "x": 612,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 616,
+   "y": 110.061
+  },
+  {
+   "series": "peak",
+   "x": 616,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 620,
+   "y": 111.646
+  },
+  {
+   "series": "peak",
+   "x": 620,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 624,
+   "y": 108.794
+  },
+  {
+   "series": "peak",
+   "x": 624,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 628,
+   "y": 113.028
+  },
+  {
+   "series": "peak",
+   "x": 628,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 632,
+   "y": 115.704
+  },
+  {
+   "series": "peak",
+   "x": 632,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 636,
+   "y": 117.881
+  },
+  {
+   "series": "peak",
+   "x": 636,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 640,
+   "y": 117.533
+  },
+  {
+   "series": "peak",
+   "x": 640,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 644,
+   "y": 117.944
+  },
+  {
+   "series": "peak",
+   "x": 644,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 648,
+   "y": 117.437
+  },
+  {
+   "series": "peak",
+   "x": 648,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 652,
+   "y": 117.733
+  },
+  {
+   "series": "peak",
+   "x": 652,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 656,
+   "y": 120.916
+  },
+  {
+   "series": "peak",
+   "x": 656,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 660,
+   "y": 111.674
+  },
+  {
+   "series": "peak",
+   "x": 660,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 664,
+   "y": 109.549
+  },
+  {
+   "series": "peak",
+   "x": 664,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 668,
+   "y": 112.009
+  },
+  {
+   "series": "peak",
+   "x": 668,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 672,
+   "y": 108.093
+  },
+  {
+   "series": "peak",
+   "x": 672,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 676,
+   "y": 109.343
+  },
+  {
+   "series": "peak",
+   "x": 676,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 680,
+   "y": 106.882
+  },
+  {
+   "series": "peak",
+   "x": 680,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 684,
+   "y": 108.12
+  },
+  {
+   "series": "peak",
+   "x": 684,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 688,
+   "y": 110.78
+  },
+  {
+   "series": "peak",
+   "x": 688,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 692,
+   "y": 115.004
+  },
+  {
+   "series": "peak",
+   "x": 692,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 696,
+   "y": 118.976
+  },
+  {
+   "series": "peak",
+   "x": 696,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 700,
+   "y": 114.723
+  },
+  {
+   "series": "peak",
+   "x": 700,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 704,
+   "y": 120.137
+  },
+  {
+   "series": "peak",
+   "x": 704,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 708,
+   "y": 118.565
+  },
+  {
+   "series": "peak",
+   "x": 708,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 712,
+   "y": 121.074
+  },
+  {
+   "series": "peak",
+   "x": 712,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 716,
+   "y": 124.287
+  },
+  {
+   "series": "peak",
+   "x": 716,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 720,
+   "y": 121.922
+  },
+  {
+   "series": "peak",
+   "x": 720,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 724,
+   "y": 118.461
+  },
+  {
+   "series": "peak",
+   "x": 724,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 728,
+   "y": 119.389
+  },
+  {
+   "series": "peak",
+   "x": 728,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 732,
+   "y": 120.412
+  },
+  {
+   "series": "peak",
+   "x": 732,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 736,
+   "y": 121.098
+  },
+  {
+   "series": "peak",
+   "x": 736,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 740,
+   "y": 121.274
+  },
+  {
+   "series": "peak",
+   "x": 740,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 744,
+   "y": 122.776
+  },
+  {
+   "series": "peak",
+   "x": 744,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 748,
+   "y": 127.246
+  },
+  {
+   "series": "peak",
+   "x": 748,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 752,
+   "y": 124.329
+  },
+  {
+   "series": "peak",
+   "x": 752,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 756,
+   "y": 122.398
+  },
+  {
+   "series": "peak",
+   "x": 756,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 760,
+   "y": 125.345
+  },
+  {
+   "series": "peak",
+   "x": 760,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 764,
+   "y": 126.452
+  },
+  {
+   "series": "peak",
+   "x": 764,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 768,
+   "y": 130.44
+  },
+  {
+   "series": "peak",
+   "x": 768,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 772,
+   "y": 129.838
+  },
+  {
+   "series": "peak",
+   "x": 772,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 776,
+   "y": 127.988
+  },
+  {
+   "series": "peak",
+   "x": 776,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 780,
+   "y": 126.394
+  },
+  {
+   "series": "peak",
+   "x": 780,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 784,
+   "y": 129.539
+  },
+  {
+   "series": "peak",
+   "x": 784,
+   "y": 133.289
+  },
+  {
+   "series": "equity",
+   "x": 788,
+   "y": 133.433
+  },
+  {
+   "series": "peak",
+   "x": 788,
+   "y": 133.433
+  },
+  {
+   "series": "equity",
+   "x": 792,
+   "y": 134.78
+  },
+  {
+   "series": "peak",
+   "x": 792,
+   "y": 135.824
+  },
+  {
+   "series": "equity",
+   "x": 796,
+   "y": 134.547
+  },
+  {
+   "series": "peak",
+   "x": 796,
+   "y": 137.423
+  },
+  {
+   "series": "equity",
+   "x": 800,
+   "y": 136.334
+  },
+  {
+   "series": "peak",
+   "x": 800,
+   "y": 137.423
+  },
+  {
+   "series": "equity",
+   "x": 804,
+   "y": 134.865
+  },
+  {
+   "series": "peak",
+   "x": 804,
+   "y": 138.309
+  },
+  {
+   "series": "equity",
+   "x": 808,
+   "y": 130.768
+  },
+  {
+   "series": "peak",
+   "x": 808,
+   "y": 138.309
+  },
+  {
+   "series": "equity",
+   "x": 812,
+   "y": 129.969
+  },
+  {
+   "series": "peak",
+   "x": 812,
+   "y": 138.309
+  },
+  {
+   "series": "equity",
+   "x": 816,
+   "y": 131.253
+  },
+  {
+   "series": "peak",
+   "x": 816,
+   "y": 138.309
+  },
+  {
+   "series": "equity",
+   "x": 820,
+   "y": 131.836
+  },
+  {
+   "series": "peak",
+   "x": 820,
+   "y": 138.309
+  },
+  {
+   "series": "equity",
+   "x": 824,
+   "y": 132.141
+  },
+  {
+   "series": "peak",
+   "x": 824,
+   "y": 138.309
+  },
+  {
+   "series": "equity",
+   "x": 828,
+   "y": 136.439
+  },
+  {
+   "series": "peak",
+   "x": 828,
+   "y": 138.309
+  },
+  {
+   "series": "equity",
+   "x": 832,
+   "y": 139.397
+  },
+  {
+   "series": "peak",
+   "x": 832,
+   "y": 139.397
+  },
+  {
+   "series": "equity",
+   "x": 836,
+   "y": 140.174
+  },
+  {
+   "series": "peak",
+   "x": 836,
+   "y": 140.174
+  },
+  {
+   "series": "equity",
+   "x": 840,
+   "y": 143.544
+  },
+  {
+   "series": "peak",
+   "x": 840,
+   "y": 144.242
+  },
+  {
+   "series": "equity",
+   "x": 844,
+   "y": 144.194
+  },
+  {
+   "series": "peak",
+   "x": 844,
+   "y": 144.695
+  },
+  {
+   "series": "equity",
+   "x": 848,
+   "y": 143.289
+  },
+  {
+   "series": "peak",
+   "x": 848,
+   "y": 144.695
+  },
+  {
+   "series": "equity",
+   "x": 852,
+   "y": 143.435
+  },
+  {
+   "series": "peak",
+   "x": 852,
+   "y": 144.695
+  },
+  {
+   "series": "equity",
+   "x": 856,
+   "y": 142.224
+  },
+  {
+   "series": "peak",
+   "x": 856,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 860,
+   "y": 136.928
+  },
+  {
+   "series": "peak",
+   "x": 860,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 864,
+   "y": 134.381
+  },
+  {
+   "series": "peak",
+   "x": 864,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 868,
+   "y": 135.083
+  },
+  {
+   "series": "peak",
+   "x": 868,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 872,
+   "y": 133.899
+  },
+  {
+   "series": "peak",
+   "x": 872,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 876,
+   "y": 130.679
+  },
+  {
+   "series": "peak",
+   "x": 876,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 880,
+   "y": 129.779
+  },
+  {
+   "series": "peak",
+   "x": 880,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 884,
+   "y": 133.439
+  },
+  {
+   "series": "peak",
+   "x": 884,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 888,
+   "y": 133.591
+  },
+  {
+   "series": "peak",
+   "x": 888,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 892,
+   "y": 133.478
+  },
+  {
+   "series": "peak",
+   "x": 892,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 896,
+   "y": 133.203
+  },
+  {
+   "series": "peak",
+   "x": 896,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 900,
+   "y": 132.791
+  },
+  {
+   "series": "peak",
+   "x": 900,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 904,
+   "y": 135.232
+  },
+  {
+   "series": "peak",
+   "x": 904,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 908,
+   "y": 135.172
+  },
+  {
+   "series": "peak",
+   "x": 908,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 912,
+   "y": 133.462
+  },
+  {
+   "series": "peak",
+   "x": 912,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 916,
+   "y": 128.705
+  },
+  {
+   "series": "peak",
+   "x": 916,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 920,
+   "y": 128.142
+  },
+  {
+   "series": "peak",
+   "x": 920,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 924,
+   "y": 126.856
+  },
+  {
+   "series": "peak",
+   "x": 924,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 928,
+   "y": 125.348
+  },
+  {
+   "series": "peak",
+   "x": 928,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 932,
+   "y": 132.082
+  },
+  {
+   "series": "peak",
+   "x": 932,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 936,
+   "y": 129.229
+  },
+  {
+   "series": "peak",
+   "x": 936,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 940,
+   "y": 128.493
+  },
+  {
+   "series": "peak",
+   "x": 940,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 944,
+   "y": 129.449
+  },
+  {
+   "series": "peak",
+   "x": 944,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 948,
+   "y": 127.99
+  },
+  {
+   "series": "peak",
+   "x": 948,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 952,
+   "y": 124.573
+  },
+  {
+   "series": "peak",
+   "x": 952,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 956,
+   "y": 122.066
+  },
+  {
+   "series": "peak",
+   "x": 956,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 960,
+   "y": 118.986
+  },
+  {
+   "series": "peak",
+   "x": 960,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 964,
+   "y": 120.497
+  },
+  {
+   "series": "peak",
+   "x": 964,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 968,
+   "y": 119.836
+  },
+  {
+   "series": "peak",
+   "x": 968,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 972,
+   "y": 122.458
+  },
+  {
+   "series": "peak",
+   "x": 972,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 976,
+   "y": 121.612
+  },
+  {
+   "series": "peak",
+   "x": 976,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 980,
+   "y": 122.992
+  },
+  {
+   "series": "peak",
+   "x": 980,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 984,
+   "y": 123.029
+  },
+  {
+   "series": "peak",
+   "x": 984,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 988,
+   "y": 126.083
+  },
+  {
+   "series": "peak",
+   "x": 988,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 992,
+   "y": 124.377
+  },
+  {
+   "series": "peak",
+   "x": 992,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 996,
+   "y": 125.855
+  },
+  {
+   "series": "peak",
+   "x": 996,
+   "y": 144.906
+  },
+  {
+   "series": "equity",
+   "x": 1000,
+   "y": 125.114
+  },
+  {
+   "series": "peak",
+   "x": 1000,
+   "y": 144.906
+  }
+ ]
+}
