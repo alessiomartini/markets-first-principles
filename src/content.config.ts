@@ -34,6 +34,8 @@ const pages = defineCollection({
     /** The core terms this page is responsible for defining. */
     terms: z.array(z.string()).default([]),
     figure: figure.optional(),
+    /** Further figures on the same page (e.g. a schematic beside the real-data one); glossary `figure:` ids may point here too. */
+    extraFigures: z.array(figure).default([]),
   }),
 });
 

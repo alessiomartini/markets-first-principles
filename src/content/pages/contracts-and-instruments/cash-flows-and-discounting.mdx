@@ -19,6 +19,16 @@ figure:
   script: "pipeline/fetch_treasury_curve.py"
   notice: "The discount factor falls smoothly toward zero with maturity, and the curve's shape at the short end moves far more than the long end from one year to the next."
   falsifiedBy: "The reading fails if the bootstrapped curve is not monotonically decreasing in maturity, which would imply a negative forward rate and an arbitrage anyone could execute."
+extraFigures:
+  - id: "compounding-vs-simple"
+    title: "Simple against compound interest: 100 invested at 5% a year"
+    source: "Schematic (growth formulas; no market data)"
+    series: "100 at 5% a year, three interest conventions"
+    period: "0 to 40 years, deterministic"
+    script: "pipeline/fetch_compounding.py"
+    schematic: true
+    notice: "Simple interest adds the same amount every year and grows along a straight line; compounding adds interest on the interest already earned, so the curve bends upward and the gap widens with the horizon. Compounding annually and continuously differ by little at 5%, far less than either differs from simple interest."
+    falsifiedBy: "This is arithmetic rather than an empirical claim; what would change it is a rate that varies over the horizon, which turns the exponential into an integral of the rate."
 ---
 
 ## IN ONE SENTENCE
@@ -104,6 +114,8 @@ gaps between observed maturities.
 ## IN THE DATA
 
 <Figure figure={frontmatter.figure} />
+
+<Figure figure={frontmatter.extraFigures[0]} />
 
 ## COMMON CONFUSIONS
 

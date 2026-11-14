@@ -24,6 +24,16 @@ figure:
   script: "pipeline/fetch_option_chain.py"
   notice: "Mid prices lie on a smooth convex curve that sits on or above the payoff-at-expiry kink; the gap between them is largest at the money and shrinks as the option moves deep in or out of the money."
   falsifiedBy: "The reading fails if quoted prices fall below the intrinsic value, or if the curve is not convex in strike, since either would be an arbitrage rather than a feature of option pricing."
+extraFigures:
+  - id: "option-payoff"
+    title: "Payoff at expiry of a long call, a short call and a long put"
+    source: "Schematic (payoff formulas; no market data)"
+    series: "payoff formulas, strike 100, premium ignored"
+    period: "not a time series: payoff as a function of the price at expiry"
+    script: "pipeline/fetch_option_payoff.py"
+    schematic: true
+    notice: "Each payoff is flat on one side of the strike and rises or falls with unit slope on the other, so the kink sits exactly at the strike. The long call and the short call are mirror images, which is why one side of a trade has a bounded loss and the other a bounded gain."
+    falsifiedBy: "This is a definition rather than an empirical claim, so no data can falsify it; the premium paid or received would shift each line by a constant without changing the shape."
 ---
 ## IN ONE SENTENCE
 
@@ -114,6 +124,8 @@ later in the course.
 ## IN THE DATA
 
 <Figure figure={frontmatter.figure} />
+
+<Figure figure={frontmatter.extraFigures[0]} />
 
 ## COMMON CONFUSIONS
 

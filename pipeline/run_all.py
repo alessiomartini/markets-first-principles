@@ -42,6 +42,9 @@ SCRIPTS = [
     "fetch_correlations.py",
     "fetch_signature_plot.py",
     "fetch_spread_decomposition.py",
+    "fetch_option_payoff.py",
+    "fetch_compounding.py",
+    "fetch_model_smile.py",
 ]
 
 

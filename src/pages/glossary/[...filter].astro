@@ -32,7 +32,11 @@ const entries = (track ? all.filter((entry) => entry.data.track === track.number
 
 const pageEntries = await getCollection('pages');
 const figureHome = new Map(
-  pageEntries.filter((page) => page.data.figure).map((page) => [page.data.figure.id, page])
+  pageEntries.flatMap((page) =>
+    [page.data.figure, ...page.data.extraFigures]
+      .filter(Boolean)
+      .map((figure) => [figure.id, { page, figure }])
+  )
 );
 
 const rendered = await Promise.all(
@@ -94,9 +98,9 @@ const written = all.filter((entry) => entry.data.status !== 'stub').length;
           </div>
           {home && (
             <Figure
-              figure={home.data.figure}
+              figure={home.figure}
               compact
-              home={{ href: `${base}/tracks/${home.id}/`, title: home.data.title }}
+              home={{ href: `${base}/tracks/${home.page.id}/`, title: home.page.data.title }}
             />
           )}
           {entry.data.physics && (

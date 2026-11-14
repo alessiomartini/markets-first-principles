@@ -20,6 +20,16 @@ figure:
   script: "pipeline/fetch_vol_surface.py"
   notice: "Implied volatility is not flat across strike: for an equity index it is highest for low strikes and falls as the strike rises, and it also differs from one maturity to the next. The VIX, which is a summary of that surface at one maturity, sits above the volatility subsequently realised in most periods and jumps well above it in crises."
   falsifiedBy: "The reading fails if the snapshot shows a flat or symmetric profile across strikes for an equity index, or if the VIX is not on average above subsequent realised volatility; either would mean the skew and its premium are weaker than the story says."
+extraFigures:
+  - id: "model-smile"
+    title: "A volatility smile produced by a model with jumps"
+    source: "Simulation (Merton jump-diffusion prices inverted to Black-Scholes implied volatility; no market data)"
+    series: "model-generated implied volatility, three maturities"
+    period: "simulated, no calendar dates"
+    script: "pipeline/fetch_model_smile.py"
+    schematic: true
+    notice: "The diffusion alone has a constant volatility of 15%, yet the implied volatility is not flat: it rises for strikes away from the spot, more for low strikes than for high ones, and the curvature is largest at one month and fades by twelve. Jumps alone are enough to generate a smile."
+    falsifiedBy: "The model is one way to produce a smile and shows that one can arise from jumps, not that real smiles do; real quotes (the figure above) are the test of whether the shape and its decay with maturity match."
 ---
 ## IN ONE SENTENCE
 
@@ -126,6 +136,8 @@ insurance, and the two cannot be separated from option prices alone.
 ## IN THE DATA
 
 <Figure figure={frontmatter.figure} />
+
+<Figure figure={frontmatter.extraFigures[0]} />
 
 ## COMMON CONFUSIONS
 
