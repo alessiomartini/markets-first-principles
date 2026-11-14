@@ -27,9 +27,12 @@ interface FigureMeta {
 
 interface Props {
   figure: FigureMeta;
+  /** Glossary use: no data table; link to the page that owns the figure instead. */
+  compact?: boolean;
+  home?: { href: string; title: string };
 }
 
-const { figure } = Astro.props;
+const { figure, compact = false, home } = Astro.props;
 
 const payloads = import.meta.glob<{ default: any }>('../data/figures/*.json', { eager: true });
 const entry = payloads[`../data/figures/${figure.id}.json`];
@@ -123,7 +126,15 @@ const legend = (data?.series ?? []).map((s: any, i: number) => ({
   </div>
 
   {
-    table.rows.length > 0 && (
+    compact && home && (
+      <p class="figure__home">
+        Full figure and data table: <a href={home.href}>{home.title}</a>
+      </p>
+    )
+  }
+
+  {
+    !compact && table.rows.length > 0 && (
       <details class="figure__table">
         <summary>Data table ({table.rows.length} rows)</summary>
         <div class="table-scroll">
