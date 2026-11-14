@@ -349,7 +349,9 @@ hr {
 @media (max-width: 62rem) {
   .slot,
   .slot--in-the-data {
-    grid-template-columns: 1fr;
+    /* minmax(0, 1fr), not 1fr: a bare 1fr has an auto minimum and lets a wide
+       formula stretch the whole page instead of scrolling inside its own box. */
+    grid-template-columns: minmax(0, 1fr);
     gap: 0.5rem;
   }
 
@@ -673,6 +675,7 @@ hr {
 }
 
 .katex-display {
+  max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   padding-block: 0.3rem;

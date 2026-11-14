@@ -1,0 +1,649 @@
+{
+ "id": "compounding-vs-simple",
+ "generatedAt": "2026-11-14T12:00:23+00:00",
+ "synthetic": true,
+ "chart": "line",
+ "source": "Schematic (growth formulas evaluated on a grid; no market data)",
+ "series_note": "principal 100, rate 5% a year, horizon 40 years",
+ "x": {
+  "label": "years invested"
+ },
+ "y": {
+  "label": "value of the investment"
+ },
+ "series": [
+  {
+   "key": "simple",
+   "label": "Simple interest"
+  },
+  {
+   "key": "annual",
+   "label": "Compounded annually"
+  },
+  {
+   "key": "continuous",
+   "label": "Compounded continuously"
+  }
+ ],
+ "meta": {
+  "principal": 100.0,
+  "rate": 0.05
+ },
+ "data": [
+  {
+   "series": "simple",
+   "x": 0,
+   "y": 100.0
+  },
+  {
+   "series": "annual",
+   "x": 0,
+   "y": 100.0
+  },
+  {
+   "series": "continuous",
+   "x": 0,
+   "y": 100.0
+  },
+  {
+   "series": "simple",
+   "x": 1,
+   "y": 105.0
+  },
+  {
+   "series": "annual",
+   "x": 1,
+   "y": 105.0
+  },
+  {
+   "series": "continuous",
+   "x": 1,
+   "y": 105.127
+  },
+  {
+   "series": "simple",
+   "x": 2,
+   "y": 110.0
+  },
+  {
+   "series": "annual",
+   "x": 2,
+   "y": 110.25
+  },
+  {
+   "series": "continuous",
+   "x": 2,
+   "y": 110.517
+  },
+  {
+   "series": "simple",
+   "x": 3,
+   "y": 115.0
+  },
+  {
+   "series": "annual",
+   "x": 3,
+   "y": 115.763
+  },
+  {
+   "series": "continuous",
+   "x": 3,
+   "y": 116.183
+  },
+  {
+   "series": "simple",
+   "x": 4,
+   "y": 120.0
+  },
+  {
+   "series": "annual",
+   "x": 4,
+   "y": 121.551
+  },
+  {
+   "series": "continuous",
+   "x": 4,
+   "y": 122.14
+  },
+  {
+   "series": "simple",
+   "x": 5,
+   "y": 125.0
+  },
+  {
+   "series": "annual",
+   "x": 5,
+   "y": 127.628
+  },
+  {
+   "series": "continuous",
+   "x": 5,
+   "y": 128.403
+  },
+  {
+   "series": "simple",
+   "x": 6,
+   "y": 130.0
+  },
+  {
+   "series": "annual",
+   "x": 6,
+   "y": 134.01
+  },
+  {
+   "series": "continuous",
+   "x": 6,
+   "y": 134.986
+  },
+  {
+   "series": "simple",
+   "x": 7,
+   "y": 135.0
+  },
+  {
+   "series": "annual",
+   "x": 7,
+   "y": 140.71
+  },
+  {
+   "series": "continuous",
+   "x": 7,
+   "y": 141.907
+  },
+  {
+   "series": "simple",
+   "x": 8,
+   "y": 140.0
+  },
+  {
+   "series": "annual",
+   "x": 8,
+   "y": 147.746
+  },
+  {
+   "series": "continuous",
+   "x": 8,
+   "y": 149.182
+  },
+  {
+   "series": "simple",
+   "x": 9,
+   "y": 145.0
+  },
+  {
+   "series": "annual",
+   "x": 9,
+   "y": 155.133
+  },
+  {
+   "series": "continuous",
+   "x": 9,
+   "y": 156.831
+  },
+  {
+   "series": "simple",
+   "x": 10,
+   "y": 150.0
+  },
+  {
+   "series": "annual",
+   "x": 10,
+   "y": 162.889
+  },
+  {
+   "series": "continuous",
+   "x": 10,
+   "y": 164.872
+  },
+  {
+   "series": "simple",
+   "x": 11,
+   "y": 155.0
+  },
+  {
+   "series": "annual",
+   "x": 11,
+   "y": 171.034
+  },
+  {
+   "series": "continuous",
+   "x": 11,
+   "y": 173.325
+  },
+  {
+   "series": "simple",
+   "x": 12,
+   "y": 160.0
+  },
+  {
+   "series": "annual",
+   "x": 12,
+   "y": 179.586
+  },
+  {
+   "series": "continuous",
+   "x": 12,
+   "y": 182.212
+  },
+  {
+   "series": "simple",
+   "x": 13,
+   "y": 165.0
+  },
+  {
+   "series": "annual",
+   "x": 13,
+   "y": 188.565
+  },
+  {
+   "series": "continuous",
+   "x": 13,
+   "y": 191.554
+  },
+  {
+   "series": "simple",
+   "x": 14,
+   "y": 170.0
+  },
+  {
+   "series": "annual",
+   "x": 14,
+   "y": 197.993
+  },
+  {
+   "series": "continuous",
+   "x": 14,
+   "y": 201.375
+  },
+  {
+   "series": "simple",
+   "x": 15,
+   "y": 175.0
+  },
+  {
+   "series": "annual",
+   "x": 15,
+   "y": 207.893
+  },
+  {
+   "series": "continuous",
+   "x": 15,
+   "y": 211.7
+  },
+  {
+   "series": "simple",
+   "x": 16,
+   "y": 180.0
+  },
+  {
+   "series": "annual",
+   "x": 16,
+   "y": 218.287
+  },
+  {
+   "series": "continuous",
+   "x": 16,
+   "y": 222.554
+  },
+  {
+   "series": "simple",
+   "x": 17,
+   "y": 185.0
+  },
+  {
+   "series": "annual",
+   "x": 17,
+   "y": 229.202
+  },
+  {
+   "series": "continuous",
+   "x": 17,
+   "y": 233.965
+  },
+  {
+   "series": "simple",
+   "x": 18,
+   "y": 190.0
+  },
+  {
+   "series": "annual",
+   "x": 18,
+   "y": 240.662
+  },
+  {
+   "series": "continuous",
+   "x": 18,
+   "y": 245.96
+  },
+  {
+   "series": "simple",
+   "x": 19,
+   "y": 195.0
+  },
+  {
+   "series": "annual",
+   "x": 19,
+   "y": 252.695
+  },
+  {
+   "series": "continuous",
+   "x": 19,
+   "y": 258.571
+  },
+  {
+   "series": "simple",
+   "x": 20,
+   "y": 200.0
+  },
+  {
+   "series": "annual",
+   "x": 20,
+   "y": 265.33
+  },
+  {
+   "series": "continuous",
+   "x": 20,
+   "y": 271.828
+  },
+  {
+   "series": "simple",
+   "x": 21,
+   "y": 205.0
+  },
+  {
+   "series": "annual",
+   "x": 21,
+   "y": 278.596
+  },
+  {
+   "series": "continuous",
+   "x": 21,
+   "y": 285.765
+  },
+  {
+   "series": "simple",
+   "x": 22,
+   "y": 210.0
+  },
+  {
+   "series": "annual",
+   "x": 22,
+   "y": 292.526
+  },
+  {
+   "series": "continuous",
+   "x": 22,
+   "y": 300.417
+  },
+  {
+   "series": "simple",
+   "x": 23,
+   "y": 215.0
+  },
+  {
+   "series": "annual",
+   "x": 23,
+   "y": 307.152
+  },
+  {
+   "series": "continuous",
+   "x": 23,
+   "y": 315.819
+  },
+  {
+   "series": "simple",
+   "x": 24,
+   "y": 220.0
+  },
+  {
+   "series": "annual",
+   "x": 24,
+   "y": 322.51
+  },
+  {
+   "series": "continuous",
+   "x": 24,
+   "y": 332.012
+  },
+  {
+   "series": "simple",
+   "x": 25,
+   "y": 225.0
+  },
+  {
+   "series": "annual",
+   "x": 25,
+   "y": 338.635
+  },
+  {
+   "series": "continuous",
+   "x": 25,
+   "y": 349.034
+  },
+  {
+   "series": "simple",
+   "x": 26,
+   "y": 230.0
+  },
+  {
+   "series": "annual",
+   "x": 26,
+   "y": 355.567
+  },
+  {
+   "series": "continuous",
+   "x": 26,
+   "y": 366.93
+  },
+  {
+   "series": "simple",
+   "x": 27,
+   "y": 235.0
+  },
+  {
+   "series": "annual",
+   "x": 27,
+   "y": 373.346
+  },
+  {
+   "series": "continuous",
+   "x": 27,
+   "y": 385.743
+  },
+  {
+   "series": "simple",
+   "x": 28,
+   "y": 240.0
+  },
+  {
+   "series": "annual",
+   "x": 28,
+   "y": 392.013
+  },
+  {
+   "series": "continuous",
+   "x": 28,
+   "y": 405.52
+  },
+  {
+   "series": "simple",
+   "x": 29,
+   "y": 245.0
+  },
+  {
+   "series": "annual",
+   "x": 29,
+   "y": 411.614
+  },
+  {
+   "series": "continuous",
+   "x": 29,
+   "y": 426.311
+  },
+  {
+   "series": "simple",
+   "x": 30,
+   "y": 250.0
+  },
+  {
+   "series": "annual",
+   "x": 30,
+   "y": 432.194
+  },
+  {
+   "series": "continuous",
+   "x": 30,
+   "y": 448.169
+  },
+  {
+   "series": "simple",
+   "x": 31,
+   "y": 255.0
+  },
+  {
+   "series": "annual",
+   "x": 31,
+   "y": 453.804
+  },
+  {
+   "series": "continuous",
+   "x": 31,
+   "y": 471.147
+  },
+  {
+   "series": "simple",
+   "x": 32,
+   "y": 260.0
+  },
+  {
+   "series": "annual",
+   "x": 32,
+   "y": 476.494
+  },
+  {
+   "series": "continuous",
+   "x": 32,
+   "y": 495.303
+  },
+  {
+   "series": "simple",
+   "x": 33,
+   "y": 265.0
+  },
+  {
+   "series": "annual",
+   "x": 33,
+   "y": 500.319
+  },
+  {
+   "series": "continuous",
+   "x": 33,
+   "y": 520.698
+  },
+  {
+   "series": "simple",
+   "x": 34,
+   "y": 270.0
+  },
+  {
+   "series": "annual",
+   "x": 34,
+   "y": 525.335
+  },
+  {
+   "series": "continuous",
+   "x": 34,
+   "y": 547.395
+  },
+  {
+   "series": "simple",
+   "x": 35,
+   "y": 275.0
+  },
+  {
+   "series": "annual",
+   "x": 35,
+   "y": 551.602
+  },
+  {
+   "series": "continuous",
+   "x": 35,
+   "y": 575.46
+  },
+  {
+   "series": "simple",
+   "x": 36,
+   "y": 280.0
+  },
+  {
+   "series": "annual",
+   "x": 36,
+   "y": 579.182
+  },
+  {
+   "series": "continuous",
+   "x": 36,
+   "y": 604.965
+  },
+  {
+   "series": "simple",
+   "x": 37,
+   "y": 285.0
+  },
+  {
+   "series": "annual",
+   "x": 37,
+   "y": 608.141
+  },
+  {
+   "series": "continuous",
+   "x": 37,
+   "y": 635.982
+  },
+  {
+   "series": "simple",
+   "x": 38,
+   "y": 290.0
+  },
+  {
+   "series": "annual",
+   "x": 38,
+   "y": 638.548
+  },
+  {
+   "series": "continuous",
+   "x": 38,
+   "y": 668.589
+  },
+  {
+   "series": "simple",
+   "x": 39,
+   "y": 295.0
+  },
+  {
+   "series": "annual",
+   "x": 39,
+   "y": 670.475
+  },
+  {
+   "series": "continuous",
+   "x": 39,
+   "y": 702.869
+  },
+  {
+   "series": "simple",
+   "x": 40,
+   "y": 300.0
+  },
+  {
+   "series": "annual",
+   "x": 40,
+   "y": 703.999
+  },
+  {
+   "series": "continuous",
+   "x": 40,
+   "y": 738.906
+  }
+ ]
+}

@@ -1,0 +1,648 @@
+{
+ "id": "option-payoff",
+ "generatedAt": "2026-11-14T12:00:23+00:00",
+ "synthetic": true,
+ "chart": "line",
+ "source": "Schematic (payoff formulas evaluated on a grid; no market data)",
+ "series_note": "strike K=100, premium ignored, underlying price S from 60 to 140",
+ "x": {
+  "label": "underlying price at expiry, S"
+ },
+ "y": {
+  "label": "payoff at expiry"
+ },
+ "series": [
+  {
+   "key": "long-call",
+   "label": "Long call"
+  },
+  {
+   "key": "short-call",
+   "label": "Short call"
+  },
+  {
+   "key": "long-put",
+   "label": "Long put"
+  }
+ ],
+ "meta": {
+  "strike": 100.0
+ },
+ "data": [
+  {
+   "series": "long-call",
+   "x": 60.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 60.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 60.0,
+   "y": 40.0
+  },
+  {
+   "series": "long-call",
+   "x": 62.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 62.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 62.0,
+   "y": 38.0
+  },
+  {
+   "series": "long-call",
+   "x": 64.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 64.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 64.0,
+   "y": 36.0
+  },
+  {
+   "series": "long-call",
+   "x": 66.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 66.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 66.0,
+   "y": 34.0
+  },
+  {
+   "series": "long-call",
+   "x": 68.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 68.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 68.0,
+   "y": 32.0
+  },
+  {
+   "series": "long-call",
+   "x": 70.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 70.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 70.0,
+   "y": 30.0
+  },
+  {
+   "series": "long-call",
+   "x": 72.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 72.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 72.0,
+   "y": 28.0
+  },
+  {
+   "series": "long-call",
+   "x": 74.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 74.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 74.0,
+   "y": 26.0
+  },
+  {
+   "series": "long-call",
+   "x": 76.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 76.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 76.0,
+   "y": 24.0
+  },
+  {
+   "series": "long-call",
+   "x": 78.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 78.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 78.0,
+   "y": 22.0
+  },
+  {
+   "series": "long-call",
+   "x": 80.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 80.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 80.0,
+   "y": 20.0
+  },
+  {
+   "series": "long-call",
+   "x": 82.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 82.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 82.0,
+   "y": 18.0
+  },
+  {
+   "series": "long-call",
+   "x": 84.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 84.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 84.0,
+   "y": 16.0
+  },
+  {
+   "series": "long-call",
+   "x": 86.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 86.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 86.0,
+   "y": 14.0
+  },
+  {
+   "series": "long-call",
+   "x": 88.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 88.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 88.0,
+   "y": 12.0
+  },
+  {
+   "series": "long-call",
+   "x": 90.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 90.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 90.0,
+   "y": 10.0
+  },
+  {
+   "series": "long-call",
+   "x": 92.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 92.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 92.0,
+   "y": 8.0
+  },
+  {
+   "series": "long-call",
+   "x": 94.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 94.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 94.0,
+   "y": 6.0
+  },
+  {
+   "series": "long-call",
+   "x": 96.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 96.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 96.0,
+   "y": 4.0
+  },
+  {
+   "series": "long-call",
+   "x": 98.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 98.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 98.0,
+   "y": 2.0
+  },
+  {
+   "series": "long-call",
+   "x": 100.0,
+   "y": 0.0
+  },
+  {
+   "series": "short-call",
+   "x": 100.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-put",
+   "x": 100.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 102.0,
+   "y": 2.0
+  },
+  {
+   "series": "short-call",
+   "x": 102.0,
+   "y": -2.0
+  },
+  {
+   "series": "long-put",
+   "x": 102.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 104.0,
+   "y": 4.0
+  },
+  {
+   "series": "short-call",
+   "x": 104.0,
+   "y": -4.0
+  },
+  {
+   "series": "long-put",
+   "x": 104.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 106.0,
+   "y": 6.0
+  },
+  {
+   "series": "short-call",
+   "x": 106.0,
+   "y": -6.0
+  },
+  {
+   "series": "long-put",
+   "x": 106.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 108.0,
+   "y": 8.0
+  },
+  {
+   "series": "short-call",
+   "x": 108.0,
+   "y": -8.0
+  },
+  {
+   "series": "long-put",
+   "x": 108.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 110.0,
+   "y": 10.0
+  },
+  {
+   "series": "short-call",
+   "x": 110.0,
+   "y": -10.0
+  },
+  {
+   "series": "long-put",
+   "x": 110.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 112.0,
+   "y": 12.0
+  },
+  {
+   "series": "short-call",
+   "x": 112.0,
+   "y": -12.0
+  },
+  {
+   "series": "long-put",
+   "x": 112.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 114.0,
+   "y": 14.0
+  },
+  {
+   "series": "short-call",
+   "x": 114.0,
+   "y": -14.0
+  },
+  {
+   "series": "long-put",
+   "x": 114.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 116.0,
+   "y": 16.0
+  },
+  {
+   "series": "short-call",
+   "x": 116.0,
+   "y": -16.0
+  },
+  {
+   "series": "long-put",
+   "x": 116.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 118.0,
+   "y": 18.0
+  },
+  {
+   "series": "short-call",
+   "x": 118.0,
+   "y": -18.0
+  },
+  {
+   "series": "long-put",
+   "x": 118.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 120.0,
+   "y": 20.0
+  },
+  {
+   "series": "short-call",
+   "x": 120.0,
+   "y": -20.0
+  },
+  {
+   "series": "long-put",
+   "x": 120.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 122.0,
+   "y": 22.0
+  },
+  {
+   "series": "short-call",
+   "x": 122.0,
+   "y": -22.0
+  },
+  {
+   "series": "long-put",
+   "x": 122.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 124.0,
+   "y": 24.0
+  },
+  {
+   "series": "short-call",
+   "x": 124.0,
+   "y": -24.0
+  },
+  {
+   "series": "long-put",
+   "x": 124.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 126.0,
+   "y": 26.0
+  },
+  {
+   "series": "short-call",
+   "x": 126.0,
+   "y": -26.0
+  },
+  {
+   "series": "long-put",
+   "x": 126.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 128.0,
+   "y": 28.0
+  },
+  {
+   "series": "short-call",
+   "x": 128.0,
+   "y": -28.0
+  },
+  {
+   "series": "long-put",
+   "x": 128.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 130.0,
+   "y": 30.0
+  },
+  {
+   "series": "short-call",
+   "x": 130.0,
+   "y": -30.0
+  },
+  {
+   "series": "long-put",
+   "x": 130.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 132.0,
+   "y": 32.0
+  },
+  {
+   "series": "short-call",
+   "x": 132.0,
+   "y": -32.0
+  },
+  {
+   "series": "long-put",
+   "x": 132.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 134.0,
+   "y": 34.0
+  },
+  {
+   "series": "short-call",
+   "x": 134.0,
+   "y": -34.0
+  },
+  {
+   "series": "long-put",
+   "x": 134.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 136.0,
+   "y": 36.0
+  },
+  {
+   "series": "short-call",
+   "x": 136.0,
+   "y": -36.0
+  },
+  {
+   "series": "long-put",
+   "x": 136.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 138.0,
+   "y": 38.0
+  },
+  {
+   "series": "short-call",
+   "x": 138.0,
+   "y": -38.0
+  },
+  {
+   "series": "long-put",
+   "x": 138.0,
+   "y": 0.0
+  },
+  {
+   "series": "long-call",
+   "x": 140.0,
+   "y": 40.0
+  },
+  {
+   "series": "short-call",
+   "x": 140.0,
+   "y": -40.0
+  },
+  {
+   "series": "long-put",
+   "x": 140.0,
+   "y": 0.0
+  }
+ ]
+}
