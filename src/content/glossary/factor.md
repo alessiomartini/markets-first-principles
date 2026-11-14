@@ -3,6 +3,7 @@ term: "Factor"
 aliases: ["risk factor", "factor premium"]
 track: 4
 status: written
+figure: "diversification-vs-n"
 physics: "A collective variable: a few common modes that explain most of the covariance of many individual assets."
 ---
 

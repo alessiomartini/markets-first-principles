@@ -20,6 +20,16 @@ figure:
   script: "pipeline/fetch_parity.py"
   notice: "The gap between call minus put and the forward-implied value is small next to the option prices themselves, but it is not zero: it is of the order of the bid-ask spreads, and it widens for strikes far from the money where quotes are wide and stale."
   falsifiedBy: "The reading fails if the gap is large and persistent at liquid, near-the-money strikes after allowing for spreads, dividends and borrowing costs, since that would mean either that a riskless profit was sitting in the quotes or, far more likely, that the inputs to the parity formula are wrong."
+extraFigures:
+  - id: "parity-payoff"
+    title: "A long call plus a short put pays the same as a forward"
+    source: "Schematic (payoff formulas; no market data)"
+    series: "payoff formulas, strike 100, premiums ignored"
+    period: "not a time series: payoff as a function of the price at expiry"
+    script: "pipeline/fetch_parity_payoff.py"
+    schematic: true
+    notice: "The long call (zero below the strike, hidden under the sum above it) and the short put (zero above, hidden under the sum below) add up to a single straight line of unit slope through zero at the strike, the payoff of a forward. Same payoff in every state, so same price today."
+    falsifiedBy: "This is an algebraic identity, so no data can falsify it; what data can test is whether quoted call and put prices respect it, which is the measured figure above."
 ---
 ## IN ONE SENTENCE
 
@@ -133,6 +143,8 @@ outcome. The frame is also available only if the instruments needed to replicate
 ## IN THE DATA
 
 <Figure figure={frontmatter.figure} />
+
+<Figure figure={frontmatter.extraFigures[0]} />
 
 ## COMMON CONFUSIONS
 
