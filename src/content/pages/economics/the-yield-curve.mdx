@@ -21,6 +21,16 @@ figure:
   script: "pipeline/fetch_yield_curve.py"
   notice: "The spread between the 10-year and the 2-year yield has gone negative before most of the recessions in the sample. The lead time between the inversion and the start of the recession varies a great deal, and the 2022-23 inversion was the deepest and longest in the sample, so it is a test of the signal that the reader can follow in the data."
   falsifiedBy: "The reading fails if inversions were as frequent outside the periods before recessions as inside them, so that the spread carries no information about later output; with only a handful of recessions in the sample, a few false signals would be enough to remove the evidence."
+extraFigures:
+  - id: "yield-curve-shapes"
+    title: "Three shapes of the yield curve"
+    source: "Schematic (Nelson-Siegel formula with illustrative parameters; no market data)"
+    series: "Nelson-Siegel curve, decay scale 2 years, three hand-picked parameter sets"
+    period: "not a time series: yield as a function of maturity"
+    script: "pipeline/fetch_yield_curve_shapes.py"
+    schematic: true
+    notice: "Three parameters are enough to draw the shapes the market shows: a level (the long-run yield), a slope (short minus long) and a curvature (a hump at medium maturities). A negative slope gives the normal upward curve, zero gives a flat one, a positive slope gives an inverted one (a curvature term, set to zero here, would add a hump). The curves are illustrative and are not estimated from any date."
+    falsifiedBy: "This is a functional form, not an empirical claim, so data cannot falsify it; it would count against the model as a description of the market if observed curves had shapes that no choice of level, slope and curvature could reproduce, such as several separate humps."
 ---
 ## IN ONE SENTENCE
 
@@ -81,6 +91,8 @@ The analogy is weak at the point that matters. A dispersion relation follows fro
 ## IN THE DATA
 
 <Figure figure={frontmatter.figure} />
+
+<ExtraFigures figures={frontmatter.extraFigures} />
 
 The spread between long and short yields is the most common single summary of the slope, and inversions have preceded most US recessions since the 1960s. Estrella and Mishkin (1998) showed that the spread between the 10-year and the 3-month yield has predictive power for recessions several quarters ahead that is hard to replicate with other financial variables. The record is short, though: a handful of recessions, an uneven lead time of months to about two years, and some episodes that fit badly. It is a good signal and not an explanation, and the causal story is disputed. One reading is that inversion marks tight monetary policy that will cut growth; another is that it marks a market expecting the central bank to cut because it sees weakness coming; a third is that falling term premia, driven by demand for long bonds, can invert the curve without any signal about the economy at all.
 

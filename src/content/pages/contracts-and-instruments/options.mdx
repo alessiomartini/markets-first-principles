@@ -34,6 +34,15 @@ extraFigures:
     schematic: true
     notice: "Each payoff is flat on one side of the strike and rises or falls with unit slope on the other, so the kink sits exactly at the strike. The long call and the short call are mirror images, which is why one side of a trade has a bounded loss and the other a bounded gain."
     falsifiedBy: "This is a definition rather than an empirical claim, so no data can falsify it; the premium paid or received would shift each line by a constant without changing the shape."
+  - id: "option-time-value"
+    title: "Time value of a call against the underlying price, for three expiries"
+    source: "Schematic (Black-Scholes formula minus intrinsic value; no market data)"
+    series: "European call, strike 100, volatility 20% a year, zero rates"
+    period: "not a time series: time value as a function of today's underlying price"
+    script: "pipeline/fetch_option_time_value.py"
+    schematic: true
+    notice: "Time value is a hump centred on the strike: it is largest at the money and falls to almost nothing deep in or out of the money, where the option is nearly certain to finish on one side. Shortening the time left lowers and narrows the hump towards a spike at the strike, and at expiry it is zero everywhere, which is why premium converges to intrinsic value."
+    falsifiedBy: "This is a model output rather than an empirical claim, so data cannot falsify the formula; it would fail only if quoted option prices fell below intrinsic value or if a longer-dated option were worth less than a shorter-dated one with the same strike, either of which would be an arbitrage."
 ---
 ## IN ONE SENTENCE
 
@@ -125,7 +134,7 @@ later in the course.
 
 <Figure figure={frontmatter.figure} />
 
-<Figure figure={frontmatter.extraFigures[0]} />
+<ExtraFigures figures={frontmatter.extraFigures} />
 
 ## COMMON CONFUSIONS
 

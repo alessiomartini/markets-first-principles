@@ -48,6 +48,9 @@ SCRIPTS = [
     "fetch_parity_payoff.py",
     "fetch_leverage_payoff.py",
     "fetch_diversification.py",
+    "fetch_option_time_value.py",
+    "fetch_yield_curve_shapes.py",
+    "fetch_drawdown.py",
 ]
 
 

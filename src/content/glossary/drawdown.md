@@ -3,6 +3,7 @@ term: "Drawdown"
 aliases: ["drawdowns", "maximum drawdown"]
 track: 3
 status: written
+figure: "drawdown-equity-curve"
 physics: "A first-passage / running-maximum problem, and the reason path statistics are not recoverable from the marginal distribution."
 ---
 

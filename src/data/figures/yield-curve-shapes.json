@@ -1,0 +1,1833 @@
+{
+ "id": "yield-curve-shapes",
+ "generatedAt": "2026-11-14T12:09:07+00:00",
+ "synthetic": true,
+ "chart": "line",
+ "source": "Schematic (Nelson-Siegel formula with illustrative parameters; no market data)",
+ "series_note": "Nelson-Siegel curve, decay scale 2 years, three parameter sets chosen to show the shapes",
+ "x": {
+  "label": "maturity (years)"
+ },
+ "y": {
+  "label": "yield (% a year)"
+ },
+ "series": [
+  {
+   "key": "normal",
+   "label": "Normal"
+  },
+  {
+   "key": "flat",
+   "label": "Flat"
+  },
+  {
+   "key": "inverted",
+   "label": "Inverted"
+  }
+ ],
+ "meta": {
+  "lambdaYears": 2.0
+ },
+ "data": [
+  {
+   "series": "normal",
+   "x": 0.25,
+   "y": 2.17993
+  },
+  {
+   "series": "normal",
+   "x": 0.5,
+   "y": 2.34561
+  },
+  {
+   "series": "normal",
+   "x": 0.75,
+   "y": 2.49831
+  },
+  {
+   "series": "normal",
+   "x": 1.0,
+   "y": 2.63918
+  },
+  {
+   "series": "normal",
+   "x": 1.25,
+   "y": 2.76925
+  },
+  {
+   "series": "normal",
+   "x": 1.5,
+   "y": 2.88947
+  },
+  {
+   "series": "normal",
+   "x": 1.75,
+   "y": 3.00067
+  },
+  {
+   "series": "normal",
+   "x": 2.0,
+   "y": 3.10364
+  },
+  {
+   "series": "normal",
+   "x": 2.25,
+   "y": 3.19907
+  },
+  {
+   "series": "normal",
+   "x": 2.5,
+   "y": 3.28761
+  },
+  {
+   "series": "normal",
+   "x": 2.75,
+   "y": 3.36983
+  },
+  {
+   "series": "normal",
+   "x": 3.0,
+   "y": 3.44626
+  },
+  {
+   "series": "normal",
+   "x": 3.25,
+   "y": 3.51738
+  },
+  {
+   "series": "normal",
+   "x": 3.5,
+   "y": 3.58361
+  },
+  {
+   "series": "normal",
+   "x": 3.75,
+   "y": 3.64537
+  },
+  {
+   "series": "normal",
+   "x": 4.0,
+   "y": 3.703
+  },
+  {
+   "series": "normal",
+   "x": 4.25,
+   "y": 3.75685
+  },
+  {
+   "series": "normal",
+   "x": 4.5,
+   "y": 3.8072
+  },
+  {
+   "series": "normal",
+   "x": 4.75,
+   "y": 3.85433
+  },
+  {
+   "series": "normal",
+   "x": 5.0,
+   "y": 3.8985
+  },
+  {
+   "series": "normal",
+   "x": 5.25,
+   "y": 3.93993
+  },
+  {
+   "series": "normal",
+   "x": 5.5,
+   "y": 3.97883
+  },
+  {
+   "series": "normal",
+   "x": 5.75,
+   "y": 4.01539
+  },
+  {
+   "series": "normal",
+   "x": 6.0,
+   "y": 4.04979
+  },
+  {
+   "series": "normal",
+   "x": 6.25,
+   "y": 4.08218
+  },
+  {
+   "series": "normal",
+   "x": 6.5,
+   "y": 4.11271
+  },
+  {
+   "series": "normal",
+   "x": 6.75,
+   "y": 4.14153
+  },
+  {
+   "series": "normal",
+   "x": 7.0,
+   "y": 4.16874
+  },
+  {
+   "series": "normal",
+   "x": 7.25,
+   "y": 4.19447
+  },
+  {
+   "series": "normal",
+   "x": 7.5,
+   "y": 4.21881
+  },
+  {
+   "series": "normal",
+   "x": 7.75,
+   "y": 4.24187
+  },
+  {
+   "series": "normal",
+   "x": 8.0,
+   "y": 4.26374
+  },
+  {
+   "series": "normal",
+   "x": 8.25,
+   "y": 4.28448
+  },
+  {
+   "series": "normal",
+   "x": 8.5,
+   "y": 4.30419
+  },
+  {
+   "series": "normal",
+   "x": 8.75,
+   "y": 4.32292
+  },
+  {
+   "series": "normal",
+   "x": 9.0,
+   "y": 4.34074
+  },
+  {
+   "series": "normal",
+   "x": 9.25,
+   "y": 4.35771
+  },
+  {
+   "series": "normal",
+   "x": 9.5,
+   "y": 4.37389
+  },
+  {
+   "series": "normal",
+   "x": 9.75,
+   "y": 4.38931
+  },
+  {
+   "series": "normal",
+   "x": 10.0,
+   "y": 4.40404
+  },
+  {
+   "series": "normal",
+   "x": 10.25,
+   "y": 4.41811
+  },
+  {
+   "series": "normal",
+   "x": 10.5,
+   "y": 4.43157
+  },
+  {
+   "series": "normal",
+   "x": 10.75,
+   "y": 4.44445
+  },
+  {
+   "series": "normal",
+   "x": 11.0,
+   "y": 4.45677
+  },
+  {
+   "series": "normal",
+   "x": 11.25,
+   "y": 4.46859
+  },
+  {
+   "series": "normal",
+   "x": 11.5,
+   "y": 4.47992
+  },
+  {
+   "series": "normal",
+   "x": 11.75,
+   "y": 4.4908
+  },
+  {
+   "series": "normal",
+   "x": 12.0,
+   "y": 4.50124
+  },
+  {
+   "series": "normal",
+   "x": 12.25,
+   "y": 4.51128
+  },
+  {
+   "series": "normal",
+   "x": 12.5,
+   "y": 4.52093
+  },
+  {
+   "series": "normal",
+   "x": 12.75,
+   "y": 4.53021
+  },
+  {
+   "series": "normal",
+   "x": 13.0,
+   "y": 4.53916
+  },
+  {
+   "series": "normal",
+   "x": 13.25,
+   "y": 4.54777
+  },
+  {
+   "series": "normal",
+   "x": 13.5,
+   "y": 4.55608
+  },
+  {
+   "series": "normal",
+   "x": 13.75,
+   "y": 4.56409
+  },
+  {
+   "series": "normal",
+   "x": 14.0,
+   "y": 4.57182
+  },
+  {
+   "series": "normal",
+   "x": 14.25,
+   "y": 4.57929
+  },
+  {
+   "series": "normal",
+   "x": 14.5,
+   "y": 4.5865
+  },
+  {
+   "series": "normal",
+   "x": 14.75,
+   "y": 4.59348
+  },
+  {
+   "series": "normal",
+   "x": 15.0,
+   "y": 4.60022
+  },
+  {
+   "series": "normal",
+   "x": 15.25,
+   "y": 4.60675
+  },
+  {
+   "series": "normal",
+   "x": 15.5,
+   "y": 4.61307
+  },
+  {
+   "series": "normal",
+   "x": 15.75,
+   "y": 4.61919
+  },
+  {
+   "series": "normal",
+   "x": 16.0,
+   "y": 4.62513
+  },
+  {
+   "series": "normal",
+   "x": 16.25,
+   "y": 4.63088
+  },
+  {
+   "series": "normal",
+   "x": 16.5,
+   "y": 4.63646
+  },
+  {
+   "series": "normal",
+   "x": 16.75,
+   "y": 4.64187
+  },
+  {
+   "series": "normal",
+   "x": 17.0,
+   "y": 4.64713
+  },
+  {
+   "series": "normal",
+   "x": 17.25,
+   "y": 4.65224
+  },
+  {
+   "series": "normal",
+   "x": 17.5,
+   "y": 4.6572
+  },
+  {
+   "series": "normal",
+   "x": 17.75,
+   "y": 4.66202
+  },
+  {
+   "series": "normal",
+   "x": 18.0,
+   "y": 4.66671
+  },
+  {
+   "series": "normal",
+   "x": 18.25,
+   "y": 4.67127
+  },
+  {
+   "series": "normal",
+   "x": 18.5,
+   "y": 4.67571
+  },
+  {
+   "series": "normal",
+   "x": 18.75,
+   "y": 4.68003
+  },
+  {
+   "series": "normal",
+   "x": 19.0,
+   "y": 4.68423
+  },
+  {
+   "series": "normal",
+   "x": 19.25,
+   "y": 4.68833
+  },
+  {
+   "series": "normal",
+   "x": 19.5,
+   "y": 4.69233
+  },
+  {
+   "series": "normal",
+   "x": 19.75,
+   "y": 4.69622
+  },
+  {
+   "series": "normal",
+   "x": 20.0,
+   "y": 4.70001
+  },
+  {
+   "series": "normal",
+   "x": 20.25,
+   "y": 4.70372
+  },
+  {
+   "series": "normal",
+   "x": 20.5,
+   "y": 4.70733
+  },
+  {
+   "series": "normal",
+   "x": 20.75,
+   "y": 4.71085
+  },
+  {
+   "series": "normal",
+   "x": 21.0,
+   "y": 4.71429
+  },
+  {
+   "series": "normal",
+   "x": 21.25,
+   "y": 4.71765
+  },
+  {
+   "series": "normal",
+   "x": 21.5,
+   "y": 4.72094
+  },
+  {
+   "series": "normal",
+   "x": 21.75,
+   "y": 4.72414
+  },
+  {
+   "series": "normal",
+   "x": 22.0,
+   "y": 4.72728
+  },
+  {
+   "series": "normal",
+   "x": 22.25,
+   "y": 4.73034
+  },
+  {
+   "series": "normal",
+   "x": 22.5,
+   "y": 4.73334
+  },
+  {
+   "series": "normal",
+   "x": 22.75,
+   "y": 4.73627
+  },
+  {
+   "series": "normal",
+   "x": 23.0,
+   "y": 4.73913
+  },
+  {
+   "series": "normal",
+   "x": 23.25,
+   "y": 4.74194
+  },
+  {
+   "series": "normal",
+   "x": 23.5,
+   "y": 4.74468
+  },
+  {
+   "series": "normal",
+   "x": 23.75,
+   "y": 4.74737
+  },
+  {
+   "series": "normal",
+   "x": 24.0,
+   "y": 4.75
+  },
+  {
+   "series": "normal",
+   "x": 24.25,
+   "y": 4.75258
+  },
+  {
+   "series": "normal",
+   "x": 24.5,
+   "y": 4.7551
+  },
+  {
+   "series": "normal",
+   "x": 24.75,
+   "y": 4.75758
+  },
+  {
+   "series": "normal",
+   "x": 25.0,
+   "y": 4.76
+  },
+  {
+   "series": "normal",
+   "x": 25.25,
+   "y": 4.76238
+  },
+  {
+   "series": "normal",
+   "x": 25.5,
+   "y": 4.76471
+  },
+  {
+   "series": "normal",
+   "x": 25.75,
+   "y": 4.76699
+  },
+  {
+   "series": "normal",
+   "x": 26.0,
+   "y": 4.76923
+  },
+  {
+   "series": "normal",
+   "x": 26.25,
+   "y": 4.77143
+  },
+  {
+   "series": "normal",
+   "x": 26.5,
+   "y": 4.77359
+  },
+  {
+   "series": "normal",
+   "x": 26.75,
+   "y": 4.7757
+  },
+  {
+   "series": "normal",
+   "x": 27.0,
+   "y": 4.77778
+  },
+  {
+   "series": "normal",
+   "x": 27.25,
+   "y": 4.77982
+  },
+  {
+   "series": "normal",
+   "x": 27.5,
+   "y": 4.78182
+  },
+  {
+   "series": "normal",
+   "x": 27.75,
+   "y": 4.78378
+  },
+  {
+   "series": "normal",
+   "x": 28.0,
+   "y": 4.78571
+  },
+  {
+   "series": "normal",
+   "x": 28.25,
+   "y": 4.78761
+  },
+  {
+   "series": "normal",
+   "x": 28.5,
+   "y": 4.78947
+  },
+  {
+   "series": "normal",
+   "x": 28.75,
+   "y": 4.7913
+  },
+  {
+   "series": "normal",
+   "x": 29.0,
+   "y": 4.7931
+  },
+  {
+   "series": "normal",
+   "x": 29.25,
+   "y": 4.79487
+  },
+  {
+   "series": "normal",
+   "x": 29.5,
+   "y": 4.79661
+  },
+  {
+   "series": "normal",
+   "x": 29.75,
+   "y": 4.79832
+  },
+  {
+   "series": "normal",
+   "x": 30.0,
+   "y": 4.8
+  },
+  {
+   "series": "flat",
+   "x": 0.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 0.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 0.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 1.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 1.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 1.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 1.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 2.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 2.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 2.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 2.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 3.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 3.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 3.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 3.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 4.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 4.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 4.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 4.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 5.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 5.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 5.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 5.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 6.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 6.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 6.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 6.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 7.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 7.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 7.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 7.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 8.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 8.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 8.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 8.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 9.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 9.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 9.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 9.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 10.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 10.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 10.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 10.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 11.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 11.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 11.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 11.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 12.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 12.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 12.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 12.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 13.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 13.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 13.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 13.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 14.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 14.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 14.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 14.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 15.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 15.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 15.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 15.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 16.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 16.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 16.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 16.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 17.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 17.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 17.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 17.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 18.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 18.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 18.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 18.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 19.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 19.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 19.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 19.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 20.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 20.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 20.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 20.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 21.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 21.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 21.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 21.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 22.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 22.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 22.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 22.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 23.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 23.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 23.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 23.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 24.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 24.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 24.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 24.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 25.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 25.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 25.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 25.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 26.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 26.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 26.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 26.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 27.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 27.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 27.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 27.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 28.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 28.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 28.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 28.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 29.0,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 29.25,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 29.5,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 29.75,
+   "y": 4.0
+  },
+  {
+   "series": "flat",
+   "x": 30.0,
+   "y": 4.0
+  },
+  {
+   "series": "inverted",
+   "x": 0.25,
+   "y": 5.38005
+  },
+  {
+   "series": "inverted",
+   "x": 0.5,
+   "y": 5.26959
+  },
+  {
+   "series": "inverted",
+   "x": 0.75,
+   "y": 5.16779
+  },
+  {
+   "series": "inverted",
+   "x": 1.0,
+   "y": 5.07388
+  },
+  {
+   "series": "inverted",
+   "x": 1.25,
+   "y": 4.98716
+  },
+  {
+   "series": "inverted",
+   "x": 1.5,
+   "y": 4.90702
+  },
+  {
+   "series": "inverted",
+   "x": 1.75,
+   "y": 4.83289
+  },
+  {
+   "series": "inverted",
+   "x": 2.0,
+   "y": 4.76424
+  },
+  {
+   "series": "inverted",
+   "x": 2.25,
+   "y": 4.70062
+  },
+  {
+   "series": "inverted",
+   "x": 2.5,
+   "y": 4.64159
+  },
+  {
+   "series": "inverted",
+   "x": 2.75,
+   "y": 4.58678
+  },
+  {
+   "series": "inverted",
+   "x": 3.0,
+   "y": 4.53583
+  },
+  {
+   "series": "inverted",
+   "x": 3.25,
+   "y": 4.48842
+  },
+  {
+   "series": "inverted",
+   "x": 3.5,
+   "y": 4.44426
+  },
+  {
+   "series": "inverted",
+   "x": 3.75,
+   "y": 4.40309
+  },
+  {
+   "series": "inverted",
+   "x": 4.0,
+   "y": 4.36466
+  },
+  {
+   "series": "inverted",
+   "x": 4.25,
+   "y": 4.32877
+  },
+  {
+   "series": "inverted",
+   "x": 4.5,
+   "y": 4.2952
+  },
+  {
+   "series": "inverted",
+   "x": 4.75,
+   "y": 4.26378
+  },
+  {
+   "series": "inverted",
+   "x": 5.0,
+   "y": 4.23433
+  },
+  {
+   "series": "inverted",
+   "x": 5.25,
+   "y": 4.20671
+  },
+  {
+   "series": "inverted",
+   "x": 5.5,
+   "y": 4.18078
+  },
+  {
+   "series": "inverted",
+   "x": 5.75,
+   "y": 4.15641
+  },
+  {
+   "series": "inverted",
+   "x": 6.0,
+   "y": 4.13348
+  },
+  {
+   "series": "inverted",
+   "x": 6.25,
+   "y": 4.11188
+  },
+  {
+   "series": "inverted",
+   "x": 6.5,
+   "y": 4.09152
+  },
+  {
+   "series": "inverted",
+   "x": 6.75,
+   "y": 4.07232
+  },
+  {
+   "series": "inverted",
+   "x": 7.0,
+   "y": 4.05417
+  },
+  {
+   "series": "inverted",
+   "x": 7.25,
+   "y": 4.03702
+  },
+  {
+   "series": "inverted",
+   "x": 7.5,
+   "y": 4.02079
+  },
+  {
+   "series": "inverted",
+   "x": 7.75,
+   "y": 4.00542
+  },
+  {
+   "series": "inverted",
+   "x": 8.0,
+   "y": 3.99084
+  },
+  {
+   "series": "inverted",
+   "x": 8.25,
+   "y": 3.97701
+  },
+  {
+   "series": "inverted",
+   "x": 8.5,
+   "y": 3.96388
+  },
+  {
+   "series": "inverted",
+   "x": 8.75,
+   "y": 3.95139
+  },
+  {
+   "series": "inverted",
+   "x": 9.0,
+   "y": 3.93951
+  },
+  {
+   "series": "inverted",
+   "x": 9.25,
+   "y": 3.92819
+  },
+  {
+   "series": "inverted",
+   "x": 9.5,
+   "y": 3.91741
+  },
+  {
+   "series": "inverted",
+   "x": 9.75,
+   "y": 3.90712
+  },
+  {
+   "series": "inverted",
+   "x": 10.0,
+   "y": 3.8973
+  },
+  {
+   "series": "inverted",
+   "x": 10.25,
+   "y": 3.88792
+  },
+  {
+   "series": "inverted",
+   "x": 10.5,
+   "y": 3.87895
+  },
+  {
+   "series": "inverted",
+   "x": 10.75,
+   "y": 3.87037
+  },
+  {
+   "series": "inverted",
+   "x": 11.0,
+   "y": 3.86215
+  },
+  {
+   "series": "inverted",
+   "x": 11.25,
+   "y": 3.85427
+  },
+  {
+   "series": "inverted",
+   "x": 11.5,
+   "y": 3.84672
+  },
+  {
+   "series": "inverted",
+   "x": 11.75,
+   "y": 3.83947
+  },
+  {
+   "series": "inverted",
+   "x": 12.0,
+   "y": 3.83251
+  },
+  {
+   "series": "inverted",
+   "x": 12.25,
+   "y": 3.82582
+  },
+  {
+   "series": "inverted",
+   "x": 12.5,
+   "y": 3.81938
+  },
+  {
+   "series": "inverted",
+   "x": 12.75,
+   "y": 3.81319
+  },
+  {
+   "series": "inverted",
+   "x": 13.0,
+   "y": 3.80723
+  },
+  {
+   "series": "inverted",
+   "x": 13.25,
+   "y": 3.80149
+  },
+  {
+   "series": "inverted",
+   "x": 13.5,
+   "y": 3.79595
+  },
+  {
+   "series": "inverted",
+   "x": 13.75,
+   "y": 3.79061
+  },
+  {
+   "series": "inverted",
+   "x": 14.0,
+   "y": 3.78545
+  },
+  {
+   "series": "inverted",
+   "x": 14.25,
+   "y": 3.78048
+  },
+  {
+   "series": "inverted",
+   "x": 14.5,
+   "y": 3.77567
+  },
+  {
+   "series": "inverted",
+   "x": 14.75,
+   "y": 3.77102
+  },
+  {
+   "series": "inverted",
+   "x": 15.0,
+   "y": 3.76652
+  },
+  {
+   "series": "inverted",
+   "x": 15.25,
+   "y": 3.76217
+  },
+  {
+   "series": "inverted",
+   "x": 15.5,
+   "y": 3.75795
+  },
+  {
+   "series": "inverted",
+   "x": 15.75,
+   "y": 3.75387
+  },
+  {
+   "series": "inverted",
+   "x": 16.0,
+   "y": 3.74992
+  },
+  {
+   "series": "inverted",
+   "x": 16.25,
+   "y": 3.74608
+  },
+  {
+   "series": "inverted",
+   "x": 16.5,
+   "y": 3.74236
+  },
+  {
+   "series": "inverted",
+   "x": 16.75,
+   "y": 3.73875
+  },
+  {
+   "series": "inverted",
+   "x": 17.0,
+   "y": 3.73525
+  },
+  {
+   "series": "inverted",
+   "x": 17.25,
+   "y": 3.73184
+  },
+  {
+   "series": "inverted",
+   "x": 17.5,
+   "y": 3.72854
+  },
+  {
+   "series": "inverted",
+   "x": 17.75,
+   "y": 3.72532
+  },
+  {
+   "series": "inverted",
+   "x": 18.0,
+   "y": 3.72219
+  },
+  {
+   "series": "inverted",
+   "x": 18.25,
+   "y": 3.71915
+  },
+  {
+   "series": "inverted",
+   "x": 18.5,
+   "y": 3.7162
+  },
+  {
+   "series": "inverted",
+   "x": 18.75,
+   "y": 3.71332
+  },
+  {
+   "series": "inverted",
+   "x": 19.0,
+   "y": 3.71051
+  },
+  {
+   "series": "inverted",
+   "x": 19.25,
+   "y": 3.70778
+  },
+  {
+   "series": "inverted",
+   "x": 19.5,
+   "y": 3.70512
+  },
+  {
+   "series": "inverted",
+   "x": 19.75,
+   "y": 3.70252
+  },
+  {
+   "series": "inverted",
+   "x": 20.0,
+   "y": 3.69999
+  },
+  {
+   "series": "inverted",
+   "x": 20.25,
+   "y": 3.69752
+  },
+  {
+   "series": "inverted",
+   "x": 20.5,
+   "y": 3.69512
+  },
+  {
+   "series": "inverted",
+   "x": 20.75,
+   "y": 3.69277
+  },
+  {
+   "series": "inverted",
+   "x": 21.0,
+   "y": 3.69047
+  },
+  {
+   "series": "inverted",
+   "x": 21.25,
+   "y": 3.68823
+  },
+  {
+   "series": "inverted",
+   "x": 21.5,
+   "y": 3.68604
+  },
+  {
+   "series": "inverted",
+   "x": 21.75,
+   "y": 3.6839
+  },
+  {
+   "series": "inverted",
+   "x": 22.0,
+   "y": 3.68182
+  },
+  {
+   "series": "inverted",
+   "x": 22.25,
+   "y": 3.67977
+  },
+  {
+   "series": "inverted",
+   "x": 22.5,
+   "y": 3.67778
+  },
+  {
+   "series": "inverted",
+   "x": 22.75,
+   "y": 3.67582
+  },
+  {
+   "series": "inverted",
+   "x": 23.0,
+   "y": 3.67391
+  },
+  {
+   "series": "inverted",
+   "x": 23.25,
+   "y": 3.67204
+  },
+  {
+   "series": "inverted",
+   "x": 23.5,
+   "y": 3.67021
+  },
+  {
+   "series": "inverted",
+   "x": 23.75,
+   "y": 3.66842
+  },
+  {
+   "series": "inverted",
+   "x": 24.0,
+   "y": 3.66667
+  },
+  {
+   "series": "inverted",
+   "x": 24.25,
+   "y": 3.66495
+  },
+  {
+   "series": "inverted",
+   "x": 24.5,
+   "y": 3.66326
+  },
+  {
+   "series": "inverted",
+   "x": 24.75,
+   "y": 3.66162
+  },
+  {
+   "series": "inverted",
+   "x": 25.0,
+   "y": 3.66
+  },
+  {
+   "series": "inverted",
+   "x": 25.25,
+   "y": 3.65842
+  },
+  {
+   "series": "inverted",
+   "x": 25.5,
+   "y": 3.65686
+  },
+  {
+   "series": "inverted",
+   "x": 25.75,
+   "y": 3.65534
+  },
+  {
+   "series": "inverted",
+   "x": 26.0,
+   "y": 3.65385
+  },
+  {
+   "series": "inverted",
+   "x": 26.25,
+   "y": 3.65238
+  },
+  {
+   "series": "inverted",
+   "x": 26.5,
+   "y": 3.65094
+  },
+  {
+   "series": "inverted",
+   "x": 26.75,
+   "y": 3.64953
+  },
+  {
+   "series": "inverted",
+   "x": 27.0,
+   "y": 3.64815
+  },
+  {
+   "series": "inverted",
+   "x": 27.25,
+   "y": 3.64679
+  },
+  {
+   "series": "inverted",
+   "x": 27.5,
+   "y": 3.64545
+  },
+  {
+   "series": "inverted",
+   "x": 27.75,
+   "y": 3.64414
+  },
+  {
+   "series": "inverted",
+   "x": 28.0,
+   "y": 3.64286
+  },
+  {
+   "series": "inverted",
+   "x": 28.25,
+   "y": 3.64159
+  },
+  {
+   "series": "inverted",
+   "x": 28.5,
+   "y": 3.64035
+  },
+  {
+   "series": "inverted",
+   "x": 28.75,
+   "y": 3.63913
+  },
+  {
+   "series": "inverted",
+   "x": 29.0,
+   "y": 3.63793
+  },
+  {
+   "series": "inverted",
+   "x": 29.25,
+   "y": 3.63675
+  },
+  {
+   "series": "inverted",
+   "x": 29.5,
+   "y": 3.63559
+  },
+  {
+   "series": "inverted",
+   "x": 29.75,
+   "y": 3.63445
+  },
+  {
+   "series": "inverted",
+   "x": 30.0,
+   "y": 3.63333
+  }
+ ]
+}
