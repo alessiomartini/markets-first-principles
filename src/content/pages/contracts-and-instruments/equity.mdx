@@ -15,9 +15,9 @@ terms:
 figure:
   id: "total-vs-price-return"
   title: "Total return vs price return over 30 years"
-  source: "Stooq, FRED"
-  series: "index price return vs total return"
-  period: "1995-present, monthly"
+  source: "Simulation (illustrative model; see pipeline/fetch_total_return.py). Real data it would ideally use: Stooq, FRED"
+  series: "simulated price and total-return index"
+  period: "simulated, no calendar dates"
   script: "pipeline/fetch_total_return.py"
   notice: "The two lines separate steadily and the gap compounds, so over three decades reinvested dividends account for a substantial share of the total — invisible on any chart that plots price alone."
   falsifiedBy: "The reading fails if the gap between the series is not roughly exponential in time, which would mean the dividend yield has not been broadly stable across the sample."

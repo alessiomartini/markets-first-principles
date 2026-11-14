@@ -121,9 +121,9 @@
           "figure": {
             "id": "total-vs-price-return",
             "title": "Total return vs price return over 30 years",
-            "source": "Stooq, FRED",
-            "series": "index price return vs total return",
-            "period": "1995-present, monthly",
+            "source": "Simulation (illustrative model; see pipeline/fetch_total_return.py). Real data it would ideally use: Stooq, FRED",
+            "series": "simulated price and total-return index",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_total_return.py"
           }
         },
@@ -241,9 +241,9 @@
           "figure": {
             "id": "walking-the-book",
             "title": "Cost of a market order as a function of its size",
-            "source": "Binance public REST",
-            "series": "BTCUSDT L2 book snapshot",
-            "period": "latest snapshot",
+            "source": "Simulation (illustrative model; see pipeline/fetch_book_walk.py). Real data it would ideally use: Binance public REST",
+            "series": "simulated ask-side book",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_book_walk.py"
           }
         },
@@ -255,9 +255,9 @@
           "figure": {
             "id": "intraday-liquidity",
             "title": "Spread and top-of-book depth by time of day",
-            "source": "Binance public REST",
-            "series": "BTCUSDT 1m klines and book snapshots",
-            "period": "trailing 60 days",
+            "source": "Simulation (illustrative model; see pipeline/fetch_intraday_liquidity.py). Real data it would ideally use: Binance public REST",
+            "series": "simulated spread and depth, 60 days",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_intraday_liquidity.py"
           }
         },
@@ -269,9 +269,9 @@
           "figure": {
             "id": "impact-curve",
             "title": "Price response to signed volume",
-            "source": "Binance public REST",
-            "series": "BTCUSDT aggregated trades, signed by taker side",
-            "period": "trailing 30 days",
+            "source": "Simulation (illustrative model; see pipeline/fetch_impact.py). Real data it would ideally use: Binance public REST",
+            "series": "simulated signed volume and price moves",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_impact.py"
           }
         },
@@ -297,9 +297,9 @@
           "figure": {
             "id": "update-intervals",
             "title": "Time between consecutive book updates",
-            "source": "Binance WebSocket capture",
-            "series": "BTCUSDT depth stream inter-arrival times",
-            "period": "one capture session",
+            "source": "Simulation (illustrative model; see pipeline/fetch_update_intervals.py). Real data it would ideally use: Binance WebSocket capture",
+            "series": "simulated inter-arrival gaps",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_update_intervals.py"
           }
         }
@@ -425,9 +425,9 @@
           "figure": {
             "id": "put-call-parity",
             "title": "How tightly does put-call parity actually hold",
-            "source": "CBOE delayed option data",
-            "series": "one index option chain, matched call and put strikes",
-            "period": "latest available snapshot",
+            "source": "Simulation (illustrative model; see pipeline/fetch_parity.py). Real data it would ideally use: CBOE delayed option data",
+            "series": "simulated option chain, matched call and put strikes",
+            "period": "simulated, no calendar dates",
             "script": "pipeline/fetch_parity.py"
           }
         },

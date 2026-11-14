@@ -16,9 +16,9 @@ terms:
 figure:
   id: "walking-the-book"
   title: "Cost of a market order as a function of its size"
-  source: "Binance public REST"
-  series: "BTCUSDT L2 book snapshot"
-  period: "latest snapshot"
+  source: "Simulation (illustrative model; see pipeline/fetch_book_walk.py). Real data it would ideally use: Binance public REST"
+  series: "simulated ask-side book"
+  period: "simulated, no calendar dates"
   script: "pipeline/fetch_book_walk.py"
   notice: "The cost per unit rises steeply for the first few levels and then flattens, so the marginal price of size is worst exactly where most orders live."
   falsifiedBy: "The reading fails if the curve is linear in size, which would mean depth is uniform across price levels and the book has no shape worth modelling."

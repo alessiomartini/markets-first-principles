@@ -14,9 +14,9 @@ terms:
 figure:
   id: "impact-curve"
   title: "Price response to signed volume"
-  source: "Binance public REST"
-  series: "BTCUSDT aggregated trades, signed by taker side"
-  period: "trailing 30 days"
+  source: "Simulation (illustrative model; see pipeline/fetch_impact.py). Real data it would ideally use: Binance public REST"
+  series: "simulated signed volume and price moves"
+  period: "simulated, no calendar dates"
   script: "pipeline/fetch_impact.py"
   notice: "The response is visibly concave rather than linear, so the marginal cost of size falls even as the total cost rises — the signature of the square-root law."
   falsifiedBy: "The reading fails if the concavity disappears when trades are aggregated over longer windows, which would suggest it is an artefact of the binning rather than a property of impact."

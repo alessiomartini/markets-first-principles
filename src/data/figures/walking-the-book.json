@@ -1,0 +1,311 @@
+{
+ "id": "walking-the-book",
+ "generatedAt": "2026-11-14T15:53:41+00:00",
+ "synthetic": true,
+ "chart": "line",
+ "source": "Simulation (V-shaped book, seed 20261031)",
+ "series_note": "ask side only; size at k ticks from the touch = 0.05*(k/10)^0.6 with lognormal sd 0.35; tick 0.5 on a mid of 60000",
+ "x": {
+  "label": "order size (coins)",
+  "type": "log"
+ },
+ "y": {
+  "label": "slippage against mid (bp)"
+ },
+ "series": [
+  {
+   "key": "avg",
+   "label": "Average fill price"
+  },
+  {
+   "key": "marginal",
+   "label": "Last unit filled"
+  }
+ ],
+ "meta": {
+  "seed": 20261031,
+  "levels": 4000
+ },
+ "data": [
+  {
+   "series": "avg",
+   "x": 0.1,
+   "y": 0.23725
+  },
+  {
+   "series": "marginal",
+   "x": 0.1,
+   "y": 0.333333
+  },
+  {
+   "series": "avg",
+   "x": 0.135,
+   "y": 0.283571
+  },
+  {
+   "series": "marginal",
+   "x": 0.135,
+   "y": 0.416667
+  },
+  {
+   "series": "avg",
+   "x": 0.18225,
+   "y": 0.338839
+  },
+  {
+   "series": "marginal",
+   "x": 0.18225,
+   "y": 0.5
+  },
+  {
+   "series": "avg",
+   "x": 0.246038,
+   "y": 0.405765
+  },
+  {
+   "series": "marginal",
+   "x": 0.246038,
+   "y": 0.666667
+  },
+  {
+   "series": "avg",
+   "x": 0.332151,
+   "y": 0.493473
+  },
+  {
+   "series": "marginal",
+   "x": 0.332151,
+   "y": 0.833333
+  },
+  {
+   "series": "avg",
+   "x": 0.448403,
+   "y": 0.613028
+  },
+  {
+   "series": "marginal",
+   "x": 0.448403,
+   "y": 1.08333
+  },
+  {
+   "series": "avg",
+   "x": 0.605345,
+   "y": 0.756676
+  },
+  {
+   "series": "marginal",
+   "x": 0.605345,
+   "y": 1.25
+  },
+  {
+   "series": "avg",
+   "x": 0.817215,
+   "y": 0.920484
+  },
+  {
+   "series": "marginal",
+   "x": 0.817215,
+   "y": 1.5
+  },
+  {
+   "series": "avg",
+   "x": 1.10324,
+   "y": 1.10687
+  },
+  {
+   "series": "marginal",
+   "x": 1.10324,
+   "y": 1.75
+  },
+  {
+   "series": "avg",
+   "x": 1.48937,
+   "y": 1.32814
+  },
+  {
+   "series": "marginal",
+   "x": 1.48937,
+   "y": 2.16667
+  },
+  {
+   "series": "avg",
+   "x": 2.01066,
+   "y": 1.61294
+  },
+  {
+   "series": "marginal",
+   "x": 2.01066,
+   "y": 2.66667
+  },
+  {
+   "series": "avg",
+   "x": 2.71439,
+   "y": 1.93914
+  },
+  {
+   "series": "marginal",
+   "x": 2.71439,
+   "y": 3.16667
+  },
+  {
+   "series": "avg",
+   "x": 3.66442,
+   "y": 2.32903
+  },
+  {
+   "series": "marginal",
+   "x": 3.66442,
+   "y": 3.66667
+  },
+  {
+   "series": "avg",
+   "x": 4.94697,
+   "y": 2.78144
+  },
+  {
+   "series": "marginal",
+   "x": 4.94697,
+   "y": 4.41667
+  },
+  {
+   "series": "avg",
+   "x": 6.67841,
+   "y": 3.36142
+  },
+  {
+   "series": "marginal",
+   "x": 6.67841,
+   "y": 5.41667
+  },
+  {
+   "series": "avg",
+   "x": 9.01585,
+   "y": 4.04943
+  },
+  {
+   "series": "marginal",
+   "x": 9.01585,
+   "y": 6.58333
+  },
+  {
+   "series": "avg",
+   "x": 12.1714,
+   "y": 4.88902
+  },
+  {
+   "series": "marginal",
+   "x": 12.1714,
+   "y": 7.91667
+  },
+  {
+   "series": "avg",
+   "x": 16.4314,
+   "y": 5.91268
+  },
+  {
+   "series": "marginal",
+   "x": 16.4314,
+   "y": 9.66667
+  },
+  {
+   "series": "avg",
+   "x": 22.1824,
+   "y": 7.17872
+  },
+  {
+   "series": "marginal",
+   "x": 22.1824,
+   "y": 11.9167
+  },
+  {
+   "series": "avg",
+   "x": 29.9462,
+   "y": 8.70281
+  },
+  {
+   "series": "marginal",
+   "x": 29.9462,
+   "y": 14.0
+  },
+  {
+   "series": "avg",
+   "x": 40.4274,
+   "y": 10.4655
+  },
+  {
+   "series": "marginal",
+   "x": 40.4274,
+   "y": 17.0
+  },
+  {
+   "series": "avg",
+   "x": 54.5769,
+   "y": 12.5372
+  },
+  {
+   "series": "marginal",
+   "x": 54.5769,
+   "y": 20.0
+  },
+  {
+   "series": "avg",
+   "x": 73.6789,
+   "y": 14.975
+  },
+  {
+   "series": "marginal",
+   "x": 73.6789,
+   "y": 24.0
+  },
+  {
+   "series": "avg",
+   "x": 99.4665,
+   "y": 18.0136
+  },
+  {
+   "series": "marginal",
+   "x": 99.4665,
+   "y": 29.25
+  },
+  {
+   "series": "avg",
+   "x": 134.28,
+   "y": 21.7113
+  },
+  {
+   "series": "marginal",
+   "x": 134.28,
+   "y": 35.3333
+  },
+  {
+   "series": "avg",
+   "x": 181.278,
+   "y": 26.1948
+  },
+  {
+   "series": "marginal",
+   "x": 181.278,
+   "y": 42.5833
+  },
+  {
+   "series": "avg",
+   "x": 244.725,
+   "y": 31.6954
+  },
+  {
+   "series": "marginal",
+   "x": 244.725,
+   "y": 52.0
+  },
+  {
+   "series": "avg",
+   "x": 330.378,
+   "y": 38.3081
+  },
+  {
+   "series": "marginal",
+   "x": 330.378,
+   "y": 62.25
+  }
+ ]
+}
