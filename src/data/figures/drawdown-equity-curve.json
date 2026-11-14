@@ -1,6 +1,6 @@
 {
  "id": "drawdown-equity-curve",
- "generatedAt": "2026-11-14T12:07:54+00:00",
+ "generatedAt": "2026-11-14T13:37:27+00:00",
  "synthetic": true,
  "chart": "line",
  "source": "Simulation (illustrative model; see pipeline/fetch_drawdown.py). No market data",

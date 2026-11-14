@@ -1,6 +1,6 @@
 {
  "id": "leverage-correlation",
- "generatedAt": "2026-11-13T14:40:08+00:00",
+ "generatedAt": "2026-11-14T13:37:24+00:00",
  "synthetic": true,
  "chart": "line",
  "source": "Simulation (GJR-GARCH, seed 20261031)",

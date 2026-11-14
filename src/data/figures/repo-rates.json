@@ -1,6 +1,6 @@
 {
  "id": "repo-rates",
- "generatedAt": "2026-11-13T14:40:00+00:00",
+ "generatedAt": "2026-11-14T13:37:16+00:00",
  "synthetic": false,
  "chart": "line",
  "source": "Federal Reserve Bank of New York and Federal Reserve Board via FRED",
@@ -37330,6 +37330,21 @@
   {
    "series": "iorb",
    "x": 2026.86,
+   "y": 3.9
+  },
+  {
+   "series": "iorb",
+   "x": 2026.87,
+   "y": 3.9
+  },
+  {
+   "series": "iorb",
+   "x": 2026.87,
+   "y": 3.9
+  },
+  {
+   "series": "iorb",
+   "x": 2026.87,
    "y": 3.9
   },
   {

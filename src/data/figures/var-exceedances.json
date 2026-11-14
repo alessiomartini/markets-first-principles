@@ -1,6 +1,6 @@
 {
  "id": "var-exceedances",
- "generatedAt": "2026-11-13T14:40:04+00:00",
+ "generatedAt": "2026-11-14T13:37:20+00:00",
  "synthetic": true,
  "chart": "line",
  "source": "Simulation (GJR-GARCH with two stress windows, seed 20261031)",

@@ -1,6 +1,6 @@
 {
  "id": "yield-curve-shapes",
- "generatedAt": "2026-11-14T12:09:07+00:00",
+ "generatedAt": "2026-11-14T13:37:27+00:00",
  "synthetic": true,
  "chart": "line",
  "source": "Schematic (Nelson-Siegel formula with illustrative parameters; no market data)",

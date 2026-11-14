@@ -1,6 +1,6 @@
 {
  "id": "leverage-payoff",
- "generatedAt": "2026-11-14T12:03:03+00:00",
+ "generatedAt": "2026-11-14T13:37:27+00:00",
  "synthetic": true,
  "chart": "line",
  "source": "Schematic (leveraged return formula evaluated on a grid; no market data)",

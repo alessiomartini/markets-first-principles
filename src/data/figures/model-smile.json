@@ -1,6 +1,6 @@
 {
  "id": "model-smile",
- "generatedAt": "2026-11-14T12:00:23+00:00",
+ "generatedAt": "2026-11-14T13:37:27+00:00",
  "synthetic": true,
  "chart": "line",
  "source": "Simulation (Merton jump-diffusion prices inverted to Black-Scholes implied volatility; no market data)",
