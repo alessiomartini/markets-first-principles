@@ -45,6 +45,8 @@ const glossary = defineCollection({
     /** Track that owns the definition; used for the glossary filter. */
     track: z.number().int().min(0).max(7),
     status: z.enum(['stub', 'written']).default('stub'),
+    /** Id of an existing page figure (see content/pages/*.mdx) to show under the definition. */
+    figure: z.string().optional(),
     /** The physics analogue, where an honest one exists. */
     physics: z.string().optional(),
     template: z.literal('plain').default('plain'),

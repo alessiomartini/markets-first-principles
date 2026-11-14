@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import Figure from '../../components/Figure.astro';
 import Base from '../../layouts/Base.astro';
 import { tracks, getTrack } from '../../lib/site.mjs';
 import { slugifyTerm } from '../../../plugins/glossary-index.mjs';
@@ -27,6 +28,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const all = await getCollection('glossary');
 const entries = (track ? all.filter((entry) => entry.data.track === track.number) : all).sort((a, b) =>
   a.data.term.localeCompare(b.data.term, 'en')
+);
+
+const pageEntries = await getCollection('pages');
+const figureHome = new Map(
+  pageEntries.filter((page) => page.data.figure).map((page) => [page.data.figure.id, page])
 );
 
 const rendered = await Promise.all(
@@ -71,6 +77,10 @@ const written = all.filter((entry) => entry.data.status !== 'stub').length;
   {
     rendered.map(({ entry, Content }) => {
       const owner = getTrack(entry.data.track);
+      const home = entry.data.figure ? figureHome.get(entry.data.figure) : undefined;
+      if (entry.data.figure && !home) {
+        throw new Error(`glossary/${entry.id}: figure "${entry.data.figure}" is not defined on any page`);
+      }
       return (
         <section class="glossary-entry" id={slugifyTerm(entry.data.term)}>
           <h2>{entry.data.term}</h2>
@@ -82,6 +92,13 @@ const written = all.filter((entry) => entry.data.status !== 'stub').length;
           <div class="glossary-entry__body">
             <Content />
           </div>
+          {home && (
+            <Figure
+              figure={home.data.figure}
+              compact
+              home={{ href: `${base}/tracks/${home.id}/`, title: home.data.title }}
+            />
+          )}
           {entry.data.physics && (
             <p class="glossary-entry__physics">
               <strong>Physics:</strong> {entry.data.physics}
